@@ -5,19 +5,18 @@
   "main": "clean-thumbnails.js",
   "scripts": {
     "lint": "eslint .",
-    "check-types": "tsc",
-    "start": "node toto.js",
-    "start-ts": "ts-node toto.ts"
+    "check-types": "tsc"
   },
   "keywords": [],
   "author": "JorisLacance.fr",
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.7.0",
+    "@types/node": "^20.14.11",
     "eslint": "^8.56.0",
     "globals": "^15.8.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.1",
-    "@types/node": "^20.14.11"
+    "typescript-eslint": "^7.16.1"
   }
 }

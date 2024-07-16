@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
-    "noEmit": true
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "target": "ES2018",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "strict": true,
+    "types": ["node"] // Ensure Node types are included
   },
-  "include": ["./**/*.js"]
+  "include": ["src/**/*"]
 }

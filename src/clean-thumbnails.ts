@@ -3,10 +3,10 @@
 // Files ending with _thn.jpg are considered thumbnails.
 // Works recursively from the specified directory or current directory if none is specified.
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const cleanThumbnails = dir => {
+const cleanThumbnails = (dir: string) => {
   // Default parameter set to current directory
   const files = fs.readdirSync(dir);
   files.forEach(file => {
