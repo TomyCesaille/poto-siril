@@ -41,7 +41,6 @@ coverage
 bower_components
 
 # IDE / Editor directories
-.vscode/
 *.swp
 *.swo
 .idea/
