@@ -34,6 +34,7 @@
 
 import fs, { Dirent } from "fs";
 import path from "path";
+import { SpecFile } from "./types";
 
 const dispatchTree = (
   sourceDirectory: string,
@@ -41,12 +42,47 @@ const dispatchTree = (
   shootingMode: string
 ) => {
   // Enumerate the list of files in the source directory.
+  const files = retrievesFitsListToDispatch({ sourceDirectory, shootingMode });
+  console.log(`Found ${files.length} files to dispatch.`);
+
+  if (!fs.existsSync(projectDirectory)) {
+    throw new Error(`Project directory ${projectDirectory} does not exist.`);
+  }
+
+  // Dispatch the files to the project directory.
+  files.forEach(file => {
+    const targetDirectory = path.join(
+      projectDirectory,
+      file.filter,
+      `${file.type}_${file.bulb}_${file.bin}_${file.filter}_gain${file.gain}`
+    );
+
+    if (!fs.existsSync(targetDirectory)) {
+      fs.mkdirSync(targetDirectory, { recursive: true });
+    }
+
+    const targetFile = path.join(targetDirectory, file.name);
+    fs.copyFileSync(file.fullPath, targetFile);
+    console.log(`Copied ${file.name} to ${targetFile}`);
+  });
+
+  console.log("Done.");
+};
+
+const retrievesFitsListToDispatch = ({
+  sourceDirectory,
+  shootingMode
+}: {
+  sourceDirectory: string;
+  shootingMode: string;
+}) => {
   const files: Dirent[] = fs.readdirSync(`${sourceDirectory}/${shootingMode}`, {
     recursive: true,
     withFileTypes: true,
     encoding: "utf8"
   });
-  console.log(`Found ${files.length} files to dispatch.`);
+
+  const fileSpecs: SpecFile[] = [];
 
   // Process the list of files.
   files.forEach(file => {
@@ -59,16 +95,19 @@ const dispatchTree = (
     }
 
     // If the file is a FITS file, process it.
-    const fileSpecs = extractSpecsFromFilename(file);
-    console.log("🌈", file, JSON.stringify(fileSpecs, null, 2));
+    const specs = extractSpecsFromFilename(file);
+    fileSpecs.push(specs);
+    //console.log("🌈", file, JSON.stringify(fileSpecs, null, 2));
   });
+
+  return fileSpecs;
 };
 
 /**
  * Retrieve Light / Flat, Bulb duratin, binning, filter, gain, date, time, temperature, frame number.
  * @param filename
  */
-const extractSpecsFromFilename = (file: fs.Dirent) => {
+const extractSpecsFromFilename = (file: fs.Dirent): SpecFile => {
   // Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit
   // Flat_810.0ms_Bin1_H_gain0_20240707-102251_-9.9C_0019.fit
 
@@ -78,9 +117,9 @@ const extractSpecsFromFilename = (file: fs.Dirent) => {
 
   if (match && match.groups) {
     return {
-      fileName: file.name,
-      filePath: file.path,
-      fileFullPath: path.join(file.path, file.name),
+      name: file.name,
+      path: file.path,
+      fullPath: path.join(file.path, file.name),
 
       type: match.groups.type,
       bulb: match.groups.bulb,
@@ -91,7 +130,7 @@ const extractSpecsFromFilename = (file: fs.Dirent) => {
       temperature: match.groups.temperature,
       sequence: parseInt(match.groups.sequence, 10),
       extension: match.groups.extension
-    };
+    } as SpecFile;
   } else {
     throw new Error(
       `Filename ${file.name} does not match the expected pattern for Specs extraction.`

@@ -10,7 +10,9 @@
 
       "args": [
         "src/dispatch-dump.ts",
-        "/Users/jorislacance/_joris/outofsync/deepsky/dump_astro_July_2024_session_1"
+        "/Users/jorislacance/_joris/outofsync/poto-siril/src/tests/data/asiair-dump1",
+        "/Users/jorislacance/_joris/outofsync/poto-siril/src/tests/data/project1",
+        "Autorun"
       ],
 
       "cwd": "${workspaceRoot}",

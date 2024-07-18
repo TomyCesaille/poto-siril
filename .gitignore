@@ -60,3 +60,8 @@ tsconfig.tsbuildinfo
 
 # JSDoc
 docs/js/
+
+
+# temp testing files
+src/tests/data/asiair-dump1
+src/tests/data/project1
