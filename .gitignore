@@ -1,3 +1,6 @@
+# OS generated files
+.DS_Store
+
 # Node.js
 ## Dependency directories
 node_modules/
@@ -63,5 +66,6 @@ docs/js/
 
 
 # temp testing files
-src/tests/data/asiair-dump1
-src/tests/data/project1
+src/tests/data/asiair*
+src/tests/data/project*
+src/tests/data/bank*
