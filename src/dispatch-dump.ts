@@ -32,18 +32,32 @@
 // │   ├── Dark_300.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit
 // │   ├── ...
 
+// TODO allow filtering a range of data, for lights and flats. This will ease the process of selecting the frames
+// regroup per night session (so split at noon and consider after midnight part of the previon night). this is also easing out the process.
+// pre select those that are burned (daylight started to appear), probably by checking the date of the frame and location.
+
 import fs, { Dirent } from "fs";
 import path from "path";
-import { SpecFile } from "./types";
 
-const dispatchTree = (
-  sourceDirectory: string,
-  projectDirectory: string,
-  shootingMode: string
-) => {
+import { SpecFile } from "./types";
+import { logger } from "./logger";
+
+export type DispatchOptions = {
+  projectDirectory: string;
+  asiAirDirectory: string;
+  shootingMode: "autorun" | "plan";
+  bankDirectory: string;
+};
+
+const dispatch = ({
+  projectDirectory,
+  asiAirDirectory,
+  shootingMode,
+  bankDirectory
+}: DispatchOptions) => {
   // Enumerate the list of files in the source directory.
-  const files = retrievesFitsListToDispatch({ sourceDirectory, shootingMode });
-  console.log(`Found ${files.length} files to dispatch.`);
+  const files = retrievesFitsListToDispatch({ asiAirDirectory, shootingMode });
+  logger.info(`Found ${files.length} files to dispatch.`);
 
   if (!fs.existsSync(projectDirectory)) {
     throw new Error(`Project directory ${projectDirectory} does not exist.`);
@@ -63,20 +77,20 @@ const dispatchTree = (
 
     const targetFile = path.join(targetDirectory, file.name);
     fs.copyFileSync(file.fullPath, targetFile);
-    console.log(`Copied ${file.name} to ${targetFile}`);
+    logger.debug(`Copied ${file.name} to ${targetFile}`);
   });
 
-  console.log("Done.");
+  logger.success("Done.");
 };
 
 const retrievesFitsListToDispatch = ({
-  sourceDirectory,
+  asiAirDirectory,
   shootingMode
 }: {
-  sourceDirectory: string;
+  asiAirDirectory: string;
   shootingMode: string;
 }) => {
-  const files: Dirent[] = fs.readdirSync(`${sourceDirectory}/${shootingMode}`, {
+  const files: Dirent[] = fs.readdirSync(`${asiAirDirectory}/${shootingMode}`, {
     recursive: true,
     withFileTypes: true,
     encoding: "utf8"
@@ -90,14 +104,14 @@ const retrievesFitsListToDispatch = ({
       !(file.isFile() || file.isSymbolicLink()) ||
       !file.name.endsWith(".fit")
     ) {
-      console.log("Skipping ", file);
+      logger.debug("Skipping ", file);
       return;
     }
 
     // If the file is a FITS file, process it.
     const specs = extractSpecsFromFilename(file);
     fileSpecs.push(specs);
-    //console.log("🌈", file, JSON.stringify(fileSpecs, null, 2));
+    //log("🌈", file, JSON.stringify(fileSpecs, null, 2));
   });
 
   return fileSpecs;
@@ -138,12 +152,4 @@ const extractSpecsFromFilename = (file: fs.Dirent): SpecFile => {
   }
 };
 
-const sourceDirectory = process.argv[2];
-if (!sourceDirectory) {
-  console.error("No source directory provided.");
-  process.exit(1);
-}
-const projectDirectory = process.argv[3] || ".";
-const shootingMode = process.argv[4] || "Autorun";
-
-dispatchTree(sourceDirectory, projectDirectory, shootingMode);
+export default dispatch;
