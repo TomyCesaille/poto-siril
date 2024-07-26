@@ -16,9 +16,10 @@ export type SpecFile = {
    */
   bin: string;
   /**
-   * Filter: L, R, G, B, H
+   * Filter: L, R, G, B, H... As Specified in the ASIAIR zwo wheel.
+   * Optional, may not be present in the filename if no wheel.
    */
-  filter: string;
+  filter: string | null;
   /**
    * Gain: 0, 100, 200, 300
    */

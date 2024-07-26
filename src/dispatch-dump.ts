@@ -36,11 +36,12 @@
 // regroup per night session (so split at noon and consider after midnight part of the previon night). this is also easing out the process.
 // pre select those that are burned (daylight started to appear), probably by checking the date of the frame and location.
 
-import fs, { Dirent } from "fs";
+import fs from "fs";
 import path from "path";
 
 import { SpecFile } from "./types";
 import { logger } from "./logger";
+import { extractSpecsFromFilename, sameSpecFile } from "./utils";
 
 export type DispatchOptions = {
   projectDirectory: string;
@@ -55,21 +56,22 @@ const dispatch = ({
   shootingMode,
   bankDirectory
 }: DispatchOptions) => {
-  // Enumerate the list of files in the source directory.
-  const files = retrievesFitsListToDispatch({ asiAirDirectory, shootingMode });
-  logger.info(`Found ${files.length} files to dispatch.`);
-
   if (!fs.existsSync(projectDirectory)) {
     throw new Error(`Project directory ${projectDirectory} does not exist.`);
   }
 
-  // Dispatch the files to the project directory.
-  files.forEach(file => {
-    const targetDirectory = path.join(
-      projectDirectory,
-      file.filter,
-      `${file.type}_${file.bulb}_${file.bin}_${file.filter}_gain${file.gain}`
-    );
+  // Enumerate the list of files of the ASIAIR directory.
+  const asiAirFiles = retrievesFitsListToDispatch(
+    `${asiAirDirectory}/${shootingMode}`
+  );
+  logger.info(`Found ${asiAirFiles.length} files to dispatch.`);
+
+  // Dispatch the ASIAIR files to the project directory.
+  asiAirFiles.forEach(file => {
+    const directory = `${file.type}_${file.bulb}_${file.bin}_${file.filter}_gain${file.gain}`;
+    const targetDirectory = file.filter
+      ? path.join(projectDirectory, file.filter, directory)
+      : path.join(projectDirectory, directory);
 
     if (!fs.existsSync(targetDirectory)) {
       fs.mkdirSync(targetDirectory, { recursive: true });
@@ -80,17 +82,40 @@ const dispatch = ({
     logger.debug(`Copied ${file.name} to ${targetFile}`);
   });
 
+  // Search for the darks and offsets we need to copy.
+  const bankFiles = retrievesFitsListToDispatch(bankDirectory);
+  logger.info(`Found ${bankFiles.length} files in the bank.`);
+  bankFiles.forEach(file => {
+    const directory = `${file.type}_${file.bulb}_${file.bin}_gain${file.gain}`;
+    const targetDirectory = path.join(projectDirectory, "any", directory); // We ignore the filter for darks and biases.
+
+    // Check if the file is needed from the bank.
+    if (
+      asiAirFiles.find(f =>
+        sameSpecFile(
+          f,
+          file,
+          file.name.toLowerCase().startsWith("dark") ? "dark" : "bias"
+        )
+      )
+    ) {
+      if (!fs.existsSync(targetDirectory)) {
+        fs.mkdirSync(targetDirectory, { recursive: true });
+      }
+
+      const targetFile = path.join(targetDirectory, file.name);
+      fs.copyFileSync(file.fullPath, targetFile);
+      logger.debug(`Copied ${file.name} to ${targetFile}`);
+    } else {
+      logger.debug(`Skipping ${file.name} from the bank, not needed.`);
+    }
+  });
+
   logger.success("Done.");
 };
 
-const retrievesFitsListToDispatch = ({
-  asiAirDirectory,
-  shootingMode
-}: {
-  asiAirDirectory: string;
-  shootingMode: string;
-}) => {
-  const files: Dirent[] = fs.readdirSync(`${asiAirDirectory}/${shootingMode}`, {
+const retrievesFitsListToDispatch = (directory: string) => {
+  const files: fs.Dirent[] = fs.readdirSync(directory, {
     recursive: true,
     withFileTypes: true,
     encoding: "utf8"
@@ -115,41 +140,6 @@ const retrievesFitsListToDispatch = ({
   });
 
   return fileSpecs;
-};
-
-/**
- * Retrieve Light / Flat, Bulb duratin, binning, filter, gain, date, time, temperature, frame number.
- * @param filename
- */
-const extractSpecsFromFilename = (file: fs.Dirent): SpecFile => {
-  // Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit
-  // Flat_810.0ms_Bin1_H_gain0_20240707-102251_-9.9C_0019.fit
-
-  const regex =
-    /^(?<type>[A-Za-z]+)(?:_[^_]+)?_(?<bulb>[^_]+)_(?<bin>Bin\d)_(?<filter>[A-Za-z])_gain(?<gain>\d+)_(?<datetime>\d{8}-\d{6})_(?<temperature>-?\d+\.\d+C)_(?<sequence>\d{4})\.(?<extension>fit)$/;
-  const match = file.name.match(regex);
-
-  if (match && match.groups) {
-    return {
-      name: file.name,
-      path: file.path,
-      fullPath: path.join(file.path, file.name),
-
-      type: match.groups.type,
-      bulb: match.groups.bulb,
-      bin: match.groups.bin,
-      filter: match.groups.filter,
-      gain: parseInt(match.groups.gain, 10),
-      datetime: match.groups.datetime,
-      temperature: match.groups.temperature,
-      sequence: parseInt(match.groups.sequence, 10),
-      extension: match.groups.extension
-    } as SpecFile;
-  } else {
-    throw new Error(
-      `Filename ${file.name} does not match the expected pattern for Specs extraction.`
-    );
-  }
 };
 
 export default dispatch;
