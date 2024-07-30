@@ -1,12 +1,24 @@
 export type SpecFile = {
   name: string;
-  path: string;
-  fullPath: string;
+
+  /**
+   * Path to the ASIAIR dump directory.
+   */
+  sourceDirectory: string;
+  /**
+   * Path to the file in the ASIAIR dump directory.
+   */
+  sourceFilePath: string;
+
+  /**
+   * Path to the project directory.
+   */
+  projectDirectory: string;
 
   /**
    * File type: light, dark, bias, flat
    */
-  type: string;
+  type: "Light" | "Dark" | "Bias" | "Flat";
   /**
    * Bulb duration: 60.0s, 810.0ms
    */

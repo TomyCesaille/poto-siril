@@ -1,4 +1,4 @@
-import { Command, InvalidArgumentError } from "commander";
+import { Command } from "commander";
 import dispatch from "./dispatch-dump";
 
 const program = new Command();

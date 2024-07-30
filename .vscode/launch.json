@@ -9,10 +9,16 @@
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
 
       "args": [
-        "src/dispatch-dump.ts",
-        "/Users/jorislacance/_joris/outofsync/poto-siril/src/tests/data/asiair-dump1",
-        "/Users/jorislacance/_joris/outofsync/poto-siril/src/tests/data/project1",
-        "Autorun"
+        "src/poto-siril.ts",
+        "dispatch",
+        "-p",
+        "src/tests/data/project1",
+        "-a",
+        "src/tests/data/asiair-dump1",
+        "-b",
+        "src/tests/data/bank",
+        "-m",
+        "autorun"
       ],
 
       "cwd": "${workspaceRoot}",
