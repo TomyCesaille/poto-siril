@@ -45,6 +45,7 @@ import {
   retrievesFitsFromDirectory,
   sameSetFile
 } from "./utils";
+import { SpecFile } from "./types";
 
 export type DispatchOptions = {
   projectDirectory: string;
@@ -99,15 +100,62 @@ const dispatch = async ({
     }
   });
 
+  // TODO. Extract below to a new isolated stats function.
+
   // Check that there's flat, darks and biases for each sets.
   const files = [...asiAirFiles, ...bankFiles];
+  const lightFiles = files.filter(file => file.type === "Light");
+  const flatFiles = files.filter(file => file.type === "Flat");
+  const darkFiles = files.filter(file => file.type === "Dark");
+  const biasFiles = files.filter(file => file.type === "Bias");
+
   logger.info(
-    `🔭 Project size: ${files.length} files. ${
-      files.filter(x => x.type === "Light").length
-    } lights, ${files.filter(x => x.type === "Flat").length} flats, ${
-      files.filter(x => x.type === "Dark").length
-    } darks, ${files.filter(x => x.type === "Bias").length} biases.`
+    `🔭 Project size: ${files.length} files. ${lightFiles.length} lights, ${flatFiles.length} flats, ${darkFiles.length} darks, ${biasFiles.length} biases.`
   );
+
+  const sets = [
+    ...new Set(
+      files
+        .filter(file => file.type === "Light")
+        .map(file => `${file.bulb}_${file.bin}_${file.filter}_${file.gain}`)
+    )
+  ].map(set => {
+    return {
+      lightSet: set,
+      lights: lightFiles.filter(
+        file => `${file.bulb}_${file.bin}_${file.filter}_${file.gain}` === set
+      ),
+      flats: flatFiles.filter(
+        file =>
+          file.bin === set.split("_")[1] && file.filter === set.split("_")[2]
+      ),
+      darks: darkFiles.filter(
+        file =>
+          file.bin === set.split("_")[1] &&
+          file.gain === Number(set.split("_")[3]) &&
+          file.bulb === set.split("_")[0]
+      ),
+      biases: biasFiles.filter(
+        file =>
+          file.bin === set.split("_")[1] &&
+          file.gain === Number(set.split("_")[3])
+      )
+    };
+  });
+
+  for (const set of sets) {
+    const log = `  🌌 Set ${set.lightSet} has ${set.lights.length} lights, ${set.flats.length} flats, ${set.darks.length} darks, ${set.biases.length} biases`;
+    if (
+      set.lights.length > 0 &&
+      set.flats.length > 0 &&
+      set.darks.length > 0 &&
+      set.biases.length > 0
+    ) {
+      logger.info(log);
+    } else {
+      logger.warning(log);
+    }
+  }
 
   logger.success("Done.");
 };
