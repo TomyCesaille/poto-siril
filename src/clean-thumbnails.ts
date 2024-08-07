@@ -6,6 +6,8 @@
 import fs from "fs";
 import path from "path";
 
+import { logger } from "./logger";
+
 const cleanThumbnails = (dir: string) => {
   // Default parameter set to current directory
   const files = fs.readdirSync(dir);
@@ -17,12 +19,11 @@ const cleanThumbnails = (dir: string) => {
     } else {
       if (file.endsWith("_thn.jpg")) {
         fs.unlinkSync(filePath);
-        console.log("Deleted:", filePath);
+        logger.debug("Deleted:", filePath);
       }
     }
   });
+  logger.info("Thumbnails deleted.");
 };
 
-// Process a specific directory passed as a command-line argument, or the current directory if none is provided.
-const rootDirectory = process.argv[2] || ".";
-cleanThumbnails(rootDirectory);
+export default cleanThumbnails;

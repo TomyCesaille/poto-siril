@@ -13,7 +13,7 @@ npm i
 // TODO. redo this
 
 ```bash
-npx ts-node ./src/clean-thumbnails.ts /Users/jorislacance/_joris/outofsync/deepsky/dump_astro_July_2024_session_1
+npx ts-node src/poto-siril.ts clean /Users/jorislacance/_joris/outofsync/deepsky/dump_astro_July_2024_session_2
 ```
 
 ### Dispatch from ASIAIR

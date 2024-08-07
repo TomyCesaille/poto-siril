@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import dispatch from "./dispatch-dump";
+import clean from "./clean-thumbnails";
 
 const program = new Command();
 
@@ -17,7 +18,7 @@ program
 
 program
   .command("dispatch")
-  .description("dispatch ASI AIR files and bank data to a project directory")
+  .description("Dispatch ASI AIR files and bank data to a project directory")
   //   .argument("[path]", "project directory", ".")
   .option("-p, --project <path>", "project directory")
   .option("-a, --asiair <path>", "ASI AIR directory")
@@ -30,6 +31,15 @@ program
       shootingMode: options.mode as "autorun" | "plan",
       bankDirectory: options.bank
     });
+  });
+
+program
+  .command("clean")
+  .description("Delete ASI AIR thumbnails files")
+  .argument("[directory]", "directory to clean", ".")
+  .allowExcessArguments(false)
+  .action(directory => {
+    clean(directory);
   });
 
 program.parse();
