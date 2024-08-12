@@ -45,7 +45,7 @@ import {
   retrievesFitsFromDirectory,
   sameSetFile
 } from "./utils";
-import { SpecFile } from "./types";
+import { SetProject } from "./types";
 
 export type DispatchOptions = {
   projectDirectory: string;
@@ -109,10 +109,6 @@ const dispatch = async ({
   const darkFiles = files.filter(file => file.type === "Dark");
   const biasFiles = files.filter(file => file.type === "Bias");
 
-  logger.info(
-    `🔭 Project size: ${files.length} files. ${lightFiles.length} lights, ${flatFiles.length} flats, ${darkFiles.length} darks, ${biasFiles.length} biases.`
-  );
-
   const sets = [
     ...new Set(
       files
@@ -120,7 +116,7 @@ const dispatch = async ({
         .map(file => `${file.bulb}_${file.bin}_${file.filter}_${file.gain}`)
     )
   ].map(set => {
-    return {
+    const projectSet = {
       lightSet: set,
       lights: lightFiles.filter(
         file => `${file.bulb}_${file.bin}_${file.filter}_${file.gain}` === set
@@ -140,8 +136,32 @@ const dispatch = async ({
           file.bin === set.split("_")[1] &&
           file.gain === Number(set.split("_")[3])
       )
-    };
+    } as SetProject;
+
+    return {
+      ...projectSet,
+      lightsCount: projectSet.lights.length,
+      flatsCount: projectSet.flats.length,
+      darksCount: projectSet.darks.length,
+      biasesCount: projectSet.biases.length
+    } as SetProject;
   });
+
+  logger.info(
+    `🔭 Project size: ${sets.reduce(
+      (total, set) => total + set.flatsCount,
+      0
+    )} lights, ${sets.reduce(
+      (total, set) => total + set.flatsCount,
+      0
+    )} flats, ${sets.reduce(
+      (total, set) => total + set.darksCount,
+      0
+    )} darks, ${sets.reduce(
+      (total, set) => total + set.biasesCount,
+      0
+    )} biases.`
+  );
 
   for (const set of sets) {
     const log = `  🌌 Set ${set.lightSet} has ${set.lights.length} lights, ${set.flats.length} flats, ${set.darks.length} darks, ${set.biases.length} biases`;
@@ -156,6 +176,11 @@ const dispatch = async ({
       logger.warning(log);
     }
   }
+
+  fs.writeFileSync(
+    `${projectDirectory}/sets.json`,
+    JSON.stringify(sets, null, 2)
+  );
 
   logger.success("Done.");
 };

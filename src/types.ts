@@ -1,3 +1,5 @@
+type imageType = "Light" | "Dark" | "Bias" | "Flat";
+
 export type SpecFile = {
   name: string;
 
@@ -18,7 +20,7 @@ export type SpecFile = {
   /**
    * File type: light, dark, bias, flat
    */
-  type: "Light" | "Dark" | "Bias" | "Flat";
+  type: imageType;
   /**
    * Bulb duration: 60.0s, 810.0ms
    */
@@ -52,4 +54,16 @@ export type SpecFile = {
    * File extension: fit
    */
   extension: string;
+};
+
+export type SetProject = {
+  lightSet: string;
+  lightsCount: number;
+  lights: SpecFile[];
+  flatsCount: number;
+  flats: SpecFile[];
+  darksCount: number;
+  darks: SpecFile[];
+  biasesCount: number;
+  biases: SpecFile[];
 };

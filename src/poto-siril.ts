@@ -4,6 +4,7 @@ import {
   cleanThumbnails,
   removeEmptyDirectories
 } from "./asiair-dump-cleaning";
+import { generateMonoProcessingScripts } from "./generate-scripts";
 
 const program = new Command();
 
@@ -46,6 +47,15 @@ program
   .action(directory => {
     cleanThumbnails(directory);
     removeEmptyDirectories(directory);
+  });
+
+program
+  .command("preprocess")
+  .description("Preprocess the project directory")
+  .argument("[directory]", "directory to preprocess", ".")
+  .allowExcessArguments(false)
+  .action(directory => {
+    generateMonoProcessingScripts(directory);
   });
 
 program.parse();
