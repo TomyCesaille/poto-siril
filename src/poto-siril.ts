@@ -1,6 +1,9 @@
 import { Command } from "commander";
 import dispatch from "./dispatch-dump";
-import clean from "./clean-thumbnails";
+import {
+  cleanThumbnails,
+  removeEmptyDirectories
+} from "./asiair-dump-cleaning";
 
 const program = new Command();
 
@@ -35,11 +38,14 @@ program
 
 program
   .command("clean")
-  .description("Delete ASI AIR thumbnails files")
+  .description(
+    "prepare the ASI AIR dump directory for import by dropping thumbnails and empty directories"
+  )
   .argument("[directory]", "directory to clean", ".")
   .allowExcessArguments(false)
   .action(directory => {
-    clean(directory);
+    cleanThumbnails(directory);
+    removeEmptyDirectories(directory);
   });
 
 program.parse();
