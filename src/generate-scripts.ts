@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { logger } from "./logger";
-import { readSetsFromDirectory } from "./utils";
+import { SetProject } from "./types";
 
 export const generateMonoProcessingScripts = async (
   projectDirectory: string
@@ -16,30 +16,31 @@ export const generateMonoProcessingScripts = async (
     encoding: "utf8"
   });
 
-  // Read top level directory in the project directory.
-  const filters = fs
-    .readdirSync(projectDirectory)
-    .filter(file =>
-      fs.statSync(path.join(projectDirectory, file)).isDirectory()
-    )
-    .filter(file => !["process", "any"].includes(file));
+  const sets: SetProject[] = JSON.parse(
+    fs.readFileSync(path.join(projectDirectory, "sets.json"), {
+      encoding: "utf8"
+    })
+  );
+
+  const lightSets = sets.map(set => set.lightSet);
 
   logger.info("dd", {
+    lightSets,
     mono_proprocessingPath,
-    filters,
     mono_processing: mono_processing.slice(0, 100)
   });
 
-  filters.forEach(filter => {
-    generateScriptForFilter(projectDirectory, filter, mono_processing);
+  sets.forEach(set => {
+    generateScriptForFilter(projectDirectory, set, mono_processing);
   });
 };
 
 const generateScriptForFilter = (
   projectDirectory: string,
-  filter: string,
-  mono_processing: string
+  set: SetProject,
+  raw_script: string
 ) => {
+  const filter = set.lightSet.split("_")[2];
   const filterDirectory = path.join(projectDirectory, filter);
   const anyDirectory = path.join(projectDirectory, "any");
   const processDirectory = path.join(filterDirectory, "process");
@@ -53,53 +54,60 @@ const generateScriptForFilter = (
     processDirectory
   });
 
-  const sets = readSetsFromDirectory(projectDirectory);
+  const lightsdirs = [...new Set(set.lights.map(x => x.projectDirectory))];
+  if (lightsdirs.length === 0) {
+    throw new Error("No lights found for filter " + set.lightSet);
+  }
+  if (lightsdirs.length > 1) {
+    logger.errorThrow("Multiple sets of light for ", lightsdirs);
+  }
+  const lightsDir = lightsdirs[0];
 
-  logger.debug("sets", {
-    sets
+  const flatsDirs = [...new Set(set.flats.map(x => x.projectDirectory))];
+  if (flatsDirs.length === 0) {
+    throw new Error("No flats found for filter " + set.lightSet);
+  }
+  if (flatsDirs.length > 1) {
+    throw new Error("Multiple sets of flat for " + set.lightSet);
+  }
+  const flatsDir = flatsDirs[0];
+
+  const darksDirs = [...new Set(set.darks.map(x => x.projectDirectory))];
+  if (darksDirs.length === 0) {
+    throw new Error("No darks found for filter " + set.lightSet);
+  }
+  if (darksDirs.length > 1) {
+    throw new Error("Multiple sets of darks for " + set.lightSet);
+  }
+  const darksDir = darksDirs[0];
+
+  const biasesDirs = [...new Set(set.biases.map(x => x.projectDirectory))];
+  if (biasesDirs.length === 0) {
+    throw new Error("No biases found for filter " + set.lightSet);
+  }
+  if (biasesDirs.length > 1) {
+    throw new Error("Multiple sets of biases for " + set.lightSet);
+  }
+  const biasesDir = biasesDirs[0];
+
+  logger.info("dirs", {
+    lightDir: lightsDir,
+    flatsdir: flatsDir,
+    darksdir: darksDir,
+    biasesdir: biasesDir
   });
 
-  const lightsdir = sets.filter(file => file.includes("Light_"))[0];
-  const flatsdir = sets.filter(file => file.includes("Flat_"))[0];
-
-  logger.debug("dirs", { lightsdir, flatsdir });
-
-  const darksDir = fs
-    .readdirSync(anyDirectory)
-    .filter(file => fs.statSync(path.join(anyDirectory, file)).isDirectory())
-    .filter(
-      file =>
-        file.split("_")[0] === "Dark" &&
-        file.split("_")[1] === lightsdir.split("_")[1] &&
-        file.split("_")[2] === lightsdir.split("_")[2] &&
-        file.split("_")[3] === lightsdir.split("_")[3]
-    )[0];
-
-  const biasesDir = fs
-    .readdirSync(anyDirectory)
-    .filter(file => fs.statSync(path.join(anyDirectory, file)).isDirectory())
-    .filter(
-      file =>
-        file.split("_")[0] === "Bias" &&
-        file.split("_")[2] === flatsdir.split("_")[2] &&
-        file.split("_")[3] === flatsdir.split("_")[3]
-    )[0];
-
-  const processingScript = mono_processing
-    .replaceAll("{{lights}}", lightsdir)
-    .replaceAll("{{flats}}", flatsdir)
-    .replaceAll("{{darks}}", darksDir)
-    .replaceAll("{{biases}}", biasesDir);
+  const script = raw_script.replaceAll("{{biases}}", biasesDir);
 
   const processingScriptPath = path.join(
     processDirectory,
     `poto_${filter}_Mono_Preprocessing.ssf`
   );
-  fs.writeFileSync(processingScriptPath, processingScript);
+  fs.writeFileSync(processingScriptPath, script);
   logger.info(`Generated ${processingScriptPath}`, {
-    lightsdir,
-    flatsdir,
+    biasesDir,
     darksDir,
-    biasesDir
+    flatsDir,
+    lightsDir
   });
 };

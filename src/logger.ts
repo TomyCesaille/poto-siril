@@ -21,5 +21,9 @@ export const logger = {
   },
   error: (message: string, ...optionalParams: unknown[]) => {
     console.log(error(message), ...optionalParams);
+  },
+  errorThrow: (message: string, ...optionalParams: unknown[]) => {
+    console.log(error(message), ...optionalParams);
+    throw new Error(message);
   }
 };

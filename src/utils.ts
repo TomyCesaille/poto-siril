@@ -137,14 +137,3 @@ export const sameSetFile = (
     );
   }
 };
-
-/**
- * Return sets (full path) from a (filter) directory.
- * Excluding the process directory. Not recursive.
- */
-export const readSetsFromDirectory = (projectDirectory: string): string[] => {
-  return fs
-    .readdirSync(projectDirectory, { recursive: false, withFileTypes: true })
-    .filter(file => file.isDirectory() && file.name !== "process")
-    .map(file => path.join(file.path, file.name));
-};
