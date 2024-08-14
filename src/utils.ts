@@ -1,13 +1,13 @@
 import path from "path";
 import fs from "fs";
 
-import { Spec, SpecFile } from "./types";
+import { ImageSpec, FileImageSpec } from "./types";
 import { logger } from "./logger";
 
 /**
  * Retrieve FITS files from a source directory.
  */
-export const retrievesFitsFromDirectory = ({
+export const getFitsFromDirectory = ({
   sourceDirectory,
   projectDirectory
 }: {
@@ -20,7 +20,7 @@ export const retrievesFitsFromDirectory = ({
     encoding: "utf8"
   });
 
-  const fileSpecs: SpecFile[] = [];
+  const fileImageSpecs: FileImageSpec[] = [];
 
   // Process the list of files.
   files.forEach(file => {
@@ -33,22 +33,21 @@ export const retrievesFitsFromDirectory = ({
     }
 
     // If the file is a FITS file, process it.
-    const specs = extractSpecsFromFilename(file, projectDirectory);
-    fileSpecs.push(specs);
-    //log("🌈", file, JSON.stringify(fileSpecs, null, 2));
+    const specs = getFileImageSpecFromFilename(file, projectDirectory);
+    fileImageSpecs.push(specs);
   });
 
-  return fileSpecs;
+  return fileImageSpecs;
 };
 
 /**
  * Retrieve Light / Flat, Bulb duratin, binning, filter, gain, date, time, temperature, frame number.
  * @param filename
  */
-export const extractSpecsFromFilename = (
+export const getFileImageSpecFromFilename = (
   fileFS: fs.Dirent,
   projectDirectory: string
-): SpecFile => {
+): FileImageSpec => {
   // Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit
   // Flat_810.0ms_Bin1_H_gain0_20240707-102251_-9.9C_0019.fit
   // Dark_300.0s_Bin1_L_gain360_20230910-101917_-9.8C_0001.fit
@@ -61,26 +60,28 @@ export const extractSpecsFromFilename = (
 
   if (match && match.groups) {
     const file = {
-      fileName: fileFS.name,
-
-      sourceDirectory: fileFS.path,
-      sourceFilePath: path.join(fileFS.path, fileFS.name),
-
-      projectDirectory,
+      setName: "",
 
       type: match.groups.type,
       bulb: match.groups.bulb,
       bin: match.groups.bin,
       filter: match.groups.filter ?? null,
       gain: parseInt(match.groups.gain, 10),
+
+      sequence: parseInt(match.groups.sequence, 10),
       datetime: match.groups.datetime,
       temperature: match.groups.temperature,
-      sequence: parseInt(match.groups.sequence, 10),
-      extension: match.groups.extension
-    } as SpecFile;
+
+      fileName: fileFS.name,
+      extension: match.groups.extension,
+
+      sourceDirectory: fileFS.path,
+      sourceFilePath: path.join(fileFS.path, fileFS.name),
+
+      projectDirectory
+    } as FileImageSpec;
 
     file.setName = getSetName(file);
-    logger.info("🌈", file.setName);
 
     if (["Light", "Flat"].includes(file.type)) {
       const directory = file.setName;
@@ -101,7 +102,7 @@ export const extractSpecsFromFilename = (
   }
 };
 
-export const importFileToProject = (file: SpecFile) => {
+export const copyFileToProject = (file: FileImageSpec) => {
   if (!fs.existsSync(file.projectDirectory)) {
     fs.mkdirSync(file.projectDirectory, { recursive: true });
   }
@@ -116,8 +117,8 @@ export const importFileToProject = (file: SpecFile) => {
  * Used to match flats with biases, lights with darks.
  */
 export const matchSetFile = (
-  lightOrFlat: SpecFile,
-  DarkOrBias: SpecFile
+  lightOrFlat: FileImageSpec,
+  DarkOrBias: FileImageSpec
 ): boolean => {
   if (DarkOrBias.type === "Dark" && lightOrFlat.type === "Light") {
     return (
@@ -148,7 +149,7 @@ export const matchSetFile = (
 /**
  * @returns `Flat_520.0ms_Bin1_H_gain0`, `Flat_520.0ms_Bin1_gain0` format.
  */
-const getSetName = (file: SpecFile): string => {
+const getSetName = (file: FileImageSpec): string => {
   return file.filter
     ? `${file.type}_${file.bulb}_${file.bin}_${file.filter}_gain${file.gain}`
     : `${file.type}_${file.bulb}_${file.bin}_gain${file.gain}`;
@@ -157,7 +158,7 @@ const getSetName = (file: SpecFile): string => {
 /**
  * Utils for map.
  */
-export const getSpecsFromSetName = (setName: string): Spec => {
+export const getImageSpecFromSetName = (setName: string): ImageSpec => {
   return setName.split("_").length === 5
     ? ({
         setName,
@@ -166,7 +167,7 @@ export const getSpecsFromSetName = (setName: string): Spec => {
         bin: setName.split("_")[2],
         filter: setName.split("_")[3],
         gain: Number(setName.split("_")[4].replace("gain", ""))
-      } as Spec)
+      } as ImageSpec)
     : ({
         setName,
         type: setName.split("_")[0],
@@ -174,5 +175,5 @@ export const getSpecsFromSetName = (setName: string): Spec => {
         bin: setName.split("_")[2],
         filter: null,
         gain: Number(setName.split("_")[3].replace("gain", ""))
-      } as Spec);
+      } as ImageSpec);
 };

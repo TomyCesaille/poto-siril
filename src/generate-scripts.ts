@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { logger } from "./logger";
-import { SetProject } from "./types";
+import { LayerSet } from "./types";
 import { POTO_JSON } from "./const";
 
 export const generateMonoProcessingScripts = async (
@@ -17,7 +17,7 @@ export const generateMonoProcessingScripts = async (
     encoding: "utf8"
   });
 
-  const sets: SetProject[] = JSON.parse(
+  const sets: LayerSet[] = JSON.parse(
     fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
       encoding: "utf8"
     })
@@ -38,7 +38,7 @@ export const generateMonoProcessingScripts = async (
 
 const generateScriptForFilter = (
   projectDirectory: string,
-  set: SetProject,
+  set: LayerSet,
   raw_script: string
 ) => {
   const filter = set.filter;

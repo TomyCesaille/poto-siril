@@ -41,12 +41,12 @@ import Enquirer from "enquirer";
 
 import { logger } from "./logger";
 import {
-  importFileToProject,
-  retrievesFitsFromDirectory,
+  copyFileToProject,
+  getFitsFromDirectory,
   matchSetFile,
-  getSpecsFromSetName
+  getImageSpecFromSetName
 } from "./utils";
-import { SetProject, Spec, SpecFile } from "./types";
+import { LayerSet, PotoProject } from "./types";
 import { POTO_JSON } from "./const";
 
 export type DispatchOptions = {
@@ -76,7 +76,7 @@ const dispatch = async ({
   }
 
   // Enumerate the list of files of the ASIAIR directory.
-  const asiAirFiles = retrievesFitsFromDirectory({
+  const asiAirFiles = getFitsFromDirectory({
     sourceDirectory: `${asiAirDirectory}/${shootingMode}`,
     projectDirectory
   });
@@ -84,11 +84,11 @@ const dispatch = async ({
 
   // Dispatch the ASIAIR files to the project directory.
   asiAirFiles.forEach(file => {
-    importFileToProject(file);
+    copyFileToProject(file);
   });
 
   // Search for the darks and biases we need to copy.
-  const bankFiles = retrievesFitsFromDirectory({
+  const bankFiles = getFitsFromDirectory({
     sourceDirectory: bankDirectory,
     projectDirectory
   });
@@ -96,7 +96,7 @@ const dispatch = async ({
   bankFiles.forEach(file => {
     // Check if the file is needed from the bank.
     if (asiAirFiles.find(f => matchSetFile(f, file))) {
-      importFileToProject(file);
+      copyFileToProject(file);
     } else {
       logger.debug(`Skipping ${file.fileName} from the bank, not needed.`);
     }
@@ -111,18 +111,18 @@ const dispatch = async ({
   const darkFiles = files.filter(file => file.type === "Dark");
   const biasFiles = files.filter(file => file.type === "Bias");
 
-  const sets = [
+  const layerSets = [
     ...new Set(
       files.filter(file => file.type === "Light").map(file => file.setName)
     )
-  ].map(set => {
-    const setSpecs = getSpecsFromSetName(set);
+  ].map(layerSet => {
+    const setSpecs = getImageSpecFromSetName(layerSet);
 
     const projectSet = {
       filter: setSpecs.filter,
-      lightSet: set,
+      lightSet: layerSet,
       // TODO. Refactor to use the filter function here too. Or store the decision previously made (during the bank selection) to reuse it here.
-      lights: lightFiles.filter(file => file.setName === set),
+      lights: lightFiles.filter(file => file.setName === layerSet),
       flats: flatFiles.filter(
         file => file.bin === setSpecs.bin && file.filter === setSpecs.filter
       ),
@@ -135,7 +135,7 @@ const dispatch = async ({
       biases: biasFiles.filter(
         file => file.bin === setSpecs.bin && file.gain === setSpecs.gain
       )
-    } as SetProject;
+    } as LayerSet;
 
     return {
       filter: projectSet.filter,
@@ -154,32 +154,32 @@ const dispatch = async ({
       darks: projectSet.darks,
       flats: projectSet.flats,
       biases: projectSet.biases
-    } as SetProject;
+    } as LayerSet;
   });
 
   logger.info(
-    `🔭 Project size: ${sets.reduce(
-      (total, set) => total + set.flatsCount,
+    `🔭 Project size: ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.flatsCount,
       0
-    )} lights, ${sets.reduce(
-      (total, set) => total + set.darksCount,
+    )} lights, ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.darksCount,
       0
-    )} darks, ${sets.reduce(
-      (total, set) => total + set.flatsCount,
+    )} darks, ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.flatsCount,
       0
-    )} flats, ${sets.reduce(
-      (total, set) => total + set.biasesCount,
+    )} flats, ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.biasesCount,
       0
     )} biases.`
   );
 
-  for (const set of sets) {
-    const log = `  🌌 Set ${set.lightSet} has ${set.lights.length} lights, ${set.darks.length} darks, ${set.flats.length} flats, ${set.biases.length} biases.`;
+  for (const layerSet of layerSets) {
+    const log = `  🌌 Set ${layerSet.lightSet} has ${layerSet.lights.length} lights, ${layerSet.darks.length} darks, ${layerSet.flats.length} flats, ${layerSet.biases.length} biases.`;
     if (
-      set.lights.length > 0 &&
-      set.flats.length > 0 &&
-      set.darks.length > 0 &&
-      set.biases.length > 0
+      layerSet.lights.length > 0 &&
+      layerSet.flats.length > 0 &&
+      layerSet.darks.length > 0 &&
+      layerSet.biases.length > 0
     ) {
       logger.info(log);
     } else {
@@ -187,10 +187,10 @@ const dispatch = async ({
     }
   }
 
-  const potoProject = {
+  const potoProject: PotoProject = {
     generatedAt: new Date(),
     potoVersion: "0.1.0",
-    sets
+    layerSets
   };
 
   const potoJsonPath = `${projectDirectory}/${POTO_JSON}`;

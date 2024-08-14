@@ -1,6 +1,6 @@
 type imageType = "Light" | "Dark" | "Bias" | "Flat";
 
-export type Spec = {
+export type ImageSpec = {
   /**
    * `Flat_520.0ms_Bin1_O_gain0` format.
    */
@@ -32,7 +32,7 @@ export type Spec = {
    */
 };
 
-export type SpecFile = Spec & {
+export type FileImageSpec = ImageSpec & {
   /**
    * Name of the time in disk.
    */
@@ -73,7 +73,11 @@ export type SpecFile = Spec & {
   temperature: string;
 };
 
-export type SetProject = {
+/**
+ * This represents a set of lights and its calibration frames.
+ * Each set has unique filter + exposure + gain + bin combination.
+ */
+export type LayerSet = {
   filter: string;
 
   lightSet: string;
@@ -88,14 +92,14 @@ export type SetProject = {
   biasSet: string;
   biasesCount: number;
 
-  lights: SpecFile[];
-  flats: SpecFile[];
-  darks: SpecFile[];
-  biases: SpecFile[];
+  lights: FileImageSpec[];
+  flats: FileImageSpec[];
+  darks: FileImageSpec[];
+  biases: FileImageSpec[];
 };
 
 export type PotoProject = {
   generatedAt: Date;
   potoVersion: string;
-  sets: SetProject[];
+  layerSets: LayerSet[];
 };
