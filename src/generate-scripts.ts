@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs";
 import { logger } from "./logger";
 import { SetProject } from "./types";
+import { POTO_JSON } from "./const";
 
 export const generateMonoProcessingScripts = async (
   projectDirectory: string
@@ -17,7 +18,7 @@ export const generateMonoProcessingScripts = async (
   });
 
   const sets: SetProject[] = JSON.parse(
-    fs.readFileSync(path.join(projectDirectory, "sets.json"), {
+    fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
       encoding: "utf8"
     })
   );
@@ -54,6 +55,7 @@ const generateScriptForFilter = (
     processDirectory
   });
 
+  // TODO. Move checkers to dispatch-dump.
   const lightsdirs = [...new Set(set.lights.map(x => x.projectDirectory))];
   if (lightsdirs.length === 0) {
     throw new Error("No lights found for filter " + set.lightSet);
@@ -97,7 +99,11 @@ const generateScriptForFilter = (
     biasesdir: biasesDir
   });
 
-  const script = raw_script.replaceAll("{{biases}}", biasesDir);
+  const script = raw_script
+    .replaceAll("{{biases}}", biasesDir)
+    .replaceAll("{{darks}}", darksDir)
+    .replaceAll("{{flats}}", flatsDir)
+    .replaceAll("{{lights}}", lightsDir);
 
   const processingScriptPath = path.join(
     processDirectory,

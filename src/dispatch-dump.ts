@@ -43,9 +43,11 @@ import { logger } from "./logger";
 import {
   importFileToProject,
   retrievesFitsFromDirectory,
-  sameSetFile
+  matchSetFile,
+  getSpecsFromSetName
 } from "./utils";
-import { SetProject } from "./types";
+import { SetProject, Spec, SpecFile } from "./types";
+import { POTO_JSON } from "./const";
 
 export type DispatchOptions = {
   projectDirectory: string;
@@ -93,10 +95,10 @@ const dispatch = async ({
   logger.info(`Found ${bankFiles.length} files in the bank.`);
   bankFiles.forEach(file => {
     // Check if the file is needed from the bank.
-    if (asiAirFiles.find(f => sameSetFile(f, file))) {
+    if (asiAirFiles.find(f => matchSetFile(f, file))) {
       importFileToProject(file);
     } else {
-      logger.debug(`Skipping ${file.name} from the bank, not needed.`);
+      logger.debug(`Skipping ${file.fileName} from the bank, not needed.`);
     }
   });
 
@@ -111,39 +113,46 @@ const dispatch = async ({
 
   const sets = [
     ...new Set(
-      files
-        .filter(file => file.type === "Light")
-        .map(file => `${file.bulb}_${file.bin}_${file.filter}_${file.gain}`)
+      files.filter(file => file.type === "Light").map(file => file.setName)
     )
   ].map(set => {
+    const setSpecs = getSpecsFromSetName(set);
+
     const projectSet = {
       lightSet: set,
-      lights: lightFiles.filter(
-        file => `${file.bulb}_${file.bin}_${file.filter}_${file.gain}` === set
-      ),
+      // TODO. Refactor to use the filter function here too. Or store the decision previously made (during the bank selection) to reuse it here.
+      lights: lightFiles.filter(file => file.setName === set),
       flats: flatFiles.filter(
-        file =>
-          file.bin === set.split("_")[1] && file.filter === set.split("_")[2]
+        file => file.bin === setSpecs.bin && file.filter === setSpecs.filter
       ),
       darks: darkFiles.filter(
         file =>
-          file.bin === set.split("_")[1] &&
-          file.gain === Number(set.split("_")[3]) &&
-          file.bulb === set.split("_")[0]
+          file.bin === setSpecs.bin &&
+          file.gain === setSpecs.gain &&
+          file.bulb === setSpecs.bulb
       ),
       biases: biasFiles.filter(
-        file =>
-          file.bin === set.split("_")[1] &&
-          file.gain === Number(set.split("_")[3])
+        file => file.bin === setSpecs.bin && file.gain === setSpecs.gain
       )
     } as SetProject;
 
     return {
-      ...projectSet,
+      filter: projectSet.filter,
+
+      lightSet: projectSet.lightSet,
+      flatSet: projectSet.flats[0].setName,
+      darkSet: projectSet.darks[0].setName,
+      biasSet: projectSet.biases[0].setName,
+
       lightsCount: projectSet.lights.length,
       flatsCount: projectSet.flats.length,
       darksCount: projectSet.darks.length,
-      biasesCount: projectSet.biases.length
+      biasesCount: projectSet.biases.length,
+
+      lights: projectSet.lights,
+      darks: projectSet.darks,
+      flats: projectSet.flats,
+      biases: projectSet.biases
     } as SetProject;
   });
 
@@ -164,7 +173,7 @@ const dispatch = async ({
   );
 
   for (const set of sets) {
-    const log = `  🌌 Set ${set.lightSet} has ${set.lights.length} lights, ${set.flats.length} flats, ${set.darks.length} darks, ${set.biases.length} biases`;
+    const log = `  🌌 Set ${set.lightSet} has ${set.lights.length} lights, ${set.darks.length} darks, ${set.flats.length} flats, ${set.biases.length} biases.`;
     if (
       set.lights.length > 0 &&
       set.flats.length > 0 &&
@@ -178,7 +187,7 @@ const dispatch = async ({
   }
 
   fs.writeFileSync(
-    `${projectDirectory}/sets.json`,
+    `${projectDirectory}/${POTO_JSON}`,
     JSON.stringify(sets, null, 2)
   );
 

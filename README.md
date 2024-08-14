@@ -36,4 +36,4 @@ npx ts-node src/poto-siril.ts preprocess /Users/jorislacance/_joris/outofsync/de
 
 ### Notes
 
-Read https://siril.org/docs/sirilic/, some ideas here.
+Read <https://siril.org/docs/sirilic/>, some ideas here.

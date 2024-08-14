@@ -1,0 +1,1 @@
+export const POTO_JSON = "poto.json";

@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 
-import { SpecFile } from "./types";
+import { Spec, SpecFile } from "./types";
 import { logger } from "./logger";
 
 /**
@@ -61,7 +61,7 @@ export const extractSpecsFromFilename = (
 
   if (match && match.groups) {
     const file = {
-      name: fileFS.name,
+      fileName: fileFS.name,
 
       sourceDirectory: fileFS.path,
       sourceFilePath: path.join(fileFS.path, fileFS.name),
@@ -79,8 +79,11 @@ export const extractSpecsFromFilename = (
       extension: match.groups.extension
     } as SpecFile;
 
+    file.setName = getSetName(file);
+    logger.info("🌈", file.setName);
+
     if (["Light", "Flat"].includes(file.type)) {
-      const directory = `${file.type}_${file.bulb}_${file.bin}_${file.filter}_gain${file.gain}`;
+      const directory = file.setName;
 
       file.projectDirectory = file.filter
         ? path.join(projectDirectory, file.filter, directory)
@@ -103,16 +106,16 @@ export const importFileToProject = (file: SpecFile) => {
     fs.mkdirSync(file.projectDirectory, { recursive: true });
   }
 
-  const targetFile = path.join(file.projectDirectory, file.name);
+  const targetFile = path.join(file.projectDirectory, file.fileName);
   fs.copyFileSync(file.sourceFilePath, targetFile);
 
-  logger.debug(`Copied ${file.name} to ${targetFile}`);
+  logger.debug(`Copied ${file.fileName} to ${targetFile}`);
 };
 
 /**
  * Used to match flats with biases, lights with darks.
  */
-export const sameSetFile = (
+export const matchSetFile = (
   lightOrFlat: SpecFile,
   DarkOrBias: SpecFile
 ): boolean => {
@@ -140,4 +143,36 @@ export const sameSetFile = (
     }
     return false;
   }
+};
+
+/**
+ * @returns `Flat_520.0ms_Bin1_H_gain0`, `Flat_520.0ms_Bin1_gain0` format.
+ */
+const getSetName = (file: SpecFile): string => {
+  return file.filter
+    ? `${file.type}_${file.bulb}_${file.bin}_${file.filter}_gain${file.gain}`
+    : `${file.type}_${file.bulb}_${file.bin}_gain${file.gain}`;
+};
+
+/**
+ * Utils for map.
+ */
+export const getSpecsFromSetName = (setName: string): Spec => {
+  return setName.split("_").length === 5
+    ? ({
+        setName,
+        type: setName.split("_")[0],
+        bulb: setName.split("_")[1],
+        bin: setName.split("_")[2],
+        filter: setName.split("_")[3],
+        gain: Number(setName.split("_")[4].replace("gain", ""))
+      } as Spec)
+    : ({
+        setName,
+        type: setName.split("_")[0],
+        bulb: setName.split("_")[1],
+        bin: setName.split("_")[2],
+        filter: null,
+        gain: Number(setName.split("_")[3].replace("gain", ""))
+      } as Spec);
 };

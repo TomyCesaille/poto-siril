@@ -12,7 +12,7 @@
 # Needs 4 sets of RAW images in the working
 # directory, within 4 directories:
 #   {{biases}}/
-#   {{flat}}/
+#   {{flats}}/
 #   {{darks}}/
 #   {{lights}}/
 # Saves masters to ./masters/
@@ -31,7 +31,7 @@ stack bias rej 3 3 -nonorm -out=../masters/bias_stacked
 cd ..
 
 # Convert Flat Frames to .fit files
-cd {{flat}}
+cd {{flats}}
 convert flat -out=../process
 cd ../process
 
