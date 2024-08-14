@@ -1,8 +1,8 @@
 import path from "path";
 import fs from "fs";
 import { logger } from "./logger";
-import { LayerSet } from "./types";
-import { POTO_JSON } from "./const";
+import { LayerSet, PotoProject } from "./types";
+import { POTO_JSON, POTO_VERSION } from "./const";
 
 export const generateMonoProcessingScripts = async (
   projectDirectory: string
@@ -17,21 +17,24 @@ export const generateMonoProcessingScripts = async (
     encoding: "utf8"
   });
 
-  const sets: LayerSet[] = JSON.parse(
+  const potoProject: PotoProject = JSON.parse(
     fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
       encoding: "utf8"
     })
   );
-
-  const lightSets = sets.map(set => set.lightSet);
+  if (POTO_VERSION !== potoProject.potoVersion) {
+    logger.errorThrow(
+      `Project version mismatch. Expected ${POTO_VERSION}, got ${potoProject.potoVersion}. Please regenerate the project.`
+    );
+  }
 
   logger.info("dd", {
-    lightSets,
+    layersToPreprocess: potoProject.layerSets.map(set => set.lightSet),
     mono_proprocessingPath,
     mono_processing: mono_processing.slice(0, 100)
   });
 
-  sets.forEach(set => {
+  potoProject.layerSets.forEach(set => {
     generateScriptForFilter(projectDirectory, set, mono_processing);
   });
 };
