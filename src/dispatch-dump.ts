@@ -115,45 +115,49 @@ const dispatch = async ({
     ...new Set(
       files.filter(file => file.type === "Light").map(file => file.setName)
     )
-  ].map(layerSet => {
-    const setSpecs = getImageSpecFromSetName(layerSet);
+  ].map(layerSetName => {
+    const setSpecs = getImageSpecFromSetName(layerSetName);
 
-    const projectSet = {
+    const layerSet = {
       filter: setSpecs.filter,
-      lightSet: layerSet,
+      lightSet: layerSetName,
       // TODO. Refactor to use the filter function here too. Or store the decision previously made (during the bank selection) to reuse it here.
-      lights: lightFiles.filter(file => file.setName === layerSet),
-      flats: flatFiles.filter(
-        file => file.bin === setSpecs.bin && file.filter === setSpecs.filter
-      ),
+      // The core issue is that we kinda recompute the same thing twice when importing files + when generating the poto project file.
+      lights: lightFiles.filter(file => file.setName === layerSetName),
       darks: darkFiles.filter(
         file =>
           file.bin === setSpecs.bin &&
           file.gain === setSpecs.gain &&
           file.bulb === setSpecs.bulb
       ),
-      biases: biasFiles.filter(
-        file => file.bin === setSpecs.bin && file.gain === setSpecs.gain
+      flats: flatFiles.filter(
+        file => file.bin === setSpecs.bin && file.filter === setSpecs.filter
       )
     } as LayerSet;
 
+    const biases = biasFiles.filter(
+      file =>
+        file.bin === layerSet.flats[0].bin &&
+        file.gain === layerSet.flats[0].gain
+    );
+
     return {
-      filter: projectSet.filter,
+      filter: layerSet.filter,
 
-      lightSet: projectSet.lightSet,
-      flatSet: projectSet.flats[0].setName,
-      darkSet: projectSet.darks[0].setName,
-      biasSet: projectSet.biases[0].setName,
+      lightSet: layerSet.lightSet,
+      flatSet: layerSet.flats[0].setName,
+      darkSet: layerSet.darks[0].setName,
+      biasSet: biases[0].setName,
 
-      lightsCount: projectSet.lights.length,
-      flatsCount: projectSet.flats.length,
-      darksCount: projectSet.darks.length,
-      biasesCount: projectSet.biases.length,
+      lightsCount: layerSet.lights.length,
+      flatsCount: layerSet.flats.length,
+      darksCount: layerSet.darks.length,
+      biasesCount: biases.length,
 
-      lights: projectSet.lights,
-      darks: projectSet.darks,
-      flats: projectSet.flats,
-      biases: projectSet.biases
+      lights: layerSet.lights,
+      darks: layerSet.darks,
+      flats: layerSet.flats,
+      biases
     } as LayerSet;
   });
 
