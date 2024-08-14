@@ -110,30 +110,34 @@ export const importFileToProject = (file: SpecFile) => {
 };
 
 /**
- * Used to match flats/lights with their darks/biases.
- * Return true if same bulb, bin, gain for darks.
- * Return true if same bin and gain for biases.
- * @param lightOrFlat
- * @param DarkOrBias
+ * Used to match flats with biases, lights with darks.
  */
 export const sameSetFile = (
   lightOrFlat: SpecFile,
   DarkOrBias: SpecFile
 ): boolean => {
-  if (DarkOrBias.type === "Dark") {
+  if (DarkOrBias.type === "Dark" && lightOrFlat.type === "Light") {
     return (
       // TODO. Filter based on the temperature.
       lightOrFlat.bulb === DarkOrBias.bulb &&
       lightOrFlat.bin === DarkOrBias.bin &&
       lightOrFlat.gain === DarkOrBias.gain
     );
-  } else if (DarkOrBias.type === "Bias") {
+  } else if (DarkOrBias.type === "Bias" && lightOrFlat.type === "Flat") {
     return (
       lightOrFlat.bin === DarkOrBias.bin && lightOrFlat.gain === DarkOrBias.gain
     );
   } else {
-    throw new Error(
-      `Expected Dark or Bias file for 'DarkOrBias' input, got ${DarkOrBias.type}.`
-    );
+    if (DarkOrBias.type !== "Dark" && DarkOrBias.type !== "Bias") {
+      logger.errorThrow(
+        `Expected Dark or Bias file for 'DarkOrBias' input, got ${DarkOrBias.type}.`
+      );
+    }
+    if (lightOrFlat.type !== "Light" && lightOrFlat.type !== "Flat") {
+      logger.errorThrow(
+        `Expected Light or Flat file for 'lightOrFlat' input, got ${lightOrFlat.type}.`
+      );
+    }
+    return false;
   }
 };

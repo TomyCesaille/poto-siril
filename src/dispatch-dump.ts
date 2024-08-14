@@ -85,7 +85,7 @@ const dispatch = async ({
     importFileToProject(file);
   });
 
-  // Search for the darks and offsets we need to copy.
+  // Search for the darks and biases we need to copy.
   const bankFiles = retrievesFitsFromDirectory({
     sourceDirectory: bankDirectory,
     projectDirectory
@@ -152,12 +152,12 @@ const dispatch = async ({
       (total, set) => total + set.flatsCount,
       0
     )} lights, ${sets.reduce(
-      (total, set) => total + set.flatsCount,
-      0
-    )} flats, ${sets.reduce(
       (total, set) => total + set.darksCount,
       0
     )} darks, ${sets.reduce(
+      (total, set) => total + set.flatsCount,
+      0
+    )} flats, ${sets.reduce(
       (total, set) => total + set.biasesCount,
       0
     )} biases.`
