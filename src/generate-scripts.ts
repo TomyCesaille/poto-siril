@@ -41,7 +41,7 @@ const generateScriptForFilter = (
   set: SetProject,
   raw_script: string
 ) => {
-  const filter = set.lightSet.split("_")[2];
+  const filter = set.filter;
   const filterDirectory = path.join(projectDirectory, filter);
   const anyDirectory = path.join(projectDirectory, "any");
   const processDirectory = path.join(filterDirectory, "process");

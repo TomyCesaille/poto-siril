@@ -119,6 +119,7 @@ const dispatch = async ({
     const setSpecs = getSpecsFromSetName(set);
 
     const projectSet = {
+      filter: setSpecs.filter,
       lightSet: set,
       // TODO. Refactor to use the filter function here too. Or store the decision previously made (during the bank selection) to reuse it here.
       lights: lightFiles.filter(file => file.setName === set),
@@ -186,12 +187,17 @@ const dispatch = async ({
     }
   }
 
-  fs.writeFileSync(
-    `${projectDirectory}/${POTO_JSON}`,
-    JSON.stringify(sets, null, 2)
-  );
+  const potoProject = {
+    generatedAt: new Date(),
+    potoVersion: "0.1.0",
+    sets
+  };
 
-  logger.success("Done.");
+  const potoJsonPath = `${projectDirectory}/${POTO_JSON}`;
+
+  fs.writeFileSync(potoJsonPath, JSON.stringify(potoProject, null, 2));
+
+  logger.success(`Done ✅. ${POTO_JSON} generated 💃🌕.`);
 };
 
 export default dispatch;

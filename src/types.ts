@@ -93,3 +93,9 @@ export type SetProject = {
   darks: SpecFile[];
   biases: SpecFile[];
 };
+
+export type PotoProject = {
+  generatedAt: Date;
+  potoVersion: string;
+  sets: SetProject[];
+};
