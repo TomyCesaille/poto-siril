@@ -5,22 +5,26 @@
   "main": "clean-thumbnails.js",
   "scripts": {
     "lint": "eslint .",
-    "check-types": "tsc"
+    "check-types": "tsc",
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "JorisLacance.fr",
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.7.0",
+    "@types/inquirer": "^9.0.7",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.14.11",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
     "eslint": "^8.56.0",
     "globals": "^15.8.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.1",
-    "@types/inquirer": "^9.0.7"
+    "typescript-eslint": "^7.16.1"
   },
   "dependencies": {
     "chalk": "^4.1.2",

@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "strict": true,
-    "types": ["node"] // Ensure Node types are included
+    "types": ["node", "jest"]
   },
   "include": ["src/**/*"]
 }
