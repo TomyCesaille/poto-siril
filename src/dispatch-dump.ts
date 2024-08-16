@@ -44,7 +44,7 @@ import {
   copyFileToProject,
   getFitsFromDirectory,
   matchSetFile,
-  getImageSpecFromSetName
+  getImageSpecFromSetName,
 } from "./utils";
 import { LayerSet, PotoProject } from "./types";
 import { POTO_JSON } from "./const";
@@ -60,14 +60,14 @@ const dispatch = async ({
   projectDirectory,
   asiAirDirectory,
   shootingMode,
-  bankDirectory
+  bankDirectory,
 }: DispatchOptions) => {
   if (!fs.existsSync(projectDirectory)) {
     const enquirer = new Enquirer();
     const response = (await enquirer.prompt({
       type: "confirm",
       name: "createProjectDirectory",
-      message: `Directory ${projectDirectory} does not exist. Do you want to create it?`
+      message: `Directory ${projectDirectory} does not exist. Do you want to create it?`,
     })) as { createProjectDirectory: boolean };
 
     if (response.createProjectDirectory) {
@@ -78,7 +78,7 @@ const dispatch = async ({
   // Enumerate the list of files of the ASIAIR directory.
   const asiAirFiles = getFitsFromDirectory({
     sourceDirectory: `${asiAirDirectory}/${shootingMode}`,
-    projectDirectory
+    projectDirectory,
   });
   logger.info(`Found ${asiAirFiles.length} files to dispatch.`);
 
@@ -90,7 +90,7 @@ const dispatch = async ({
   // Search for the darks and biases we need to copy.
   const bankFiles = getFitsFromDirectory({
     sourceDirectory: bankDirectory,
-    projectDirectory
+    projectDirectory,
   });
   logger.info(`Found ${bankFiles.length} files in the bank.`);
   bankFiles.forEach(file => {
@@ -113,8 +113,8 @@ const dispatch = async ({
 
   const layerSets = [
     ...new Set(
-      files.filter(file => file.type === "Light").map(file => file.setName)
-    )
+      files.filter(file => file.type === "Light").map(file => file.setName),
+    ),
   ].map(layerSetName => {
     const setSpecs = getImageSpecFromSetName(layerSetName);
 
@@ -128,17 +128,17 @@ const dispatch = async ({
         file =>
           file.bin === setSpecs.bin &&
           file.gain === setSpecs.gain &&
-          file.bulb === setSpecs.bulb
+          file.bulb === setSpecs.bulb,
       ),
       flats: flatFiles.filter(
-        file => file.bin === setSpecs.bin && file.filter === setSpecs.filter
-      )
+        file => file.bin === setSpecs.bin && file.filter === setSpecs.filter,
+      ),
     } as LayerSet;
 
     const biases = biasFiles.filter(
       file =>
         file.bin === layerSet.flats[0].bin &&
-        file.gain === layerSet.flats[0].gain
+        file.gain === layerSet.flats[0].gain,
     );
 
     return {
@@ -157,24 +157,24 @@ const dispatch = async ({
       lights: layerSet.lights,
       darks: layerSet.darks,
       flats: layerSet.flats,
-      biases
+      biases,
     } as LayerSet;
   });
 
   logger.info(
     `🔭 Project size: ${layerSets.reduce(
       (total, layerSet) => total + layerSet.flatsCount,
-      0
+      0,
     )} lights, ${layerSets.reduce(
       (total, layerSet) => total + layerSet.darksCount,
-      0
+      0,
     )} darks, ${layerSets.reduce(
       (total, layerSet) => total + layerSet.flatsCount,
-      0
+      0,
     )} flats, ${layerSets.reduce(
       (total, layerSet) => total + layerSet.biasesCount,
-      0
-    )} biases.`
+      0,
+    )} biases.`,
   );
 
   for (const layerSet of layerSets) {
@@ -194,7 +194,7 @@ const dispatch = async ({
   const potoProject: PotoProject = {
     generatedAt: new Date(),
     potoVersion: "0.1.0",
-    layerSets
+    layerSets,
   };
 
   const potoJsonPath = `${projectDirectory}/${POTO_JSON}`;

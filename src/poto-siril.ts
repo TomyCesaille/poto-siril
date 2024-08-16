@@ -2,7 +2,7 @@ import { Command } from "commander";
 import dispatch from "./dispatch-dump";
 import {
   cleanThumbnails,
-  removeEmptyDirectories
+  removeEmptyDirectories,
 } from "./asiair-dump-cleaning";
 import { generateMonoProcessingScripts } from "./generate-scripts";
 
@@ -33,14 +33,14 @@ program
       projectDirectory: options.project,
       asiAirDirectory: options.asiair,
       shootingMode: options.mode as "autorun" | "plan",
-      bankDirectory: options.bank
+      bankDirectory: options.bank,
     });
   });
 
 program
   .command("clean")
   .description(
-    "prepare the ASI AIR dump directory for import by dropping thumbnails and empty directories"
+    "prepare the ASI AIR dump directory for import by dropping thumbnails and empty directories",
   )
   .argument("[directory]", "directory to clean", ".")
   .allowExcessArguments(false)

@@ -5,33 +5,33 @@ import { LayerSet, PotoProject } from "./types";
 import { POTO_JSON, POTO_VERSION } from "./const";
 
 export const generateMonoProcessingScripts = async (
-  projectDirectory: string
+  projectDirectory: string,
 ) => {
   const rawScriptPath = path.join(__dirname, "raw-siril-scripts");
   //const mono_preprocessing = `siril -s ${rawScriptPath}/mono_preprocessing.ssf`;
   const mono_proprocessingPath = path.join(
     rawScriptPath,
-    "Mono_Preprocessing.ssf"
+    "Mono_Preprocessing.ssf",
   );
   const mono_processing = fs.readFileSync(mono_proprocessingPath, {
-    encoding: "utf8"
+    encoding: "utf8",
   });
 
   const potoProject: PotoProject = JSON.parse(
     fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
-      encoding: "utf8"
-    })
+      encoding: "utf8",
+    }),
   );
   if (POTO_VERSION !== potoProject.potoVersion) {
     logger.errorThrow(
-      `Project version mismatch. Expected ${POTO_VERSION}, got ${potoProject.potoVersion}. Please regenerate the project.`
+      `Project version mismatch. Expected ${POTO_VERSION}, got ${potoProject.potoVersion}. Please regenerate the project.`,
     );
   }
 
   logger.info("dd", {
     layersToPreprocess: potoProject.layerSets.map(set => set.lightSet),
     mono_proprocessingPath,
-    mono_processing: mono_processing.slice(0, 100)
+    mono_processing: mono_processing.slice(0, 100),
   });
 
   potoProject.layerSets.forEach(set => {
@@ -42,7 +42,7 @@ export const generateMonoProcessingScripts = async (
 const generateScriptForFilter = (
   projectDirectory: string,
   set: LayerSet,
-  raw_script: string
+  raw_script: string,
 ) => {
   const filter = set.filter;
   const filterDirectory = path.join(projectDirectory, filter);
@@ -55,7 +55,7 @@ const generateScriptForFilter = (
   logger.debug("directories", {
     anyDirectory,
     filterDirectory,
-    processDirectory
+    processDirectory,
   });
 
   // TODO. Move checkers to dispatch-dump.
@@ -99,7 +99,7 @@ const generateScriptForFilter = (
     lightDir: lightsDir,
     flatsdir: flatsDir,
     darksdir: darksDir,
-    biasesdir: biasesDir
+    biasesdir: biasesDir,
   });
 
   const script = raw_script
@@ -110,13 +110,13 @@ const generateScriptForFilter = (
 
   const processingScriptPath = path.join(
     processDirectory,
-    `poto_${filter}_Mono_Preprocessing.ssf`
+    `poto_${filter}_Mono_Preprocessing.ssf`,
   );
   fs.writeFileSync(processingScriptPath, script);
   logger.info(`Generated ${processingScriptPath}`, {
     biasesDir,
     darksDir,
     flatsDir,
-    lightsDir
+    lightsDir,
   });
 };

@@ -28,7 +28,7 @@ export const cleanThumbnails = (dir: string, isRecursive: boolean = false) => {
 
 export const removeEmptyDirectories = (
   dir: string,
-  isRecursive: boolean = false
+  isRecursive: boolean = false,
 ) => {
   const files = fs.readdirSync(dir);
   if (files.length === 0) {

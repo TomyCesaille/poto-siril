@@ -9,7 +9,7 @@ import { logger } from "./logger";
  */
 export const getFitsFromDirectory = ({
   sourceDirectory,
-  projectDirectory
+  projectDirectory,
 }: {
   sourceDirectory: string;
   projectDirectory: string;
@@ -17,7 +17,7 @@ export const getFitsFromDirectory = ({
   const files: fs.Dirent[] = fs.readdirSync(sourceDirectory, {
     recursive: true,
     withFileTypes: true,
-    encoding: "utf8"
+    encoding: "utf8",
   });
 
   const fileImageSpecs: FileImageSpec[] = [];
@@ -46,7 +46,7 @@ export const getFitsFromDirectory = ({
  */
 export const getFileImageSpecFromFilename = (
   fileFS: fs.Dirent,
-  projectDirectory: string
+  projectDirectory: string,
 ): FileImageSpec => {
   // Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit
   // Flat_810.0ms_Bin1_H_gain0_20240707-102251_-9.9C_0019.fit
@@ -78,7 +78,7 @@ export const getFileImageSpecFromFilename = (
       sourceDirectory: fileFS.path,
       sourceFilePath: path.join(fileFS.path, fileFS.name),
 
-      projectDirectory
+      projectDirectory,
     } as FileImageSpec;
 
     file.setName = getSetName(file);
@@ -97,7 +97,7 @@ export const getFileImageSpecFromFilename = (
     return file;
   } else {
     throw new Error(
-      `Filename ${fileFS.name} does not match the expected pattern for Specs extraction.`
+      `Filename ${fileFS.name} does not match the expected pattern for Specs extraction.`,
     );
   }
 };
@@ -118,7 +118,7 @@ export const copyFileToProject = (file: FileImageSpec) => {
  */
 export const matchSetFile = (
   lightOrFlat: FileImageSpec,
-  DarkOrBias: FileImageSpec
+  DarkOrBias: FileImageSpec,
 ): boolean => {
   if (DarkOrBias.type === "Dark" && lightOrFlat.type === "Light") {
     return (
@@ -134,12 +134,12 @@ export const matchSetFile = (
   } else {
     if (DarkOrBias.type !== "Dark" && DarkOrBias.type !== "Bias") {
       logger.errorThrow(
-        `Expected Dark or Bias file for 'DarkOrBias' input, got ${DarkOrBias.type}.`
+        `Expected Dark or Bias file for 'DarkOrBias' input, got ${DarkOrBias.type}.`,
       );
     }
     if (lightOrFlat.type !== "Light" && lightOrFlat.type !== "Flat") {
       logger.errorThrow(
-        `Expected Light or Flat file for 'lightOrFlat' input, got ${lightOrFlat.type}.`
+        `Expected Light or Flat file for 'lightOrFlat' input, got ${lightOrFlat.type}.`,
       );
     }
     return false;
@@ -166,7 +166,7 @@ export const getImageSpecFromSetName = (setName: string): ImageSpec => {
         bulb: setName.split("_")[1],
         bin: setName.split("_")[2],
         filter: setName.split("_")[3],
-        gain: Number(setName.split("_")[4].replace("gain", ""))
+        gain: Number(setName.split("_")[4].replace("gain", "")),
       } as ImageSpec)
     : ({
         setName,
@@ -174,6 +174,6 @@ export const getImageSpecFromSetName = (setName: string): ImageSpec => {
         bulb: setName.split("_")[1],
         bin: setName.split("_")[2],
         filter: null,
-        gain: Number(setName.split("_")[3].replace("gain", ""))
+        gain: Number(setName.split("_")[3].replace("gain", "")),
       } as ImageSpec);
 };

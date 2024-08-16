@@ -25,5 +25,5 @@ export const logger = {
   errorThrow: (message: string, ...optionalParams: unknown[]) => {
     console.log(error(message), ...optionalParams);
     throw new Error(message);
-  }
+  },
 };
