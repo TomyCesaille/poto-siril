@@ -46,7 +46,7 @@ import {
   matchSetFile,
   getImageSpecFromSetName,
 } from "./utils";
-import { LayerSet, PotoProject } from "./types";
+import { FileImageSpec, LayerSet, PotoProject } from "./types";
 import { POTO_JSON } from "./const";
 
 export type DispatchOptions = {
@@ -77,26 +77,46 @@ const dispatch = async ({
 
   // Enumerate the list of files of the ASIAIR directory.
   const asiAirFiles = getFitsFromDirectory({
-    sourceDirectory: `${asiAirDirectory}/${shootingMode}`,
+    directory: `${asiAirDirectory}/${shootingMode}`,
     projectDirectory,
   });
   logger.info(`Found ${asiAirFiles.length} files to dispatch.`);
 
-  // Dispatch the ASIAIR files to the project directory.
-  asiAirFiles.forEach(file => {
+  const importedLightsFlatsFiles: FileImageSpec[] = [];
+  const importedDarksBiasesFiles: FileImageSpec[] = [];
+
+  // Dispatch the ASIAIR Lights files to the project directory.
+  const lightFiles = asiAirFiles.filter(file => file.type === "Light");
+  lightFiles.forEach(file => {
     copyFileToProject(file);
+    importedLightsFlatsFiles.push(file);
   });
+
+  // Dispatch associated flats.
+  asiAirFiles
+    .filter(x => x.type === "Flat")
+    .forEach(file => {
+      if (lightFiles.find(f => matchSetFile(f, file))) {
+        copyFileToProject(file);
+        importedLightsFlatsFiles.push(file);
+      } else {
+        logger.info(
+          `Skipping ${file.fileName} from the ASI AIR, No light matching.`,
+        );
+      }
+    });
 
   // Search for the darks and biases we need to copy.
   const bankFiles = getFitsFromDirectory({
-    sourceDirectory: bankDirectory,
+    directory: bankDirectory,
     projectDirectory,
   });
   logger.info(`Found ${bankFiles.length} files in the bank.`);
   bankFiles.forEach(file => {
     // Check if the file is needed from the bank.
-    if (asiAirFiles.find(f => matchSetFile(f, file))) {
+    if (importedLightsFlatsFiles.find(f => matchSetFile(f, file))) {
       copyFileToProject(file);
+      importedDarksBiasesFiles.push(file);
     } else {
       logger.debug(`Skipping ${file.fileName} from the bank, not needed.`);
     }
@@ -105,8 +125,7 @@ const dispatch = async ({
   // TODO. Extract below to a new isolated stats function.
 
   // Check that there's flat, darks and biases for each sets.
-  const files = [...asiAirFiles, ...bankFiles];
-  const lightFiles = files.filter(file => file.type === "Light");
+  const files = [...importedLightsFlatsFiles, ...importedDarksBiasesFiles];
   const flatFiles = files.filter(file => file.type === "Flat");
   const darkFiles = files.filter(file => file.type === "Dark");
   const biasFiles = files.filter(file => file.type === "Bias");
@@ -145,9 +164,9 @@ const dispatch = async ({
       filter: layerSet.filter,
 
       lightSet: layerSet.lightSet,
-      flatSet: layerSet.flats[0].setName,
-      darkSet: layerSet.darks[0].setName,
-      biasSet: biases[0].setName,
+      flatSet: layerSet.flats[0]?.setName ?? "",
+      darkSet: layerSet.darks[0]?.setName ?? "",
+      biasSet: biases[0]?.setName ?? "",
 
       lightsCount: layerSet.lights.length,
       flatsCount: layerSet.flats.length,

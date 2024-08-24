@@ -1,5 +1,141 @@
+import path from "path";
+import fs from "fs";
+import dispatch from "../../dispatch-dump";
+import { POTO_JSON } from "../../const";
+
 describe("E2E", () => {
-  test("should work", () => {
-    expect(true).toBe(true);
+  const tmpDir = "tmp";
+
+  beforeEach(() => {
+    jest.useFakeTimers().setSystemTime(new Date("2024-10-15"));
+
+    if (fs.existsSync(tmpDir)) {
+      fs.rmdirSync(tmpDir, { recursive: true });
+    }
+  });
+
+  afterEach(() => {
+    if (fs.existsSync(tmpDir)) {
+      fs.rmdirSync(tmpDir, { recursive: true });
+    }
+  });
+
+  test("should dispatch", async () => {
+    const dataset = [
+      // Lights set A (60.0s_Bin1_S_gain100).
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010850_-10.1C_0001.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010851_-10.1C_0002.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010852_-10.1C_0003.fit",
+
+      // Lights set B (60.0s_Bin1_H_gain0).
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240624-010850_-10.1C_0001.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240624-010851_-10.1C_0002.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240624-010852_-10.1C_0003.fit",
+
+      // Flats matching set A.
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fit",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094305_-10.0C_0002.fit",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0003.fit",
+
+      // Flats matching set B.
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit", // Gain 100, but can still matching with lights gain 0!
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0002.fit",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0003.fit",
+
+      // Flats not matching any sets.
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin2_S_gain100_20240511-094304_-10.5C_0001.fit", // Another bin.
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0002.fit", // Another Filter.
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fot", // Not a fit.
+
+      // Darks matching set A.
+      "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
+      "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
+      "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
+
+      // Darks matching set B.
+      "bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
+
+      // Darks not matching any sets.
+      "bank/Darks/Dark_300.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit", // Another bulb.
+      "bank/Darks/Dark_60.0s_Bin2_L_gain100_20240308-155722_-10.0C_0001.fit", // Another bin.
+      "bank/Darks/Dark_60.0s_Bin1_L_gain50_20240308-155722_-10.0C_0001.fit", // Another gain.
+
+      // Biases matching set A.
+      // Biases matching set B. Matching with Flat of gain 100, despite lights being gain 0.
+      "bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0001.fit",
+      "bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0002.fit",
+      "bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
+
+      // Biases not matching any sets.
+      "bank/Bias/Bias_1.0ms_Bin1_gain0_20230910-101133_-9.8C_0001.fit", // Won't match set B, because flat gain is 100.
+      "bank/Bias/Bias_1.0ms_Bin2_gain100_20230910-101133_-9.8C_0002.fit", // Another bin.
+    ];
+
+    dataset.forEach(file => {
+      const filePath = path.join(tmpDir, file);
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.writeFileSync(filePath, "mocked content");
+    });
+
+    const projectDirectory = path.join(tmpDir, "project");
+
+    fs.mkdirSync(projectDirectory, { recursive: true });
+
+    await dispatch({
+      projectDirectory,
+      asiAirDirectory: path.join(tmpDir, "asiair-dump"),
+      shootingMode: "autorun",
+      bankDirectory: path.join(tmpDir, "bank"),
+    });
+
+    const files = fs.readdirSync(projectDirectory, {
+      recursive: true,
+      withFileTypes: false,
+      encoding: "utf8",
+    });
+
+    expect(files).toMatchInlineSnapshot(`
+[
+  "H",
+  "O",
+  "S",
+  "any",
+  "poto.json",
+  "H/Flat_1.0ms_Bin1_H_gain100",
+  "H/Light_60.0s_Bin1_H_gain0",
+  "O/Flat_1.0ms_Bin1_O_gain100",
+  "S/Flat_1.0ms_Bin1_S_gain100",
+  "S/Light_60.0s_Bin1_S_gain100",
+  "any/Bias_1.0ms_Bin1_gain100",
+  "any/Dark_60.0s_Bin1_gain0",
+  "any/Dark_60.0s_Bin1_gain100",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0002.fit",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0003.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010850_-10.1C_0001.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010851_-10.1C_0002.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010852_-10.1C_0003.fit",
+  "O/Flat_1.0ms_Bin1_O_gain100/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0003.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010850_-10.1C_0001.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010851_-10.1C_0002.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010852_-10.1C_0003.fit",
+  "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0001.fit",
+  "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0002.fit",
+  "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
+  "any/Dark_60.0s_Bin1_gain0/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
+  "any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
+  "any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
+  "any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
+]
+`);
+
+    const potoJson = fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
+      encoding: "utf8",
+    });
+
+    expect(potoJson).toMatchSnapshot();
   });
 });

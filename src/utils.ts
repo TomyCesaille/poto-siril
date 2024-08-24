@@ -8,13 +8,13 @@ import { logger } from "./logger";
  * Retrieve FITS files from a source directory.
  */
 export const getFitsFromDirectory = ({
-  sourceDirectory,
+  directory: directory,
   projectDirectory,
 }: {
-  sourceDirectory: string;
+  directory: string;
   projectDirectory: string;
 }) => {
-  const files: fs.Dirent[] = fs.readdirSync(sourceDirectory, {
+  const files: fs.Dirent[] = fs.readdirSync(directory, {
     recursive: true,
     withFileTypes: true,
     encoding: "utf8",
@@ -115,33 +115,26 @@ export const copyFileToProject = (file: FileImageSpec) => {
 
 /**
  * Used to match flats with biases, lights with darks.
+ * Allow these couples:
+ * - [A] with [B]
+ * - Light with Dark.
+ * - Light with Flat.
+ * - Flat with Bias.
  */
-export const matchSetFile = (
-  lightOrFlat: FileImageSpec,
-  DarkOrBias: FileImageSpec,
-): boolean => {
-  if (DarkOrBias.type === "Dark" && lightOrFlat.type === "Light") {
+export const matchSetFile = (A: FileImageSpec, B: FileImageSpec): boolean => {
+  if (A.type === "Light" && B.type === "Dark") {
     return (
       // TODO. Filter based on the temperature.
-      lightOrFlat.bulb === DarkOrBias.bulb &&
-      lightOrFlat.bin === DarkOrBias.bin &&
-      lightOrFlat.gain === DarkOrBias.gain
+      A.bulb === B.bulb && A.bin === B.bin && A.gain === B.gain
     );
-  } else if (DarkOrBias.type === "Bias" && lightOrFlat.type === "Flat") {
-    return (
-      lightOrFlat.bin === DarkOrBias.bin && lightOrFlat.gain === DarkOrBias.gain
-    );
+  } else if (A.type === "Light" && B.type === "Flat") {
+    return A.bin === B.bin && A.gain === B.gain;
+  } else if (A.type === "Flat" && B.type === "Bias") {
+    if (B.bin === "Bin2" && A.bin === B.bin && A.gain === B.gain) {
+      logger.errorThrow("ooo", A, B);
+    }
+    return A.bin === B.bin && A.gain === B.gain;
   } else {
-    if (DarkOrBias.type !== "Dark" && DarkOrBias.type !== "Bias") {
-      logger.errorThrow(
-        `Expected Dark or Bias file for 'DarkOrBias' input, got ${DarkOrBias.type}.`,
-      );
-    }
-    if (lightOrFlat.type !== "Light" && lightOrFlat.type !== "Flat") {
-      logger.errorThrow(
-        `Expected Light or Flat file for 'lightOrFlat' input, got ${lightOrFlat.type}.`,
-      );
-    }
     return false;
   }
 };
@@ -161,19 +154,19 @@ const getSetName = (file: FileImageSpec): string => {
 export const getImageSpecFromSetName = (setName: string): ImageSpec => {
   return setName.split("_").length === 5
     ? ({
-        setName,
-        type: setName.split("_")[0],
-        bulb: setName.split("_")[1],
-        bin: setName.split("_")[2],
-        filter: setName.split("_")[3],
-        gain: Number(setName.split("_")[4].replace("gain", "")),
-      } as ImageSpec)
+      setName,
+      type: setName.split("_")[0],
+      bulb: setName.split("_")[1],
+      bin: setName.split("_")[2],
+      filter: setName.split("_")[3],
+      gain: Number(setName.split("_")[4].replace("gain", "")),
+    } as ImageSpec)
     : ({
-        setName,
-        type: setName.split("_")[0],
-        bulb: setName.split("_")[1],
-        bin: setName.split("_")[2],
-        filter: null,
-        gain: Number(setName.split("_")[3].replace("gain", "")),
-      } as ImageSpec);
+      setName,
+      type: setName.split("_")[0],
+      bulb: setName.split("_")[1],
+      bin: setName.split("_")[2],
+      filter: null,
+      gain: Number(setName.split("_")[3].replace("gain", "")),
+    } as ImageSpec);
 };
