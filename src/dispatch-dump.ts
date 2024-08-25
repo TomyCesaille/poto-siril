@@ -156,17 +156,17 @@ const dispatch = async ({
 
     const biases = biasFiles.filter(
       file =>
-        file.bin === layerSet.flats[0].bin &&
-        file.gain === layerSet.flats[0].gain,
+        file.bin === (layerSet.flats[0]?.bin ?? undefined) &&
+        file.gain === (layerSet.flats[0]?.gain ?? undefined),
     );
 
     return {
       filter: layerSet.filter,
 
       lightSet: layerSet.lightSet,
-      flatSet: layerSet.flats[0]?.setName ?? "",
-      darkSet: layerSet.darks[0]?.setName ?? "",
-      biasSet: biases[0]?.setName ?? "",
+      flatSet: layerSet.flats[0]?.setName ?? undefined,
+      darkSet: layerSet.darks[0]?.setName ?? undefined,
+      biasSet: biases[0]?.setName ?? undefined,
 
       lightsCount: layerSet.lights.length,
       flatsCount: layerSet.flats.length,

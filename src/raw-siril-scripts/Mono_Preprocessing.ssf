@@ -11,10 +11,10 @@
 #
 # Needs 4 sets of RAW images in the working
 # directory, within 4 directories:
-#   {{biases}}/
-#   {{flats}}/
-#   {{darks}}/
-#   {{lights}}/
+#   biases: {{biases}}/
+#   flats: {{flats}}/
+#   darks: {{darks}}/
+#   lights: {{lights}}/
 # Saves masters to ./masters/
 #
 ############################################

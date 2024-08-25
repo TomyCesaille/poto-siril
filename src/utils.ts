@@ -118,7 +118,7 @@ export const copyFileToProject = (file: FileImageSpec) => {
  * Allow these couples:
  * - [A] with [B]
  * - Light with Dark.
- * - Light with Flat.
+ * - Light with Flat (allowing for different gain).
  * - Flat with Bias.
  */
 export const matchSetFile = (A: FileImageSpec, B: FileImageSpec): boolean => {
@@ -128,7 +128,7 @@ export const matchSetFile = (A: FileImageSpec, B: FileImageSpec): boolean => {
       A.bulb === B.bulb && A.bin === B.bin && A.gain === B.gain
     );
   } else if (A.type === "Light" && B.type === "Flat") {
-    return A.bin === B.bin && A.gain === B.gain;
+    return A.bin === B.bin && A.filter === B.filter;
   } else if (A.type === "Flat" && B.type === "Bias") {
     if (B.bin === "Bin2" && A.bin === B.bin && A.gain === B.gain) {
       logger.errorThrow("ooo", A, B);
@@ -154,19 +154,19 @@ const getSetName = (file: FileImageSpec): string => {
 export const getImageSpecFromSetName = (setName: string): ImageSpec => {
   return setName.split("_").length === 5
     ? ({
-      setName,
-      type: setName.split("_")[0],
-      bulb: setName.split("_")[1],
-      bin: setName.split("_")[2],
-      filter: setName.split("_")[3],
-      gain: Number(setName.split("_")[4].replace("gain", "")),
-    } as ImageSpec)
+        setName,
+        type: setName.split("_")[0],
+        bulb: setName.split("_")[1],
+        bin: setName.split("_")[2],
+        filter: setName.split("_")[3],
+        gain: Number(setName.split("_")[4].replace("gain", "")),
+      } as ImageSpec)
     : ({
-      setName,
-      type: setName.split("_")[0],
-      bulb: setName.split("_")[1],
-      bin: setName.split("_")[2],
-      filter: null,
-      gain: Number(setName.split("_")[3].replace("gain", "")),
-    } as ImageSpec);
+        setName,
+        type: setName.split("_")[0],
+        bulb: setName.split("_")[1],
+        bin: setName.split("_")[2],
+        filter: null,
+        gain: Number(setName.split("_")[3].replace("gain", "")),
+      } as ImageSpec);
 };

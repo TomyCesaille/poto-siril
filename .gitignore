@@ -64,8 +64,8 @@ tsconfig.tsbuildinfo
 # JSDoc
 docs/js/
 
-
 # temp testing files
 src/tests/data/asiair*
 src/tests/data/project*
 src/tests/data/bank*
+tmp/

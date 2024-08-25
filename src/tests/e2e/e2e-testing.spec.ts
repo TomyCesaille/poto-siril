@@ -2,6 +2,8 @@ import path from "path";
 import fs from "fs";
 import dispatch from "../../dispatch-dump";
 import { POTO_JSON } from "../../const";
+import { cleanThumbnails } from "../../asiair-dump-cleaning";
+import { generateMonoProcessingScripts } from "../../generate-scripts";
 
 describe("E2E", () => {
   const tmpDir = "tmp";
@@ -14,13 +16,7 @@ describe("E2E", () => {
     }
   });
 
-  afterEach(() => {
-    if (fs.existsSync(tmpDir)) {
-      fs.rmdirSync(tmpDir, { recursive: true });
-    }
-  });
-
-  test("should dispatch", async () => {
+  test("should be neat", async () => {
     const dataset = [
       // Lights set A (60.0s_Bin1_S_gain100).
       "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010850_-10.1C_0001.fit",
@@ -69,6 +65,11 @@ describe("E2E", () => {
       // Biases not matching any sets.
       "bank/Bias/Bias_1.0ms_Bin1_gain0_20230910-101133_-9.8C_0001.fit", // Won't match set B, because flat gain is 100.
       "bank/Bias/Bias_1.0ms_Bin2_gain100_20230910-101133_-9.8C_0002.fit", // Another bin.
+
+      // thumbnails.
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0002_thn.jpg",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0003_thn.jpg",
     ];
 
     dataset.forEach(file => {
@@ -77,18 +78,34 @@ describe("E2E", () => {
       fs.writeFileSync(filePath, "mocked content");
     });
 
+    const asiAirDirectory = path.join(tmpDir, "asiair-dump");
     const projectDirectory = path.join(tmpDir, "project");
 
-    fs.mkdirSync(projectDirectory, { recursive: true });
+    let files = fs.readdirSync(asiAirDirectory, {
+      recursive: true,
+      withFileTypes: false,
+      encoding: "utf8",
+    });
+    expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(3);
 
+    cleanThumbnails(asiAirDirectory);
+
+    files = fs.readdirSync(asiAirDirectory, {
+      recursive: true,
+      withFileTypes: false,
+      encoding: "utf8",
+    });
+    expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(0);
+
+    fs.mkdirSync(projectDirectory, { recursive: true });
     await dispatch({
       projectDirectory,
-      asiAirDirectory: path.join(tmpDir, "asiair-dump"),
+      asiAirDirectory,
       shootingMode: "autorun",
       bankDirectory: path.join(tmpDir, "bank"),
     });
 
-    const files = fs.readdirSync(projectDirectory, {
+    files = fs.readdirSync(projectDirectory, {
       recursive: true,
       withFileTypes: false,
       encoding: "utf8",
@@ -97,13 +114,11 @@ describe("E2E", () => {
     expect(files).toMatchInlineSnapshot(`
 [
   "H",
-  "O",
   "S",
   "any",
   "poto.json",
   "H/Flat_1.0ms_Bin1_H_gain100",
   "H/Light_60.0s_Bin1_H_gain0",
-  "O/Flat_1.0ms_Bin1_O_gain100",
   "S/Flat_1.0ms_Bin1_S_gain100",
   "S/Light_60.0s_Bin1_S_gain100",
   "any/Bias_1.0ms_Bin1_gain100",
@@ -115,7 +130,6 @@ describe("E2E", () => {
   "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010850_-10.1C_0001.fit",
   "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010851_-10.1C_0002.fit",
   "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010852_-10.1C_0003.fit",
-  "O/Flat_1.0ms_Bin1_O_gain100/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0002.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094305_-10.0C_0002.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0003.fit",
@@ -137,5 +151,7 @@ describe("E2E", () => {
     });
 
     expect(potoJson).toMatchSnapshot();
+
+    await generateMonoProcessingScripts(projectDirectory);
   });
 });
