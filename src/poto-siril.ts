@@ -10,7 +10,7 @@ const program = new Command();
 
 program
   .name("poto-siril")
-  .description("CLI to some ASI AIR import and SIRIL processing")
+  .description("CLI to some ASIAIR import and SIRIL processing")
   .version("0.1.0");
 
 // const parseMode = (value: string, previous: string) => {
@@ -22,10 +22,10 @@ program
 
 program
   .command("dispatch")
-  .description("Dispatch ASI AIR files and bank data to a project directory")
+  .description("Dispatch ASIAIR files and bank data to a project directory")
   //   .argument("[path]", "project directory", ".")
   .option("-p, --project <path>", "project directory")
-  .option("-a, --asiair <path>", "ASI AIR directory")
+  .option("-a, --asiair <path>", "ASIAIR directory")
   .option("-m, --mode <mode>", "`autorun` or `plan` mode", "autorun")
   .option("-b, --bank <path>", "Biases & Darks bank directory")
   .action(options => {
@@ -40,7 +40,7 @@ program
 program
   .command("clean")
   .description(
-    "prepare the ASI AIR dump directory for import by dropping thumbnails and empty directories",
+    "prepare the ASIAIR dump directory for import by dropping thumbnails and empty directories",
   )
   .argument("[directory]", "directory to clean", ".")
   .allowExcessArguments(false)

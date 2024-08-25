@@ -101,7 +101,7 @@ const dispatch = async ({
         importedLightsFlatsFiles.push(file);
       } else {
         logger.info(
-          `Skipping ${file.fileName} from the ASI AIR, No light matching.`,
+          `Skipping ${file.fileName} from the ASIAIR, No light matching.`,
         );
       }
     });
