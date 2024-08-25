@@ -35,11 +35,11 @@ export const generateMonoProcessingScripts = async (
   });
 
   potoProject.layerSets.forEach(set => {
-    generateScriptForFilter(projectDirectory, set, mono_processing);
+    generateScriptForLightSet(projectDirectory, set, mono_processing);
   });
 };
 
-const generateScriptForFilter = (
+const generateScriptForLightSet = (
   projectDirectory: string,
   set: LayerSet,
   raw_script: string,
@@ -110,7 +110,7 @@ const generateScriptForFilter = (
 
   const processingScriptPath = path.join(
     processDirectory,
-    `poto_${filter}_Mono_Preprocessing.ssf`,
+    `poto_${set.lightSet}_Mono_Preprocessing.ssf`,
   );
   fs.writeFileSync(processingScriptPath, script);
   logger.info(`Generated ${processingScriptPath}`, {
