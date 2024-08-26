@@ -1,37 +1,5 @@
 // Dispatch ASIAIR dump data from ASIAIR tree structure to the SIRIL process structure.
 
-// The ASIAIR directory structure is as follows:
-// The dump directory (being the root directory of the ASIAIR storage).
-// ├── Autorun
-// │   ├── Flat
-// |      ├── Flat_1.0ms_Bin1_B_gain100_20240511-094304_-10.5C_0001.fit
-// │   ├── Light
-// |      ├── {target}
-// |         ├── Light_91 Piscium_10.0s_Bin1_L_gain360_20240320-203324_-10.0C_0001
-
-// This structure will be broke down into the following directory structure:
-// project root directory
-// ├── S                                                    <- Directory for each filter.
-// │   ├── Light_91 Piscium_10.0s_Bin1_S_gain100            <- Sub directory for each BIN-GAIN-BULB combination.
-// |      ├── Light_91 Piscium_10.0s_Bin1_S_gain100_20240320-203324_-10.0C_0001.fit
-// │      ├── ...
-// │   ├── Light_91 Piscium_10.0s_Bin1_S_gain360
-// |      ├── Light_91 Piscium_10.0s_Bin1_S_gain360_20240320-203324_-10.0C_0001.fit
-// |      ├── Light_91 Piscium_10.0s_Bin1_S_gain360_20240320-203324_-10.0C_0002.fit
-// │      ├── ...
-// ├── H
-// ├── O
-// ├── ...
-
-// We are cherry picking the darks and offsets needed from the bank directory, and adding them to the project root directory.
-// root
-// ├── Bias_1.0ms_Bin1_gain100_-9.9C_*
-// │   ├── Bias_1.0ms_Bin1_L_gain100_20240308-154935_-10.0C_0001.fit
-// │   ├── ...
-// ├── Darks_300.0s_Bin1_gain100_-10C_*
-// │   ├── Dark_300.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit
-// │   ├── ...
-
 // TODO allow filtering a range of data, for lights and flats. This will ease the process of selecting the frames
 // regroup per night session (so split at noon and consider after midnight part of the previon night). this is also easing out the process.
 // pre select those that are burned (daylight started to appear), probably by checking the date of the frame and location.
@@ -220,7 +188,7 @@ const dispatch = async ({
 
   fs.writeFileSync(potoJsonPath, JSON.stringify(potoProject, null, 2));
 
-  logger.success(`Done ✅. ${POTO_JSON} generated 💃🌕.`);
+  logger.success(`Dispatch done ✅. ${POTO_JSON} generated 💃.`);
 };
 
 export default dispatch;

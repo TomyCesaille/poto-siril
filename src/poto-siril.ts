@@ -4,7 +4,8 @@ import {
   cleanThumbnails,
   removeEmptyDirectories,
 } from "./asiair-dump-cleaning";
-import { generateMonoProcessingScripts } from "./generate-scripts";
+import { generateScripts } from "./generate-scripts";
+import { runScripts } from "./run-scripts";
 
 const program = new Command();
 
@@ -19,6 +20,18 @@ program
 //   }
 //   return value;
 // };
+
+program
+  .command("clean")
+  .description(
+    "prepare the ASIAIR dump directory for import by dropping thumbnails and empty directories",
+  )
+  .option("-a, --asiair <path>", "ASIAIR directory")
+  .allowExcessArguments(false)
+  .action(option => {
+    cleanThumbnails(option.asiair);
+    removeEmptyDirectories(option.asiair);
+  });
 
 program
   .command("dispatch")
@@ -38,24 +51,19 @@ program
   });
 
 program
-  .command("clean")
-  .description(
-    "prepare the ASIAIR dump directory for import by dropping thumbnails and empty directories",
-  )
-  .argument("[directory]", "directory to clean", ".")
-  .allowExcessArguments(false)
-  .action(directory => {
-    cleanThumbnails(directory);
-    removeEmptyDirectories(directory);
-  });
-
-program
   .command("preprocess")
   .description("Preprocess the project directory")
-  .argument("[directory]", "directory to preprocess", ".")
+  .option("-p, --project <path>", "project directory")
+  .option(
+    "-s, --script <path>",
+    "ssl script path",
+    "./raw-siril-scripts/Mono_Preprocessing.ssf",
+  )
   .allowExcessArguments(false)
-  .action(directory => {
-    generateMonoProcessingScripts(directory);
+  .action(options => {
+    generateScripts(options.project, options.script).then(() => {
+      runScripts(options.project);
+    });
   });
 
 program.parse();

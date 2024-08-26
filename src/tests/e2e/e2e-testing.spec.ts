@@ -3,7 +3,7 @@ import fs from "fs";
 import dispatch from "../../dispatch-dump";
 import { POTO_JSON } from "../../const";
 import { cleanThumbnails } from "../../asiair-dump-cleaning";
-import { generateMonoProcessingScripts } from "../../generate-scripts";
+import { generateScripts } from "../../generate-scripts";
 
 describe("E2E", () => {
   const tmpDir = "tmp";
@@ -162,7 +162,10 @@ describe("E2E", () => {
 
     expect(potoJson).toMatchSnapshot();
 
-    await generateMonoProcessingScripts(projectDirectory);
+    await generateScripts(
+      projectDirectory,
+      "src/raw-siril-scripts/Mono_Preprocessing.ssf",
+    );
 
     files = fs.readdirSync(projectDirectory, {
       recursive: true,
