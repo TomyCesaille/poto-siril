@@ -1,11 +1,11 @@
 import { Command } from "commander";
-import dispatch from "./dispatch-dump";
+import dispatch from "./commands/dispatch-dump";
 import {
   cleanThumbnails,
   removeEmptyDirectories,
-} from "./asiair-dump-cleaning";
-import { generateScripts } from "./generate-scripts";
-import { runScripts } from "./run-scripts";
+} from "./commands/asiair-dump-cleaning";
+import { generateScripts } from "./commands/generate-scripts";
+import { runScripts } from "./commands/run-scripts";
 
 const program = new Command();
 

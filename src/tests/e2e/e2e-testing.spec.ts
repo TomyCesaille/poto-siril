@@ -1,9 +1,9 @@
 import path from "path";
 import fs from "fs";
-import dispatch from "../../dispatch-dump";
-import { POTO_JSON } from "../../const";
-import { cleanThumbnails } from "../../asiair-dump-cleaning";
-import { generateScripts } from "../../generate-scripts";
+import dispatch from "../../commands/dispatch-dump";
+import { POTO_JSON } from "../../utils/const";
+import { cleanThumbnails } from "../../commands/asiair-dump-cleaning";
+import { generateScripts } from "../../commands/generate-scripts";
 
 describe("E2E", () => {
   const tmpDir = "tmp";

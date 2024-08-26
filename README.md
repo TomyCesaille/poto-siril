@@ -53,6 +53,13 @@ Install [node](https://node.org) latest version and run:
 npm i
 ```
 
+Make sure to have `siril` registered in your PATH.
+
+```bash
+siril -v
+# Should print `siril 1.2.3`.
+```
+
 ### CLI commands
 
 ```bash

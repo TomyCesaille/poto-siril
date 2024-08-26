@@ -1,8 +1,8 @@
 import path from "path";
 import fs from "fs";
-import { logger } from "./logger";
-import { LayerSet, PotoProject } from "./types";
-import { POTO_JSON, POTO_VERSION } from "./const";
+import { logger } from "../utils/logger";
+import { LayerSet, PotoProject } from "../utils/types";
+import { POTO_JSON, POTO_VERSION } from "../utils/const";
 
 export const generateScripts = async (
   projectDirectory: string,

@@ -6,7 +6,7 @@
 import fs from "fs";
 import path from "path";
 
-import { logger } from "./logger";
+import { logger } from "../utils/logger";
 
 export const cleanThumbnails = (dir: string, isRecursive: boolean = false) => {
   // Default parameter set to current directory

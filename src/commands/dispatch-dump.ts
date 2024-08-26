@@ -7,15 +7,15 @@
 import fs from "fs";
 import Enquirer from "enquirer";
 
-import { logger } from "./logger";
+import { logger } from "../utils/logger";
 import {
   copyFileToProject,
   getFitsFromDirectory,
   matchSetFile,
   getImageSpecFromSetName,
-} from "./utils";
-import { FileImageSpec, LayerSet, PotoProject } from "./types";
-import { POTO_JSON } from "./const";
+} from "../utils/utils";
+import { FileImageSpec, LayerSet, PotoProject } from "../utils/types";
+import { POTO_JSON } from "../utils/const";
 
 export type DispatchOptions = {
   projectDirectory: string;

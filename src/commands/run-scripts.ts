@@ -1,5 +1,5 @@
 import fs from "fs";
-import { logger } from "./logger";
+import { logger } from "../utils/logger";
 
 export const runScripts = (projectDirectory: string) => {
   const scripts = fs
