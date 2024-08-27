@@ -85,6 +85,22 @@ export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.
 
 See [src/process/mono_processing_process/README.md](src/process/mono_processing_process/README.md) for a full example of a preprocessing process.
 
+### Create your own process
+
+You can easily create your own process by following the example of the [mono_processing_process](src/process/mono_processing_process) process.
+
+Compared to regular Siril, the script must be using absolute paths for the input files. The script template will be a `.ssf` file that can contains the following directory path variables, that are being replaced by the actual values during the runtime for each light set:
+
+```text
+# Variables:
+#   biases: {{biases}}
+#   flats: {{flats}}
+#   darks: {{darks}}
+#   lights: {{lights}}
+#   process: {{process}}
+#   masters: {{masters}}
+```
+
 ## Documentation
 
 ### Dispatch
