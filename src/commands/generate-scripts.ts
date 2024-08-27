@@ -8,7 +8,7 @@ export const generateScripts = async (
   projectDirectory: string,
   scriptPath: string,
 ) => {
-  const script = fs.readFileSync(scriptPath, {
+  const scriptTemplate = fs.readFileSync(scriptPath, {
     encoding: "utf8",
   });
 
@@ -24,7 +24,12 @@ export const generateScripts = async (
   }
 
   potoProject.layerSets.forEach(set => {
-    generateScriptForLightSet(projectDirectory, set, script);
+    generateScriptForLightSet(
+      projectDirectory,
+      set,
+      path.basename(scriptPath),
+      scriptTemplate,
+    );
   });
 
   logger.success("Scripts were generated ✅.");
@@ -33,7 +38,8 @@ export const generateScripts = async (
 const generateScriptForLightSet = (
   projectDirectory: string,
   set: LayerSet,
-  raw_script: string,
+  scriptName: string,
+  scriptTemplate: string,
 ) => {
   const filter = set.filter;
   const filterDirectory = path.join(projectDirectory, filter);
@@ -104,7 +110,7 @@ const generateScriptForLightSet = (
     biasesdir: biasesDir,
   });
 
-  const script = raw_script
+  const script = scriptTemplate
     .replaceAll("{{biases}}", biasesDir)
     .replaceAll("{{darks}}", darksDir)
     .replaceAll("{{flats}}", flatsDir)
@@ -114,7 +120,7 @@ const generateScriptForLightSet = (
 
   const processingScriptPath = path.join(
     processDirectory,
-    `poto_${set.lightSet}_Mono_Preprocessing.ssf`,
+    `poto_${set.lightSet}_${scriptName}`,
   );
   fs.writeFileSync(processingScriptPath, script);
   logger.info(`Generated ${processingScriptPath}`, {
