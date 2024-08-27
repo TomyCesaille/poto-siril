@@ -120,7 +120,7 @@ const generateScriptForLightSet = (
 
   const processingScriptPath = path.join(
     processDirectory,
-    `poto_${set.lightSet}_${scriptName}`,
+    `poto_${scriptName}`,
   );
   fs.writeFileSync(processingScriptPath, script);
   logger.info(`Generated ${processingScriptPath}`, {
