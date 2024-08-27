@@ -164,7 +164,7 @@ describe("E2E", () => {
 
     await generateScripts(
       projectDirectory,
-      "src/raw-siril-scripts/Mono_Preprocessing.ssf",
+      "src/process/mono_processing_process/1_preprocessing.ssf",
     );
 
     files = fs.readdirSync(projectDirectory, {
@@ -177,9 +177,9 @@ describe("E2E", () => {
     expect(scripts).toHaveLength(3);
     expect(scripts).toMatchInlineSnapshot(`
 [
-  "H/process/poto_Light_60.0s_Bin1_H_gain0_Mono_Preprocessing.ssf",
-  "S/process/poto_Light_120.0s_Bin1_S_gain0_Mono_Preprocessing.ssf",
-  "S/process/poto_Light_60.0s_Bin1_S_gain100_Mono_Preprocessing.ssf",
+  "H/Light_60.0s_Bin1_H_gain0_process/poto_Light_60.0s_Bin1_H_gain0_Mono_Preprocessing.ssf",
+  "S/Light_120.0s_Bin1_S_gain0_process/poto_Light_120.0s_Bin1_S_gain0_Mono_Preprocessing.ssf",
+  "S/Light_60.0s_Bin1_S_gain100_process/poto_Light_60.0s_Bin1_S_gain100_Mono_Preprocessing.ssf",
 ]
 `);
 

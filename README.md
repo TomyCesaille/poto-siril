@@ -6,7 +6,7 @@ Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astro
 
 Poto-siril is a CLI tool to automate the preprocessing of astrophotography images on top of Siril.
 
-Poto-siril's primary goal is to overcome the redundancy work when preprocessing multiple layers before doing (L)RGB composition (e.g. narrowband filters with monochrome camera or color camera with dual-band filters). It is designed to work with images captured by a ZWO ASIAIR device (or with any `fit` files that follows the same naming convention and directory structure).
+Poto-siril's primary goal is to overcome the repetitive work when preprocessing multiple layers before doing (L)RGB composition (e.g. narrowband filters with monochrome camera or color camera with dual-band filters). It is designed to work with images captured by a ZWO ASIAIR device (or with any `fit` files that follows the same naming convention and directory structure).
 
 ### In detail
 
@@ -51,6 +51,9 @@ Install [node](https://node.org) latest version and run:
 
 ```bash
 npm i
+
+# For Unix based systems
+chmod +x ./poto.sh
 ```
 
 Make sure to have `siril` registered in your PATH.
@@ -66,17 +69,21 @@ siril -v
 export POTO_ASIAIR_DUMP=/Users/jorislacance/_joris/outofsync/deepsky/dump_astro_2024_08_10_veil-nebula
 
 # Drop thumbnails from the ASIAIR dump folder.
-npx ts-node src/poto-siril.ts clean -a $POTO_ASIAIR_DUMP
+./poto.sh clean -a $POTO_ASIAIR_DUMP
 
 # Import lights to project, grouped per filter, and then light sets (bulb, gain & binning) with the related calibration files (flats, darks and biases).
 export POTO_BANK=/Users/jorislacance/_joris/outofsync/deepsky/_bank
 export POTO_PROJECT=/Users/jorislacance/_joris/outofsync/deepsky/2024_08_10_veil-nebula
-npx ts-node src/poto-siril.ts dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT -m autorun
+./poto.sh dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT -m autorun
 
 # Process each light set based on a Siril script template.
-export POTO_SCRIPT_TEMPLATE=src/raw-siril-scripts/mono_processing_process/1_preprocessing.ssf
-npx ts-node src/poto-siril.ts preprocess -p $POTO_PROJECT -s $POTO_SCRIPT_TEMPLATE
+export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.ssf
+./poto.sh preprocess -p $POTO_PROJECT -s $POTO_SCRIPT_TEMPLATE
 ```
+
+### Full preprocess example
+
+See [src/process/mono_processing_process/README.md](src/process/mono_processing_process/README.md) for a full example of a preprocessing process.
 
 ## Documentation
 

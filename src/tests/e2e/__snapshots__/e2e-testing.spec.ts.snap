@@ -547,24 +547,25 @@ exports[`E2E should be neat 2`] = `
 `;
 
 exports[`E2E should be neat 4`] = `
-"############################################
-#
-# Script for Siril 1.2
-# February 2023
-# (C) Cyril Richard
-# Mono_Preprocessing v1.3
-#
-########### PREPROCESSING SCRIPT ###########
-#
-# Script for mono camera preprocessing
-#
-# Needs 4 sets of RAW images in the working
-# directory, within 4 directories:
+"#############################################
+#             _                  _      _ _ #
+# _ __   ___ | |_ ___        ___(_)_ __(_) |#
+#| '_ \\ / _ \\| __/ _ \\ _____/ __| | '__| | |#
+#| |_) | (_) | || (_) |_____\\__ \\ | |  | | |#
+#| .__/ \\___/ \\__\\___/      |___/_|_|  |_|_|#
+#|_|                                        #
+#############################################
+# Adapted from the Cyril Richard Mono_Preprocessing v1.3 for poto-siril.
+
+############################################
+# 
+# Variables:
 #   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
 #   flats: tmp/project/H/Flat_1.0ms_Bin1_H_gain100/
 #   darks: tmp/project/any/Dark_60.0s_Bin1_gain0/
 #   lights: tmp/project/H/Light_60.0s_Bin1_H_gain0/
-# Saves masters to ./masters/
+#   process: tmp/project/H/Light_60.0s_Bin1_H_gain0_process/
+#   masters: tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/
 #
 ############################################
 
@@ -572,76 +573,66 @@ requires 1.2.0
 
 # Convert Bias Frames to .fit files
 cd tmp/project/any/Bias_1.0ms_Bin1_gain100
-convert bias -out=../process
-cd ../process
+convert bias -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Stack Bias Frames to bias_stacked.fit
-stack bias rej 3 3 -nonorm -out=../masters/bias_stacked
-cd ..
+stack bias rej 3 3 -nonorm -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/bias_stacked
 
 # Convert Flat Frames to .fit files
 cd tmp/project/H/Flat_1.0ms_Bin1_H_gain100
-convert flat -out=../process
-cd ../process
+convert flat -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Calibrate Flat Frames
-calibrate flat -bias=../masters/bias_stacked
+calibrate flat -bias=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/bias_stacked
 
 # Stack Flat Frames to pp_flat_stacked.fit
-stack pp_flat rej 3 3 -norm=mul -out=../masters/pp_flat_stacked
-cd ..
+stack pp_flat rej 3 3 -norm=mul -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/pp_flat_stacked
 
 # Convert Dark Frames to .fit files
 cd tmp/project/any/Dark_60.0s_Bin1_gain0
-convert dark -out=../process
-cd ../process
+convert dark -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Stack Dark Frames to dark_stacked.fit
-stack dark rej 3 3 -nonorm -out=../masters/dark_stacked
-cd ..
+stack dark rej 3 3 -nonorm -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/dark_stacked
 
 # Convert Light Frames to .fit files
 cd tmp/project/H/Light_60.0s_Bin1_H_gain0
-convert light -out=../process
-cd ../process
+convert light -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Calibrate Light Frames
-calibrate light -dark=../masters/dark_stacked -flat=../masters/pp_flat_stacked -cc=dark
+calibrate light -dark=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/dark_stacked -flat=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
-
-# Stack calibrated lights to result.fit
-stack r_pp_light rej 3 3 -norm=addscale -output_norm -out=result
-
-# and flipping if required
-load result
-mirrorx -bottomup
-save ../result_$FILTER:%s$_$LIVETIME:%d$s
 
 close
 "
 `;
 
 exports[`E2E should be neat 5`] = `
-"############################################
-#
-# Script for Siril 1.2
-# February 2023
-# (C) Cyril Richard
-# Mono_Preprocessing v1.3
-#
-########### PREPROCESSING SCRIPT ###########
-#
-# Script for mono camera preprocessing
-#
-# Needs 4 sets of RAW images in the working
-# directory, within 4 directories:
+"#############################################
+#             _                  _      _ _ #
+# _ __   ___ | |_ ___        ___(_)_ __(_) |#
+#| '_ \\ / _ \\| __/ _ \\ _____/ __| | '__| | |#
+#| |_) | (_) | || (_) |_____\\__ \\ | |  | | |#
+#| .__/ \\___/ \\__\\___/      |___/_|_|  |_|_|#
+#|_|                                        #
+#############################################
+# Adapted from the Cyril Richard Mono_Preprocessing v1.3 for poto-siril.
+
+############################################
+# 
+# Variables:
 #   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
 #   flats: tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
 #   darks: tmp/project/any/Dark_120.0s_Bin1_gain0/
 #   lights: tmp/project/S/Light_120.0s_Bin1_S_gain0/
-# Saves masters to ./masters/
+#   process: tmp/project/S/Light_120.0s_Bin1_S_gain0_process/
+#   masters: tmp/project/S/Light_120.0s_Bin1_S_gain0_masters/
 #
 ############################################
 
@@ -649,76 +640,66 @@ requires 1.2.0
 
 # Convert Bias Frames to .fit files
 cd tmp/project/any/Bias_1.0ms_Bin1_gain100
-convert bias -out=../process
-cd ../process
+convert bias -out=tmp/project/S/Light_120.0s_Bin1_S_gain0_process
+cd tmp/project/S/Light_120.0s_Bin1_S_gain0_process
 
 # Stack Bias Frames to bias_stacked.fit
-stack bias rej 3 3 -nonorm -out=../masters/bias_stacked
-cd ..
+stack bias rej 3 3 -nonorm -out=tmp/project/S/Light_120.0s_Bin1_S_gain0_masters/bias_stacked
 
 # Convert Flat Frames to .fit files
 cd tmp/project/S/Flat_1.0ms_Bin1_S_gain100
-convert flat -out=../process
-cd ../process
+convert flat -out=tmp/project/S/Light_120.0s_Bin1_S_gain0_process
+cd tmp/project/S/Light_120.0s_Bin1_S_gain0_process
 
 # Calibrate Flat Frames
-calibrate flat -bias=../masters/bias_stacked
+calibrate flat -bias=tmp/project/S/Light_120.0s_Bin1_S_gain0_masters/bias_stacked
 
 # Stack Flat Frames to pp_flat_stacked.fit
-stack pp_flat rej 3 3 -norm=mul -out=../masters/pp_flat_stacked
-cd ..
+stack pp_flat rej 3 3 -norm=mul -out=tmp/project/S/Light_120.0s_Bin1_S_gain0_masters/pp_flat_stacked
 
 # Convert Dark Frames to .fit files
 cd tmp/project/any/Dark_120.0s_Bin1_gain0
-convert dark -out=../process
-cd ../process
+convert dark -out=tmp/project/S/Light_120.0s_Bin1_S_gain0_process
+cd tmp/project/S/Light_120.0s_Bin1_S_gain0_process
 
 # Stack Dark Frames to dark_stacked.fit
-stack dark rej 3 3 -nonorm -out=../masters/dark_stacked
-cd ..
+stack dark rej 3 3 -nonorm -out=tmp/project/S/Light_120.0s_Bin1_S_gain0_masters/dark_stacked
 
 # Convert Light Frames to .fit files
 cd tmp/project/S/Light_120.0s_Bin1_S_gain0
-convert light -out=../process
-cd ../process
+convert light -out=tmp/project/S/Light_120.0s_Bin1_S_gain0_process
+cd tmp/project/S/Light_120.0s_Bin1_S_gain0_process
 
 # Calibrate Light Frames
-calibrate light -dark=../masters/dark_stacked -flat=../masters/pp_flat_stacked -cc=dark
+calibrate light -dark=tmp/project/S/Light_120.0s_Bin1_S_gain0_masters/dark_stacked -flat=tmp/project/S/Light_120.0s_Bin1_S_gain0_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
-
-# Stack calibrated lights to result.fit
-stack r_pp_light rej 3 3 -norm=addscale -output_norm -out=result
-
-# and flipping if required
-load result
-mirrorx -bottomup
-save ../result_$FILTER:%s$_$LIVETIME:%d$s
 
 close
 "
 `;
 
 exports[`E2E should be neat 6`] = `
-"############################################
-#
-# Script for Siril 1.2
-# February 2023
-# (C) Cyril Richard
-# Mono_Preprocessing v1.3
-#
-########### PREPROCESSING SCRIPT ###########
-#
-# Script for mono camera preprocessing
-#
-# Needs 4 sets of RAW images in the working
-# directory, within 4 directories:
+"#############################################
+#             _                  _      _ _ #
+# _ __   ___ | |_ ___        ___(_)_ __(_) |#
+#| '_ \\ / _ \\| __/ _ \\ _____/ __| | '__| | |#
+#| |_) | (_) | || (_) |_____\\__ \\ | |  | | |#
+#| .__/ \\___/ \\__\\___/      |___/_|_|  |_|_|#
+#|_|                                        #
+#############################################
+# Adapted from the Cyril Richard Mono_Preprocessing v1.3 for poto-siril.
+
+############################################
+# 
+# Variables:
 #   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
 #   flats: tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
 #   darks: tmp/project/any/Dark_60.0s_Bin1_gain100/
 #   lights: tmp/project/S/Light_60.0s_Bin1_S_gain100/
-# Saves masters to ./masters/
+#   process: tmp/project/S/Light_60.0s_Bin1_S_gain100_process/
+#   masters: tmp/project/S/Light_60.0s_Bin1_S_gain100_masters/
 #
 ############################################
 
@@ -726,52 +707,41 @@ requires 1.2.0
 
 # Convert Bias Frames to .fit files
 cd tmp/project/any/Bias_1.0ms_Bin1_gain100
-convert bias -out=../process
-cd ../process
+convert bias -out=tmp/project/S/Light_60.0s_Bin1_S_gain100_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100_process
 
 # Stack Bias Frames to bias_stacked.fit
-stack bias rej 3 3 -nonorm -out=../masters/bias_stacked
-cd ..
+stack bias rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100_masters/bias_stacked
 
 # Convert Flat Frames to .fit files
 cd tmp/project/S/Flat_1.0ms_Bin1_S_gain100
-convert flat -out=../process
-cd ../process
+convert flat -out=tmp/project/S/Light_60.0s_Bin1_S_gain100_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100_process
 
 # Calibrate Flat Frames
-calibrate flat -bias=../masters/bias_stacked
+calibrate flat -bias=tmp/project/S/Light_60.0s_Bin1_S_gain100_masters/bias_stacked
 
 # Stack Flat Frames to pp_flat_stacked.fit
-stack pp_flat rej 3 3 -norm=mul -out=../masters/pp_flat_stacked
-cd ..
+stack pp_flat rej 3 3 -norm=mul -out=tmp/project/S/Light_60.0s_Bin1_S_gain100_masters/pp_flat_stacked
 
 # Convert Dark Frames to .fit files
 cd tmp/project/any/Dark_60.0s_Bin1_gain100
-convert dark -out=../process
-cd ../process
+convert dark -out=tmp/project/S/Light_60.0s_Bin1_S_gain100_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100_process
 
 # Stack Dark Frames to dark_stacked.fit
-stack dark rej 3 3 -nonorm -out=../masters/dark_stacked
-cd ..
+stack dark rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100_masters/dark_stacked
 
 # Convert Light Frames to .fit files
 cd tmp/project/S/Light_60.0s_Bin1_S_gain100
-convert light -out=../process
-cd ../process
+convert light -out=tmp/project/S/Light_60.0s_Bin1_S_gain100_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100_process
 
 # Calibrate Light Frames
-calibrate light -dark=../masters/dark_stacked -flat=../masters/pp_flat_stacked -cc=dark
+calibrate light -dark=tmp/project/S/Light_60.0s_Bin1_S_gain100_masters/dark_stacked -flat=tmp/project/S/Light_60.0s_Bin1_S_gain100_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
-
-# Stack calibrated lights to result.fit
-stack r_pp_light rej 3 3 -norm=addscale -output_norm -out=result
-
-# and flipping if required
-load result
-mirrorx -bottomup
-save ../result_$FILTER:%s$_$LIVETIME:%d$s
 
 close
 "

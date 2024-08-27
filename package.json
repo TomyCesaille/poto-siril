@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "check-types": "tsc",
-    "test": "npx jest"
+    "test": "npx jest --coverage src"
   },
   "keywords": [],
   "author": "JorisLacance.fr",

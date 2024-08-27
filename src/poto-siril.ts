@@ -57,7 +57,7 @@ program
   .option(
     "-s, --script <path>",
     "ssl script path",
-    "./raw-siril-scripts/mono_processing_process/1_preprocessing.ssf",
+    "./process/mono_processing_process/1_preprocessing.ssf",
   )
   .allowExcessArguments(false)
   .action(options => {
