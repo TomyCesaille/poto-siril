@@ -1,0 +1,35 @@
+#############################################
+#             _                  _      _ _ #
+# _ __   ___ | |_ ___        ___(_)_ __(_) |#
+#| '_ \ / _ \| __/ _ \ _____/ __| | '__| | |#
+#| |_) | (_) | || (_) |_____\__ \ | |  | | |#
+#| .__/ \___/ \__\___/      |___/_|_|  |_|_|#
+#|_|                                        #
+#############################################
+# Adapted from the Cyril Richard Mono_Preprocessing v1.3 for poto-siril.
+
+############################################
+# 
+# Variables:
+#   biases: {{biases}}/
+#   flats: {{flats}}/
+#   darks: {{darks}}/
+#   lights: {{lights}}/
+#   process: {{process}}/
+#   masters: {{masters}}/
+#
+############################################
+
+requires 1.2.0
+
+cd {{process}}
+
+# Stack calibrated lights to result.fit
+stack r_pp_light rej 3 3 -norm=addscale -output_norm -out=result
+
+# and flipping if required
+load result
+mirrorx -bottomup
+save ../result_$FILTER:%s$_$LIVETIME:%d$s
+
+close

@@ -1,0 +1,63 @@
+#############################################
+#             _                  _      _ _ #
+# _ __   ___ | |_ ___        ___(_)_ __(_) |#
+#| '_ \ / _ \| __/ _ \ _____/ __| | '__| | |#
+#| |_) | (_) | || (_) |_____\__ \ | |  | | |#
+#| .__/ \___/ \__\___/      |___/_|_|  |_|_|#
+#|_|                                        #
+#############################################
+# Adapted from the Cyril Richard Mono_Preprocessing v1.3 for poto-siril.
+
+############################################
+# 
+# Variables:
+#   biases: {{biases}}/
+#   flats: {{flats}}/
+#   darks: {{darks}}/
+#   lights: {{lights}}/
+#   process: {{process}}/
+#   masters: {{masters}}/
+#
+############################################
+
+requires 1.2.0
+
+# Convert Bias Frames to .fit files
+cd {{biases}}
+convert bias -out={{process}}
+cd {{process}}
+
+# Stack Bias Frames to bias_stacked.fit
+stack bias rej 3 3 -nonorm -out={{masters}}/bias_stacked
+
+# Convert Flat Frames to .fit files
+cd {{flats}}
+convert flat -out={{process}}
+cd {{process}}
+
+# Calibrate Flat Frames
+calibrate flat -bias={{masters}}/bias_stacked
+
+# Stack Flat Frames to pp_flat_stacked.fit
+stack pp_flat rej 3 3 -norm=mul -out={{masters}}/pp_flat_stacked
+
+# Convert Dark Frames to .fit files
+cd {{darks}}
+convert dark -out={{process}}
+cd {{process}}
+
+# Stack Dark Frames to dark_stacked.fit
+stack dark rej 3 3 -nonorm -out={{masters}}/dark_stacked
+
+# Convert Light Frames to .fit files
+cd {{lights}}
+convert light -out={{process}}
+cd {{process}}
+
+# Calibrate Light Frames
+calibrate light -dark={{masters}}/dark_stacked -flat={{masters}}/pp_flat_stacked -cc=dark
+
+# Align Lights
+register pp_light
+
+close

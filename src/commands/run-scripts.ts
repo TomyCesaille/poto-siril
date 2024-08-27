@@ -13,10 +13,14 @@ export const runScripts = async (projectDirectory: string) => {
     .filter(f => f.endsWith(".ssf"))
     .map(f => path.join(projectDirectory, f));
 
+  logger.debug(`${scripts.length} scripts found to run.`);
+
   for (const script of scripts) {
     logger.info(`Running script ${script}`);
 
-    const child = execa("siril", ["-s", script]);
+    const child = execa("siril", ["-s", script], {
+      cwd: path.dirname(script),
+    });
 
     child.stdout?.pipe(process.stdout);
     child.stderr?.pipe(process.stdout);
@@ -26,7 +30,7 @@ export const runScripts = async (projectDirectory: string) => {
         if (code !== 0) {
           logger.errorThrow("❌ script execution failed", code);
         } else {
-          resolve;
+          resolve(null);
         }
       });
     });

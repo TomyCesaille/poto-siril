@@ -38,15 +38,26 @@ const generateScriptForLightSet = (
   const filter = set.filter;
   const filterDirectory = path.join(projectDirectory, filter);
   const anyDirectory = path.join(projectDirectory, "any");
-  const processDirectory = path.join(filterDirectory, "process");
+  const processDirectory = path.join(
+    filterDirectory,
+    `${set.lightSet}_process`,
+  );
   if (!fs.existsSync(processDirectory)) {
     fs.mkdirSync(processDirectory, { recursive: false });
+  }
+  const mastersDirectory = path.join(
+    filterDirectory,
+    `${set.lightSet}_masters`,
+  );
+  if (!fs.existsSync(mastersDirectory)) {
+    fs.mkdirSync(mastersDirectory, { recursive: false });
   }
 
   logger.debug("directories", {
     anyDirectory,
     filterDirectory,
     processDirectory,
+    mastersDirectory,
   });
 
   // TODO. Move checkers to dispatch-dump.
@@ -97,7 +108,9 @@ const generateScriptForLightSet = (
     .replaceAll("{{biases}}", biasesDir)
     .replaceAll("{{darks}}", darksDir)
     .replaceAll("{{flats}}", flatsDir)
-    .replaceAll("{{lights}}", lightsDir);
+    .replaceAll("{{lights}}", lightsDir)
+    .replaceAll("{{process}}", processDirectory)
+    .replaceAll("{{masters}}", mastersDirectory);
 
   const processingScriptPath = path.join(
     processDirectory,

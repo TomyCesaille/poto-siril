@@ -74,7 +74,7 @@ export POTO_PROJECT=/Users/jorislacance/_joris/outofsync/deepsky/2024_08_10_veil
 npx ts-node src/poto-siril.ts dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT -m autorun
 
 # Process each light set based on a Siril script template.
-export POTO_SCRIPT_TEMPLATE=src/raw-siril-scripts/Mono_Preprocessing.ssf
+export POTO_SCRIPT_TEMPLATE=src/raw-siril-scripts/mono_processing_process/1_preprocessing.ssf
 npx ts-node src/poto-siril.ts preprocess -p $POTO_PROJECT -s $POTO_SCRIPT_TEMPLATE
 ```
 
