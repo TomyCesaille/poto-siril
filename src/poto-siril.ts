@@ -62,7 +62,7 @@ program
   .allowExcessArguments(false)
   .action(options => {
     generateScripts(options.project, options.script).then(() => {
-      runScripts(options.project);
+      runScripts(options.project, options.script);
     });
   });
 

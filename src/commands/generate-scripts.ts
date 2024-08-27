@@ -2,7 +2,11 @@ import path from "path";
 import fs from "fs";
 import { logger } from "../utils/logger";
 import { LayerSet, PotoProject } from "../utils/types";
-import { POTO_JSON, POTO_VERSION } from "../utils/const";
+import {
+  GENERATED_SCRIPT_PREFIX,
+  POTO_JSON,
+  POTO_VERSION,
+} from "../utils/const";
 
 export const generateScripts = async (
   projectDirectory: string,
@@ -120,7 +124,7 @@ const generateScriptForLightSet = (
 
   const processingScriptPath = path.join(
     processDirectory,
-    `poto_${scriptName}`,
+    `${GENERATED_SCRIPT_PREFIX}${scriptName}`,
   );
   fs.writeFileSync(processingScriptPath, script);
   logger.info(`Generated ${processingScriptPath}`, {

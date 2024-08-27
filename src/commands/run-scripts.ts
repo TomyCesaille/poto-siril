@@ -2,15 +2,23 @@ import fs from "fs";
 import { logger } from "../utils/logger";
 import execa = require("execa");
 import path = require("path");
+import { GENERATED_SCRIPT_PREFIX } from "../utils/const";
 
-export const runScripts = async (projectDirectory: string) => {
+export const runScripts = async (
+  projectDirectory: string,
+  scriptPath: string,
+) => {
   const scripts = fs
     .readdirSync(projectDirectory, {
       recursive: true,
       withFileTypes: false,
       encoding: "utf8",
     })
-    .filter(f => f.endsWith(".ssf"))
+    .filter(
+      f =>
+        path.basename(f) ===
+        `${GENERATED_SCRIPT_PREFIX}${path.basename(scriptPath)}`,
+    )
     .map(f => path.join(projectDirectory, f));
 
   logger.debug(`${scripts.length} scripts found to run.`);
