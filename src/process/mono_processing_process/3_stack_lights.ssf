@@ -25,11 +25,15 @@ requires 1.2.0
 cd {{process}}
 
 # Stack calibrated lights to result.fit
-stack r_pp_light rej 3 3 -norm=addscale -output_norm -out=result
+stack r_pp_light rej 3 3 -norm=addscale -output_norm -filter-included -out=result_norm
+load result_norm
+#mirrorx -bottomup
+save ../result_norm_$FILTER:%s$_$LIVETIME:%d$s
 
-# and flipping if required
+# Stack calibrated lights to result - not_normed variant.fit
+stack r_pp_light rej 3 3 -norm=addscale -filter-included -out=result
 load result
-mirrorx -bottomup
+#mirrorx -bottomup
 save ../result_$FILTER:%s$_$LIVETIME:%d$s
 
 close
