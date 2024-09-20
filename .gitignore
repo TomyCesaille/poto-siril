@@ -69,3 +69,5 @@ src/tests/data/asiair*
 src/tests/data/project*
 src/tests/data/bank*
 tmp/
+
+*.psd

@@ -1,11 +1,11 @@
 # Mono processing process
 
-This is an example of narrowband preprocessing process. The process is broken down into the following steps:
+This is an example of narrowband pre-processing process. The process is broken down into the following steps:
 
 - A pre-manual verification of the darks, flats and biases data.
-- A first script to do all the pre processing, ending with lights aligned+processed.
+- A first script to batch the pre-processing, ending with lights aligned+pre-processed.
 - From there, do the selection by hand in Siril and reject bad lights data.
-- A second script to stack the lights.
+- A second batch of script to stack the lights.
 
 ## Sheet cheat
 
