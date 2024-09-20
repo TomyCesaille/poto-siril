@@ -7,12 +7,12 @@ This is an example of narrowband preprocessing process. The process is broken do
 - From there, do the selection by hand in Siril and reject bad lights data.
 - A second script to stack the lights.
 
-## sheet cheat
+## Sheet cheat
 
 ```bash
-export POTO_ASIAIR_DUMP=/Users/jorislacance/_joris/outofsync/deepsky/dump_astro_2024_08_10_veil-nebula
-export POTO_BANK=/Users/jorislacance/_joris/outofsync/deepsky/_bank
-export POTO_PROJECT=/Users/jorislacance/_joris/outofsync/deepsky/2024_08_10_veil-nebula
+export POTO_ASIAIR_DUMP=/Users/jorislacance/deepsky/dump_astro_2024_08_10_veil-nebula
+export POTO_BANK=/Users/jorislacance/deepsky/_bank
+export POTO_PROJECT=/Users/jorislacance/deepsky/poto_2024_08_10_veil-nebula
 
 export POTO_SCRIPT_1=src/process/mono_processing_process/1_preprocessing.ssf
 export POTO_SCRIPT_3=src/process/mono_processing_process/3_stack_lights.ssf
