@@ -8,11 +8,16 @@ Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astro
 
 Poto-Siril's primary goal is to **overcome the repetitive** work when pre-processing multiple layers before compositing a (L)RGB image (e.g. narrowband filters with monochrome camera or color camera with dual-band filters). It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follows the same [naming convention and directory structure](#poto-siril-project-architecture).
 
+### Workflow 🚀
+
+![workflow](./img/poto-siril_workflow.png)
+
 ### In detail
 
 - **Easy import lights and flats from ASIAIR and search for associated darks and biases in bank folder**
   Import one or several night sessions (lights and flats from `autorun` or `plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
   A summary resumes the light sequence(s) and the calibration files associated.
+  ![dispatch](./img/poto-siril_dispatch.png)
 - **Multi-layers project structure**
   The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there's multiple combinations). Each light set will map to a light sequence in Siril that you preprocess separately.
   👉 You can easily work on a LRGB or LRGBHaOIIISII project.
