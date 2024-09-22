@@ -45,7 +45,9 @@ const dispatch = async ({
 
   // Enumerate the list of files of the ASIAIR directory.
   const asiAirFiles = getFitsFromDirectory({
-    directory: `${asiAirDirectory}/${shootingMode}`,
+    directory: `${asiAirDirectory}/${
+      shootingMode === "autorun" ? "Autorun" : "Plan"
+    }`,
     projectDirectory,
   });
   logger.info(`Found ${asiAirFiles.length} files to dispatch.`);
