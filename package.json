@@ -1,16 +1,23 @@
 {
   "name": "poto-siril",
-  "version": "1.0.0",
-  "description": "Tools to process deep sky data.",
-  "main": "clean-thumbnails.js",
+  "version": "0.1.0",
+  "description": "Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astrophotography.",
+  "main": "poto.sh",
   "scripts": {
     "lint": "eslint .",
     "check-types": "tsc",
     "test": "npx jest --coverage src"
   },
-  "keywords": [],
+  "keywords": [
+    "siril",
+    "asiair",
+    "zwo",
+    "astrophotography",
+    "astro",
+    "deepsky"
+  ],
   "author": "JorisLacance.fr",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "@eslint/js": "^9.7.0",
     "@types/inquirer": "^9.0.7",
