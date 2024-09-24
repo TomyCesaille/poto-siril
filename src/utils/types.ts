@@ -56,11 +56,10 @@ export type FileImageSpec = ImageSpec & {
    */
   projectDirectory: string;
 
-  // TODO. Change to datetime.
   /**
    * Recorded time.
    */
-  datetime: string;
+  datetime: Date;
   /**
    * Sequence number: 1, 60, etc...
    */

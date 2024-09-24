@@ -27,6 +27,7 @@ module.exports = {
     quotes: ["error", "double"],
     semi: ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
+    "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
   },
   ignorePatterns: ["dist/"],
 };

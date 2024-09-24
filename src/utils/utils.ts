@@ -69,7 +69,7 @@ export const getFileImageSpecFromFilename = (
       gain: parseInt(match.groups.gain, 10),
 
       sequence: parseInt(match.groups.sequence, 10),
-      datetime: match.groups.datetime,
+      datetime: parseDate(match.groups.datetime),
       temperature: match.groups.temperature,
 
       fileName: fileFS.name,
@@ -99,6 +99,26 @@ export const getFileImageSpecFromFilename = (
     throw new Error(
       `Filename ${fileFS.name} does not match the expected pattern for Specs extraction.`,
     );
+  }
+};
+
+const parseDate = (datetimeString: string): Date => {
+  const datetimeRegex = /(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})/;
+  const matchResult = datetimeString.match(datetimeRegex);
+
+  if (matchResult) {
+    const [_, year, month, day, hour, minute, second] = matchResult;
+    const parsedDate = new Date(
+      parseInt(year, 10),
+      parseInt(month, 10) - 1, // Month is zero-based in JavaScript Date
+      parseInt(day, 10),
+      parseInt(hour, 10),
+      parseInt(minute, 10),
+      parseInt(second, 10),
+    );
+    return parsedDate;
+  } else {
+    throw new Error(`Invalid datetime string: ${datetimeString}`);
   }
 };
 
