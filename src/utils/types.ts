@@ -60,10 +60,15 @@ export type FileImageSpec = ImageSpec & {
    * Recorded time.
    */
   datetime: Date;
+
   /**
-   * Sequence number: 1, 60, etc...
+   * Sequence identifier.
    */
-  sequence: number;
+  sequenceId: number;
+  /**
+   * Position in the sequence.
+   */
+  sequenceNumber: number;
 
   // TODO. Change to float Celcius.
   /**

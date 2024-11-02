@@ -24,17 +24,20 @@ describe("E2E", () => {
       "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010852_-10.1C_0003.fit",
 
       // Lights set B (60.0s_Bin1_H_gain0).
-      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240624-010850_-10.1C_0001.fit",
-      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240624-010851_-10.1C_0002.fit",
-      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240624-010852_-10.1C_0003.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
 
       // Lights set C (120.0s_Bin1_S_gain0).
-      "asiair-dump/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240624-010850_-10.1C_0001.fit",
+      "asiair-dump/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010850_-10.1C_0001.fit",
 
       // Flats matching set A. Flats matching set C.
-      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fit",
-      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094305_-10.0C_0002.fit",
-      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0003.fit",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit", // Sequence that aims to match the lights set A (collimation of that day).
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit", // Another sequence that aims to match the lights set C (collimation of that day).
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+      "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
 
       // Flats matching set B.
       "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit", // Gain 100, but can still matching with lights gain 0!
@@ -135,13 +138,16 @@ describe("E2E", () => {
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0002.fit",
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0003.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010850_-10.1C_0001.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010851_-10.1C_0002.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240624-010852_-10.1C_0003.fit",
-  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fit",
-  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094305_-10.0C_0002.fit",
-  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0003.fit",
-  "S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240624-010850_-10.1C_0001.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+  "S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010850_-10.1C_0001.fit",
   "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010850_-10.1C_0001.fit",
   "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010851_-10.1C_0002.fit",
   "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010852_-10.1C_0003.fit",

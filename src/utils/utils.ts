@@ -10,9 +10,11 @@ import { logger } from "./logger";
 export const getFitsFromDirectory = ({
   directory: directory,
   projectDirectory,
+  sequenceId = 0,
 }: {
   directory: string;
   projectDirectory: string;
+  sequenceId?: number;
 }) => {
   const files: fs.Dirent[] = fs.readdirSync(directory, {
     recursive: true,
@@ -34,6 +36,12 @@ export const getFitsFromDirectory = ({
 
     // If the file is a FITS file, process it.
     const specs = getFileImageSpecFromFilename(file, projectDirectory);
+
+    if (specs.sequenceNumber === 1) {
+      sequenceId++;
+    }
+    specs.sequenceId = sequenceId;
+
     fileImageSpecs.push(specs);
   });
 
@@ -68,7 +76,8 @@ export const getFileImageSpecFromFilename = (
       filter: match.groups.filter ?? null,
       gain: parseInt(match.groups.gain, 10),
 
-      sequence: parseInt(match.groups.sequence, 10),
+      sequenceId: -1, // Will be computed later.
+      sequenceNumber: parseInt(match.groups.sequence, 10),
       datetime: parseDate(match.groups.datetime),
       temperature: match.groups.temperature,
 
