@@ -32,7 +32,7 @@ export const removeEmptyDirectories = (
 ) => {
   const files = fs.readdirSync(dir);
   if (files.length === 0) {
-    fs.rmdirSync(dir);
+    fs.rmSync(dir);
     logger.info("Deleted:", dir);
     return;
   }

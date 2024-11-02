@@ -12,7 +12,7 @@ describe("E2E", () => {
     jest.useFakeTimers().setSystemTime(new Date(Date.UTC(2024, 9, 15)));
 
     if (fs.existsSync(tmpDir)) {
-      fs.rmdirSync(tmpDir, { recursive: true });
+      fs.rmSync(tmpDir, { recursive: true });
     }
   });
 
