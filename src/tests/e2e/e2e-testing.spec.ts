@@ -9,7 +9,7 @@ describe("E2E", () => {
   const tmpDir = "tmp";
 
   beforeEach(() => {
-    jest.useFakeTimers().setSystemTime(new Date("2024-10-15"));
+    jest.useFakeTimers().setSystemTime(new Date(Date.UTC(2024, 9, 15)));
 
     if (fs.existsSync(tmpDir)) {
       fs.rmdirSync(tmpDir, { recursive: true });

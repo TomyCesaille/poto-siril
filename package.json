@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "check-types": "tsc",
-    "test": "npx jest --coverage src"
+    "test": "TZ=UTC npx jest --coverage src"
   },
   "keywords": [
     "siril",
