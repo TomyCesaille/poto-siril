@@ -23,7 +23,7 @@ export const generateScripts = async (
   );
   if (POTO_VERSION !== potoProject.potoVersion) {
     logger.errorThrow(
-      `Project version mismatch. Expected ${POTO_VERSION}, got ${potoProject.potoVersion}. Please regenerate the project.`,
+      `Project version mismatch. Expected ${POTO_VERSION}, got ${potoProject.potoVersion}. Please regenerate the project using the dispatch command.`,
     );
   }
 

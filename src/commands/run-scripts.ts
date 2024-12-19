@@ -44,5 +44,5 @@ export const runScripts = async (
     });
   }
 
-  logger.success("Scripts were run ✅.");
+  logger.success("Scripts have been run ✅.");
 };
