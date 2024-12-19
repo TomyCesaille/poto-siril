@@ -80,7 +80,6 @@ const dispatch = async ({
   const bankFiles = getFitsFromDirectory({
     directory: bankDirectory,
     projectDirectory,
-    sequenceId: asiAirFiles[asiAirFiles.length - 1].sequenceId,
   });
   logger.info(`Found ${bankFiles.length} files in the bank.`);
   bankFiles.forEach(file => {

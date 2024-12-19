@@ -62,9 +62,9 @@ export type FileImageSpec = ImageSpec & {
   datetime: Date;
 
   /**
-   * Sequence identifier.
+   * Sequence identifier. Is date of the first file of the sequence in format `20240626-010850`.
    */
-  sequenceId: number;
+  sequenceId: string;
   /**
    * Position in the sequence.
    */

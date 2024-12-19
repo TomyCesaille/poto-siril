@@ -10,11 +10,9 @@ import { logger } from "./logger";
 export const getFitsFromDirectory = ({
   directory: directory,
   projectDirectory,
-  sequenceId = 0,
 }: {
   directory: string;
   projectDirectory: string;
-  sequenceId?: number;
 }) => {
   const files: fs.Dirent[] = fs.readdirSync(directory, {
     recursive: true,
@@ -24,6 +22,7 @@ export const getFitsFromDirectory = ({
 
   const fileImageSpecs: FileImageSpec[] = [];
 
+  let previousFile: FileImageSpec | null = null;
   // Process the list of files.
   files.forEach(file => {
     if (
@@ -35,12 +34,13 @@ export const getFitsFromDirectory = ({
     }
 
     // If the file is a FITS file, process it.
-    const specs = getFileImageSpecFromFilename(file, projectDirectory);
+    const specs = getFileImageSpecFromFilename(
+      file,
+      projectDirectory,
+      previousFile,
+    );
 
-    if (specs.sequenceNumber === 1) {
-      sequenceId++;
-    }
-    specs.sequenceId = sequenceId;
+    previousFile = specs;
 
     fileImageSpecs.push(specs);
   });
@@ -55,6 +55,7 @@ export const getFitsFromDirectory = ({
 export const getFileImageSpecFromFilename = (
   fileFS: fs.Dirent,
   projectDirectory: string,
+  previousFile: FileImageSpec | null,
 ): FileImageSpec => {
   // Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit
   // Flat_810.0ms_Bin1_H_gain0_20240707-102251_-9.9C_0019.fit
@@ -66,7 +67,20 @@ export const getFileImageSpecFromFilename = (
     /^(?<type>[A-Za-z]+)(?:_[^_]+)?_(?<bulb>[^_]+)_(?<bin>Bin\d)_((?<filter>[A-Za-z0-9])_)?gain(?<gain>\d+)_(?<datetime>\d{8}-\d{6})_(?<temperature>-?\d+\.\d+C)_(?<sequence>\d{4})\.(?<extension>fit)$/;
   const match = fileFS.name.match(regex);
 
+  // TODO. Check if well sorted!
+
   if (match && match.groups) {
+    const sequenceNumber = parseInt(match.groups.sequence, 10);
+    const datetime = parseDate(match.groups.datetime);
+
+    let sequenceId = "";
+    if (!previousFile) {
+      sequenceId = unParseDate(datetime);
+    } else {
+      sequenceId =
+        sequenceNumber === 1 ? unParseDate(datetime) : previousFile.sequenceId;
+    }
+
     const file = {
       setName: "",
 
@@ -76,9 +90,9 @@ export const getFileImageSpecFromFilename = (
       filter: match.groups.filter ?? null,
       gain: parseInt(match.groups.gain, 10),
 
-      sequenceId: -1, // Will be computed later.
-      sequenceNumber: parseInt(match.groups.sequence, 10),
-      datetime: parseDate(match.groups.datetime),
+      sequenceId,
+      sequenceNumber,
+      datetime,
       temperature: match.groups.temperature,
 
       fileName: fileFS.name,
@@ -111,6 +125,9 @@ export const getFileImageSpecFromFilename = (
   }
 };
 
+/**
+ * @param datetimeString `20240707-002348` format.
+ */
 const parseDate = (datetimeString: string): Date => {
   const datetimeRegex = /(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})/;
   const matchResult = datetimeString.match(datetimeRegex);
@@ -129,6 +146,19 @@ const parseDate = (datetimeString: string): Date => {
   } else {
     throw new Error(`Invalid datetime string: ${datetimeString}`);
   }
+};
+
+/**
+ * Inverse function of `parseDate`.
+ * @returns `20240707-002348` format.
+ */
+const unParseDate = (datetime: Date): string => {
+  const pad = (num: number) => num.toString().padStart(2, "0");
+  return `${datetime.getFullYear()}${pad(datetime.getMonth() + 1)}${pad(
+    datetime.getDate(),
+  )}-${pad(datetime.getHours())}${pad(datetime.getMinutes())}${pad(
+    datetime.getSeconds(),
+  )}`;
 };
 
 export const copyFileToProject = (file: FileImageSpec) => {
