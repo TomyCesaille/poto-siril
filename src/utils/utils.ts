@@ -49,7 +49,7 @@ export const getFitsFromDirectory = ({
 };
 
 /**
- * Retrieve Light / Flat, Bulb duratin, binning, filter, gain, date, time, temperature, frame number.
+ * Retrieve Light / Flat, Bulb duratin, binning, filter, gain, date, time, temperature, frame number in the sequence, sequence unique identifier.
  * @param filename
  */
 export const getFileImageSpecFromFilename = (
@@ -70,7 +70,7 @@ export const getFileImageSpecFromFilename = (
   // TODO. Check if well sorted!
 
   if (match && match.groups) {
-    const sequenceNumber = parseInt(match.groups.sequence, 10);
+    const sequencePosition = parseInt(match.groups.sequence, 10);
     const datetime = parseDate(match.groups.datetime);
 
     let sequenceId = "";
@@ -78,7 +78,9 @@ export const getFileImageSpecFromFilename = (
       sequenceId = unParseDate(datetime);
     } else {
       sequenceId =
-        sequenceNumber === 1 ? unParseDate(datetime) : previousFile.sequenceId;
+        sequencePosition === 1
+          ? unParseDate(datetime)
+          : previousFile.sequenceId;
     }
 
     const file = {
@@ -91,7 +93,7 @@ export const getFileImageSpecFromFilename = (
       gain: parseInt(match.groups.gain, 10),
 
       sequenceId,
-      sequenceNumber,
+      sequencePosition,
       datetime,
       temperature: match.groups.temperature,
 

@@ -68,7 +68,7 @@ export type FileImageSpec = ImageSpec & {
   /**
    * Position in the sequence.
    */
-  sequenceNumber: number;
+  sequencePosition: number;
 
   // TODO. Change to float Celcius.
   /**
