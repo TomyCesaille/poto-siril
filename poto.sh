@@ -1,2 +1,2 @@
 #!/bin/bash
-npx ts-node src/poto-siril.ts "$@"
+npx tsx src/poto-siril.ts "$@"
