@@ -17,10 +17,11 @@ const logNR = (
 ) => {
   if (logCounts[message]) {
     logCounts[message]++;
+    const count = chalk.bold.yellow(`(x${logCounts[message]})`);
     process.stdout.write(
       ansiEscapes.cursorUp(1) +
         ansiEscapes.eraseLine +
-        type(`${message} x${logCounts[message]}`) +
+        type(`${message} ${count}`) +
         "\n",
     );
   } else {
