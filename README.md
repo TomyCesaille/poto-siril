@@ -168,10 +168,15 @@ npm run lint
 # Run type checking
 npm run check-types
 
-# Generate dataset for development (dataset 1)
+# Generate dataset 1 for development
 npm run dev-spawn-ds1
+
+# Run the CLI dispatch-dump with the development dataset 1
+npm run dev-dispatch-ds1
 ```
 
 ## Side Notes
 
 [Sirilic and Sirilot](https://siril.org/2018/11/sirilic-and-sirilot-two-very-useful-utilities-for-siril/) are two alternatives to automate Siril. This project is another take that emphasize lazyness of manipulating files in the file system, the love of Siril Scripting and A/B testing.
+
+"assembling the composition, making the pre-groups of lights with the right flats (days, filderss...)

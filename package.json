@@ -7,7 +7,8 @@
     "lint": "eslint .",
     "check-types": "tsc",
     "test": "TZ=UTC npx jest --coverage src",
-    "dev-spawn-ds1": "TZ=UTC npx ts-node -e 'require(\"./src/tests/fixtures\").spawnMockedDatasetToFs_dataset_1()'"
+    "dev-spawn-ds1": "npx ts-node -e 'require(\"./src/tests/fixtures\").spawnMockedDatasetToFs_dataset_1()'",
+    "dev-dispatch-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh dispatch -a ./tmp/asiair-dump -b ./tmp/bank -p ./tmp/project -m autorun"
   },
   "keywords": [
     "siril",
