@@ -30,51 +30,43 @@ const dispatch = async ({
   shootingMode,
   bankDirectory,
 }: DispatchOptions) => {
-  if (!fs.existsSync(projectDirectory)) {
-    const enquirer = new Enquirer();
-    const response = (await enquirer.prompt({
-      type: "confirm",
-      name: "createProjectDirectory",
-      message: `Directory ${projectDirectory} does not exist. Do you want to create it?`,
-    })) as { createProjectDirectory: boolean };
+  await ensureProjectDirectoryExists(projectDirectory);
 
-    if (response.createProjectDirectory) {
-      fs.mkdirSync(projectDirectory, { recursive: true });
-    }
-  }
-
-  // Enumerate the list of files of the ASIAIR directory.
-  const asiAirFiles = getFitsFromDirectory({
-    directory: `${asiAirDirectory}/${
-      shootingMode === "autorun" ? "Autorun" : "Plan"
-    }`,
+  const inputFiles = getAllFitsInInputDirectories(
+    asiAirDirectory,
+    shootingMode,
     projectDirectory,
-  });
-  logger.info(`Found ${asiAirFiles.length} files to dispatch.`);
+  );
+
+  const lights = inputFiles.filter(file => file.type === "Light");
+
+  const matchingFlats = inputFiles
+    .filter(x => x.type === "Flat")
+    .filter(flat => {
+      if (lights.find(light => matchSetFile(light, flat))) {
+        return flat;
+      } else {
+        logger.infoNR(
+          `Skippingg ${flat.setName} seq ${flat.sequenceId} from the ASIAIR, No light matching.`,
+        );
+      }
+    });
+
+  logger.info(`Found ${matchingFlats.length} matching flats.`, matchingFlats);
+
+  return;
 
   const importedLightsFlatsFiles: FileImageSpec[] = [];
   const importedDarksBiasesFiles: FileImageSpec[] = [];
 
   // Dispatch the ASIAIR Lights files to the project directory.
-  const lightFiles = asiAirFiles.filter(file => file.type === "Light");
+  const lightFiles = inputFiles.filter(file => file.type === "Light");
   lightFiles.forEach(file => {
     copyFileToProject(file);
     importedLightsFlatsFiles.push(file);
   });
 
   // Dispatch associated flats.
-  asiAirFiles
-    .filter(x => x.type === "Flat")
-    .forEach(file => {
-      if (lightFiles.find(f => matchSetFile(f, file))) {
-        copyFileToProject(file);
-        importedLightsFlatsFiles.push(file);
-      } else {
-        logger.info(
-          `Skipping ${file.fileName} from the ASIAIR, No light matching.`,
-        );
-      }
-    });
 
   // Search for the darks and biases we need to copy.
   const bankFiles = getFitsFromDirectory({
@@ -194,3 +186,39 @@ const dispatch = async ({
 };
 
 export default dispatch;
+
+/**
+ * Ensure that the project directory exists.
+ * If it does not exist, ask the user if they want to create it.
+ */
+const ensureProjectDirectoryExists = async (projectDirectory: string) => {
+  if (!fs.existsSync(projectDirectory)) {
+    const enquirer = new Enquirer();
+    const response = (await enquirer.prompt({
+      type: "confirm",
+      name: "createProjectDirectory",
+      message: `Directory ${projectDirectory} does not exist. Do you want to create it?`,
+    })) as { createProjectDirectory: boolean };
+
+    if (response.createProjectDirectory) {
+      fs.mkdirSync(projectDirectory, { recursive: true });
+    }
+  }
+};
+
+// TODO. Decouple from ASIAIR. Just warn if files both found in Autorun and Plan, and ask the user to probably review the input files first.
+// TODO. Allow multiple directories in input.
+const getAllFitsInInputDirectories = (
+  asiAirDirectory: string,
+  shootingMode: string,
+  projectDirectory: string,
+) => {
+  const files = getFitsFromDirectory({
+    directory: `${asiAirDirectory}/${
+      shootingMode === "autorun" ? "Autorun" : "Plan"
+    }`,
+    projectDirectory,
+  });
+  logger.info(`Found ${files.length} files to dispatch.`);
+  return files;
+};

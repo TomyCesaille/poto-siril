@@ -25,11 +25,14 @@ export const getFitsFromDirectory = ({
   let previousFile: FileImageSpec | null = null;
   // Process the list of files.
   files.forEach(file => {
+    if (file.isDirectory()) {
+      return;
+    }
     if (
       !(file.isFile() || file.isSymbolicLink()) ||
       !file.name.endsWith(".fit")
     ) {
-      logger.debug("Skipping ", file);
+      logger.debugNR("Skipping ", file.name);
       return;
     }
 
