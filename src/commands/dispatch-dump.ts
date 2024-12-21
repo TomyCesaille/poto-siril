@@ -46,8 +46,8 @@ const dispatch = async ({
       if (lights.find(light => matchSetFile(light, flat))) {
         return flat;
       } else {
-        logger.infoNR(
-          `Skippingg ${flat.setName} seq ${flat.sequenceId} from the ASIAIR, No light matching.`,
+        logger.info(
+          `skipping ${flat.setName} (seq ${flat.sequenceId}). No light matching.`,
         );
       }
     });

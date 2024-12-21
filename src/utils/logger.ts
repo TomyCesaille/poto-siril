@@ -33,37 +33,22 @@ const logNR = (
 
 export const logger = {
   debug: (message: string, ...optionalParams: unknown[]) => {
-    console.log(debug(message), ...optionalParams);
-  },
-  info: (message: string, ...optionalParams: unknown[]) => {
-    console.log(info(message), ...optionalParams);
-  },
-  success: (message: string, ...optionalParams: unknown[]) => {
-    console.log(success(message), ...optionalParams);
-  },
-  warning: (message: string, ...optionalParams: unknown[]) => {
-    console.log(warning(message), ...optionalParams);
-  },
-  error: (message: string, ...optionalParams: unknown[]) => {
-    console.log(error(message), ...optionalParams);
-  },
-  errorThrow: (message: string, ...optionalParams: unknown[]) => {
-    console.log(error(message), ...optionalParams);
-    throw new Error(message);
-  },
-  debugNR: (message: string, ...optionalParams: unknown[]) => {
     logNR(debug, message, ...optionalParams);
   },
-  infoNR: (message: string, ...optionalParams: unknown[]) => {
+  info: (message: string, ...optionalParams: unknown[]) => {
     logNR(info, message, ...optionalParams);
   },
-  successNR: (message: string, ...optionalParams: unknown[]) => {
+  success: (message: string, ...optionalParams: unknown[]) => {
     logNR(success, message, ...optionalParams);
   },
-  warningNR: (message: string, ...optionalParams: unknown[]) => {
+  warning: (message: string, ...optionalParams: unknown[]) => {
     logNR(warning, message, ...optionalParams);
   },
-  errorNR: (message: string, ...optionalParams: unknown[]) => {
+  error: (message: string, ...optionalParams: unknown[]) => {
     logNR(error, message, ...optionalParams);
+  },
+  errorThrow: (message: string, ...optionalParams: unknown[]) => {
+    logNR(error, message, ...optionalParams);
+    throw new Error(message);
   },
 };

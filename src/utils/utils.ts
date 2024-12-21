@@ -28,11 +28,14 @@ export const getFitsFromDirectory = ({
     if (file.isDirectory()) {
       return;
     }
+    if (file.name.endsWith("_thn.jpg")) {
+      logger.info(`Skipping thumbnail file (xxx_thn.jpg)`);
+    }
     if (
       !(file.isFile() || file.isSymbolicLink()) ||
       !file.name.endsWith(".fit")
     ) {
-      logger.debugNR("Skipping ", file.name);
+      logger.info(`Skipping ${file.name}`);
       return;
     }
 
