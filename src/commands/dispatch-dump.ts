@@ -52,9 +52,10 @@ const dispatch = async ({
       }
     });
 
-  logger.info(`Found ${matchingFlats.length} matching flats.`, matchingFlats);
-
-  return;
+  logger.info(
+    `Found ${matchingFlats.length} matching flats.`,
+    matchingFlats.map(x => x.fileName),
+  );
 
   const importedLightsFlatsFiles: FileImageSpec[] = [];
   const importedDarksBiasesFiles: FileImageSpec[] = [];
@@ -67,6 +68,18 @@ const dispatch = async ({
   });
 
   // Dispatch associated flats.
+  inputFiles
+    .filter(x => x.type === "Flat")
+    .forEach(file => {
+      if (lightFiles.find(f => matchSetFile(f, file))) {
+        copyFileToProject(file);
+        importedLightsFlatsFiles.push(file);
+      } else {
+        logger.info(
+          `Skipping ${file.fileName} from the ASIAIR, No light matching.`,
+        );
+      }
+    });
 
   // Search for the darks and biases we need to copy.
   const bankFiles = getFitsFromDirectory({
