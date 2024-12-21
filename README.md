@@ -156,6 +156,22 @@ Some remarks about **Poto-Siril script templates**:
 - `.ssf` extension like regular Siril scripts.
 - Poto-Siril overwrite the `{{lights}}`, `{{flats}}`, `{{darks}}`, `{{biases}}`, `{{process}}`, `{{masters}}` variables to the current light set to pre-process.
 
+## Development
+
+```bash
+# Run the tests
+npm test
+
+# Run the linter
+npm run lint
+
+# Run type checking
+npm run check-types
+
+# Generate dataset for development (dataset 1)
+npm run dev-spawn-ds1
+```
+
 ## Side Notes
 
 [Sirilic and Sirilot](https://siril.org/2018/11/sirilic-and-sirilot-two-very-useful-utilities-for-siril/) are two alternatives to automate Siril. This project is another take that emphasize lazyness of manipulating files in the file system, the love of Siril Scripting and A/B testing.

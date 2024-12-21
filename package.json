@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "check-types": "tsc",
-    "test": "TZ=UTC npx jest --coverage src"
+    "test": "TZ=UTC npx jest --coverage src",
+    "dev-spawn-ds1": "TZ=UTC npx ts-node -e 'require(\"./src/tests/fixtures\").spawnMockedDatasetToFs_dataset_1()'"
   },
   "keywords": [
     "siril",

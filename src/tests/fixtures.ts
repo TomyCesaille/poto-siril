@@ -3,10 +3,14 @@ import fs from "fs";
 
 const tmpDir = "tmp";
 
+export const spawnMockedDatasetToFs_dataset_1 = () => {
+  return spawnMockedDatasetToFs(dataset_1);
+};
+
 /**
  * Wipe existing testing folder and spawn a new one with the given dataset.
  */
-export const spawnMockedDatasetToFs = (
+const spawnMockedDatasetToFs = (
   dataset: string[],
 ): {
   directory: string;
@@ -28,6 +32,8 @@ export const spawnMockedDatasetToFs = (
   const bankDirectory = path.join(tmpDir, "bank");
   const projectDirectory = path.join(tmpDir, "project");
 
+  console.log("Creating ./tmp directory");
+
   return {
     directory: tmpDir,
     asiAirDirectory,
@@ -42,7 +48,7 @@ export const spawnMockedDatasetToFs = (
  * Multi-bin, multi-gain, multi-filter.
  * Specific flats-lights date matching.
  */
-export const dataset_1 = [
+const dataset_1 = [
   // Lights set A (60.0s_Bin1_S_gain100).
   "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010850_-10.1C_0001.fit",
   "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010851_-10.1C_0002.fit",

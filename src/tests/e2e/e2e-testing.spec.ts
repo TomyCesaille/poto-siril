@@ -4,7 +4,7 @@ import dispatch from "../../commands/dispatch-dump";
 import { POTO_JSON } from "../../utils/const";
 import { cleanThumbnails } from "../../commands/asiair-dump-cleaning";
 import { generateScripts } from "../../commands/generate-scripts";
-import { spawnMockedDatasetToFs, dataset_1 } from "../fixtures";
+import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
 
 describe("E2E", () => {
   let asiAirDirectory: string = "";
@@ -15,7 +15,7 @@ describe("E2E", () => {
     jest.useFakeTimers().setSystemTime(new Date(Date.UTC(2024, 9, 15)));
 
     ({ asiAirDirectory, bankDirectory, projectDirectory } =
-      spawnMockedDatasetToFs(dataset_1));
+      spawnMockedDatasetToFs_dataset_1());
   });
 
   test("should be neat", async () => {
