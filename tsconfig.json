@@ -1,12 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2023",
-    "module": "CommonJS",
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "isolatedModules": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "outDir": "./dist",
-    "strict": true,
-    "types": ["node", "jest"]
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "outDir": "dist",
+    "lib": ["esnext"],
+    "types": ["node", "jest"],
+    "baseUrl": "./"
   },
-  "include": ["src/**/*"]
+  "exclude": ["node_modules"],
+  "include": ["src/**/*.ts", "bin/*.ts"]
 }
+
+// {
+//   "compilerOptions": {
+//     "target": "ES2023",
+//     "module": "ESNext",
+//     "esModuleInterop": true,
+//     "moduleResolution": "node",
+//     "outDir": "./dist",
+//     "strict": true,
+//     "types": ["node", "jest"]
+//   },
+//   "include": ["src/**/*"]
+// }

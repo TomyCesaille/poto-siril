@@ -1,7 +1,7 @@
 import fs from "fs";
 import { logger } from "../utils/logger";
-import execa = require("execa");
-import path = require("path");
+import { execa } from "execa";
+import path from "path";
 import { GENERATED_SCRIPT_PREFIX } from "../utils/const";
 
 export const runScripts = async (
