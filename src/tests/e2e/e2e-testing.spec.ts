@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals"; // Import Jest globals
 import path from "path";
 import fs from "fs";
 import dispatch from "../../commands/dispatch-dump";
