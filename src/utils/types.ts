@@ -14,6 +14,7 @@ export type ImageSpec = {
    * Bulb duration: 60.0s, 810.0ms, etc...
    */
   bulb: string;
+  bulbMs: number; // TODO. Compute this.
   /**
    * Binning: Bin1, Bin2, Bin 3 & Bin 4.
    */
@@ -82,12 +83,31 @@ export type FileImageSpec = ImageSpec & {
  * Each set has unique filter + exposure + gain + bin combination.
  */
 export type LayerSet = {
-  filter: string;
+  /**
+   * `Flat_520.0ms_Bin1_O_gain0` format.
+   * `Flat_520.0ms_Bin1_O_gain0__sequence-01` format for advanced light-flats matching.
+   */
+  layerSetId: string;
 
-  lightSet: string;
-  lightsCount: number;
+  /**
+   * Filter: L, R, G, B, H... As Specified in the ASIAIR zwo wheel.
+   * Optional.
+   */
+  filter: string | null;
+
+  /**
+   * Sequences of lights used.
+   */
+  lightSequences: {
+    sequenceId: string;
+    count: number;
+    integrationMinutes: number;
+  }[];
+  lightTotalCount: number;
+  lightTotalIntegrationMinutes: number;
 
   flatSet: string;
+  flatSequenceId: string;
   flatsCount: number;
 
   darkSet: string;
@@ -106,4 +126,14 @@ export type PotoProject = {
   generatedAt: Date;
   potoVersion: string;
   layerSets: LayerSet[];
+};
+
+export type LightsFlatsMatch = {
+  lightSetName: string;
+  lightSequenceId: string;
+  flatSequenceId: string;
+  /**
+   * True if the light was manually matched because several flats sequences were available.
+   */
+  isAdvancedMatching: boolean;
 };

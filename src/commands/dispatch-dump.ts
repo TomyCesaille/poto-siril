@@ -14,7 +14,12 @@ import {
   matchSetFile,
   getImageSpecFromSetName,
 } from "../utils/utils";
-import { FileImageSpec, LayerSet, PotoProject } from "../utils/types";
+import {
+  FileImageSpec,
+  LayerSet,
+  LightsFlatsMatch,
+  PotoProject,
+} from "../utils/types";
 import { POTO_JSON } from "../utils/const";
 
 export type DispatchOptions = {
@@ -38,48 +43,118 @@ const dispatch = async ({
     projectDirectory,
   );
 
-  const lights = inputFiles.filter(file => file.type === "Light");
+  const allLights = inputFiles.filter(file => file.type === "Light");
 
-  const matchingFlats = inputFiles
-    .filter(x => x.type === "Flat")
-    .filter(flat => {
-      if (lights.find(light => matchSetFile(light, flat))) {
-        return flat;
-      } else {
-        logger.info(
-          `skipping ${flat.setName} (seq ${flat.sequenceId}). No light matching.`,
-        );
-      }
-    });
-
-  logger.info(
-    `Found ${matchingFlats.length} matching flats.`,
-    matchingFlats.map(x => x.fileName),
+  const allFlatsMatchingLights = getFlatsMatchingLightsNaive(
+    inputFiles,
+    allLights,
   );
+
+  const lightsFlatsMatches = await matchLightsToFlats(
+    allFlatsMatchingLights,
+    allLights,
+  );
+
+  const layerSets: LayerSet[] = [];
+
+  for (const lightsFlatsMatch of lightsFlatsMatches) {
+    const lights = allLights.filter(
+      light =>
+        light.sequenceId === lightsFlatsMatch.lightSequenceId &&
+        light.setName === lightsFlatsMatch.lightSetName,
+    );
+    if (!lights) {
+      throw new Error(
+        `❓❓❓❗️ Light ${lightsFlatsMatch.lightSetName} ${lightsFlatsMatch.lightSequenceId} not found.`,
+      );
+    }
+
+    const flats = allFlatsMatchingLights.filter(
+      flat =>
+        flat.sequenceId === lightsFlatsMatch.flatSequenceId &&
+        flat.setName === lightsFlatsMatch.lightSetName,
+    );
+    if (!flats) {
+      throw new Error(
+        `❓❓❓❗️ Flat ${lightsFlatsMatch.lightSetName} ${lightsFlatsMatch.flatSequenceId} not found.`,
+      );
+    }
+
+    const layerSetId = lightsFlatsMatch.isAdvancedMatching
+      ? `${lights[0].setName}__sequence-${lights[0].sequenceId}`
+      : lights[0].setName;
+
+    const lightSequenceIds = new Set(
+      [...lights].map(light => light.sequenceId),
+    );
+    const lightSequences: LayerSet["lightSequences"] = [];
+    for (const lightSequenceId of lightSequenceIds) {
+      const lightsOfSequence = lights.filter(
+        light => light.sequenceId === lightSequenceId,
+      );
+
+      const count = lightsOfSequence.length;
+      const integrationMs = lightsOfSequence.reduce(
+        (total, light) => total + light.bulbMs,
+        0,
+      );
+      lightSequences.push({
+        sequenceId: lightSequenceId,
+        count,
+        integrationMinutes: integrationMs / 1000 / 60,
+      });
+    }
+
+    const lightTotalIntegrationMs = lights.reduce(
+      (total, light) => total + light.bulbMs,
+      0,
+    );
+
+    const layerSet = {
+      layerSetId,
+      filter: lights[0].filter,
+
+      lights,
+      lightSequences,
+      lightTotalCount: lights.length,
+      lightTotalIntegrationMinutes: lightTotalIntegrationMs / 1000 / 60,
+
+      flats,
+      flatSet: flats[0].setName,
+      flatSequenceId: flats[0].sequenceId,
+      flatsCount: flats.length,
+    } as LayerSet;
+
+    layerSets.push(layerSet);
+  }
+
+  // TODO. Add biases and darks to the layerSets.
+
+  return;
 
   const importedLightsFlatsFiles: FileImageSpec[] = [];
   const importedDarksBiasesFiles: FileImageSpec[] = [];
 
   // Dispatch the ASIAIR Lights files to the project directory.
-  const lightFiles = inputFiles.filter(file => file.type === "Light");
-  lightFiles.forEach(file => {
-    copyFileToProject(file);
-    importedLightsFlatsFiles.push(file);
-  });
+  // const lightFiles = inputFiles.filter(file => file.type === "Light");
+  // lightFiles.forEach(file => {
+  //   copyFileToProject(file);
+  //   importedLightsFlatsFiles.push(file);
+  // });
 
   // Dispatch associated flats.
-  inputFiles
-    .filter(x => x.type === "Flat")
-    .forEach(file => {
-      if (lightFiles.find(f => matchSetFile(f, file))) {
-        copyFileToProject(file);
-        importedLightsFlatsFiles.push(file);
-      } else {
-        logger.info(
-          `Skipping ${file.fileName} from the ASIAIR, No light matching.`,
-        );
-      }
-    });
+  // inputFiles
+  //   .filter(x => x.type === "Flat")
+  //   .forEach(file => {
+  //     if (lightFiles.find(f => matchSetFile(f, file))) {
+  //       copyFileToProject(file);
+  //       importedLightsFlatsFiles.push(file);
+  //     } else {
+  //       logger.info(
+  //         `Skipping ${file.fileName} from the ASIAIR, No light matching.`,
+  //       );
+  //     }
+  //   });
 
   // Search for the darks and biases we need to copy.
   const bankFiles = getFitsFromDirectory({
@@ -105,7 +180,7 @@ const dispatch = async ({
   const darkFiles = files.filter(file => file.type === "Dark");
   const biasFiles = files.filter(file => file.type === "Bias");
 
-  const layerSets = [
+  const layerSetsOld = [
     ...new Set(
       files.filter(file => file.type === "Light").map(file => file.setName),
     ),
@@ -234,4 +309,123 @@ const getAllFitsInInputDirectories = (
   });
   logger.info(`Found ${files.length} files to dispatch.`);
   return files;
+};
+
+/**
+ * Naive matching of flats with lights.
+ * Sufficient enough to skip the flats that do not have a matching light at all.
+ */
+const getFlatsMatchingLightsNaive = (
+  inputFiles: FileImageSpec[],
+  lights: FileImageSpec[],
+): FileImageSpec[] => {
+  const matchingFlats = inputFiles
+    .filter(x => x.type === "Flat")
+    .filter(flat => {
+      if (lights.find(light => matchSetFile(light, flat))) {
+        return flat;
+      } else {
+        logger.warning(
+          `Found ${flat.setName} (seq ${flat.sequenceId}) but light matching. Skipping 🤔.`,
+        );
+      }
+    });
+
+  const sequences = [...new Set(matchingFlats.map(file => file.sequenceId))];
+  logger.info(
+    `Found ${matchingFlats.length} (${sequences.length} sequences) matching flats.`,
+  );
+
+  return matchingFlats;
+};
+
+/**
+ * Process the light and flat matching.
+ * If multiple sequences are found for a flat, ask the user to select the flat sequence to use for each light sequence.
+ */
+const matchLightsToFlats = async (
+  matchingFlats: FileImageSpec[],
+  lights: FileImageSpec[],
+): Promise<LightsFlatsMatch[]> => {
+  const flatSets = [...new Set(matchingFlats.map(file => file.setName))];
+
+  const LightFlatMatches: LightsFlatsMatch[] = [];
+
+  for (const flatSet of flatSets) {
+    const flatSequenceIds = [
+      ...new Set(
+        matchingFlats
+          .filter(flat => flat.setName === flatSet)
+          .map(flat => flat.sequenceId),
+      ),
+    ];
+    if (flatSequenceIds.length === 0) {
+      throw new Error(`❓❓❓❗️ No sequences found for flat ${flatSet}.`);
+    }
+
+    if (flatSequenceIds.length === 1) {
+      LightFlatMatches.push({
+        lightSequenceId: lights[0].sequenceId,
+        lightSetName: lights[0].setName,
+        flatSequenceId: flatSequenceIds[0],
+        isAdvancedMatching: false,
+      });
+      continue;
+    }
+
+    logger.info(
+      `Multiple sequences found for flat set ${flatSet}: ${flatSequenceIds.join(
+        ", ",
+      )}`,
+    );
+    logger.info(
+      "👉 We need to accurately link each light sequence to their respective flat sequence.",
+    );
+
+    const lightsConcerned = [
+      ...new Set(
+        lights
+          .filter(light =>
+            matchSetFile(light, getImageSpecFromSetName(flatSet)),
+          )
+          .map(light => ({
+            setName: light.setName,
+            sequenceId: light.sequenceId,
+          })),
+      ),
+    ].sort((a, b) => {
+      // Sort by setName first.
+      if (a.setName !== b.setName) {
+        return a.setName.localeCompare(b.setName);
+      }
+      // Then by sequenceId.
+      return a.sequenceId.localeCompare(b.sequenceId);
+    });
+
+    for (const lightConcerned of lightsConcerned) {
+      // Ask the user to select the flat sequence to use.
+      const enquirer = new Enquirer();
+      const response = (await enquirer.prompt({
+        type: "select",
+        name: "selectedFlatSequence",
+        message: `Select the flat sequence to use for the lights sequence ${lightConcerned.setName} ${lightConcerned.sequenceId}.`,
+        choices: flatSequenceIds,
+      })) as { selectedFlatSequence: string };
+      LightFlatMatches.push({
+        lightSetName: lightConcerned.setName,
+        lightSequenceId: lightConcerned.sequenceId,
+        flatSequenceId: response.selectedFlatSequence,
+        isAdvancedMatching: true,
+      });
+    }
+  }
+
+  logger.info("👉 Light -> Flat matching summary:");
+  for (const pair of LightFlatMatches) {
+    logger.info(
+      `   Light set ${pair.lightSetName}, sequence ${pair.lightSequenceId} will use flat sequence ${pair.flatSequenceId}.`,
+    );
+  }
+
+  return LightFlatMatches;
 };

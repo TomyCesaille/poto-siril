@@ -188,7 +188,7 @@ export const copyFileToProject = (file: FileImageSpec) => {
  * - Light with Flat (allowing for different gain).
  * - Flat with Bias.
  */
-export const matchSetFile = (A: FileImageSpec, B: FileImageSpec): boolean => {
+export const matchSetFile = (A: ImageSpec, B: ImageSpec): boolean => {
   if (A.type === "Light" && B.type === "Dark") {
     return (
       // TODO. Filter based on the temperature.
