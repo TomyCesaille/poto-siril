@@ -138,5 +138,5 @@ export type LightsFlatsMatch = {
   /**
    * True if the light was manually matched because several flats sequences were available.
    */
-  isAdvancedMatching: boolean;
+  isManualMatch: boolean;
 };

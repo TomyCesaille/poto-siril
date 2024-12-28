@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import ansiEscapes from "ansi-escapes";
 
-const debug = chalk.gray;
+const debug = chalk.gray.italic;
 const info = chalk.blue;
 const success = chalk.bold.green;
 const warning = chalk.bold.yellow;
@@ -10,25 +10,33 @@ const error = chalk.bold.red;
 const logCounts: { [key: string]: number } = {};
 const lastMessages: { [key: string]: string } = {};
 
+const log = (
+  type: (message: string) => string,
+  message: string,
+  ...optionalParams: unknown[]
+) => {
+  console.log(type(message), ...optionalParams);
+};
+
 const logNR = (
   type: (message: string) => string,
   message: string,
   ...optionalParams: unknown[]
 ) => {
-  if (logCounts[message]) {
-    logCounts[message]++;
-    const count = chalk.bold.yellow(`(x${logCounts[message]})`);
-    process.stdout.write(
-      ansiEscapes.cursorUp(1) +
-        ansiEscapes.eraseLine +
-        type(`${message} ${count}`) +
-        "\n",
-    );
-  } else {
-    logCounts[message] = 1;
-    lastMessages[message] = type(message);
-    console.log(type(message), ...optionalParams);
-  }
+  // if (logCounts[message]) {
+  //   logCounts[message]++;
+  //   const count = chalk.bold.yellow(`(x${logCounts[message]})`);
+  //   process.stdout.write(
+  //     ansiEscapes.cursorUp(1) +
+  //       ansiEscapes.eraseLine +
+  //       type(`${message} ${count}`) +
+  //       "\n",
+  //   );
+  // } else {
+  logCounts[message] = 1;
+  lastMessages[message] = type(message);
+  console.log(type(message), ...optionalParams);
+  // }
 };
 
 export const formatMessage = (message: string) => {
@@ -69,5 +77,18 @@ export const logger = {
   errorThrow: (message: string, ...optionalParams: unknown[]) => {
     logNR(error, formatMessage(message), ...optionalParams);
     throw new Error(message);
+  },
+  dev: (message: string, ...optionalParams: unknown[]) => {
+    log(debug, `DEV: ${message}`, ...optionalParams);
+  },
+  step: (message: string, ...optionalParams: unknown[]) => {
+    log(
+      info,
+      `\n${"=".repeat(80)}\n📌 ${message}\n${"=".repeat(80)}\n`,
+      ...optionalParams,
+    );
+  },
+  space: () => {
+    console.log();
   },
 };

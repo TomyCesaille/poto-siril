@@ -29,13 +29,15 @@ export const getFitsFromDirectory = ({
       return;
     }
     if (file.name.endsWith("_thn.jpg")) {
-      logger.info(`Skipping thumbnail file (xxx_thn.jpg)`);
+      logger.debug(`Skipping thumbnail file (${file.name})`);
+      return;
     }
-    if (
-      !(file.isFile() || file.isSymbolicLink()) ||
-      !file.name.endsWith(".fit")
-    ) {
-      logger.info(`Skipping ${file.name}`);
+    if (!(file.isFile() || file.isSymbolicLink())) {
+      logger.debug(`Skipping not-file or symlink (${file.name})`);
+      return;
+    }
+    if (!file.name.endsWith(".fit")) {
+      logger.debug(`Skipping unknown file (${file.name})`);
       return;
     }
 
