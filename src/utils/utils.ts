@@ -97,7 +97,7 @@ export const getFileImageSpecFromFilename = (
       type: match.groups.type,
       bulb: match.groups.bulb,
       bin: match.groups.bin,
-      filter: match.groups.filter.replaceAll(" ", "").trim() ?? null,
+      filter: match.groups.filter?.replaceAll(" ", "").trim() ?? null,
       gain: parseInt(match.groups.gain, 10),
 
       sequenceId,
@@ -146,7 +146,7 @@ const parseDate = (datetimeString: string): Date => {
     const [_, year, month, day, hour, minute, second] = matchResult;
     const parsedDate = new Date(
       parseInt(year, 10),
-      parseInt(month, 10) - 1, // Month is zero-based in JavaScript Date
+      parseInt(month, 10) - 1, // Month is zero-based in JavaScript Date.
       parseInt(day, 10),
       parseInt(hour, 10),
       parseInt(minute, 10),

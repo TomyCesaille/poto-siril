@@ -1,8 +1,10 @@
+import { jest } from "@jest/globals"; // Import Jest globals
+
 import { logger, formatMessage } from "../logger";
 import chalk from "chalk";
 
 describe("logger", () => {
-  const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+  const consoleLogSpy = jest.spyOn(console, "log");
 
   afterEach(() => {
     consoleLogSpy.mockClear();
@@ -82,7 +84,7 @@ describe("logger", () => {
 
   it("should handle undefined messages", () => {
     logger.info(undefined);
-    expect(consoleLogSpy).toHaveBeenCalledWith(chalk.blue("undefined"));
+    expect(consoleLogSpy).toHaveBeenCalledWith(chalk.blue(undefined));
   });
 });
 
@@ -112,6 +114,6 @@ describe("formatMessage", () => {
   it("should handle undefined messages", () => {
     const message = undefined;
     const formattedMessage = formatMessage(message);
-    expect(formattedMessage).toBe("undefined");
+    expect(formattedMessage).toBe(undefined);
   });
 });

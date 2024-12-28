@@ -16,6 +16,10 @@ const log = (
 };
 
 export const formatMessage = (message: string) => {
+  if (!message) {
+    return message;
+  }
+
   return message
     .replace(/(Light|Flat|Dark|Bias)_/g, chalk.hex("#001f3f")("$1_")) // Color image type.
     .replace(/(\d+\.\d(ms|s))/g, chalk.hex("#003f5c")("$1")) // Color bulb.
