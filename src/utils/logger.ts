@@ -7,36 +7,12 @@ const success = chalk.bold.green;
 const warning = chalk.bold.yellow;
 const error = chalk.bold.red;
 
-const logCounts: { [key: string]: number } = {};
-const lastMessages: { [key: string]: string } = {};
-
 const log = (
   type: (message: string) => string,
   message: string,
   ...optionalParams: unknown[]
 ) => {
   console.log(type(message), ...optionalParams);
-};
-
-const logNR = (
-  type: (message: string) => string,
-  message: string,
-  ...optionalParams: unknown[]
-) => {
-  // if (logCounts[message]) {
-  //   logCounts[message]++;
-  //   const count = chalk.bold.yellow(`(x${logCounts[message]})`);
-  //   process.stdout.write(
-  //     ansiEscapes.cursorUp(1) +
-  //       ansiEscapes.eraseLine +
-  //       type(`${message} ${count}`) +
-  //       "\n",
-  //   );
-  // } else {
-  logCounts[message] = 1;
-  lastMessages[message] = type(message);
-  console.log(type(message), ...optionalParams);
-  // }
 };
 
 export const formatMessage = (message: string) => {
@@ -60,22 +36,22 @@ export const formatMessage = (message: string) => {
 
 export const logger = {
   debug: (message: string, ...optionalParams: unknown[]) => {
-    logNR(debug, formatMessage(message), ...optionalParams);
+    log(debug, formatMessage(message), ...optionalParams);
   },
   info: (message: string, ...optionalParams: unknown[]) => {
-    logNR(info, formatMessage(message), ...optionalParams);
+    log(info, formatMessage(message), ...optionalParams);
   },
   success: (message: string, ...optionalParams: unknown[]) => {
-    logNR(success, formatMessage(message), ...optionalParams);
+    log(success, formatMessage(message), ...optionalParams);
   },
   warning: (message: string, ...optionalParams: unknown[]) => {
-    logNR(warning, formatMessage(message), ...optionalParams);
+    log(warning, formatMessage(message), ...optionalParams);
   },
   error: (message: string, ...optionalParams: unknown[]) => {
-    logNR(error, formatMessage(message), ...optionalParams);
+    log(error, formatMessage(message), ...optionalParams);
   },
   errorThrow: (message: string, ...optionalParams: unknown[]) => {
-    logNR(error, formatMessage(message), ...optionalParams);
+    log(error, formatMessage(message), ...optionalParams);
     throw new Error(message);
   },
   dev: (message: string, ...optionalParams: unknown[]) => {
