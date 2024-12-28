@@ -72,7 +72,7 @@ export const getFileImageSpecFromFilename = (
   // Note: Filter is not always specified in the filename.
 
   const regex =
-    /^(?<type>[A-Za-z]+)(?:_[^_]+)?_(?<bulb>[^_]+)_(?<bin>Bin\d)_((?<filter>[A-Za-z0-9])_)?gain(?<gain>\d+)_(?<datetime>\d{8}-\d{6})_(?<temperature>-?\d+\.\d+C)_(?<sequence>\d{4})\.(?<extension>fit)$/;
+    /^(?<type>[A-Za-z]+)(?:_[^_]+)?_(?<bulb>[^_]+)_(?<bin>Bin\d)_((?<filter>[A-Za-z0-9 ]+)_)?gain(?<gain>\d+)_(?<datetime>\d{8}-\d{6})_(?<temperature>-?\d+\.\d+C)_(?<sequence>\d{4})\.(?<extension>fit)$/;
   const match = fileFS.name.match(regex);
 
   // TODO. Check if well sorted!
@@ -97,7 +97,7 @@ export const getFileImageSpecFromFilename = (
       type: match.groups.type,
       bulb: match.groups.bulb,
       bin: match.groups.bin,
-      filter: match.groups.filter ?? null,
+      filter: match.groups.filter.replaceAll(" ", "").trim() ?? null,
       gain: parseInt(match.groups.gain, 10),
 
       sequenceId,
