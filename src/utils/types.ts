@@ -131,7 +131,10 @@ export type PotoProject = {
 export type LightsFlatsMatch = {
   lightSetName: string;
   lightSequenceId: string;
+
+  flatSetName: string;
   flatSequenceId: string;
+
   /**
    * True if the light was manually matched because several flats sequences were available.
    */

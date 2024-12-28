@@ -7,7 +7,7 @@
 import fs from "fs";
 import Enquirer from "enquirer";
 
-import { logger } from "../utils/logger";
+import { formatMessage, logger } from "../utils/logger";
 import {
   copyFileToProject,
   getFitsFromDirectory,
@@ -70,15 +70,22 @@ const dispatch = async ({
     }
 
     const flats = allFlatsMatchingLights.filter(
-      flat =>
-        flat.sequenceId === lightsFlatsMatch.flatSequenceId &&
-        flat.setName === lightsFlatsMatch.lightSetName,
+      flat => flat.sequenceId === lightsFlatsMatch.flatSequenceId,
     );
     if (!flats) {
       throw new Error(
         `❓❓❓❗️ Flat ${lightsFlatsMatch.lightSetName} ${lightsFlatsMatch.flatSequenceId} not found.`,
       );
     }
+
+    logger.error(
+      "lights",
+      lights.map(x => x.fileName),
+    );
+    logger.error(
+      "flats",
+      flats.map(x => x.fileName),
+    );
 
     const layerSetId = lightsFlatsMatch.isAdvancedMatching
       ? `${lights[0].setName}__sequence-${lights[0].sequenceId}`
@@ -127,6 +134,18 @@ const dispatch = async ({
 
     layerSets.push(layerSet);
   }
+
+  const debug = layerSets.map(x => {
+    return {
+      layerSetId: x.layerSetId,
+      lightTotalCount: x.lightTotalCount,
+      lightsStr: x.lights.map(x => x.fileName).join(", "),
+      flatsCount: x.flatsCount,
+      flatsStr: x.flats.map(x => x.fileName).join(", "),
+    };
+  });
+
+  logger.success("debug", debug);
 
   // TODO. Add biases and darks to the layerSets.
 
@@ -326,7 +345,7 @@ const getFlatsMatchingLightsNaive = (
         return flat;
       } else {
         logger.warning(
-          `Found ${flat.setName} (seq ${flat.sequenceId}) but light matching. Skipping 🤔.`,
+          `${flat.setName} (seq ${flat.sequenceId}) has no light matching 🤔. Skipping.`,
         );
       }
     });
@@ -352,31 +371,34 @@ const matchLightsToFlats = async (
   const LightFlatMatches: LightsFlatsMatch[] = [];
 
   for (const flatSet of flatSets) {
-    const flatSequenceIds = [
+    const flatSetNameSequenceIds = [
       ...new Set(
         matchingFlats
           .filter(flat => flat.setName === flatSet)
-          .map(flat => flat.sequenceId),
+          .map(flat => `${flat.setName}__${flat.sequenceId}`),
       ),
     ];
-    if (flatSequenceIds.length === 0) {
+    if (flatSetNameSequenceIds.length === 0) {
       throw new Error(`❓❓❓❗️ No sequences found for flat ${flatSet}.`);
     }
 
-    if (flatSequenceIds.length === 1) {
+    if (flatSetNameSequenceIds.length === 1) {
       LightFlatMatches.push({
         lightSequenceId: lights[0].sequenceId,
         lightSetName: lights[0].setName,
-        flatSequenceId: flatSequenceIds[0],
+
+        flatSetName: flatSetNameSequenceIds[0].split("__")[0],
+        flatSequenceId: flatSetNameSequenceIds[0].split("__")[1],
+
         isAdvancedMatching: false,
       });
       continue;
     }
 
     logger.info(
-      `Multiple sequences found for flat set ${flatSet}: ${flatSequenceIds.join(
-        ", ",
-      )}`,
+      `Multiple sequences found for flat set ${flatSet}:\n${flatSetNameSequenceIds
+        .map(seq => `- ${seq}`)
+        .join("\n")}`,
     );
     logger.info(
       "👉 We need to accurately link each light sequence to their respective flat sequence.",
@@ -391,30 +413,39 @@ const matchLightsToFlats = async (
           .map(light => ({
             setName: light.setName,
             sequenceId: light.sequenceId,
-          })),
+          }))
+          .sort((a, b) => {
+            return a.sequenceId.localeCompare(b.sequenceId);
+          })
+          .map(light => `${light.setName}__${light.sequenceId}`),
       ),
-    ].sort((a, b) => {
-      // Sort by setName first.
-      if (a.setName !== b.setName) {
-        return a.setName.localeCompare(b.setName);
-      }
-      // Then by sequenceId.
-      return a.sequenceId.localeCompare(b.sequenceId);
-    });
+    ];
 
     for (const lightConcerned of lightsConcerned) {
+      const lightConcernedSetName = lightConcerned.split("__")[0];
+      const lightConcernedSequenceId = lightConcerned.split("__")[1];
+
       // Ask the user to select the flat sequence to use.
       const enquirer = new Enquirer();
       const response = (await enquirer.prompt({
         type: "select",
         name: "selectedFlatSequence",
-        message: `Select the flat sequence to use for the lights sequence ${lightConcerned.setName} ${lightConcerned.sequenceId}.`,
-        choices: flatSequenceIds,
+        message: formatMessage(
+          `Select 👇 the flat sequence to use for ${lightConcernedSetName} ${lightConcernedSequenceId}:)`,
+        ),
+        choices: flatSetNameSequenceIds.map(x => ({
+          name: x,
+          message: formatMessage(x),
+        })),
       })) as { selectedFlatSequence: string };
+
       LightFlatMatches.push({
-        lightSetName: lightConcerned.setName,
-        lightSequenceId: lightConcerned.sequenceId,
-        flatSequenceId: response.selectedFlatSequence,
+        lightSetName: lightConcernedSetName,
+        lightSequenceId: lightConcernedSequenceId,
+
+        flatSetName: response.selectedFlatSequence.split("__")[0],
+        flatSequenceId: response.selectedFlatSequence.split("__")[1],
+
         isAdvancedMatching: true,
       });
     }
@@ -423,7 +454,7 @@ const matchLightsToFlats = async (
   logger.info("👉 Light -> Flat matching summary:");
   for (const pair of LightFlatMatches) {
     logger.info(
-      `   Light set ${pair.lightSetName}, sequence ${pair.lightSequenceId} will use flat sequence ${pair.flatSequenceId}.`,
+      `   Light set ${pair.lightSetName} (seq ${pair.lightSequenceId}) will use \n    flat set ${pair.flatSetName} (seq ${pair.flatSequenceId}).`,
     );
   }
 

@@ -78,7 +78,7 @@ const dataset_1 = [
   // Flats not matching any sets.
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin2_S_gain100_20240511-094304_-10.5C_0001.fit", // Another bin.
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0002.fit", // Another Filter.
-  "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fot", // Not a fit.
+  "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094304_-10.5C_0001.fot", // Not a fit file based on extension.
 
   // Darks matching set A.
   "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
@@ -106,7 +106,7 @@ const dataset_1 = [
   "bank/Bias/Bias_1.0ms_Bin1_gain0_20230910-101133_-9.8C_0001.fit", // Won't match set B, because flat gain is 100.
   "bank/Bias/Bias_1.0ms_Bin2_gain100_20230910-101133_-9.8C_0002.fit", // Another bin.
 
-  // thumbnails.
+  // Thumbnails from ASIAIR.
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg",
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0002_thn.jpg",
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0003_thn.jpg",
