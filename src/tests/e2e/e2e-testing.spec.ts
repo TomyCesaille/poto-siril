@@ -27,6 +27,7 @@ describe("E2E", () => {
     // Make an empty directory to test `removeEmptyDirectories`.
     fs.mkdirSync(path.join(asiAirDirectory, "empty", "empty"), { recursive: true });
 
+    // Spy on logger and Enquirer to capture logs and prompts.
     logMessages = [];
     const logMethods = ["info", "warning", "debug", "error", "success", "step", "space"] as const;
     type LogMethod = (typeof logMethods)[number];
@@ -41,7 +42,7 @@ describe("E2E", () => {
       jest.spyOn(logger, method).mockImplementation((...args: Parameters<typeof logger[LogMethod]>) => {
         const message = `${method}: ${args.join(" ")}`;
         logMessages.push(message);
-        originalMethods[method].apply(logger, args); // Call the original implementation
+        originalMethods[method].apply(logger, args);
       });
     });
   });
@@ -52,7 +53,11 @@ describe("E2E", () => {
 
   test("should be neat", async () => {
     const promptMock = jest.fn();
-    (Enquirer.prototype.prompt as jest.Mock) = promptMock;
+
+    jest.spyOn(Enquirer.prototype, "prompt").mockImplementation(async function (...args) {
+      logMessages.push(`prompt: ${JSON.stringify(args)}`);
+      return promptMock(...args);
+    });
 
     promptMock
       .mockResolvedValueOnce({
@@ -70,11 +75,6 @@ describe("E2E", () => {
       .mockResolvedValueOnce({
         go: true,
       } as never);
-
-    jest.spyOn(Enquirer.prototype, "prompt").mockImplementation(async (questions) => {
-      logMessages.push(`prompt: ${JSON.stringify(questions)}`);
-      return promptMock();
-    });
 
     let files = fs.readdirSync(asiAirDirectory, {
       recursive: true,
