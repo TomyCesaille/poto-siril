@@ -10,8 +10,6 @@ import { generateScripts } from "../../commands/generate-scripts";
 import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
 import { logger } from "../../utils/logger";
 
-jest.mock("enquirer");
-
 describe("E2E", () => {
   let asiAirDirectory: string = "";
   let bankDirectory: string = "";
@@ -55,7 +53,7 @@ describe("E2E", () => {
     const promptMock = jest.fn();
 
     jest.spyOn(Enquirer.prototype, "prompt").mockImplementation(async function (...args) {
-      logMessages.push(`prompt: ${JSON.stringify(args)}`);
+      logMessages.push(`prompt: ${JSON.stringify(args, null, 2)}`);
       return promptMock(...args);
     });
 
