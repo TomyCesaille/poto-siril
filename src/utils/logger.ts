@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import ansiEscapes from "ansi-escapes";
 
 const debug = chalk.gray.italic;
 const info = chalk.blue;

@@ -122,7 +122,7 @@ describe("utils", () => {
       } as FileImageSpec;
 
       jest.spyOn(fs, "existsSync").mockReturnValue(false);
-      jest.spyOn(fs, "mkdirSync").mockImplementation(_ => "");
+      jest.spyOn(fs, "mkdirSync");
       jest.spyOn(fs, "copyFileSync").mockImplementation(() => {});
 
       copyFileToProject(file);

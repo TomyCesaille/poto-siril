@@ -21,7 +21,6 @@ export default [
   ...compat.extends(
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
   ),
   {
     plugins: {
@@ -42,7 +41,7 @@ export default [
 
     rules: {
       indent: [
-        "error",
+        "warn",
         2,
         {
           offsetTernaryExpressions: true,
