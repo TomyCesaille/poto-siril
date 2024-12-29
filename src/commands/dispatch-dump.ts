@@ -80,7 +80,7 @@ const dispatch = async ({
 
   logger.step("Preview before dispatching");
 
-  const go = await previewBeforeDispatching(layerSets);
+  const {go, metrics} = await previewBeforeDispatching(layerSets);
 
   if (!go) {
     logger.warning("Aborted.");
@@ -91,6 +91,7 @@ const dispatch = async ({
   const potoProject: PotoProject = {
     generatedAt: new Date(),
     potoVersion: POTO_VERSION,
+    metrics,
     layerSets,
   };
 
@@ -327,13 +328,13 @@ const initLayerSetsWithLightsnFlats = (
   for (const lightsFlatsMatch of lightsFlatsMatches) {
     const lights = lightsFlatsMatch.isManualMatch
       ? allLights.filter(
-          light =>
-            light.sequenceId === lightsFlatsMatch.lightSequenceId &&
+        light =>
+          light.sequenceId === lightsFlatsMatch.lightSequenceId &&
             light.setName === lightsFlatsMatch.lightSetName,
-        )
+      )
       : allLights.filter(
-          light => light.setName === lightsFlatsMatch.lightSetName,
-        );
+        light => light.setName === lightsFlatsMatch.lightSetName,
+      );
     if (!lights) {
       throw new Error(
         `❓❓❓❗️ Light ${lightsFlatsMatch.lightSetName} ${lightsFlatsMatch.lightSequenceId} not found.`,
@@ -440,6 +441,13 @@ const AssignDarksBiasesToLayerSets = (
     } else {
       layerSet.darkSet = darks[0].setName;
       layerSet.darksCount = darks.length;
+      
+      const darkTotalIntegrationMs = darks.reduce(
+        (total, dark) => total + dark.bulbMs,
+        0,
+      );
+
+      layerSet.darkTotalIntegrationMinutes = darkTotalIntegrationMs / 1000 / 60;
       layerSet.darks = darks;
     }
 
@@ -489,27 +497,43 @@ const AssignDarksBiasesToLayerSets = (
  *
  * @param layerSets - The layer sets to preview.
  */
-const previewBeforeDispatching = async (layerSets: LayerSet[]) => {
-  logger.info(
-    `🔭 Cumulated light integration: ${layerSets.reduce(
+const previewBeforeDispatching = async (layerSets: LayerSet[]) : Promise<{
+  go: boolean,
+  metrics: PotoProject["metrics"]
+}> => {
+
+  const metrics: PotoProject["metrics"] = {
+    cumulatedLightIntegrationMinutes:  layerSets.reduce(
       (total, layerSet) => total + layerSet.lightTotalIntegrationMinutes,
       0,
-    )} minutes.`,
-  );
-  logger.info(
-    `📦 Project size: ${layerSets.reduce(
+    ),
+    cumulatedDarksIntegrationMinutes: layerSets.reduce(
+      (total, layerSet) => total + layerSet.darkTotalIntegrationMinutes,
+      0,
+    ),
+    totalLights: layerSets.reduce(
       (total, layerSet) => total + layerSet.lightTotalCount,
       0,
-    )} lights, ${layerSets.reduce(
+    ),
+    totalDarks: layerSets.reduce(
       (total, layerSet) => total + layerSet.darksCount,
       0,
-    )} darks, ${layerSets.reduce(
+    ),
+    totalFlats: layerSets.reduce(
       (total, layerSet) => total + layerSet.flatsCount,
       0,
-    )} flats, ${layerSets.reduce(
+    ),
+    totalBiases: layerSets.reduce(
       (total, layerSet) => total + layerSet.biasesCount,
       0,
-    )} biases.`,
+    ),
+  };
+
+  logger.info(
+    `🔭 Cumulated light integration: ${metrics.cumulatedLightIntegrationMinutes} minutes.`,
+  );
+  logger.info(
+    `📦 Project size: ${metrics.totalLights} lights, ${metrics.totalDarks} darks, ${metrics.totalFlats} flats, ${metrics.totalBiases} biases.`,
   );
 
   logger.space();
@@ -537,7 +561,7 @@ const previewBeforeDispatching = async (layerSets: LayerSet[]) => {
     message: "Do you want to proceed with the dispatch?",
   })) as { go: boolean };
 
-  return response.go;
+  return {go: response.go, metrics};
 };
 
 /**

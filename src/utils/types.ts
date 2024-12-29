@@ -95,6 +95,8 @@ export type LayerSet = {
    */
   filter: string | null;
 
+  lightTotalCount: number;
+  lightTotalIntegrationMinutes: number;
   /**
    * Sequences of lights used.
    */
@@ -103,8 +105,6 @@ export type LayerSet = {
     count: number;
     integrationMinutes: number;
   }[];
-  lightTotalCount: number; // TODO. fix duplicate of sum of lightSequences.count
-  lightTotalIntegrationMinutes: number; // TODO. fix duplicate of sum of lightSequences.integrationMinutes
 
   flatSet: string;
   flatSequenceId: string;
@@ -112,6 +112,7 @@ export type LayerSet = {
 
   darkSet: string;
   darksCount: number;
+  darkTotalIntegrationMinutes: number;
 
   biasSet: string;
   biasesCount: number;
@@ -125,6 +126,14 @@ export type LayerSet = {
 export type PotoProject = {
   generatedAt: Date;
   potoVersion: string;
+  metrics: {
+    cumulatedLightIntegrationMinutes: number;
+    cumulatedDarksIntegrationMinutes: number;
+    totalLights: number;
+    totalFlats: number;
+    totalDarks: number;
+    totalBiases: number;
+  };
   layerSets: LayerSet[];
   // TODO. Move total light integrations & various stats here.
 };
