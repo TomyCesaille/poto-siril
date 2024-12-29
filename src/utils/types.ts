@@ -103,8 +103,8 @@ export type LayerSet = {
     count: number;
     integrationMinutes: number;
   }[];
-  lightTotalCount: number;
-  lightTotalIntegrationMinutes: number;
+  lightTotalCount: number; // TODO. fix duplicate of sum of lightSequences.count
+  lightTotalIntegrationMinutes: number; // TODO. fix duplicate of sum of lightSequences.integrationMinutes
 
   flatSet: string;
   flatSequenceId: string;

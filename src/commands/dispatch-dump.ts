@@ -29,6 +29,8 @@ export type DispatchOptions = {
   bankDirectory: string;
 };
 
+const enquirer = new Enquirer();
+
 const dispatch = async ({
   projectDirectory,
   asiAirDirectory,
@@ -109,7 +111,6 @@ export default dispatch;
  */
 const ensureProjectDirectoryExists = async (projectDirectory: string) => {
   if (!fs.existsSync(projectDirectory)) {
-    const enquirer = new Enquirer();
     const response = (await enquirer.prompt({
       type: "confirm",
       name: "createProjectDirectory",
@@ -274,8 +275,6 @@ const matchLightsToFlats = async (
       const lightConcernedSetName = lightConcerned.split("__")[0];
       const lightConcernedSequenceId = lightConcerned.split("__")[1];
 
-      // Ask the user to select the flat sequence to use.
-      const enquirer = new Enquirer();
       const response = (await enquirer.prompt({
         type: "select",
         name: "selectedFlatSequence",
@@ -532,7 +531,6 @@ const previewBeforeDispatching = async (layerSets: LayerSet[]) => {
 
   logger.space();
 
-  const enquirer = new Enquirer();
   const response = (await enquirer.prompt({
     type: "confirm",
     name: "go",
@@ -569,6 +567,7 @@ const dispatchProject = (
 };
 
 // TODO. Enrich dataset 1 for a layerset with a missing dark.
+// TODO. Create a dataset 1 Light D (exact same as Light A, but another sequence, to be matched with another flat sequence).
 // TODO. Enrich dataset 1 for a layerset with a missing flat.
 // TODO. Enrich dataset 1 for a layerset with multiple dark sequences
 // or in separated dataset TBD.
