@@ -26,22 +26,38 @@ export const cleanThumbnails = (dir: string, isRecursive: boolean = false) => {
   if (!isRecursive) logger.info("Asiair dump cleaning - Thumbnails deleted ✅");
 };
 
-export const removeEmptyDirectories = (
-  dir: string,
-  isRecursive: boolean = false,
-) => {
-  const files = fs.readdirSync(dir);
-  if (files.length === 0) {
-    fs.rmSync(dir);
-    logger.info("Deleted:", dir);
-    return;
-  }
-  files.forEach(file => {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
-    if (stat.isDirectory()) {
-      removeEmptyDirectories(filePath, true);
+export const removeEmptyDirectories = (dir: string) => {
+  const isDirEmpty = (directory: string): boolean => {
+    const files = fs.readdirSync(directory);
+    if (files.length === 0) {
+      return true;
     }
-  });
-  if (!isRecursive) logger.info("Asiair dump cleaning - Empty dirs deleted ✅");
+    return files.every(file => {
+      const filePath = path.join(directory, file);
+      const stat = fs.statSync(filePath);
+      if (stat.isDirectory()) {
+        return isDirEmpty(filePath);
+      }
+      return false;
+    });
+  };
+
+  const deleteEmptyDirs = (directory: string) => {
+    const files = fs.readdirSync(directory);
+    files.forEach(file => {
+      const filePath = path.join(directory, file);
+      const stat = fs.statSync(filePath);
+      if (stat.isDirectory()) {
+        deleteEmptyDirs(filePath);
+      }
+    });
+
+    if (isDirEmpty(directory)) {
+      fs.rmdirSync(directory);
+      logger.info("Deleted:", directory);
+    }
+  };
+
+  deleteEmptyDirs(dir);
+  logger.info("Asiair dump cleaning - Empty dirs deleted ✅");
 };

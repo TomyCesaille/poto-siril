@@ -5,7 +5,7 @@ import Enquirer from "enquirer";
 
 import dispatch from "../../commands/dispatch-dump";
 import { POTO_JSON } from "../../utils/const";
-import { cleanThumbnails } from "../../commands/asiair-dump-cleaning";
+import { cleanThumbnails, removeEmptyDirectories } from "../../commands/asiair-dump-cleaning";
 import { generateScripts } from "../../commands/generate-scripts";
 import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
 
@@ -21,6 +21,9 @@ describe("E2E", () => {
 
     ({ asiAirDirectory, bankDirectory, projectDirectory } =
       spawnMockedDatasetToFs_dataset_1());
+
+    // Make an empty directory to test `removeEmptyDirectories`.
+    fs.mkdirSync(path.join(asiAirDirectory, "empty", "empty"), { recursive: true });
   });
 
   test("should be neat", async () => {
@@ -59,6 +62,13 @@ describe("E2E", () => {
       encoding: "utf8",
     });
     expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(0);
+
+    expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(true);
+
+    removeEmptyDirectories(asiAirDirectory);
+
+    expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(false);
+    expect(fs.existsSync(path.join(asiAirDirectory, "empty"))).toBe(false);
 
     await dispatch({
       projectDirectory,
