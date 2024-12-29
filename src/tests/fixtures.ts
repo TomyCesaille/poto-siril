@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { logger } from "src/utils/logger";
+import { logger } from "../utils/logger";
 
 const tmpDir = "tmp";
 

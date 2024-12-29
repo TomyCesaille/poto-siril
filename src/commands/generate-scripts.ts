@@ -50,14 +50,14 @@ const generateScriptForLightSet = (
   const anyDirectory = path.join(projectDirectory, "any");
   const processDirectory = path.join(
     filterDirectory,
-    `${set.lightSet}_process`,
+    `${set.layerSetId}_process`,
   );
   if (!fs.existsSync(processDirectory)) {
     fs.mkdirSync(processDirectory, { recursive: false });
   }
   const mastersDirectory = path.join(
     filterDirectory,
-    `${set.lightSet}_masters`,
+    `${set.layerSetId}_masters`,
   );
   if (!fs.existsSync(mastersDirectory)) {
     fs.mkdirSync(mastersDirectory, { recursive: false });
@@ -73,7 +73,7 @@ const generateScriptForLightSet = (
   // TODO. Move checkers to dispatch-dump.
   const lightsdirs = [...new Set(set.lights.map(x => x.projectDirectory))];
   if (lightsdirs.length === 0) {
-    throw new Error("No lights found for filter " + set.lightSet);
+    throw new Error("No lights found for filter " + set.layerSetId);
   }
   if (lightsdirs.length > 1) {
     logger.errorThrow("Multiple sets of light for ", lightsdirs);
@@ -82,28 +82,28 @@ const generateScriptForLightSet = (
 
   const flatsDirs = [...new Set(set.flats.map(x => x.projectDirectory))];
   if (flatsDirs.length === 0) {
-    throw new Error("No flats found for filter " + set.lightSet);
+    throw new Error("No flats found for filter " + set.layerSetId);
   }
   if (flatsDirs.length > 1) {
-    throw new Error("Multiple sets of flat for " + set.lightSet);
+    throw new Error("Multiple sets of flat for " + set.layerSetId);
   }
   const flatsDir = flatsDirs[0];
 
   const darksDirs = [...new Set(set.darks.map(x => x.projectDirectory))];
   if (darksDirs.length === 0) {
-    throw new Error("No darks found for filter " + set.lightSet);
+    throw new Error("No darks found for filter " + set.layerSetId);
   }
   if (darksDirs.length > 1) {
-    throw new Error("Multiple sets of darks for " + set.lightSet);
+    throw new Error("Multiple sets of darks for " + set.layerSetId);
   }
   const darksDir = darksDirs[0];
 
   const biasesDirs = [...new Set(set.biases.map(x => x.projectDirectory))];
   if (biasesDirs.length === 0) {
-    throw new Error("No biases found for filter " + set.lightSet);
+    throw new Error("No biases found for filter " + set.layerSetId);
   }
   if (biasesDirs.length > 1) {
-    throw new Error("Multiple sets of biases for " + set.lightSet);
+    throw new Error("Multiple sets of biases for " + set.layerSetId);
   }
   const biasesDir = biasesDirs[0];
 
