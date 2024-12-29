@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils getFileImageSpecFromFilename should match snapshot (ASIAIR plan target format) 1`] = `
+{
+  "bin": "Bin1",
+  "bulb": "120.0s",
+  "bulbMs": 120000,
+  "datetime": 2024-07-07T00:23:48.000Z,
+  "extension": "fit",
+  "fileName": "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit",
+  "filter": "H",
+  "gain": 100,
+  "projectDirectory": "project/bar/H/Light_120.0s_Bin1_H_gain100",
+  "sequenceId": "20240707-002348",
+  "sequencePosition": 1,
+  "setName": "Light_120.0s_Bin1_H_gain100",
+  "sourceDirectory": "input/bar",
+  "sourceFilePath": "input/bar/Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit",
+  "temperature": "-10.0C",
+  "type": "Light",
+}
+`;
+
+exports[`utils getFileImageSpecFromFilename should match snapshot (filter named with spaces) 1`] = `
+{
+  "bin": "Bin1",
+  "bulb": "120.0s",
+  "bulbMs": 120000,
+  "datetime": 2024-07-07T00:23:48.000Z,
+  "extension": "fit",
+  "fileName": "Light_LDN 1093_120.0s_Bin1_filter h_gain100_20240707-002348_-10.0C_0001.fit",
+  "filter": "filterh",
+  "gain": 100,
+  "projectDirectory": "project/bar/filterh/Light_120.0s_Bin1_filterh_gain100",
+  "sequenceId": "20240707-002348",
+  "sequencePosition": 1,
+  "setName": "Light_120.0s_Bin1_filterh_gain100",
+  "sourceDirectory": "input/bar",
+  "sourceFilePath": "input/bar/Light_LDN 1093_120.0s_Bin1_filter h_gain100_20240707-002348_-10.0C_0001.fit",
+  "temperature": "-10.0C",
+  "type": "Light",
+}
+`;
+
+exports[`utils getFileImageSpecFromFilename should match snapshot (no filter) 1`] = `
+{
+  "bin": "Bin1",
+  "bulb": "120.0s",
+  "bulbMs": 120000,
+  "datetime": 2024-07-07T00:23:48.000Z,
+  "extension": "fit",
+  "fileName": "Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0001.fit",
+  "filter": null,
+  "gain": 100,
+  "projectDirectory": "project/bar/Light_120.0s_Bin1_gain100",
+  "sequenceId": "20240707-002348",
+  "sequencePosition": 1,
+  "setName": "Light_120.0s_Bin1_gain100",
+  "sourceDirectory": "input/bar",
+  "sourceFilePath": "input/bar/Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0001.fit",
+  "temperature": "-10.0C",
+  "type": "Light",
+}
+`;

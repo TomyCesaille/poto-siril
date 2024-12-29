@@ -28,11 +28,16 @@ export const getFitsFromDirectory = ({
     if (file.isDirectory()) {
       return;
     }
-    if (
-      !(file.isFile() || file.isSymbolicLink()) ||
-      !file.name.endsWith(".fit")
-    ) {
-      logger.debugNR("Skipping ", file.name);
+    if (file.name.endsWith("_thn.jpg")) {
+      logger.debug(`Skipping thumbnail file (${file.name})`);
+      return;
+    }
+    if (!(file.isFile() || file.isSymbolicLink())) {
+      logger.debug(`Skipping not-file or symlink (${file.name})`);
+      return;
+    }
+    if (!file.name.endsWith(".fit")) {
+      logger.debug(`Skipping unknown file (${file.name})`);
       return;
     }
 
@@ -67,7 +72,7 @@ export const getFileImageSpecFromFilename = (
   // Note: Filter is not always specified in the filename.
 
   const regex =
-    /^(?<type>[A-Za-z]+)(?:_[^_]+)?_(?<bulb>[^_]+)_(?<bin>Bin\d)_((?<filter>[A-Za-z0-9])_)?gain(?<gain>\d+)_(?<datetime>\d{8}-\d{6})_(?<temperature>-?\d+\.\d+C)_(?<sequence>\d{4})\.(?<extension>fit)$/;
+    /^(?<type>[A-Za-z]+)(?:_[^_]+)?_(?<bulb>[^_]+)_(?<bin>Bin\d)_((?<filter>[A-Za-z0-9 ]+)_)?gain(?<gain>\d+)_(?<datetime>\d{8}-\d{6})_(?<temperature>-?\d+\.\d+C)_(?<sequence>\d{4})\.(?<extension>fit)$/;
   const match = fileFS.name.match(regex);
 
   // TODO. Check if well sorted!
@@ -91,8 +96,9 @@ export const getFileImageSpecFromFilename = (
 
       type: match.groups.type,
       bulb: match.groups.bulb,
+      bulbMs: parseBulbString(match.groups.bulb),
       bin: match.groups.bin,
-      filter: match.groups.filter ?? null,
+      filter: match.groups.filter?.replaceAll(" ", "").trim() ?? null,
       gain: parseInt(match.groups.gain, 10),
 
       sequenceId,
@@ -141,7 +147,7 @@ const parseDate = (datetimeString: string): Date => {
     const [_, year, month, day, hour, minute, second] = matchResult;
     const parsedDate = new Date(
       parseInt(year, 10),
-      parseInt(month, 10) - 1, // Month is zero-based in JavaScript Date
+      parseInt(month, 10) - 1, // Month is zero-based in JavaScript Date.
       parseInt(day, 10),
       parseInt(hour, 10),
       parseInt(minute, 10),
@@ -166,6 +172,23 @@ const unParseDate = (datetime: Date): string => {
   )}`;
 };
 
+/**
+ *
+ * @param bulbString `120.0s` or `810.0ms`.
+ * @returns 120000 or 810 (in ms).
+ */
+const parseBulbString = (bulbString: string): number => {
+  const bulbRegex = /(\d+\.\d+)(ms|s)/;
+  const matchResult = bulbString.match(bulbRegex);
+
+  if (matchResult) {
+    const [_, bulb, unit] = matchResult;
+    return unit === "s" ? parseFloat(bulb) * 1000 : parseFloat(bulb);
+  } else {
+    throw new Error(`Invalid bulb string: ${bulbString}`);
+  }
+};
+
 export const copyFileToProject = (file: FileImageSpec) => {
   if (!fs.existsSync(file.projectDirectory)) {
     fs.mkdirSync(file.projectDirectory, { recursive: true });
@@ -174,7 +197,7 @@ export const copyFileToProject = (file: FileImageSpec) => {
   const targetFile = path.join(file.projectDirectory, file.fileName);
   fs.copyFileSync(file.sourceFilePath, targetFile);
 
-  logger.debug(`Copied ${file.fileName} to ${targetFile}`);
+  logger.debug(`- ${file.fileName} dispatched.`);
 };
 
 /**
@@ -185,7 +208,7 @@ export const copyFileToProject = (file: FileImageSpec) => {
  * - Light with Flat (allowing for different gain).
  * - Flat with Bias.
  */
-export const matchSetFile = (A: FileImageSpec, B: FileImageSpec): boolean => {
+export const matchSetFile = (A: ImageSpec, B: ImageSpec): boolean => {
   if (A.type === "Light" && B.type === "Dark") {
     return (
       // TODO. Filter based on the temperature.

@@ -41,7 +41,7 @@ export default [
 
     rules: {
       indent: [
-        "error",
+        "warn",
         2,
         {
           offsetTernaryExpressions: true,

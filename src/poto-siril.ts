@@ -6,13 +6,14 @@ import {
 } from "./commands/asiair-dump-cleaning";
 import { generateScripts } from "./commands/generate-scripts";
 import { runScripts } from "./commands/run-scripts";
+import { POTO_VERSION } from "./utils/const";
 
 const program = new Command();
 
 program
   .name("poto-siril")
   .description("CLI to some ASIAIR import and SIRIL processing")
-  .version("0.1.0");
+  .version(POTO_VERSION);
 
 // const parseMode = (value: string, previous: string) => {
 //   if (value != "autorun" && value != "plan") {

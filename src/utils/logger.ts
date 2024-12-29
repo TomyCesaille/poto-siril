@@ -1,68 +1,73 @@
 import chalk from "chalk";
-import ansiEscapes from "ansi-escapes";
 
-const debug = chalk.gray;
+const debug = chalk.gray.italic;
 const info = chalk.blue;
 const success = chalk.bold.green;
 const warning = chalk.bold.yellow;
 const error = chalk.bold.red;
 
-const logCounts: { [key: string]: number } = {};
-const lastMessages: { [key: string]: string } = {};
-
-const logNR = (
+const log = (
   type: (message: string) => string,
   message: string,
   ...optionalParams: unknown[]
 ) => {
-  if (logCounts[message]) {
-    logCounts[message]++;
-    process.stdout.write(
-      ansiEscapes.cursorUp(1) +
-        ansiEscapes.eraseLine +
-        type(`${message} x${logCounts[message]}`) +
-        "\n",
-    );
-  } else {
-    logCounts[message] = 1;
-    lastMessages[message] = type(message);
-    console.log(type(message), ...optionalParams);
+  console.log(type(message), ...optionalParams);
+};
+
+export const formatMessage = (message: string) => {
+  if (!message) {
+    return message;
   }
+
+  return message
+    .replace(/(Light|Flat|Dark|Bias)_/g, chalk.hex("#001f3f")("$1_")) // Color image type.
+    .replace(/(\d+\.\d(ms|s))/g, chalk.hex("#003f5c")("$1")) // Color bulb.
+    .replace(/(Bin\d)/g, chalk.hex("#2f4b7c")("$1")) // Color binning.
+    .replace(/(_[A-Za-z]_)/g, chalk.hex("#665191")("$1")) // Color filter.
+    .replace(/(gain\d+)/g, chalk.hex("#a05195")("$1")) // Color gain.
+    .replace(
+      /(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})/g,
+      (_, y, m, d, h, min, s) =>
+        `${chalk.hex("#d45087")(y)}${chalk.hex("#f95d6a")(m)}${chalk.hex(
+          "#ff7c43",
+        )(d)}-${chalk.hex("#ffa600")(h)}${chalk.hex("#ffb000")(min)}${chalk.hex(
+          "#ffc000",
+        )(s)}`,
+    ) // Adjusted colors for date and time.
+    .replace(/_thn.jpg/g, chalk.bgHex("#ff0000")("_thn.jpg")); // Color thumbnail.
 };
 
 export const logger = {
   debug: (message: string, ...optionalParams: unknown[]) => {
-    console.log(debug(message), ...optionalParams);
+    log(debug, formatMessage(message), ...optionalParams);
   },
   info: (message: string, ...optionalParams: unknown[]) => {
-    console.log(info(message), ...optionalParams);
+    log(info, formatMessage(message), ...optionalParams);
   },
   success: (message: string, ...optionalParams: unknown[]) => {
-    console.log(success(message), ...optionalParams);
+    log(success, formatMessage(message), ...optionalParams);
   },
   warning: (message: string, ...optionalParams: unknown[]) => {
-    console.log(warning(message), ...optionalParams);
+    log(warning, formatMessage(message), ...optionalParams);
   },
   error: (message: string, ...optionalParams: unknown[]) => {
-    console.log(error(message), ...optionalParams);
+    log(error, formatMessage(message), ...optionalParams);
   },
   errorThrow: (message: string, ...optionalParams: unknown[]) => {
-    console.log(error(message), ...optionalParams);
+    log(error, formatMessage(message), ...optionalParams);
     throw new Error(message);
   },
-  debugNR: (message: string, ...optionalParams: unknown[]) => {
-    logNR(debug, message, ...optionalParams);
+  dev: (message: string, ...optionalParams: unknown[]) => {
+    log(debug, `DEV: ${message}`, ...optionalParams);
   },
-  infoNR: (message: string, ...optionalParams: unknown[]) => {
-    logNR(info, message, ...optionalParams);
+  step: (message: string, ...optionalParams: unknown[]) => {
+    log(
+      info,
+      `\n${"=".repeat(80)}\n📌 ${message}\n${"=".repeat(80)}\n`,
+      ...optionalParams,
+    );
   },
-  successNR: (message: string, ...optionalParams: unknown[]) => {
-    logNR(success, message, ...optionalParams);
-  },
-  warningNR: (message: string, ...optionalParams: unknown[]) => {
-    logNR(warning, message, ...optionalParams);
-  },
-  errorNR: (message: string, ...optionalParams: unknown[]) => {
-    logNR(error, message, ...optionalParams);
+  space: () => {
+    console.log();
   },
 };

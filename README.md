@@ -6,7 +6,7 @@ Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astro
 
 **Poto-Siril is a CLI tool to automate the pre-processing of astrophotography images on top of Siril.**
 
-Poto-Siril's primary goal is to **overcome the repetitive** work when pre-processing multiple layers before compositing a (L)RGB image (e.g. narrowband filters with monochrome camera or color camera with dual-band filters). It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follows the same [naming convention and directory structure](#poto-siril-project-architecture).
+Poto-Siril's primary goal is to **overcome the repetitive and tedious** work when pre-processing multiple layers before compositing a (L)RGB image (e.g. narrowband filters with monochrome camera or color camera with dual-band filters). It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follows the same [naming convention and directory structure](#poto-siril-project-architecture).
 
 ### Workflow 🚀
 
@@ -18,6 +18,9 @@ Poto-Siril's primary goal is to **overcome the repetitive** work when pre-proces
   Import one or several night sessions (lights and flats from `autorun` or `plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
   A summary resumes the light sequence(s) and the calibration files associated.
   ![dispatch](./img/poto-siril_dispatch.png)
+- **Complex Light - Flat matching**
+  The project consists of multiple night sessions where the flats changed over the time? e.g., a significant date gap between shooting sessions and the lights aren't coming with the same collimation and/or dust in the optical train.
+  Poto-Siril will auto-detect that and help you to associate the right flats to the right lights.
 - **Multi-layers project structure**
   The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there's multiple combinations). Each light set will map to a light sequence in Siril that you preprocess separately.
   👉 You can easily work on a LRGB or LRGBHaOIIISII project.
