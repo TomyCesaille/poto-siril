@@ -4,5 +4,6 @@
     "singleQuote": false,
     "coma-dangle": "always-multiline",
     "trailingComma": "all",
-    "arrowParens": "avoid"
+    "arrowParens": "avoid",
+    "useTabs": false
 }

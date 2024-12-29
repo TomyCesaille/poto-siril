@@ -4,6 +4,14 @@ exports[`E2E should be neat 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
   "potoVersion": "0.2.0",
+  "metrics": {
+    "cumulatedLightIntegrationMinutes": 9,
+    "cumulatedDarksIntegrationMinutes": 11,
+    "totalLights": 8,
+    "totalDarks": 10,
+    "totalFlats": 12,
+    "totalBiases": 12
+  },
   "layerSets": [
     {
       "layerSetId": "Light_60.0s_Bin1_H_gain0",
@@ -134,6 +142,7 @@ exports[`E2E should be neat 2`] = `
       ],
       "darkSet": "Dark_60.0s_Bin1_gain0",
       "darksCount": 1,
+      "darkTotalIntegrationMinutes": 1,
       "darks": [
         {
           "setName": "Dark_60.0s_Bin1_gain0",
@@ -341,7 +350,8 @@ exports[`E2E should be neat 2`] = `
         }
       ],
       "darkSet": "Dark_60.0s_Bin1_L_gain100",
-      "darksCount": 3,
+      "darksCount": 4,
+      "darkTotalIntegrationMinutes": 4,
       "darks": [
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -395,6 +405,24 @@ exports[`E2E should be neat 2`] = `
           "extension": "fit",
           "sourceDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
+          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+        },
+        {
+          "setName": "Dark_60.0s_Bin1_L_gain100",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "L",
+          "gain": 100,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 4,
+          "datetime": "2024-03-08T15:57:25.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
           "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
         }
       ],
@@ -550,6 +578,7 @@ exports[`E2E should be neat 2`] = `
       ],
       "darkSet": "Dark_120.0s_Bin1_L_gain0",
       "darksCount": 1,
+      "darkTotalIntegrationMinutes": 2,
       "darks": [
         {
           "setName": "Dark_120.0s_Bin1_L_gain0",
@@ -721,7 +750,8 @@ exports[`E2E should be neat 2`] = `
         }
       ],
       "darkSet": "Dark_60.0s_Bin1_L_gain100",
-      "darksCount": 3,
+      "darksCount": 4,
+      "darkTotalIntegrationMinutes": 4,
       "darks": [
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -775,6 +805,24 @@ exports[`E2E should be neat 2`] = `
           "extension": "fit",
           "sourceDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
+          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+        },
+        {
+          "setName": "Dark_60.0s_Bin1_L_gain100",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "L",
+          "gain": 100,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 4,
+          "datetime": "2024-03-08T15:57:25.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
           "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
         }
       ],
