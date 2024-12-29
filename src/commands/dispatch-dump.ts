@@ -94,25 +94,7 @@ const dispatch = async ({
 
   await dispatchProject(potoProject, projectDirectory);
 
-  logger.success("Dispatch done ✅. POTO project generated 💃.");
-
-  logger.step("Debug.");
-
-  const debug = layerSets.map(x => {
-    return {
-      layerSetId: x.layerSetId,
-      lightTotalCount: x.lightTotalCount,
-      lightsStr: x.lights.map(x => x.fileName).join(", "),
-      flatsCount: x.flatsCount,
-      flatsStr: x.flats.map(x => x.fileName).join(", "),
-      darksCount: x.darksCount,
-      darksStr: x.darks.map(x => x.fileName).join(", "),
-      biasesCount: x.biasesCount,
-      biasesStr: x.biases.map(x => x.fileName).join(", "),
-    };
-  });
-
-  logger.success("debug", debug);
+  logger.success("Dispatch complete.");
 
   // TODO. custom sort if LRGBSHO filter names to ease reading.
 };
@@ -574,7 +556,16 @@ const dispatchProject = (
 
   fs.writeFileSync(potoJsonPath, JSON.stringify(potoProject, null, 2));
 
-  // TODO. Copy the files to the project directory.
+  for (const layerSet of potoProject.layerSets) {
+    for (const file of [
+      ...layerSet.lights,
+      ...layerSet.darks,
+      ...layerSet.flats,
+      ...layerSet.biases,
+    ]) {
+      copyFileToProject(file);
+    }
+  }
 };
 
 // TODO. Enrich dataset 1 for a layerset with a missing dark.

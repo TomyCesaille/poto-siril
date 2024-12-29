@@ -197,7 +197,7 @@ export const copyFileToProject = (file: FileImageSpec) => {
   const targetFile = path.join(file.projectDirectory, file.fileName);
   fs.copyFileSync(file.sourceFilePath, targetFile);
 
-  logger.debug(`Copied ${file.fileName} to ${targetFile}`);
+  logger.debug(`- ${file.fileName} dispatched.`);
 };
 
 /**

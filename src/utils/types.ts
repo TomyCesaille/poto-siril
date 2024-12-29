@@ -126,6 +126,7 @@ export type PotoProject = {
   generatedAt: Date;
   potoVersion: string;
   layerSets: LayerSet[];
+  // TODO. Move total light integrations & various stats here.
 };
 
 export type LightsFlatsMatch = {
