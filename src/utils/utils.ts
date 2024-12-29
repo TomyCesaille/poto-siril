@@ -214,9 +214,6 @@ export const matchSetFile = (A: ImageSpec, B: ImageSpec): boolean => {
   } else if (A.type === "Light" && B.type === "Flat") {
     return A.bin === B.bin && A.filter === B.filter;
   } else if (A.type === "Flat" && B.type === "Bias") {
-    if (B.bin === "Bin2" && A.bin === B.bin && A.gain === B.gain) {
-      logger.errorThrow("ooo", A, B);
-    }
     return A.bin === B.bin && A.gain === B.gain;
   } else {
     return false;
