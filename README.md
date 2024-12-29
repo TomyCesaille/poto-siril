@@ -2,6 +2,8 @@
 
 Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astrophotography.
 
+[![codecov](https://codecov.io/gh/TomyCesaille/poto-siril/graph/badge.svg?token=RCF9ZV8JZ9)](https://codecov.io/gh/TomyCesaille/poto-siril)
+
 ## What is it?
 
 **Poto-Siril is a CLI tool to automate the pre-processing of astrophotography images on top of Siril.**
