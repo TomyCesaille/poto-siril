@@ -96,6 +96,7 @@ export const getFileImageSpecFromFilename = (
 
       type: match.groups.type,
       bulb: match.groups.bulb,
+      bulbMs: parseBulbString(match.groups.bulb),
       bin: match.groups.bin,
       filter: match.groups.filter?.replaceAll(" ", "").trim() ?? null,
       gain: parseInt(match.groups.gain, 10),
@@ -169,6 +170,23 @@ const unParseDate = (datetime: Date): string => {
   )}-${pad(datetime.getHours())}${pad(datetime.getMinutes())}${pad(
     datetime.getSeconds(),
   )}`;
+};
+
+/**
+ *
+ * @param bulbString `120.0s` or `810.0ms`.
+ * @returns 120000 or 810 (in ms).
+ */
+const parseBulbString = (bulbString: string): number => {
+  const bulbRegex = /(\d+\.\d+)(ms|s)/;
+  const matchResult = bulbString.match(bulbRegex);
+
+  if (matchResult) {
+    const [_, bulb, unit] = matchResult;
+    return unit === "s" ? parseFloat(bulb) * 1000 : parseFloat(bulb);
+  } else {
+    throw new Error(`Invalid bulb string: ${bulbString}`);
+  }
 };
 
 export const copyFileToProject = (file: FileImageSpec) => {

@@ -4,6 +4,7 @@ exports[`utils getFileImageSpecFromFilename should match snapshot (ASIAIR plan t
 {
   "bin": "Bin1",
   "bulb": "120.0s",
+  "bulbMs": 120000,
   "datetime": 2024-07-07T00:23:48.000Z,
   "extension": "fit",
   "fileName": "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit",
@@ -24,6 +25,7 @@ exports[`utils getFileImageSpecFromFilename should match snapshot (filter named 
 {
   "bin": "Bin1",
   "bulb": "120.0s",
+  "bulbMs": 120000,
   "datetime": 2024-07-07T00:23:48.000Z,
   "extension": "fit",
   "fileName": "Light_LDN 1093_120.0s_Bin1_filter h_gain100_20240707-002348_-10.0C_0001.fit",
@@ -44,6 +46,7 @@ exports[`utils getFileImageSpecFromFilename should match snapshot (no filter) 1`
 {
   "bin": "Bin1",
   "bulb": "120.0s",
+  "bulbMs": 120000,
   "datetime": 2024-07-07T00:23:48.000Z,
   "extension": "fit",
   "fileName": "Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0001.fit",

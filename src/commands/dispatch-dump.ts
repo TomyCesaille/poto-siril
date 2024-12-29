@@ -510,7 +510,7 @@ const AssignDarksBiasesToLayerSets = (
  */
 const previewBeforeDispatching = async (layerSets: LayerSet[]) => {
   logger.info(
-    `🔭 Cumulated integration: ${layerSets.reduce(
+    `🔭 Cumulated light integration: ${layerSets.reduce(
       (total, layerSet) => total + layerSet.lightTotalIntegrationMinutes,
       0,
     )} minutes.`,

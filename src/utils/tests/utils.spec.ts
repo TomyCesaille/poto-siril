@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals"; // Import Jest globals
 
 import fs from "fs";
-import path from "path";
 import {
   getFileImageSpecFromFilename,
   getFitsFromDirectory,
@@ -59,6 +58,24 @@ describe("utils", () => {
       expect(specs).toMatchSnapshot();
       expect(specs.filter).toBeNull();
     });
+  });
+
+  it.each([
+    { bulb: "120.0s", expected: 120000 },
+    { bulb: "810.0ms", expected: 810 },
+  ])("should parse bulb in ms (%s)", data => {
+    const file = new fs.Dirent();
+    file.name = `Light_LDN 1093_${data.bulb}_Bin1_gain100_20240707-002348_-10.0C_0001.fit`;
+    file.path = "input/bar";
+    const projectDirectory = "project/bar";
+    const previousFile = null;
+
+    const specs = getFileImageSpecFromFilename(
+      file,
+      projectDirectory,
+      previousFile,
+    );
+    expect(specs.bulbMs).toBe(data.expected);
   });
 
   describe("getFitsFromDirectory", () => {
