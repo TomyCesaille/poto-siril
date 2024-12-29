@@ -8,6 +8,7 @@ Closes # (issue)
 
 ## Type of change
 
+- [ ] Chore
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
