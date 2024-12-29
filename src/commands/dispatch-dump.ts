@@ -402,15 +402,15 @@ const initLayerSetsWithLightsnFlats = (
       layerSetId,
       filter: lights[0].filter,
 
-      lights,
       lightSequences,
       lightTotalCount: lights.length,
       lightTotalIntegrationMinutes: lightTotalIntegrationMs / 1000 / 60,
+      lights,
 
-      flats,
       flatSet: flats[0].setName,
       flatSequenceId: flats[0].sequenceId,
       flatsCount: flats.length,
+      flats,
     } as LayerSet;
 
     layerSets.push(layerSet);
@@ -458,8 +458,8 @@ const AssignDarksBiasesToLayerSets = (
       logger.error(`No darks found for ${layerSet.lights[0].setName}.`);
     } else {
       layerSet.darkSet = darks[0].setName;
-      layerSet.darks = darks;
       layerSet.darksCount = darks.length;
+      layerSet.darks = darks;
     }
 
     const biases = bankFiles.filter(
@@ -470,8 +470,8 @@ const AssignDarksBiasesToLayerSets = (
       logger.error(`No biases found for ${layerSet.flats[0].setName}.`);
     } else {
       layerSet.biasSet = biases[0].setName;
-      layerSet.biases = biases;
       layerSet.biasesCount = biases.length;
+      layerSet.biases = biases;
     }
 
     // Warn if there are multiple sequences for the same layer set
@@ -576,3 +576,8 @@ const dispatchProject = (
 
   // TODO. Copy the files to the project directory.
 };
+
+// TODO. Enrich dataset 1 for a layerset with a missing dark.
+// TODO. Enrich dataset 1 for a layerset with a missing flat.
+// TODO. Enrich dataset 1 for a layerset with multiple dark sequences
+// or in separated dataset TBD.
