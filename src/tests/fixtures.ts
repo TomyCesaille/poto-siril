@@ -80,7 +80,7 @@ const dataset_1 = [
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0002.fit", // Another Filter.
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot", // Not a fit file based on extension.
 
-  // Darks matching set A.
+  // Darks matching set A. Not same filter as lights set A, but filter is irrelevant for darks.
   "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
   "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
   "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
