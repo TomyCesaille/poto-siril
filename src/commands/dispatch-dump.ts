@@ -137,8 +137,6 @@ const getAllFitsInInputDirectories = (
   shootingMode: string,
   projectDirectory: string,
 ): FileImageSpec[] => {
-  // TODO. Allow multiple directories in input.
-  // TODO. Decouple from ASIAIR. Just warn if files both found in Autorun and Plan, and ask the user to probably review the input files first.
   const files = getFitsFromDirectory({
     directory: `${asiAirDirectory}/${
       shootingMode === "autorun" ? "Autorun" : "Plan"
@@ -249,11 +247,6 @@ const matchLightsToFlats = async (
     logger.info(
       "We will ask you to tag each concerned light sequence to the right flat sequence.",
     );
-
-    // TODO. Provide a smart way to match the sequences.
-    // E.G Flats always before / after lights.
-    // Propose the choice manual / auto (light before flats) / auto (flats before lights).
-    // show the summary for auto, and ask if needs to be reviewed in manual mode.
 
     const lightsConcerned = [
       ...new Set(
@@ -411,7 +404,6 @@ const getAllFitsInBankDirectories = (
   bankDirectory: string,
   projectDirectory: string,
 ): FileImageSpec[] => {
-  // TODO. Allow multiple directories in input.
   const files = getFitsFromDirectory({
     directory: bankDirectory,
     projectDirectory,
@@ -590,7 +582,6 @@ const dispatchProject = (
   }
 };
 
-// TODO Snapshot calls to the logged in e2e tests.
 // TODO. Enrich dataset 1 for a layerset with a missing dark.
 // TODO. Enrich dataset 1 for a layerset with a missing flat.
 // TODO. Enrich dataset 1 for a layerset with multiple dark sequences

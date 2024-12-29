@@ -14,7 +14,10 @@ export type ImageSpec = {
    * Bulb duration: 60.0s, 810.0ms, etc...
    */
   bulb: string;
-  bulbMs: number; // TODO. Compute this.
+  /**
+   * Bulb duration in milliseconds.
+   */
+  bulbMs: number;
   /**
    * Binning: Bin1, Bin2, Bin 3 & Bin 4.
    */
@@ -135,7 +138,6 @@ export type PotoProject = {
     totalBiases: number;
   };
   layerSets: LayerSet[];
-  // TODO. Move total light integrations & various stats here.
 };
 
 export type LightsFlatsMatch = {

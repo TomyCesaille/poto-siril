@@ -75,8 +75,6 @@ export const getFileImageSpecFromFilename = (
     /^(?<type>[A-Za-z]+)(?:_[^_]+)?_(?<bulb>[^_]+)_(?<bin>Bin\d)_((?<filter>[A-Za-z0-9 ]+)_)?gain(?<gain>\d+)_(?<datetime>\d{8}-\d{6})_(?<temperature>-?\d+\.\d+C)_(?<sequence>\d{4})\.(?<extension>fit)$/;
   const match = fileFS.name.match(regex);
 
-  // TODO. Check if well sorted!
-
   if (match && match.groups) {
     const sequencePosition = parseInt(match.groups.sequence, 10);
     const datetime = parseDate(match.groups.datetime);
@@ -211,7 +209,6 @@ export const copyFileToProject = (file: FileImageSpec) => {
 export const matchSetFile = (A: ImageSpec, B: ImageSpec): boolean => {
   if (A.type === "Light" && B.type === "Dark") {
     return (
-      // TODO. Filter based on the temperature.
       A.bulb === B.bulb && A.bin === B.bin && A.gain === B.gain
     );
   } else if (A.type === "Light" && B.type === "Flat") {
