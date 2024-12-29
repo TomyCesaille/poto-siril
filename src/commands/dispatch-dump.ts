@@ -566,8 +566,8 @@ const dispatchProject = (
   }
 };
 
+// TODO Snapshot calls to the logged in e2e tests.
 // TODO. Enrich dataset 1 for a layerset with a missing dark.
-// TODO. Create a dataset 1 Light D (exact same as Light A, but another sequence, to be matched with another flat sequence).
 // TODO. Enrich dataset 1 for a layerset with a missing flat.
 // TODO. Enrich dataset 1 for a layerset with multiple dark sequences
 // or in separated dataset TBD.

@@ -23,56 +23,57 @@ describe("E2E", () => {
       spawnMockedDatasetToFs_dataset_1());
   });
 
-  test(
-    "should be neat",
-    async () => {
-      const promptMock = jest.fn();
-      (Enquirer.prototype.prompt as jest.Mock) = promptMock;
+  test("should be neat", async () => {
+    const promptMock = jest.fn();
+    (Enquirer.prototype.prompt as jest.Mock) = promptMock;
 
-      promptMock
-        .mockResolvedValueOnce({
-          createProjectDirectory: true,
-        } as never)
-        .mockResolvedValueOnce({
-          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
-        } as never)
-        .mockResolvedValueOnce({
-          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
-        } as never)
-        .mockResolvedValueOnce({
-          go: true,
-        } as never);
+    promptMock
+      .mockResolvedValueOnce({
+        createProjectDirectory: true,
+      } as never)
+      .mockResolvedValueOnce({
+        selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+      } as never)
+      .mockResolvedValueOnce({
+        selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+      } as never)
+      .mockResolvedValueOnce({
+        selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+      } as never)
+      .mockResolvedValueOnce({
+        go: true,
+      } as never);
 
-      let files = fs.readdirSync(asiAirDirectory, {
-        recursive: true,
-        withFileTypes: false,
-        encoding: "utf8",
-      });
-      expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(3);
+    let files = fs.readdirSync(asiAirDirectory, {
+      recursive: true,
+      withFileTypes: false,
+      encoding: "utf8",
+    });
+    expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(3);
 
-      cleanThumbnails(asiAirDirectory);
+    cleanThumbnails(asiAirDirectory);
 
-      files = fs.readdirSync(asiAirDirectory, {
-        recursive: true,
-        withFileTypes: false,
-        encoding: "utf8",
-      });
-      expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(0);
+    files = fs.readdirSync(asiAirDirectory, {
+      recursive: true,
+      withFileTypes: false,
+      encoding: "utf8",
+    });
+    expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(0);
 
-      await dispatch({
-        projectDirectory,
-        asiAirDirectory,
-        shootingMode: "autorun",
-        bankDirectory,
-      });
+    await dispatch({
+      projectDirectory,
+      asiAirDirectory,
+      shootingMode: "autorun",
+      bankDirectory,
+    });
 
-      files = fs.readdirSync(projectDirectory, {
-        recursive: true,
-        withFileTypes: false,
-        encoding: "utf8",
-      });
+    files = fs.readdirSync(projectDirectory, {
+      recursive: true,
+      withFileTypes: false,
+      encoding: "utf8",
+    });
 
-      expect(files).toMatchInlineSnapshot(`
+    expect(files).toMatchInlineSnapshot(`
 [
   "H",
   "S",
@@ -103,6 +104,7 @@ describe("E2E", () => {
   "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
   "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
   "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
   "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
   "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
   "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
@@ -114,48 +116,42 @@ describe("E2E", () => {
 ]
 `);
 
-      const potoJson = fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
-        encoding: "utf8",
-      });
+    const potoJson = fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
+      encoding: "utf8",
+    });
 
-      expect(potoJson).toMatchSnapshot();
+    expect(potoJson).toMatchSnapshot();
 
-      await generateScripts(
-        projectDirectory,
-        "src/process/mono_processing_process/1_preprocessing.ssf",
-      );
+    await generateScripts(
+      projectDirectory,
+      "src/process/mono_processing_process/1_preprocessing.ssf",
+    );
 
-      files = fs.readdirSync(projectDirectory, {
-        recursive: true,
-        withFileTypes: false,
-        encoding: "utf8",
-      });
+    files = fs.readdirSync(projectDirectory, {
+      recursive: true,
+      withFileTypes: false,
+      encoding: "utf8",
+    });
 
-      const scripts = files.filter(f => f.endsWith(".ssf"));
-      expect(scripts).toHaveLength(3);
-      expect(scripts).toMatchInlineSnapshot(`
+    const scripts = files.filter(f => f.endsWith(".ssf"));
+    expect(scripts).toHaveLength(4);
+    expect(scripts).toMatchInlineSnapshot(`
 [
   "H/Light_60.0s_Bin1_H_gain0_process/poto_1_preprocessing.ssf",
   "S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/poto_1_preprocessing.ssf",
   "S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/poto_1_preprocessing.ssf",
+  "S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/poto_1_preprocessing.ssf",
 ]
 `);
 
-      const script1 = fs.readFileSync(path.join(projectDirectory, scripts[0]), {
-        encoding: "utf8",
-      });
-      expect(script1).toMatchSnapshot();
-
-      const script2 = fs.readFileSync(path.join(projectDirectory, scripts[1]), {
-        encoding: "utf8",
-      });
-      expect(script2).toMatchSnapshot();
-
-      const script3 = fs.readFileSync(path.join(projectDirectory, scripts[2]), {
-        encoding: "utf8",
-      });
-      expect(script3).toMatchSnapshot();
-    },
-    30 * 1000,
-  );
+    for (const script of scripts) {
+      const scriptContent = fs.readFileSync(
+        path.join(projectDirectory, script),
+        {
+          encoding: "utf8",
+        },
+      );
+      expect(scriptContent).toMatchSnapshot();
+    }
+  });
 });

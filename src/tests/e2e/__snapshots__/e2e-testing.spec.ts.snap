@@ -628,6 +628,214 @@ exports[`E2E should be neat 2`] = `
           "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
         }
       ]
+    },
+    {
+      "layerSetId": "Light_60.0s_Bin1_S_gain100__20240627-010820",
+      "filter": "S",
+      "lightSequences": [
+        {
+          "sequenceId": "20240627-010820",
+          "count": 1,
+          "integrationMinutes": 1
+        }
+      ],
+      "lightTotalCount": 1,
+      "lightTotalIntegrationMinutes": 1,
+      "lights": [
+        {
+          "setName": "Light_60.0s_Bin1_S_gain100",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240627-010820",
+          "sequencePosition": 1,
+          "datetime": "2024-06-27T01:08:20.000Z",
+          "temperature": "-10.1C",
+          "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+        }
+      ],
+      "flatSet": "Flat_1.0ms_Bin1_S_gain100",
+      "flatSequenceId": "20240626-094304",
+      "flatsCount": 3,
+      "flats": [
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 1,
+          "datetime": "2024-06-26T09:43:04.000Z",
+          "temperature": "-10.5C",
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 2,
+          "datetime": "2024-06-26T09:43:05.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 3,
+          "datetime": "2024-06-26T09:43:06.000Z",
+          "temperature": "-10.5C",
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        }
+      ],
+      "darkSet": "Dark_60.0s_Bin1_L_gain100",
+      "darksCount": 3,
+      "darks": [
+        {
+          "setName": "Dark_60.0s_Bin1_L_gain100",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "L",
+          "gain": 100,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 1,
+          "datetime": "2024-03-08T15:57:22.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
+          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+        },
+        {
+          "setName": "Dark_60.0s_Bin1_L_gain100",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "L",
+          "gain": 100,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 2,
+          "datetime": "2024-03-08T15:57:23.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
+          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+        },
+        {
+          "setName": "Dark_60.0s_Bin1_L_gain100",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "L",
+          "gain": 100,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 3,
+          "datetime": "2024-03-08T15:57:24.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
+          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+        }
+      ],
+      "biasSet": "Bias_1.0ms_Bin1_gain100",
+      "biasesCount": 3,
+      "biases": [
+        {
+          "setName": "Bias_1.0ms_Bin1_gain100",
+          "type": "Bias",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 100,
+          "sequenceId": "20230910-101131",
+          "sequencePosition": 1,
+          "datetime": "2023-09-10T10:11:31.000Z",
+          "temperature": "-9.8C",
+          "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
+          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+        },
+        {
+          "setName": "Bias_1.0ms_Bin1_gain100",
+          "type": "Bias",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 100,
+          "sequenceId": "20230910-101131",
+          "sequencePosition": 2,
+          "datetime": "2023-09-10T10:11:32.000Z",
+          "temperature": "-9.8C",
+          "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
+          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+        },
+        {
+          "setName": "Bias_1.0ms_Bin1_gain100",
+          "type": "Bias",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 100,
+          "sequenceId": "20230910-101131",
+          "sequencePosition": 3,
+          "datetime": "2023-09-10T10:11:33.000Z",
+          "temperature": "-9.8C",
+          "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
+          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+        }
+      ]
     }
   ]
 }"
@@ -826,6 +1034,73 @@ cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
 
 # Calibrate Light Frames
 calibrate light -dark=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/dark_stacked -flat=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/pp_flat_stacked -cc=dark
+
+# Align Lights
+register pp_light
+
+close
+"
+`;
+
+exports[`E2E should be neat 7`] = `
+"#############################################
+#             _                  _      _ _ #
+# _ __   ___ | |_ ___        ___(_)_ __(_) |#
+#| '_ \\ / _ \\| __/ _ \\ _____/ __| | '__| | |#
+#| |_) | (_) | || (_) |_____\\__ \\ | |  | | |#
+#| .__/ \\___/ \\__\\___/      |___/_|_|  |_|_|#
+#|_|                                        #
+#############################################
+# Adapted from the Cyril Richard Mono_Preprocessing v1.3 for poto-siril.
+
+############################################
+# 
+# Variables:
+#   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
+#   flats: tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
+#   darks: tmp/project/any/Dark_60.0s_Bin1_gain100/
+#   lights: tmp/project/S/Light_60.0s_Bin1_S_gain100/
+#   process: tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/
+#   masters: tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/
+#
+############################################
+
+requires 1.2.0
+
+# Convert Bias Frames to .fit files
+cd tmp/project/any/Bias_1.0ms_Bin1_gain100
+convert bias -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+
+# Stack Bias Frames to bias_stacked.fit
+stack bias rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/bias_stacked
+
+# Convert Flat Frames to .fit files
+cd tmp/project/S/Flat_1.0ms_Bin1_S_gain100
+convert flat -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+
+# Calibrate Flat Frames
+calibrate flat -bias=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/bias_stacked
+
+# Stack Flat Frames to pp_flat_stacked.fit
+stack pp_flat rej 3 3 -norm=mul -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/pp_flat_stacked
+
+# Convert Dark Frames to .fit files
+cd tmp/project/any/Dark_60.0s_Bin1_gain100
+convert dark -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+
+# Stack Dark Frames to dark_stacked.fit
+stack dark rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/dark_stacked
+
+# Convert Light Frames to .fit files
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100
+convert light -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+
+# Calibrate Light Frames
+calibrate light -dark=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/dark_stacked -flat=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
