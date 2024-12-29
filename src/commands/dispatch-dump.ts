@@ -20,7 +20,7 @@ import {
   LightsFlatsMatch,
   PotoProject,
 } from "../utils/types";
-import { POTO_JSON } from "../utils/const";
+import { POTO_JSON, POTO_VERSION } from "../utils/const";
 
 export type DispatchOptions = {
   projectDirectory: string;
@@ -61,13 +61,42 @@ const dispatch = async ({
     allLights,
   );
 
-  const layerSets: LayerSet[] = initLayerSetsWithLightsnFlats(
+  let layerSets: LayerSet[] = initLayerSetsWithLightsnFlats(
     lightsFlatsMatches,
     allLights,
     allFlatsMatchingLights,
   );
 
-  logger.step("Debug");
+  logger.step("Tagging darks and biases");
+
+  const bankFiles = getAllFitsInBankDirectories(
+    bankDirectory,
+    projectDirectory,
+  );
+
+  layerSets = AssignDarksBiasesToLayerSets(layerSets, bankFiles);
+
+  logger.step("Preview before dispatching");
+
+  const go = await previewBeforeDispatching(layerSets);
+
+  if (!go) {
+    logger.warning("Aborted.");
+    return;
+  }
+  logger.step("Dispatching");
+
+  const potoProject: PotoProject = {
+    generatedAt: new Date(),
+    potoVersion: POTO_VERSION,
+    layerSets,
+  };
+
+  await dispatchProject(potoProject, projectDirectory);
+
+  logger.success("Dispatch done ✅. POTO project generated 💃.");
+
+  logger.step("Debug.");
 
   const debug = layerSets.map(x => {
     return {
@@ -76,155 +105,16 @@ const dispatch = async ({
       lightsStr: x.lights.map(x => x.fileName).join(", "),
       flatsCount: x.flatsCount,
       flatsStr: x.flats.map(x => x.fileName).join(", "),
+      darksCount: x.darksCount,
+      darksStr: x.darks.map(x => x.fileName).join(", "),
+      biasesCount: x.biasesCount,
+      biasesStr: x.biases.map(x => x.fileName).join(", "),
     };
   });
 
   logger.success("debug", debug);
 
   // TODO. custom sort if LRGBSHO filter names to ease reading.
-  // TODO. Add biases and darks to the layerSets.
-
-  return;
-
-  const importedLightsFlatsFiles: FileImageSpec[] = [];
-  const importedDarksBiasesFiles: FileImageSpec[] = [];
-
-  // Dispatch the ASIAIR Lights files to the project directory.
-  // const lightFiles = inputFiles.filter(file => file.type === "Light");
-  // lightFiles.forEach(file => {
-  //   copyFileToProject(file);
-  //   importedLightsFlatsFiles.push(file);
-  // });
-
-  // Dispatch associated flats.
-  // inputFiles
-  //   .filter(x => x.type === "Flat")
-  //   .forEach(file => {
-  //     if (lightFiles.find(f => matchSetFile(f, file))) {
-  //       copyFileToProject(file);
-  //       importedLightsFlatsFiles.push(file);
-  //     } else {
-  //       logger.info(
-  //         `Skipping ${file.fileName} from the ASIAIR, No light matching.`,
-  //       );
-  //     }
-  //   });
-
-  // Search for the darks and biases we need to copy.
-  const bankFiles = getFitsFromDirectory({
-    directory: bankDirectory,
-    projectDirectory,
-  });
-  logger.info(`Found ${bankFiles.length} files in the bank.`);
-  bankFiles.forEach(file => {
-    // Check if the file is needed from the bank.
-    if (importedLightsFlatsFiles.find(f => matchSetFile(f, file))) {
-      copyFileToProject(file);
-      importedDarksBiasesFiles.push(file);
-    } else {
-      logger.debug(`Skipping ${file.fileName} from the bank, not needed.`);
-    }
-  });
-
-  // TODO. Extract below to a new isolated stats function.
-
-  // Check that there's flat, darks and biases for each sets.
-  const files = [...importedLightsFlatsFiles, ...importedDarksBiasesFiles];
-  const flatFiles = files.filter(file => file.type === "Flat");
-  const darkFiles = files.filter(file => file.type === "Dark");
-  const biasFiles = files.filter(file => file.type === "Bias");
-
-  const layerSetsOld = [
-    ...new Set(
-      files.filter(file => file.type === "Light").map(file => file.setName),
-    ),
-  ].map(layerSetName => {
-    const setSpecs = getImageSpecFromSetName(layerSetName);
-
-    const layerSet = {
-      filter: setSpecs.filter,
-      lightSet: layerSetName,
-      // TODO. Refactor to use the filter function here too. Or store the decision previously made (during the bank selection) to reuse it here.
-      // The core issue is that we kinda recompute the same thing twice when importing files + when generating the poto project file.
-      lights: lightFiles.filter(file => file.setName === layerSetName),
-      darks: darkFiles.filter(
-        file =>
-          file.bin === setSpecs.bin &&
-          file.gain === setSpecs.gain &&
-          file.bulb === setSpecs.bulb,
-      ),
-      flats: flatFiles.filter(
-        file => file.bin === setSpecs.bin && file.filter === setSpecs.filter,
-      ),
-    } as LayerSet;
-
-    const biases = biasFiles.filter(
-      file =>
-        file.bin === (layerSet.flats[0]?.bin ?? undefined) &&
-        file.gain === (layerSet.flats[0]?.gain ?? undefined),
-    );
-
-    return {
-      filter: layerSet.filter,
-
-      lightSet: layerSet.lightSet,
-      flatSet: layerSet.flats[0]?.setName ?? undefined,
-      darkSet: layerSet.darks[0]?.setName ?? undefined,
-      biasSet: biases[0]?.setName ?? undefined,
-
-      lightsCount: layerSet.lights.length,
-      flatsCount: layerSet.flats.length,
-      darksCount: layerSet.darks.length,
-      biasesCount: biases.length,
-
-      lights: layerSet.lights,
-      darks: layerSet.darks,
-      flats: layerSet.flats,
-      biases,
-    } as LayerSet;
-  });
-
-  logger.info(
-    `🔭 Project size: ${layerSets.reduce(
-      (total, layerSet) => total + layerSet.flatsCount,
-      0,
-    )} lights, ${layerSets.reduce(
-      (total, layerSet) => total + layerSet.darksCount,
-      0,
-    )} darks, ${layerSets.reduce(
-      (total, layerSet) => total + layerSet.flatsCount,
-      0,
-    )} flats, ${layerSets.reduce(
-      (total, layerSet) => total + layerSet.biasesCount,
-      0,
-    )} biases.`,
-  );
-
-  for (const layerSet of layerSets) {
-    const log = `  🌌 Set ${layerSet.lightSet} has ${layerSet.lights.length} lights, ${layerSet.darks.length} darks, ${layerSet.flats.length} flats, ${layerSet.biases.length} biases.`;
-    if (
-      layerSet.lights.length > 0 &&
-      layerSet.flats.length > 0 &&
-      layerSet.darks.length > 0 &&
-      layerSet.biases.length > 0
-    ) {
-      logger.info(log);
-    } else {
-      logger.warning(log);
-    }
-  }
-
-  const potoProject: PotoProject = {
-    generatedAt: new Date(),
-    potoVersion: "0.1.0",
-    layerSets,
-  };
-
-  const potoJsonPath = `${projectDirectory}/${POTO_JSON}`;
-
-  fs.writeFileSync(potoJsonPath, JSON.stringify(potoProject, null, 2));
-
-  logger.success(`Dispatch done ✅. ${POTO_JSON} generated 💃.`);
 };
 
 export default dispatch;
@@ -250,9 +140,6 @@ const ensureProjectDirectoryExists = async (projectDirectory: string) => {
   }
 };
 
-// TODO. Decouple from ASIAIR. Just warn if files both found in Autorun and Plan, and ask the user to probably review the input files first.
-// TODO. Allow multiple directories in input.
-
 /**
  * Retrieve all FITS files from the input directories.
  *
@@ -265,14 +152,17 @@ const getAllFitsInInputDirectories = (
   asiAirDirectory: string,
   shootingMode: string,
   projectDirectory: string,
-) => {
+): FileImageSpec[] => {
+  // TODO. Allow multiple directories in input.
+  // TODO. Decouple from ASIAIR. Just warn if files both found in Autorun and Plan, and ask the user to probably review the input files first.
   const files = getFitsFromDirectory({
     directory: `${asiAirDirectory}/${
       shootingMode === "autorun" ? "Autorun" : "Plan"
     }`,
     projectDirectory,
   });
-  logger.info(`Found ${files.length} files to dispatch.`);
+  logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
+
   return files;
 };
 
@@ -367,9 +257,7 @@ const matchLightsToFlats = async (
 
     logger.info(`🤚 Several sequences found for flat set ${flatSet}:`);
     logger.info(
-      `${flatSetNameSequenceIds
-        .map(x => `  - ${x.split("__")[1]}`)
-        .join("\n")}`,
+      `${flatSetNameSequenceIds.map(x => `- ${x.split("__")[1]}`).join("\n")}`,
     );
     logger.debug(
       "We assume that multiple sequences of the same flat set indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
@@ -434,7 +322,7 @@ const matchLightsToFlats = async (
   logger.info("👉 Light - Flat matching summary:");
   for (const pair of LightFlatMatches) {
     logger.debug(
-      `  - ${pair.lightSetName} ${pair.lightSequenceId} 🏹 ${pair.flatSetName} ${pair.flatSequenceId}`,
+      `- ${pair.lightSetName} ${pair.lightSequenceId} 🏹 ${pair.flatSetName} ${pair.flatSequenceId}`,
     );
   }
 
@@ -452,7 +340,7 @@ const initLayerSetsWithLightsnFlats = (
   lightsFlatsMatches: LightsFlatsMatch[],
   allLights: FileImageSpec[],
   allFlatsMatchingLights: FileImageSpec[],
-) => {
+): LayerSet[] => {
   const layerSets: LayerSet[] = [];
 
   for (const lightsFlatsMatch of lightsFlatsMatches) {
@@ -481,7 +369,7 @@ const initLayerSetsWithLightsnFlats = (
     }
 
     const layerSetId = lightsFlatsMatch.isManualMatch
-      ? `${lights[0].setName}__sequence-${lights[0].sequenceId}`
+      ? `${lights[0].setName}__${lights[0].sequenceId}`
       : lights[0].setName;
 
     const lightSequenceIds = new Set(
@@ -528,4 +416,163 @@ const initLayerSetsWithLightsnFlats = (
     layerSets.push(layerSet);
   }
   return layerSets;
+};
+
+/**
+ * Retrieve all FITS files from the input directories.
+ *
+ * @param bankDirectory - The directory where ASIAIR files are stored.
+ * @param projectDirectory - The directory of the current project.
+ * @returns An array of FileImageSpec objects representing the FITS files.
+ */
+const getAllFitsInBankDirectories = (
+  bankDirectory: string,
+  projectDirectory: string,
+): FileImageSpec[] => {
+  // TODO. Allow multiple directories in input.
+  const files = getFitsFromDirectory({
+    directory: bankDirectory,
+    projectDirectory,
+  });
+  logger.info(`Found ${files.length} files in the bank.`);
+  return files;
+};
+
+/**
+ * Assign darks and biases to the layer sets.
+ * We darks are assigned to lights, and biases are assigned to flats.
+ *
+ * @param layerSets - The layer sets with lights and flats filled in.
+ * @param bankFiles - The bank files available.
+ */
+const AssignDarksBiasesToLayerSets = (
+  layerSets: LayerSet[],
+  bankFiles: FileImageSpec[],
+): LayerSet[] => {
+  for (const layerSet of layerSets) {
+    const darks = bankFiles.filter(
+      dark => dark.type === "Dark" && matchSetFile(layerSet.lights[0], dark),
+    );
+
+    if (darks.length === 0) {
+      logger.error(`No darks found for ${layerSet.lights[0].setName}.`);
+    } else {
+      layerSet.darkSet = darks[0].setName;
+      layerSet.darks = darks;
+      layerSet.darksCount = darks.length;
+    }
+
+    const biases = bankFiles.filter(
+      bias => bias.type === "Bias" && matchSetFile(layerSet.flats[0], bias),
+    );
+
+    if (biases.length === 0) {
+      logger.error(`No biases found for ${layerSet.flats[0].setName}.`);
+    } else {
+      layerSet.biasSet = biases[0].setName;
+      layerSet.biases = biases;
+      layerSet.biasesCount = biases.length;
+    }
+
+    // Warn if there are multiple sequences for the same layer set
+    const darkSequences = new Set(darks.map(dark => dark.sequenceId));
+    if (darkSequences.size > 1) {
+      logger.warning(
+        `Multiple dark sequences found for ${layerSet.lights[0].setName}: ${[
+          ...darkSequences,
+        ].join(", ")}`,
+      );
+      logger.warning(
+        "Gathering them all for the master dark. Make sure that's what you want.",
+      );
+    }
+
+    const biasSequences = new Set(biases.map(bias => bias.sequenceId));
+    if (biasSequences.size > 1) {
+      logger.warning(
+        `Multiple bias sequences found for ${layerSet.flats[0].setName}: ${[
+          ...biasSequences,
+        ].join(", ")}`,
+      );
+      logger.warning(
+        "Gathering them all for the master flat. Make sure that's what you want.",
+      );
+    }
+  }
+
+  return layerSets;
+};
+
+/**
+ * Preview the project composition before dispatching.
+ *
+ * @param layerSets - The layer sets to preview.
+ */
+const previewBeforeDispatching = async (layerSets: LayerSet[]) => {
+  logger.info(
+    `🔭 Cumulated integration: ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.lightTotalIntegrationMinutes,
+      0,
+    )} minutes.`,
+  );
+  logger.info(
+    `📦 Project size: ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.lightTotalCount,
+      0,
+    )} lights, ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.darksCount,
+      0,
+    )} darks, ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.flatsCount,
+      0,
+    )} flats, ${layerSets.reduce(
+      (total, layerSet) => total + layerSet.biasesCount,
+      0,
+    )} biases.`,
+  );
+
+  logger.space();
+
+  logger.info("🌌 Layer sets:");
+  for (const layerSet of layerSets) {
+    const log = `- ${layerSet.layerSetId} has ${layerSet.lights.length} lights, ${layerSet.darks.length} darks, ${layerSet.flats.length} flats, ${layerSet.biases.length} biases.`;
+    if (
+      layerSet.lights.length > 0 &&
+      layerSet.flats.length > 0 &&
+      layerSet.darks.length > 0 &&
+      layerSet.biases.length > 0
+    ) {
+      logger.debug(log);
+    } else {
+      logger.warning(log);
+    }
+  }
+
+  logger.space();
+
+  const enquirer = new Enquirer();
+  const response = (await enquirer.prompt({
+    type: "confirm",
+    name: "go",
+    message: "Do you want to proceed with the dispatch?",
+  })) as { go: boolean };
+
+  return response.go;
+};
+
+/**
+ * Dispatch the project json and the files to the poto project directory.
+ *
+ * @param potoProject - The POTO project to dispatch.
+ * @param projectDirectory - The project directory.
+ */
+const dispatchProject = (
+  potoProject: PotoProject,
+  projectDirectory: string,
+): void => {
+  const potoJsonPath = `${projectDirectory}/${POTO_JSON}`;
+
+  fs.writeFileSync(potoJsonPath, JSON.stringify(potoProject, null, 2));
+
+  // TODO. Copy the files to the project directory.
 };
