@@ -13,6 +13,7 @@ const jestConfig: JestConfigWithTsJest = {
   transformIgnorePatterns: [
     "/node_modules/(?!chalk|ansi-escapes)", // Ensure node_modules are transformed correctly
   ],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
 };
 
 export default jestConfig;

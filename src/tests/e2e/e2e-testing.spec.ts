@@ -8,13 +8,13 @@ import { POTO_JSON } from "../../utils/const";
 import { cleanThumbnails, removeEmptyDirectories } from "../../commands/asiair-dump-cleaning";
 import { generateScripts } from "../../commands/generate-scripts";
 import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
-
-jest.mock("enquirer");
+import { logger } from "../../utils/logger";
 
 describe("E2E", () => {
   let asiAirDirectory: string = "";
   let bankDirectory: string = "";
   let projectDirectory: string = "";
+  let logMessages: string[] = [];
 
   beforeEach(() => {
     jest.useFakeTimers().setSystemTime(new Date(Date.UTC(2024, 9, 15)));
@@ -24,11 +24,38 @@ describe("E2E", () => {
 
     // Make an empty directory to test `removeEmptyDirectories`.
     fs.mkdirSync(path.join(asiAirDirectory, "empty", "empty"), { recursive: true });
+
+    // Spy on logger and Enquirer to capture logs and prompts.
+    logMessages = [];
+    const logMethods = ["info", "warning", "debug", "error", "success", "step", "space"] as const;
+    type LogMethod = (typeof logMethods)[number];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    const originalMethods: Record<LogMethod, Function> = logMethods.reduce((acc, method) => {
+      acc[method] = logger[method];
+      return acc;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    }, {} as Record<LogMethod, Function>);
+
+    logMethods.forEach(method => {
+      jest.spyOn(logger, method).mockImplementation((...args: Parameters<typeof logger[LogMethod]>) => {
+        const message = `${method}: ${args.join(" ")}`;
+        logMessages.push(message);
+        originalMethods[method].apply(logger, args);
+      });
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   test("should be neat", async () => {
     const promptMock = jest.fn();
-    (Enquirer.prototype.prompt as jest.Mock) = promptMock;
+
+    jest.spyOn(Enquirer.prototype, "prompt").mockImplementation(async function (...args) {
+      logMessages.push(`prompt: ${JSON.stringify(args, null, 2)}`);
+      return promptMock(...args);
+    });
 
     promptMock
       .mockResolvedValueOnce({
@@ -164,5 +191,7 @@ describe("E2E", () => {
       );
       expect(scriptContent).toMatchSnapshot();
     }
+
+    expect(logMessages).toMatchSnapshot();
   });
 });

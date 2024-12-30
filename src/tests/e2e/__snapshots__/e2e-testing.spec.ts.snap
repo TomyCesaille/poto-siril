@@ -1156,3 +1156,168 @@ register pp_light
 close
 "
 `;
+
+exports[`E2E should be neat 8`] = `
+[
+  "debug: Deleted: tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg",
+  "debug: Deleted: tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002_thn.jpg",
+  "debug: Deleted: tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003_thn.jpg",
+  "info: Asiair dump cleaning - Thumbnails deleted ✅",
+  "info: Deleted: tmp/asiair-dump/empty/empty",
+  "info: Deleted: tmp/asiair-dump/empty",
+  "info: Asiair dump cleaning - Empty dirs deleted ✅",
+  "prompt: [
+  {
+    "type": "confirm",
+    "name": "createProjectDirectory",
+    "message": "Directory tmp/project does not exist. Do you want to create it?"
+  }
+]",
+  "step: Reading input directories",
+  "debug: Skipping unknown file (Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot)",
+  "info: Found 19 files in input dir(s) to dispatch.",
+  "step: Matching lights and flats (early stage)",
+  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
+  "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
+  "info: Found 9 matching flats (3 sequences).",
+  "step: Matching lights and flats (final stage)",
+  "info: 🤚 Several sequences found for flat set Flat_1.0ms_Bin1_S_gain100:",
+  "info: - 20240624-094304
+- 20240626-094304",
+  "debug: We assume that multiple sequences of the same flat set indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
+  "info: We will ask you to tag each concerned light sequence to the right flat sequence.",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedFlatSequence",
+    "message": "Light_60.0s_Bin1_S_gain100 20240624-010840 will use",
+    "choices": [
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240624-094304"
+      },
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240626-094304"
+      }
+    ]
+  }
+]",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedFlatSequence",
+    "message": "Light_120.0s_Bin1_S_gain0 20240626-010853 will use",
+    "choices": [
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240624-094304"
+      },
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240626-094304"
+      }
+    ]
+  }
+]",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedFlatSequence",
+    "message": "Light_60.0s_Bin1_S_gain100 20240627-010820 will use",
+    "choices": [
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240624-094304"
+      },
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240626-094304"
+      }
+    ]
+  }
+]",
+  "space: ",
+  "info: 👉 Light - Flat matching summary:",
+  "debug: - Light_60.0s_Bin1_H_gain0 20240625-010850 🏹 Flat_1.0ms_Bin1_H_gain100 20240511-094306",
+  "debug: - Light_60.0s_Bin1_S_gain100 20240624-010840 🏹 Flat_1.0ms_Bin1_S_gain100 20240624-094304",
+  "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
+  "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
+  "step: Tagging darks and biases",
+  "info: Found 14 files in the bank.",
+  "step: Preview before dispatching",
+  "info: 🔭 Cumulated light integration: 9 minutes.",
+  "info: 📦 Project size: 8 lights, 10 darks, 12 flats, 12 biases.",
+  "space: ",
+  "info: 🌌 Layer sets:",
+  "debug: - Light_60.0s_Bin1_H_gain0 has 3 lights, 1 darks, 3 flats, 3 biases.",
+  "debug: - Light_60.0s_Bin1_S_gain100__20240624-010840 has 3 lights, 4 darks, 3 flats, 3 biases.",
+  "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 has 1 lights, 1 darks, 3 flats, 3 biases.",
+  "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 has 1 lights, 4 darks, 3 flats, 3 biases.",
+  "space: ",
+  "prompt: [
+  {
+    "type": "confirm",
+    "name": "go",
+    "message": "Do you want to proceed with the dispatch?"
+  }
+]",
+  "step: Dispatching",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit dispatched.",
+  "debug: - Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
+  "success: Dispatch complete.",
+  "debug: directories [object Object]",
+  "info: dirs [object Object]",
+  "info: Generated tmp/project/H/Light_60.0s_Bin1_H_gain0_process/poto_1_preprocessing.ssf [object Object]",
+  "debug: directories [object Object]",
+  "info: dirs [object Object]",
+  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/poto_1_preprocessing.ssf [object Object]",
+  "debug: directories [object Object]",
+  "info: dirs [object Object]",
+  "info: Generated tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/poto_1_preprocessing.ssf [object Object]",
+  "debug: directories [object Object]",
+  "info: dirs [object Object]",
+  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/poto_1_preprocessing.ssf [object Object]",
+  "success: Scripts were generated ✅.",
+]
+`;
