@@ -17,8 +17,6 @@
         "src/tests/data/asiair-dump1",
         "-b",
         "src/tests/data/bank",
-        "-m",
-        "autorun"
       ],
 
       "cwd": "${workspaceRoot}",

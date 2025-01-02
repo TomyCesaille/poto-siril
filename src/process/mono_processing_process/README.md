@@ -18,7 +18,7 @@ export POTO_SCRIPT_1=src/process/mono_processing_process/1_preprocessing.ssf
 export POTO_SCRIPT_3=src/process/mono_processing_process/3_stack_lights.ssf
 
 ./poto.sh clean -a $POTO_ASIAIR_DUMP
-./poto.sh dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT -m autorun
+./poto.sh dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT
 ./poto.sh preprocess -p $POTO_PROJECT -s $POTO_SCRIPT_1
 
 # For each light set, open the sequence and unselect bad lights before stacking lights.

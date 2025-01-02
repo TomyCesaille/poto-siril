@@ -1175,6 +1175,18 @@ exports[`E2E should be neat 8`] = `
 ]",
   "step: Reading input directories",
   "debug: Skipping unknown file (Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot)",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedInputSubDirectory",
+    "message": "Files found in both Autorun and Plan directories. How to do we proceed?",
+    "choices": [
+      "Use Autorun directory",
+      "Use Plan directory",
+      "Use both directory"
+    ]
+  }
+]",
   "info: Found 19 files in input dir(s) to dispatch.",
   "step: Matching lights and flats (early stage)",
   "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",

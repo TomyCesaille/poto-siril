@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import Enquirer from "enquirer";
 
-import dispatch from "../../commands/dispatch-dump";
+import dispatch, { SelectedInputSubDirectoryChoices } from "../../commands/dispatch-dump";
 import { POTO_JSON } from "../../utils/const";
 import { cleanThumbnails, removeEmptyDirectories } from "../../commands/asiair-dump-cleaning";
 import { generateScripts } from "../../commands/generate-scripts";
@@ -62,6 +62,9 @@ describe("E2E", () => {
         createProjectDirectory: true,
       } as never)
       .mockResolvedValueOnce({
+        selectedInputSubDirectory: "Use Autorun directory" as SelectedInputSubDirectoryChoices,
+      } as never)
+      .mockResolvedValueOnce({
         selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
       } as never)
       .mockResolvedValueOnce({
@@ -100,7 +103,6 @@ describe("E2E", () => {
     await dispatch({
       projectDirectory,
       asiAirDirectory,
-      shootingMode: "autorun",
       bankDirectory,
     });
 

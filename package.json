@@ -9,7 +9,7 @@
     "check-types": "tsc",
     "test": "TZ=UTC node --experimental-vm-modules node_modules/.bin/jest --coverage src",
     "dev-spawn-ds1": "tsx ./scripts/dev-spawn-ds1.ts",
-    "dev-dispatch-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh dispatch -a ./tmp/asiair-dump -b ./tmp/bank -p ./tmp/project -m autorun"
+    "dev-dispatch-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh dispatch -a ./tmp/asiair-dump -b ./tmp/bank -p ./tmp/project"
   },
   "keywords": [
     "siril",

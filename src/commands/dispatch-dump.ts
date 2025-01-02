@@ -25,7 +25,6 @@ import { POTO_JSON, POTO_VERSION } from "../utils/const";
 export type DispatchOptions = {
   projectDirectory: string;
   asiAirDirectory: string;
-  shootingMode: "autorun" | "plan";
   bankDirectory: string;
 };
 
@@ -34,16 +33,14 @@ const enquirer = new Enquirer();
 const dispatch = async ({
   projectDirectory,
   asiAirDirectory,
-  shootingMode,
   bankDirectory,
 }: DispatchOptions) => {
   await ensureProjectDirectoryExists(projectDirectory);
 
   logger.step("Reading input directories");
 
-  const inputFiles = getAllFitsInInputDirectories(
+  const inputFiles = await getAllFitsInInputDirectories(
     asiAirDirectory,
-    shootingMode,
     projectDirectory,
   );
 
@@ -124,28 +121,73 @@ const ensureProjectDirectoryExists = async (projectDirectory: string) => {
   }
 };
 
+export type SelectedInputSubDirectoryChoices = "Use Autorun directory" | "Use Plan directory" | "Use both directory";
+export const selectedInputSubDirectoryChoices: SelectedInputSubDirectoryChoices[] = [
+  "Use Autorun directory",
+  "Use Plan directory",
+  "Use both directory",
+];
+
 /**
  * Retrieve all FITS files from the input directories.
  *
  * @param asiAirDirectory - The directory where ASIAIR files are stored.
- * @param shootingMode - The shooting mode, either "autorun" or "plan".
  * @param projectDirectory - The directory of the current project.
  * @returns An array of FileImageSpec objects representing the FITS files.
  */
-const getAllFitsInInputDirectories = (
+const getAllFitsInInputDirectories = async (
   asiAirDirectory: string,
-  shootingMode: string,
   projectDirectory: string,
-): FileImageSpec[] => {
-  const files = getFitsFromDirectory({
-    directory: `${asiAirDirectory}/${
-      shootingMode === "autorun" ? "Autorun" : "Plan"
-    }`,
+): Promise<FileImageSpec[]> => {
+  
+  // ASIAIR stores the lights+flats files in either the Autorun or Plan directories.
+  const autorunFiles = getFitsFromDirectory({
+    directory: `${asiAirDirectory}/Autorun`,
     projectDirectory,
   });
-  logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
+  const planFiles = getFitsFromDirectory({
+    directory: `${asiAirDirectory}/Plan`,
+    projectDirectory,
+  });
 
-  return files;
+  const logFiles = (files: unknown[]) => {
+    logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
+  };
+
+  if (autorunFiles.length === 0 && planFiles.length === 0) {
+    logger.errorThrow("No FITS files found in the input directories.");
+  }
+
+  if (autorunFiles.length > 0 && planFiles.length === 0) {
+    logFiles(autorunFiles);
+    return autorunFiles;
+  }
+
+  if (autorunFiles.length === 0 && planFiles.length > 0) {
+    logFiles(planFiles);
+    return planFiles;
+  }
+
+  if (autorunFiles.length > 0 && planFiles.length > 0) {
+    const response = (await enquirer.prompt({
+      type: "select",
+      name: "selectedInputSubDirectory",
+      message: "Files found in both Autorun and Plan directories. How to do we proceed?",
+      choices: selectedInputSubDirectoryChoices,
+    })) as { selectedInputSubDirectory: SelectedInputSubDirectoryChoices };
+
+    switch (response.selectedInputSubDirectory) {
+      case "Use Autorun directory":
+        logFiles(autorunFiles);
+        return autorunFiles;
+      case "Use Plan directory":
+        logFiles(planFiles);
+        return planFiles;
+      case "Use both directory":
+        logFiles([...autorunFiles, ...planFiles]);
+        return [...autorunFiles, ...planFiles];
+    }
+  }
 };
 
 /**
