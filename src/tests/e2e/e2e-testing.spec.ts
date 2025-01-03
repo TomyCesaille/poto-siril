@@ -355,5 +355,29 @@ describe("E2E", () => {
         "info: Found 20 files in input dir(s) to dispatch.",
       );
     });
+
+    it("should pick plan directorie", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Plan directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await dispatch({
+        projectDirectory,
+        asiAirDirectory,
+        bankDirectory,
+      });
+
+      expect(logMessages).toContain(
+        "info: Found 1 files in input dir(s) to dispatch.",
+      );
+    });
   });
 });
