@@ -77,7 +77,7 @@ const dispatch = async ({
 
   logger.step("Preview before dispatching");
 
-  const {go, metrics} = await previewBeforeDispatching(layerSets);
+  const { go, metrics } = await previewBeforeDispatching(layerSets);
 
   if (!go) {
     logger.warning("Aborted.");
@@ -139,16 +139,19 @@ const getAllFitsInInputDirectories = async (
   asiAirDirectory: string,
   projectDirectory: string,
 ): Promise<FileImageSpec[]> => {
-  
+
   // ASIAIR stores the lights+flats files in either the Autorun or Plan directories.
-  const autorunFiles = getFitsFromDirectory({
-    directory: `${asiAirDirectory}/Autorun`,
+  const autorunDirectory = `${asiAirDirectory}/Autorun`;
+  const autorunFiles = fs.existsSync(autorunDirectory) ? getFitsFromDirectory({
+    directory: autorunDirectory,
     projectDirectory,
-  });
-  const planFiles = getFitsFromDirectory({
-    directory: `${asiAirDirectory}/Plan`,
+  }) : [];
+
+  const planDirectory = `${asiAirDirectory}/Plan`;
+  const planFiles = fs.existsSync(planDirectory) ? getFitsFromDirectory({
+    directory: planDirectory,
     projectDirectory,
-  });
+  }) : [];
 
   const logFiles = (files: unknown[]) => {
     logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
@@ -365,7 +368,7 @@ const initLayerSetsWithLightsnFlats = (
       ? allLights.filter(
         light =>
           light.sequenceId === lightsFlatsMatch.lightSequenceId &&
-            light.setName === lightsFlatsMatch.lightSetName,
+          light.setName === lightsFlatsMatch.lightSetName,
       )
       : allLights.filter(
         light => light.setName === lightsFlatsMatch.lightSetName,
@@ -475,7 +478,7 @@ const AssignDarksBiasesToLayerSets = (
     } else {
       layerSet.darkSet = darks[0].setName;
       layerSet.darksCount = darks.length;
-      
+
       const darkTotalIntegrationMs = darks.reduce(
         (total, dark) => total + dark.bulbMs,
         0,
@@ -531,13 +534,13 @@ const AssignDarksBiasesToLayerSets = (
  *
  * @param layerSets - The layer sets to preview.
  */
-const previewBeforeDispatching = async (layerSets: LayerSet[]) : Promise<{
+const previewBeforeDispatching = async (layerSets: LayerSet[]): Promise<{
   go: boolean,
   metrics: PotoProject["metrics"]
 }> => {
 
   const metrics: PotoProject["metrics"] = {
-    cumulatedLightIntegrationMinutes:  layerSets.reduce(
+    cumulatedLightIntegrationMinutes: layerSets.reduce(
       (total, layerSet) => total + layerSet.lightTotalIntegrationMinutes,
       0,
     ),
@@ -595,7 +598,7 @@ const previewBeforeDispatching = async (layerSets: LayerSet[]) : Promise<{
     message: "Do you want to proceed with the dispatch?",
   })) as { go: boolean };
 
-  return {go: response.go, metrics};
+  return { go: response.go, metrics };
 };
 
 /**
