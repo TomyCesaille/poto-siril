@@ -208,9 +208,7 @@ export const copyFileToProject = (file: FileImageSpec) => {
  */
 export const matchSetFile = (A: ImageSpec, B: ImageSpec): boolean => {
   if (A.type === "Light" && B.type === "Dark") {
-    return (
-      A.bulb === B.bulb && A.bin === B.bin && A.gain === B.gain
-    );
+    return A.bulb === B.bulb && A.bin === B.bin && A.gain === B.gain;
   } else if (A.type === "Light" && B.type === "Flat") {
     return A.bin === B.bin && A.filter === B.filter;
   } else if (A.type === "Flat" && B.type === "Bias") {

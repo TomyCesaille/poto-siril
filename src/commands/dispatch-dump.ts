@@ -121,12 +121,12 @@ const ensureProjectDirectoryExists = async (projectDirectory: string) => {
   }
 };
 
-export type SelectedInputSubDirectoryChoices = "Use Autorun directory" | "Use Plan directory" | "Use both directory";
-export const selectedInputSubDirectoryChoices: SelectedInputSubDirectoryChoices[] = [
-  "Use Autorun directory",
-  "Use Plan directory",
-  "Use both directory",
-];
+export type SelectedInputSubDirectoryChoices =
+  | "Use Autorun directory"
+  | "Use Plan directory"
+  | "Use both directory";
+export const selectedInputSubDirectoryChoices: SelectedInputSubDirectoryChoices[] =
+  ["Use Autorun directory", "Use Plan directory", "Use both directory"];
 
 /**
  * Retrieve all FITS files from the input directories.
@@ -139,19 +139,22 @@ const getAllFitsInInputDirectories = async (
   asiAirDirectory: string,
   projectDirectory: string,
 ): Promise<FileImageSpec[]> => {
-
   // ASIAIR stores the lights+flats files in either the Autorun or Plan directories.
   const autorunDirectory = `${asiAirDirectory}/Autorun`;
-  const autorunFiles = fs.existsSync(autorunDirectory) ? getFitsFromDirectory({
-    directory: autorunDirectory,
-    projectDirectory,
-  }) : [];
+  const autorunFiles = fs.existsSync(autorunDirectory)
+    ? getFitsFromDirectory({
+        directory: autorunDirectory,
+        projectDirectory,
+      })
+    : [];
 
   const planDirectory = `${asiAirDirectory}/Plan`;
-  const planFiles = fs.existsSync(planDirectory) ? getFitsFromDirectory({
-    directory: planDirectory,
-    projectDirectory,
-  }) : [];
+  const planFiles = fs.existsSync(planDirectory)
+    ? getFitsFromDirectory({
+        directory: planDirectory,
+        projectDirectory,
+      })
+    : [];
 
   const logFiles = (files: unknown[]) => {
     logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
@@ -175,7 +178,8 @@ const getAllFitsInInputDirectories = async (
     const response = (await enquirer.prompt({
       type: "select",
       name: "selectedInputSubDirectory",
-      message: "Files found in both Autorun and Plan directories. How to do we proceed?",
+      message:
+        "Files found in both Autorun and Plan directories. How to do we proceed?",
       choices: selectedInputSubDirectoryChoices,
     })) as { selectedInputSubDirectory: SelectedInputSubDirectoryChoices };
 
@@ -326,6 +330,14 @@ const matchLightsToFlats = async (
         })),
       })) as { selectedFlatSequence: string };
 
+      if (!response.selectedFlatSequence) {
+        logger.errorThrow("No flat sequence selected.", {
+          lightConcernedSetName,
+          lightConcernedSequenceId,
+          choices: flatSetNameSequenceIds,
+        });
+      }
+
       LightFlatMatches.push({
         lightSetName: lightConcernedSetName,
         lightSequenceId: lightConcernedSequenceId,
@@ -366,13 +378,13 @@ const initLayerSetsWithLightsnFlats = (
   for (const lightsFlatsMatch of lightsFlatsMatches) {
     const lights = lightsFlatsMatch.isManualMatch
       ? allLights.filter(
-        light =>
-          light.sequenceId === lightsFlatsMatch.lightSequenceId &&
-          light.setName === lightsFlatsMatch.lightSetName,
-      )
+          light =>
+            light.sequenceId === lightsFlatsMatch.lightSequenceId &&
+            light.setName === lightsFlatsMatch.lightSetName,
+        )
       : allLights.filter(
-        light => light.setName === lightsFlatsMatch.lightSetName,
-      );
+          light => light.setName === lightsFlatsMatch.lightSetName,
+        );
     if (!lights) {
       throw new Error(
         `❓❓❓❗️ Light ${lightsFlatsMatch.lightSetName} ${lightsFlatsMatch.lightSequenceId} not found.`,
@@ -534,11 +546,12 @@ const AssignDarksBiasesToLayerSets = (
  *
  * @param layerSets - The layer sets to preview.
  */
-const previewBeforeDispatching = async (layerSets: LayerSet[]): Promise<{
-  go: boolean,
-  metrics: PotoProject["metrics"]
+const previewBeforeDispatching = async (
+  layerSets: LayerSet[],
+): Promise<{
+  go: boolean;
+  metrics: PotoProject["metrics"];
 }> => {
-
   const metrics: PotoProject["metrics"] = {
     cumulatedLightIntegrationMinutes: layerSets.reduce(
       (total, layerSet) => total + layerSet.lightTotalIntegrationMinutes,

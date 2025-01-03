@@ -285,7 +285,9 @@ describe("E2E", () => {
         encoding: "utf8",
       });
 
-      expect(files).toContain("H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit");
+      expect(files).toContain(
+        "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+      );
     });
 
     it("should auto pick Plan files", async () => {
@@ -308,7 +310,9 @@ describe("E2E", () => {
         bankDirectory,
       });
 
-      expect(logMessages).toContain("info: 🔭 Cumulated light integration: 0 minutes.");
+      expect(logMessages).toContain(
+        "info: 🔭 Cumulated light integration: 0 minutes.",
+      );
 
       const files = fs.readdirSync(projectDirectory, {
         recursive: true,
@@ -317,6 +321,39 @@ describe("E2E", () => {
       });
 
       expect(files.length).toBe(1);
+    });
+
+    it("should pick both directories", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use both directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await dispatch({
+        projectDirectory,
+        asiAirDirectory,
+        bankDirectory,
+      });
+
+      expect(logMessages).toContain(
+        "info: Found 20 files in input dir(s) to dispatch.",
+      );
     });
   });
 });
