@@ -143,17 +143,17 @@ const getAllFitsInInputDirectories = async (
   const autorunDirectory = `${asiAirDirectory}/Autorun`;
   const autorunFiles = fs.existsSync(autorunDirectory)
     ? getFitsFromDirectory({
-        directory: autorunDirectory,
-        projectDirectory,
-      })
+      directory: autorunDirectory,
+      projectDirectory,
+    })
     : [];
 
   const planDirectory = `${asiAirDirectory}/Plan`;
   const planFiles = fs.existsSync(planDirectory)
     ? getFitsFromDirectory({
-        directory: planDirectory,
-        projectDirectory,
-      })
+      directory: planDirectory,
+      projectDirectory,
+    })
     : [];
 
   const logFiles = (files: unknown[]) => {
@@ -378,13 +378,13 @@ const initLayerSetsWithLightsnFlats = (
   for (const lightsFlatsMatch of lightsFlatsMatches) {
     const lights = lightsFlatsMatch.isManualMatch
       ? allLights.filter(
-          light =>
-            light.sequenceId === lightsFlatsMatch.lightSequenceId &&
+        light =>
+          light.sequenceId === lightsFlatsMatch.lightSequenceId &&
             light.setName === lightsFlatsMatch.lightSetName,
-        )
+      )
       : allLights.filter(
-          light => light.setName === lightsFlatsMatch.lightSetName,
-        );
+        light => light.setName === lightsFlatsMatch.lightSetName,
+      );
     if (!lights) {
       throw new Error(
         `❓❓❓❗️ Light ${lightsFlatsMatch.lightSetName} ${lightsFlatsMatch.lightSequenceId} not found.`,
