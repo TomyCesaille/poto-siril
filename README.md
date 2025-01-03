@@ -17,7 +17,7 @@ Poto-Siril's primary goal is to **overcome the repetitive and tedious** work whe
 ### In detail
 
 - **Easy import lights and flats from ASIAIR and search for associated darks and biases in bank folder**
-  Import one or several night sessions (lights and flats from `autorun` or `plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
+  Import one or several night sessions (lights and flats from `Autorun` or `Plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
   A summary resumes the light sequence(s) and the calibration files associated.
   ![dispatch](./img/poto-siril_dispatch.png)
 - **Complex Light - Flat matching**
@@ -73,7 +73,6 @@ The ASIAIR directory structure is as follows:
 |       ├── Flat_1.0ms_Bin1_S_gain100_20240320-233122_-10.5C_0001.fit
 │       └── ...
 ├── Plan
-│   # Can be picked up by poto-siril with `-m plan` option.
 │   # Same structure as Autorun.
 ├── Live
 │   # Ignored in poto-siril
@@ -140,7 +139,7 @@ export POTO_ASIAIR_DUMP=/Users/jorislacance/deepsky/dump_2024_08_10_veil-nebula
 export POTO_BANK=/Users/jorislacance/deepsky/_bank
 export POTO_PROJECT=/Users/jorislacance/deepsky/poto_2024_08_10_veil-nebula
 
-./poto.sh dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT -m autorun
+./poto.sh dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT
 
 # Process each light set based on a Siril script template.
 export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.ssf

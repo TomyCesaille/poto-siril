@@ -40,13 +40,11 @@ program
   //   .argument("[path]", "project directory", ".")
   .option("-p, --project <path>", "project directory")
   .option("-a, --asiair <path>", "ASIAIR directory")
-  .option("-m, --mode <mode>", "`autorun` or `plan` mode", "autorun")
   .option("-b, --bank <path>", "Biases & Darks bank directory")
   .action(options => {
     dispatch({
       projectDirectory: options.project,
       asiAirDirectory: options.asiair,
-      shootingMode: options.mode as "autorun" | "plan",
       bankDirectory: options.bank,
     });
   });

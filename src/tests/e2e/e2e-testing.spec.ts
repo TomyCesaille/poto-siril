@@ -3,9 +3,14 @@ import path from "path";
 import fs from "fs";
 import Enquirer from "enquirer";
 
-import dispatch from "../../commands/dispatch-dump";
+import dispatch, {
+  SelectedInputSubDirectoryChoices,
+} from "../../commands/dispatch-dump";
 import { POTO_JSON } from "../../utils/const";
-import { cleanThumbnails, removeEmptyDirectories } from "../../commands/asiair-dump-cleaning";
+import {
+  cleanThumbnails,
+  removeEmptyDirectories,
+} from "../../commands/asiair-dump-cleaning";
 import { generateScripts } from "../../commands/generate-scripts";
 import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
 import { logger } from "../../utils/logger";
@@ -16,50 +21,68 @@ describe("E2E", () => {
   let projectDirectory: string = "";
   let logMessages: string[] = [];
 
+  const promptMock = jest.fn();
+
   beforeEach(() => {
     jest.useFakeTimers().setSystemTime(new Date(Date.UTC(2024, 9, 15)));
 
     ({ asiAirDirectory, bankDirectory, projectDirectory } =
       spawnMockedDatasetToFs_dataset_1());
 
-    // Make an empty directory to test `removeEmptyDirectories`.
-    fs.mkdirSync(path.join(asiAirDirectory, "empty", "empty"), { recursive: true });
-
     // Spy on logger and Enquirer to capture logs and prompts.
     logMessages = [];
-    const logMethods = ["info", "warning", "debug", "error", "success", "step", "space"] as const;
+    const logMethods = [
+      "info",
+      "warning",
+      "debug",
+      "error",
+      "success",
+      "step",
+      "space",
+    ] as const;
     type LogMethod = (typeof logMethods)[number];
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    const originalMethods: Record<LogMethod, Function> = logMethods.reduce((acc, method) => {
-      acc[method] = logger[method];
-      return acc;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    }, {} as Record<LogMethod, Function>);
+    const originalMethods: Record<LogMethod, Function> = logMethods.reduce(
+      (acc, method) => {
+        acc[method] = logger[method];
+        return acc;
+      },
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+      {} as Record<LogMethod, Function>,
+    );
 
     logMethods.forEach(method => {
-      jest.spyOn(logger, method).mockImplementation((...args: Parameters<typeof logger[LogMethod]>) => {
-        const message = `${method}: ${args.join(" ")}`;
-        logMessages.push(message);
-        originalMethods[method].apply(logger, args);
-      });
+      jest
+        .spyOn(logger, method)
+        .mockImplementation(
+          (...args: Parameters<(typeof logger)[LogMethod]>) => {
+            const message = `${method}: ${args.join(" ")}`;
+            logMessages.push(message);
+            originalMethods[method].apply(logger, args);
+          },
+        );
     });
+
+    jest
+      .spyOn(Enquirer.prototype, "prompt")
+      .mockImplementation(async function (...args) {
+        logMessages.push(`prompt: ${JSON.stringify(args, null, 2)}`);
+        return promptMock(...args);
+      });
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  test("should be neat", async () => {
-    const promptMock = jest.fn();
-
-    jest.spyOn(Enquirer.prototype, "prompt").mockImplementation(async function (...args) {
-      logMessages.push(`prompt: ${JSON.stringify(args, null, 2)}`);
-      return promptMock(...args);
-    });
-
+  it("should be neat", async () => {
     promptMock
       .mockResolvedValueOnce({
         createProjectDirectory: true,
+      } as never)
+      .mockResolvedValueOnce({
+        selectedInputSubDirectory:
+          "Use Autorun directory" as SelectedInputSubDirectoryChoices,
       } as never)
       .mockResolvedValueOnce({
         selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
@@ -90,17 +113,25 @@ describe("E2E", () => {
     });
     expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(0);
 
-    expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(true);
+    // Make an empty directory to test `removeEmptyDirectories`.
+    fs.mkdirSync(path.join(asiAirDirectory, "empty", "empty"), {
+      recursive: true,
+    });
+
+    expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(
+      true,
+    );
 
     removeEmptyDirectories(asiAirDirectory);
 
-    expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(false);
+    expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(
+      false,
+    );
     expect(fs.existsSync(path.join(asiAirDirectory, "empty"))).toBe(false);
 
     await dispatch({
       projectDirectory,
       asiAirDirectory,
-      shootingMode: "autorun",
       bankDirectory,
     });
 
@@ -193,5 +224,160 @@ describe("E2E", () => {
     }
 
     expect(logMessages).toMatchSnapshot();
+  });
+
+  describe("returns all fits in the input directories", () => {
+    it("should warn if no files", async () => {
+      const autorunDirectory = `${asiAirDirectory}/Autorun`;
+      if (fs.existsSync(autorunDirectory)) {
+        fs.rmSync(autorunDirectory, { recursive: true });
+      }
+      const planDirectory = `${asiAirDirectory}/Plan`;
+      if (fs.existsSync(planDirectory)) {
+        fs.rmSync(planDirectory, { recursive: true });
+      }
+
+      promptMock.mockResolvedValueOnce({
+        createProjectDirectory: true,
+      } as never);
+
+      await expect(
+        dispatch({
+          projectDirectory,
+          asiAirDirectory,
+          bankDirectory,
+        }),
+      ).rejects.toThrow("No FITS files found in the input directories.");
+    });
+
+    it("should auto pick Autorun files", async () => {
+      const planDirectory = `${asiAirDirectory}/Plan`;
+      if (fs.existsSync(planDirectory)) {
+        fs.rmSync(planDirectory, { recursive: true });
+      }
+
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await dispatch({
+        projectDirectory,
+        asiAirDirectory,
+        bankDirectory,
+      });
+
+      const files = fs.readdirSync(projectDirectory, {
+        recursive: true,
+        withFileTypes: false,
+        encoding: "utf8",
+      });
+
+      expect(files).toContain(
+        "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+      );
+    });
+
+    it("should auto pick Plan files", async () => {
+      const autorunDirectory = `${asiAirDirectory}/Autorun`;
+      if (fs.existsSync(autorunDirectory)) {
+        fs.rmSync(autorunDirectory, { recursive: true });
+      }
+
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await dispatch({
+        projectDirectory,
+        asiAirDirectory,
+        bankDirectory,
+      });
+
+      expect(logMessages).toContain(
+        "info: 🔭 Cumulated light integration: 0 minutes.",
+      );
+
+      const files = fs.readdirSync(projectDirectory, {
+        recursive: true,
+        withFileTypes: false,
+        encoding: "utf8",
+      });
+
+      expect(files.length).toBe(1);
+    });
+
+    it("should pick both directories", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use both directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await dispatch({
+        projectDirectory,
+        asiAirDirectory,
+        bankDirectory,
+      });
+
+      expect(logMessages).toContain(
+        "info: Found 20 files in input dir(s) to dispatch.",
+      );
+    });
+
+    it("should pick plan directorie", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Plan directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await dispatch({
+        projectDirectory,
+        asiAirDirectory,
+        bankDirectory,
+      });
+
+      expect(logMessages).toContain(
+        "info: Found 1 files in input dir(s) to dispatch.",
+      );
+    });
   });
 });

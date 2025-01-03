@@ -117,4 +117,7 @@ const dataset_1 = [
 
   // Unknown files to skip.
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot", // Not a fit file based on extension.
+
+  // 1 file from Plan directory to test the choice selection. Bin2 to not match with the rest.
+  "asiair-dump/Plan/Flat/Flat_1.0ms_Bin2_H_gain100_20240512-124300_-10.5C_0001.fit",
 ];
