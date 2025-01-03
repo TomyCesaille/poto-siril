@@ -288,7 +288,7 @@ describe("E2E", () => {
       expect(files).toContain("H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit");
     });
 
-    fit("should auto pick Plan files", async () => {
+    it("should auto pick Plan files", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
       if (fs.existsSync(autorunDirectory)) {
         fs.rmSync(autorunDirectory, { recursive: true });
