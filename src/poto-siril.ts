@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import prepare from "./commands/prepare";
+import prepare, { PrepareProps } from "./commands/prepare";
 import {
   dropThumbnails,
   dropEmptyDirectories,
@@ -30,14 +30,13 @@ program
 program
   .command("prepare")
   .description("Prepare a poto project importing the light frames, and the calibration frames more or less picked automatically.")
-  .option("-i, --input <path>", "directory(ies) to pick from. Will take all lights files. Flats, darks, and biases based on lights.")
-  .option("<path>", "poto project directory destination")
-  .action(options => {
+  .option("-i, --input <path>", "directory(ies) to pick from. Will take all lights files. Flats, darks, and biases based on lights.", (value, previous) => previous.concat([value]), [])
+  .argument("<path>", "poto project directory destination")
+  .action((projectDirectory, options) => {
     prepare({
-      projectDirectory: options.project,
-      asiAirDirectory: options.asiair,
-      bankDirectory: options.bank,
-    });
+      inputDirectories: options.input,
+      projectDirectory,
+    } as PrepareProps);
   });
 
 program
@@ -46,7 +45,7 @@ program
   .option(
     "-t, --template <path>",
   )
-  .option("<path>", "poto project directory")
+  .argument("<path>", "poto project directory")
   .allowExcessArguments(false)
   .action(options => {
     generateScripts(options.path, options.template).then(() => {

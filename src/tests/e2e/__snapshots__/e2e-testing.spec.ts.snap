@@ -3,7 +3,7 @@
 exports[`E2E should be neat 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
-  "potoVersion": "0.2.0",
+  "potoVersion": "poto-siril 0.3.0",
   "metrics": {
     "cumulatedLightIntegrationMinutes": 9,
     "cumulatedDarksIntegrationMinutes": 11,
@@ -1174,12 +1174,14 @@ exports[`E2E should be neat 8`] = `
   }
 ]",
   "step: Reading input directories",
+  "debug: Reading input directory tmp/asiair-dump",
+  "debug: ASIAIR dump detected in tmp/asiair-dump.",
   "debug: Skipping unknown file (Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot)",
   "prompt: [
   {
     "type": "select",
     "name": "selectedInputSubDirectory",
-    "message": "Files found in both Autorun and Plan directories. How to do we proceed?",
+    "message": "Files found in both Autorun and Plan directories. How do we proceed?",
     "choices": [
       "Use Autorun directory",
       "Use Plan directory",
@@ -1188,6 +1190,10 @@ exports[`E2E should be neat 8`] = `
   }
 ]",
   "info: Found 19 files in input dir(s) to dispatch.",
+  "debug: Reading input directory tmp/bank",
+  "info: Found 14 files in input dir(s) to dispatch.",
+  "info: Found 33 .fit files in input directories 🌋.",
+  "info: Including 8 lights 🌟.",
   "step: Matching lights and flats (early stage)",
   "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
@@ -1256,7 +1262,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "step: Tagging darks and biases",
-  "info: Found 14 files in the bank.",
+  "info: Found 14 darks+baises files.",
   "step: Preview before dispatching",
   "info: 🔭 Cumulated light integration: 9 minutes.",
   "info: 📦 Project size: 8 lights, 10 darks, 12 flats, 12 biases.",

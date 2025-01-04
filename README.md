@@ -32,10 +32,11 @@ Calibrated\_Light = \frac{Light\_Frame - Dark\_Frame}{Flat\_Frame}
 - **Easy import lights and flats from night session(s) and search for associated darks and biases in a bank folder**
   Import one or several night sessions (e.g. lights and flats from `Autorun` or `Plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
   A summary resumes the light sequence(s) and the calibration files associated.
-  ![dispatch](./img/poto-siril_dispatch.png)
+  ![dispatch](./img/poto-siril_prepare_summary.png)
 - **Complex Light - Flat matching**
   The project consists of multiple night sessions where the flats changed over time? e.g. a significant date gap between shooting sessions and the collimation has changed and/or new dust in the optical train.
   Poto-Siril helps to associate the right flats to the right lights.
+  ![flat_matching](./img/poto-siril_prepare_advanced-flats-matching.png)
 - **Multi-layers project structure**
   The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there's multiple combinations). Each light set will map to a light sequence in Siril to be pre-processed separately.
   👉 You can easily work on a LRGB or LRGBHaOIIISII project.
@@ -207,8 +208,8 @@ npm run check-types
 # Generate dataset 1 for development
 npm run dev-spawn-ds1
 
-# Run the CLI dispatch-dump with the development dataset 1
-npm run dev-dispatch-ds1
+# Run the prepare command with the development dataset 1
+npm run dev-prepare-ds1
 ```
 
 ## Side Notes

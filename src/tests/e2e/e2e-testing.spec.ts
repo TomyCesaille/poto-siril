@@ -144,8 +144,8 @@ describe("E2E", () => {
 [
   "H",
   "S",
-  "any",
   "_poto_siril.json",
+  "any",
   "H/Flat_1.0ms_Bin1_H_gain100",
   "H/Light_60.0s_Bin1_H_gain0",
   "S/Flat_1.0ms_Bin1_S_gain100",
@@ -245,7 +245,30 @@ describe("E2E", () => {
           projectDirectory,
           inputDirectories: [asiAirDirectory, bankDirectory],
         }),
-      ).rejects.toThrow("No FITS files found in the input directories.");
+      ).rejects.toThrow(`No FITS files found in ${asiAirDirectory}`);
+    });
+
+    it("should warn if no files (ASIAIR version)", async () => {
+      const autorunDirectory = `${asiAirDirectory}/Autorun`;
+      if (fs.existsSync(autorunDirectory)) {
+        fs.rmSync(autorunDirectory, { recursive: true });
+      }
+      const planDirectory = `${asiAirDirectory}/Plan`;
+      if (fs.existsSync(planDirectory)) {
+        fs.rmSync(planDirectory, { recursive: true });
+      }
+      fs.mkdirSync(planDirectory);
+
+      promptMock.mockResolvedValueOnce({
+        createProjectDirectory: true,
+      } as never);
+
+      await expect(
+        prepare({
+          projectDirectory,
+          inputDirectories: [asiAirDirectory, bankDirectory],
+        }),
+      ).rejects.toThrow("No FITS files found in Autorun nor Plan folders.");
     });
 
     it("should auto pick Autorun files", async () => {

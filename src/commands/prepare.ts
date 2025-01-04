@@ -16,23 +16,26 @@ import {
 } from "../utils/types";
 import { POTO_JSON, POTO_VERSION } from "../utils/const";
 
-export type DispatchOptions = {
-  projectDirectory: string;
+export type PrepareProps = {
   inputDirectories: string[];
+  projectDirectory: string;
 };
 
 const enquirer = new Enquirer();
 
 const prepare = async ({
-  projectDirectory,
   inputDirectories,
-}: DispatchOptions) => {
+  projectDirectory,
+}: PrepareProps) => {
+// TODO. logger.command("prepare"); to introduce the command in the logs.
+
   await ensureProjectDirectoryExists(projectDirectory);
 
   logger.step("Reading input directories");
 
   const inputFiles : FileImageSpec[] = [];
   for (const inputDirectory of inputDirectories){
+    logger.debug(`Reading input directory ${inputDirectory}`);
     const files = await getAllFitsInInputDirectory(
       inputDirectory,
       projectDirectory,
@@ -71,9 +74,11 @@ const prepare = async ({
 
   logger.step("Tagging darks and biases");
 
-  logger.info(`Among ${allDarksBiases.length} darks+baises files.`);
+  logger.info(`Found ${allDarksBiases.length} darks+baises files.`);
 
   layerSets = AssignDarksBiasesToLayerSets(layerSets, allDarksBiases);
+
+  // TODO. Create a summary just like `👉 Light - Flat matching summary:`
 
   logger.step("Preview before dispatching");
 
@@ -129,18 +134,42 @@ export const selectedInputSubDirectoryChoices: SelectedInputSubDirectoryChoices[
   ["Use Autorun directory", "Use Plan directory", "Use both directory"];
 
 /**
- * Retrieve all FITS files from the input directories.
+ * Retrieve all FITS files from the input directory.
  *
- * @param asiAirDirectory - The directory where ASIAIR files are stored.
+ * @param inputDirectory - The directory to scan.
  * @param projectDirectory - The directory of the current project.
  * @returns An array of FileImageSpec objects representing the FITS files.
  */
 const getAllFitsInInputDirectory = async (
-  asiAirDirectory: string,
+  inputDirectory: string,
   projectDirectory: string,
 ): Promise<FileImageSpec[]> => {
-  // ASIAIR stores the lights+flats files in either the Autorun or Plan directories.
-  const autorunDirectory = `${asiAirDirectory}/Autorun`;
+  // if ASIAIR used, may stores the lights+flats files in either the Autorun or Plan directories.
+
+  const autorunDirectory = `${inputDirectory}/Autorun`;
+  const planDirectory = `${inputDirectory}/Plan`;
+
+  const isAsiAirDump = fs.existsSync(autorunDirectory) || fs.existsSync(planDirectory);
+
+  const logFiles = (files: unknown[]) => {
+    logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
+  };
+
+  if (!isAsiAirDump) {
+    const allFiles = getFitsFromDirectory({
+      directory: inputDirectory,
+      projectDirectory,
+    });
+    if (allFiles.length === 0) {
+      logger.errorThrow(`No FITS files found in ${inputDirectory}.`);
+    }
+
+    logFiles(allFiles);
+    return allFiles;
+  }
+
+  logger.debug(`ASIAIR dump detected in ${inputDirectory}.`);
+
   const autorunFiles = fs.existsSync(autorunDirectory)
     ? getFitsFromDirectory({
       directory: autorunDirectory,
@@ -148,7 +177,6 @@ const getAllFitsInInputDirectory = async (
     })
     : [];
 
-  const planDirectory = `${asiAirDirectory}/Plan`;
   const planFiles = fs.existsSync(planDirectory)
     ? getFitsFromDirectory({
       directory: planDirectory,
@@ -156,12 +184,8 @@ const getAllFitsInInputDirectory = async (
     })
     : [];
 
-  const logFiles = (files: unknown[]) => {
-    logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
-  };
-
   if (autorunFiles.length === 0 && planFiles.length === 0) {
-    logger.errorThrow("No FITS files found in the input directories.");
+    logger.errorThrow("No FITS files found in Autorun nor Plan folders.");
   }
 
   if (autorunFiles.length > 0 && planFiles.length === 0) {
@@ -179,7 +203,7 @@ const getAllFitsInInputDirectory = async (
       type: "select",
       name: "selectedInputSubDirectory",
       message:
-        "Files found in both Autorun and Plan directories. How to do we proceed?",
+        "Files found in both Autorun and Plan directories. How do we proceed?",
       choices: selectedInputSubDirectoryChoices,
     })) as { selectedInputSubDirectory: SelectedInputSubDirectoryChoices };
 
