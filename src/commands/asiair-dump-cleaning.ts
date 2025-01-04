@@ -8,7 +8,7 @@ import path from "path";
 
 import { logger } from "../utils/logger";
 
-export const cleanThumbnails = (dir: string, isRecursive: boolean = false) => {
+export const cleanThumbnails = (dir: string, isRecursiveCall: boolean = false) => {
   // Default parameter set to current directory
   const files = fs.readdirSync(dir);
   files.forEach(file => {
@@ -23,7 +23,7 @@ export const cleanThumbnails = (dir: string, isRecursive: boolean = false) => {
       }
     }
   });
-  if (!isRecursive) logger.info("Asiair dump cleaning - Thumbnails deleted ✅");
+  if (!isRecursiveCall) logger.info("Asiair dump cleaning - Thumbnails deleted ✅");
 };
 
 export const removeEmptyDirectories = (dir: string) => {

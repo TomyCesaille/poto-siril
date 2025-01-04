@@ -146,7 +146,7 @@ describe("E2E", () => {
   "H",
   "S",
   "any",
-  "poto.json",
+  "_poto_siril.json",
   "H/Flat_1.0ms_Bin1_H_gain100",
   "H/Light_60.0s_Bin1_H_gain0",
   "S/Flat_1.0ms_Bin1_S_gain100",
