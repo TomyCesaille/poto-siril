@@ -1,6 +1,6 @@
 # ![logo](./img/poto-siril_logo.png)
 
-Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astrophotography.
+Automatization around Siril (<https://siril.org/>) for deep sky astrophotography.
 
 [![codecov](https://codecov.io/gh/TomyCesaille/poto-siril/graph/badge.svg?token=RCF9ZV8JZ9)](https://codecov.io/gh/TomyCesaille/poto-siril)
 
@@ -8,26 +8,39 @@ Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astro
 
 **Poto-Siril is a CLI tool to automate the pre-processing of astrophotography images on top of Siril.**
 
-Poto-Siril's primary goal is to **overcome the repetitive and tedious** work when pre-processing multiple layers before compositing a (L)RGB image (e.g. narrowband filters with monochrome camera or color camera with dual-band filters). It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follows the same [naming convention and directory structure](#poto-siril-project-architecture).
+Poto-Siril aims to **overcome the repetitive and tedious** work when pre-processing multiple layers before compositing a (L)RGB image (e.g. narrowband filters with monochrome camera or color camera with dual-band filters).
+
+It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follows the same [file naming convention](#file-naming-convention) and [directory structure](#asiair-directory-structure-for-reference) (more support to come, help is welcomed 👋).
 
 ### Workflow 🚀
+
+The essence of Poto-Siril is about:
+
+- Organizing the raw data by grouping the multiple light sequences together in small groups (of same filter, bulb, gain, etc...) tagged with the appropriate flats, darks, and biases.
+- Running Siril script(s) to each group of lights to retrieve the calibrated lights, following:
+
+```math
+Calibrated\_Light = \frac{Light\_Frame - Dark\_Frame}{Flat\_Frame}
+```
+
+- Stacking the calibrated lights to get a master light for each layer/filter.
 
 ![workflow](./img/poto-siril_workflow.png)
 
 ### In detail
 
-- **Easy import lights and flats from ASIAIR and search for associated darks and biases in bank folder**
-  Import one or several night sessions (lights and flats from `Autorun` or `Plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
+- **Easy import lights and flats from night session(s) and search for associated darks and biases in a bank folder**
+  Import one or several night sessions (e.g. lights and flats from `Autorun` or `Plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
   A summary resumes the light sequence(s) and the calibration files associated.
   ![dispatch](./img/poto-siril_dispatch.png)
 - **Complex Light - Flat matching**
-  The project consists of multiple night sessions where the flats changed over the time? e.g., a significant date gap between shooting sessions and the lights aren't coming with the same collimation and/or dust in the optical train.
-  Poto-Siril will auto-detect that and help you to associate the right flats to the right lights.
+  The project consists of multiple night sessions where the flats changed over time? e.g. a significant date gap between shooting sessions and the collimation has changed and/or new dust in the optical train.
+  Poto-Siril helps to associate the right flats to the right lights.
 - **Multi-layers project structure**
-  The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there's multiple combinations). Each light set will map to a light sequence in Siril that you preprocess separately.
+  The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there's multiple combinations). Each light set will map to a light sequence in Siril to be pre-processed separately.
   👉 You can easily work on a LRGB or LRGBHaOIIISII project.
 - **Batch Siril script execution to pre-process the data**
-  Generates and run a Siril script (`.ssl` file) for each light set to preprocess the images based on a ssl file template that can be customized.
+  (Generates and) Run a Siril scripts (`.ssl` file) to calibrate the lights,for each light set, based on a customizable ssl file template.
 - **A/B testing** (PLANNED)
   Run the (generated ☝️) Siril script with different parameters (e.g. rejection algo, sigma low/high thresholds) and compare the results.
   Or run several different pre-processing scripts and compare the results.
@@ -47,6 +60,10 @@ npm i
 
 # For Unix based systems:
 chmod +x ./poto.sh
+
+# Test the CLI:
+./poto.sh -v
+# Should print `poto-siril 0.3.0`.
 ```
 
 Make sure to have `siril` registered in your PATH.
@@ -56,9 +73,100 @@ siril -v
 # Should print `siril 1.2.3`.
 ```
 
+### CLI commands
+
+```bash
+$POTO_PROJECT=jorislacance/deepsky/poto_2024_08_10_veil-nebula
+
+# Prepare a Poto project by importing imaging data session(s) and "static" calibration files (darks, biases).
+./poto.sh prepare \
+  # e.g. ASIAIR dump folder with Autorun directory filled with lights and corresponding flats.
+  -i jorislacance/deepsky/sessions/asiair_2024_08_10_veil-nebula \
+  # e.g. Bank folder where poto-siril will cherry-pick darks and biases as needed.
+  -i jorislacance/deepsky/_bank \
+  # 🎉 poto project directory destination.
+  $POTO_PROJECT
+
+# Batch pre-process the all the lights, set by set (filter, bulb, gain, binning...) based on a Siril script template.
+export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.ssf
+./poto.sh preprocess \
+  -t $POTO_SCRIPT_TEMPLATE \
+  $POTO_PROJECT
+
+# BONUS: Drop thumbnails and empty directories generated by ASIAIR.
+./poto.sh clear jorislacance/deepsky/sessions/asiair_2024_08_10_veil-nebula
+```
+
+### Pre-processing pipeline
+
+Usually, the pre-processing is a multi-step journey. The most usual case is to pre-process lights, eliminates bad ones in Siril directely, and go back to Poto-Siril to batch-run the stacking.
+
+You can chain multiple scripts to achieve the desired result.
+See [src/process/mono_processing_process/README.md](src/process/mono_processing_process/README.md) for a full example of a pre-processing pipeline.
+
+#### Create your own
+
+You can easily create your own by following the [mono_processing_process](src/process/mono_processing_process) example.
+
+Some remarks about **Poto-Siril script templates**:
+
+- `.ssf` extension like regular Siril scripts.
+- Poto-Siril dynamically overwrite the `{{lights}}`, `{{flats}}`, `{{darks}}`, `{{biases}}`, `{{process}}` & `{{masters}}` variables to the current light set to pre-process.
+
+### File naming convention
+
+Poto-Siril expects the files to follow the ASIAIR file naming convention `{Light|Flat|Dark|Bias}_{TARGET}_{EXPOSURE_TIME}{s|ms}_Bin{BINNING}_{FILTER}_gain{GAIN}_{DATE}-{TIME}_{TEMPERATURE}C_{SEQUENCE_NUMBER}.fit`.
+
+For example:
+
+- `Light_10.0s_Bin1_S_gain360_20240320-203324_-10.0C_0001.fit`
+- `Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit`
+- `Flat_1.0ms_Bin1_S_gain100_20240320-233122_-10.5C_0001.fit`
+- `Dark_300.0s_Bin1_S_gain100_20240320-233122_-10.5C_0001.fit`
+- `Bias_1.0ms_Bin1_S_gain100_20240320-233122_-10.5C_0001.fit`
+
 ### Poto-Siril project architecture
 
-The ASIAIR directory structure is as follows:
+```text
+# Poto project root directory
+├── S    👈 Directory for each filter.
+│   ├── Light_M42_10.0s_Bin1_S_gain360    👈 Sub directory for each light set (BIN-GAIN-BULB combination).
+|   │   ├── Light_M42_10.0s_Bin1_S_gain360_20240320-203324_-10.0C_0001.fit
+│   │   └── ...
+│   ├── Light_M42_10.0s_Bin1_S_gain100
+|   │   ├── Light_M42_10.0s_Bin1_S_gain100_20240321-223159_-10.0C_0001.fit
+│   │   └── ...
+│   └── Flat_1.0ms_Bin1_S_gain100
+|       ├── Flat_1.0ms_Bin1_S_gain100_20240320-233122_-10.5C_0001.fit
+│       └── ...
+├── H
+├── O
+├── ...
+└── any    👈 Biases & darks falls here. lights & flats too if no filter.
+```
+
+> 💡 `S`, `H`, `O` are the filter names defined in ASIAIR (cf Filter Wheel settings).
+
+### The bank folder (for reference)
+
+It's common to store the **darks** and **biases** in a 'a bank folder' since they are quite static. Poto-siril don't expect any precise directory structure for a directory to act like a bank folder as long as the [file naming convention](#file-naming-convention) is respected.
+
+Example of structure:
+
+```text
+# Bank directory
+├── Bias_1.0ms_Bin1_gain100_-9.9C_2024
+│   ├── Bias_1.0ms_Bin1_L_gain100_20240308-154935_-10.0C_0001.fit
+│   ├── Bias_1.0ms_Bin1_L_gain100_20240308-154936_-9.9C_0002.fit
+│   └── ...
+├── Darks_300.0s_Bin1_gain100_-10C_2024
+│   ├── Dark_300.0s_Bin1_L_gain100_20240308-172757_-10.0C_0001.fit
+│   ├── Dark_300.0s_Bin1_L_gain100_20240308-160224_-10.0C_0002.fit
+│   └── ...
+└── ...
+```
+
+### ASIAIR directory structure (for reference)
 
 ```text
 # Root dump directory of an ASIAIR session
@@ -84,82 +192,6 @@ The ASIAIR directory structure is as follows:
     # Ignored in poto-siril
 ```
 
-Poto project, once imported from the ASIAIR dump via the `dispatch` command, will be broke down into the following directory structure:
-
-```text
-# Poto project root directory
-├── S    👈 Directory for each filter.
-│   ├── Light_M42_10.0s_Bin1_S_gain360    👈 Sub directory for each light set (BIN-GAIN-BULB combination).
-|   │   ├── Light_M42_10.0s_Bin1_S_gain360_20240320-203324_-10.0C_0001.fit
-│   │   └── ...
-│   ├── Light_M42_10.0s_Bin1_S_gain100
-|   │   ├── Light_M42_10.0s_Bin1_S_gain100_20240321-223159_-10.0C_0001.fit
-│   │   └── ...
-│   └── Flat_1.0ms_Bin1_S_gain100
-|       ├── Flat_1.0ms_Bin1_S_gain100_20240320-233122_-10.5C_0001.fit
-│       └── ...
-├── H
-├── O
-├── ...
-└── any    👈 Biases & darks falls here. lights & flats too if no filter.
-```
-
-> 💡 `S`, `H`, `O` are the filters names defined in ASIAIR (cf Filter Wheel settings).
-
-### The bank folder
-
-The bank folder is where you store your **darks** and **biases** files. The bank folder does not expect a specific structure as long as files are following the ASIAIR file naming convention.
-
-A good organization could be as follows:
-
-```text
-# Bank directory
-├── Bias_1.0ms_Bin1_gain100_-9.9C_2024
-│   ├── Bias_1.0ms_Bin1_L_gain100_20240308-154935_-10.0C_0001.fit
-│   ├── Bias_1.0ms_Bin1_L_gain100_20240308-154936_-9.9C_0002.fit
-│   └── ...
-├── Darks_300.0s_Bin1_gain100_-10C_2024
-│   ├── Dark_300.0s_Bin1_L_gain100_20240308-172757_-10.0C_0001.fit
-│   ├── Dark_300.0s_Bin1_L_gain100_20240308-160224_-10.0C_0002.fit
-│   └── ...
-└── ...
-```
-
-### CLI commands
-
-```bash
-# The location of your raw ASIAIR root folder (also named dump folder).
-export POTO_ASIAIR_DUMP=/Users/jorislacance/deepsky/dump_2024_08_10_veil-nebula
-
-# Drop thumbnails and empty directories from the ASIAIR dump folder.
-./poto.sh clean -a $POTO_ASIAIR_DUMP
-
-# Import lights to project, grouped per filter, and then light sets (bulb, gain & binning)
-# with the related calibration files (flats, darks and biases).
-export POTO_BANK=/Users/jorislacance/deepsky/_bank
-export POTO_PROJECT=/Users/jorislacance/deepsky/poto_2024_08_10_veil-nebula
-
-./poto.sh dispatch -a $POTO_ASIAIR_DUMP -b $POTO_BANK -p $POTO_PROJECT
-
-# Process each light set based on a Siril script template.
-export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.ssf
-
-./poto.sh preprocess -p $POTO_PROJECT -s $POTO_SCRIPT_TEMPLATE
-```
-
-### Full pre-processing
-
-See [src/process/mono_processing_process/README.md](src/process/mono_processing_process/README.md) for a full example of a pre-processing process.
-
-#### Create your own process
-
-You can easily create your own process by following the example of the [mono_processing_process](src/process/mono_processing_process) process.
-
-Some remarks about **Poto-Siril script templates**:
-
-- `.ssf` extension like regular Siril scripts.
-- Poto-Siril overwrite the `{{lights}}`, `{{flats}}`, `{{darks}}`, `{{biases}}`, `{{process}}`, `{{masters}}` variables to the current light set to pre-process.
-
 ## Development
 
 ```bash
@@ -182,5 +214,3 @@ npm run dev-dispatch-ds1
 ## Side Notes
 
 [Sirilic and Sirilot](https://siril.org/2018/11/sirilic-and-sirilot-two-very-useful-utilities-for-siril/) are two alternatives to automate Siril. This project is another take that emphasize lazyness of manipulating files in the file system, the love of Siril Scripting and A/B testing.
-
-"assembling the composition, making the pre-groups of lights with the right flats (days, filderss...)

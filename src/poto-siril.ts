@@ -1,48 +1,39 @@
 import { Command } from "commander";
-import dispatch from "./commands/dispatch-dump";
+import prepare from "./commands/prepare";
 import {
-  cleanThumbnails,
-  removeEmptyDirectories,
-} from "./commands/asiair-dump-cleaning";
-import { generateScripts } from "./commands/generate-scripts";
-import { runScripts } from "./commands/run-scripts";
+  dropThumbnails,
+  dropEmptyDirectories,
+} from "./commands/clear";
+import { generateScripts } from "./commands/preprocess.generate-scripts";
+import { runScripts } from "./commands/preprocess.exec-scripts";
 import { POTO_VERSION } from "./utils/const";
 
 const program = new Command();
 
 program
   .name("poto-siril")
-  .description("CLI to some ASIAIR import and SIRIL processing")
-  .version(POTO_VERSION);
-
-// const parseMode = (value: string, previous: string) => {
-//   if (value != "autorun" && value != "plan") {
-//     throw new InvalidArgumentError("Unknown mode. Use `autorun` or `plan`.");
-//   }
-//   return value;
-// };
+  .description("CLI tool to automate the pre-processing of astrophotography images on top of Siril.")
+  .version(POTO_VERSION, "-v, --version", "output the current version");
 
 program
-  .command("clean")
+  .command("clear")
   .description(
-    "prepare the ASIAIR dump directory for import by dropping thumbnails and empty directories",
+    "Drop thumbnails and empty directories from an ASIAIR dump.",
   )
-  .option("-a, --asiair <path>", "ASIAIR directory")
+  .argument("<path>", "directory to clear")
   .allowExcessArguments(false)
-  .action(option => {
-    cleanThumbnails(option.asiair);
-    removeEmptyDirectories(option.asiair);
+  .action(directory => {
+    dropThumbnails(directory);
+    dropEmptyDirectories(directory);
   });
 
 program
-  .command("dispatch")
-  .description("Dispatch ASIAIR files and bank data to a project directory")
-  //   .argument("[path]", "project directory", ".")
-  .option("-p, --project <path>", "project directory")
-  .option("-a, --asiair <path>", "ASIAIR directory")
-  .option("-b, --bank <path>", "Biases & Darks bank directory")
+  .command("prepare")
+  .description("Prepare a poto project importing the light frames, and the calibration frames more or less picked automatically.")
+  .option("-i, --input <path>", "directory(ies) to pick from. Will take all lights files. Flats, darks, and biases based on lights.")
+  .option("<path>", "poto project directory destination")
   .action(options => {
-    dispatch({
+    prepare({
       projectDirectory: options.project,
       asiAirDirectory: options.asiair,
       bankDirectory: options.bank,
@@ -51,17 +42,15 @@ program
 
 program
   .command("preprocess")
-  .description("Preprocess the project directory")
-  .option("-p, --project <path>", "project directory")
+  .description("Preprocess using a Siril script (Poto-Siril's Siril script template).")
   .option(
-    "-s, --script <path>",
-    "ssl script path",
-    "./process/mono_processing_process/1_preprocessing.ssf",
+    "-t, --template <path>",
   )
+  .option("<path>", "poto project directory")
   .allowExcessArguments(false)
   .action(options => {
-    generateScripts(options.project, options.script).then(() => {
-      runScripts(options.project, options.script);
+    generateScripts(options.path, options.template).then(() => {
+      runScripts(options.path, options.template);
     });
   });
 
