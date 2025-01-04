@@ -69,7 +69,7 @@ const generateScriptForLightSet = (
   if (lightsdirs.length > 1) {
     logger.errorThrow("Multiple sets of light for ", lightsdirs);
   }
-  const lightsDir = path.relative(projectDirectory, lightsdirs[0]);
+  const lightsDir = path.resolve(lightsdirs[0]);
 
   const flatsDirs = [...new Set(set.flats.map(x => x.projectDirectory))];
   if (flatsDirs.length === 0) {
@@ -78,7 +78,7 @@ const generateScriptForLightSet = (
   if (flatsDirs.length > 1) {
     throw new Error("Multiple sets of flat for " + set.layerSetId);
   }
-  const flatsDir = path.relative(projectDirectory, flatsDirs[0]);
+  const flatsDir = path.resolve(flatsDirs[0]);
 
   const darksDirs = [...new Set(set.darks.map(x => x.projectDirectory))];
   if (darksDirs.length === 0) {
@@ -87,7 +87,7 @@ const generateScriptForLightSet = (
   if (darksDirs.length > 1) {
     throw new Error("Multiple sets of darks for " + set.layerSetId);
   }
-  const darksDir = path.relative(projectDirectory, darksDirs[0]);
+  const darksDir = path.resolve(darksDirs[0]);
 
   const biasesDirs = [...new Set(set.biases.map(x => x.projectDirectory))];
   if (biasesDirs.length === 0) {
@@ -96,21 +96,22 @@ const generateScriptForLightSet = (
   if (biasesDirs.length > 1) {
     throw new Error("Multiple sets of biases for " + set.layerSetId);
   }
-  const biasesDir = path.relative(projectDirectory, biasesDirs[0]);
+  const biasesDir = path.resolve(biasesDirs[0]);
 
-  const processDirRel = path.relative(projectDirectory, processDirectory);
-  const masterDirRel = path.relative(projectDirectory, mastersDirectory);
+  const projectDirectoryAbs = path.resolve(projectDirectory);
+  const processDirAbs = path.resolve(processDirectory);
+  const masterDirAbs = path.resolve(mastersDirectory);
 
   // TODO. Check that the script has the variables, warn if none.
 
   const script = scriptTemplate
-    .replaceAll("{{cwd}}", projectDirectory)
+    .replaceAll("{{poto-dir}}", projectDirectoryAbs)
     .replaceAll("{{biases}}", biasesDir)
     .replaceAll("{{darks}}", darksDir)
     .replaceAll("{{flats}}", flatsDir)
     .replaceAll("{{lights}}", lightsDir)
-    .replaceAll("{{process}}", processDirRel)
-    .replaceAll("{{masters}}", masterDirRel);
+    .replaceAll("{{process}}", processDirAbs)
+    .replaceAll("{{masters}}", masterDirAbs);
 
   const processingScriptPath = path.join(
     processDirectory,
@@ -118,11 +119,11 @@ const generateScriptForLightSet = (
   );
   fs.writeFileSync(processingScriptPath, script);
   logger.info(`Generated ${processingScriptPath}`);
-  logger.debug(`- {{cwd}} 👉 ${projectDirectory}`);
+  logger.debug(`- {{poto-dir}} 👉 ${projectDirectoryAbs}`);
   logger.debug(`- {{lights}} 👉 ${lightsDir}`);
   logger.debug(`- {{flats}} 👉 ${flatsDir}`);
   logger.debug(`- {{darks}} 👉 ${darksDir}`);
   logger.debug(`- {{biases}} 👉 ${biasesDir}`);
-  logger.debug(`- {{process}} 👉 ${processDirRel}`);
-  logger.debug(`- {{masters}} 👉 ${masterDirRel}`);
+  logger.debug(`- {{process}} 👉 ${processDirAbs}`);
+  logger.debug(`- {{masters}} 👉 ${masterDirAbs}`);
 };
