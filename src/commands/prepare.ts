@@ -1,9 +1,3 @@
-// Dispatch ASIAIR dump data from ASIAIR tree structure to the SIRIL process structure.
-
-// TODO allow filtering a range of data, for lights and flats. This will ease the process of selecting the frames
-// regroup per night session (so split at noon and consider after midnight part of the previon night). this is also easing out the process.
-// pre select those that are burned (daylight started to appear), probably by checking the date of the frame and location.
-
 import fs from "fs";
 import Enquirer from "enquirer";
 
@@ -24,32 +18,41 @@ import { POTO_JSON, POTO_VERSION } from "../utils/const";
 
 export type DispatchOptions = {
   projectDirectory: string;
-  asiAirDirectory: string;
-  bankDirectory: string;
+  inputDirectories: string[];
 };
 
 const enquirer = new Enquirer();
 
 const prepare = async ({
   projectDirectory,
-  asiAirDirectory,
-  bankDirectory,
+  inputDirectories,
 }: DispatchOptions) => {
   await ensureProjectDirectoryExists(projectDirectory);
 
   logger.step("Reading input directories");
 
-  const inputFiles = await getAllFitsInInputDirectories(
-    asiAirDirectory,
-    projectDirectory,
-  );
+  const inputFiles : FileImageSpec[] = [];
+  for (const inputDirectory of inputDirectories){
+    const files = await getAllFitsInInputDirectory(
+      inputDirectory,
+      projectDirectory,
+    );
+    inputFiles.push(...files);
+  }
 
   const allLights = inputFiles.filter(file => file.type === "Light");
+  const allLightsFlats = inputFiles.filter(file => file.type === "Light" || file.type === "Flat");
+  const allDarksBiases = inputFiles.filter(file => file.type === "Dark" || file.type === "Bias");
+
+  logger.info(
+    `Found ${inputFiles.length} .fit files in input directories 🌋.`,
+  );
+  logger.info(`Including ${allLights.length} lights 🌟.`);
 
   logger.step("Matching lights and flats (early stage)");
 
   const allFlatsMatchingLights = getFlatsMatchingLightsNaive(
-    inputFiles,
+    allLightsFlats,
     allLights,
   );
 
@@ -68,12 +71,9 @@ const prepare = async ({
 
   logger.step("Tagging darks and biases");
 
-  const bankFiles = getAllFitsInBankDirectories(
-    bankDirectory,
-    projectDirectory,
-  );
+  logger.info(`Among ${allDarksBiases.length} darks+baises files.`);
 
-  layerSets = AssignDarksBiasesToLayerSets(layerSets, bankFiles);
+  layerSets = AssignDarksBiasesToLayerSets(layerSets, allDarksBiases);
 
   logger.step("Preview before dispatching");
 
@@ -135,7 +135,7 @@ export const selectedInputSubDirectoryChoices: SelectedInputSubDirectoryChoices[
  * @param projectDirectory - The directory of the current project.
  * @returns An array of FileImageSpec objects representing the FITS files.
  */
-const getAllFitsInInputDirectories = async (
+const getAllFitsInInputDirectory = async (
   asiAirDirectory: string,
   projectDirectory: string,
 ): Promise<FileImageSpec[]> => {
@@ -448,25 +448,6 @@ const initLayerSetsWithLightsnFlats = (
     layerSets.push(layerSet);
   }
   return layerSets;
-};
-
-/**
- * Retrieve all FITS files from the input directories.
- *
- * @param bankDirectory - The directory where ASIAIR files are stored.
- * @param projectDirectory - The directory of the current project.
- * @returns An array of FileImageSpec objects representing the FITS files.
- */
-const getAllFitsInBankDirectories = (
-  bankDirectory: string,
-  projectDirectory: string,
-): FileImageSpec[] => {
-  const files = getFitsFromDirectory({
-    directory: bankDirectory,
-    projectDirectory,
-  });
-  logger.info(`Found ${files.length} files in the bank.`);
-  return files;
 };
 
 /**

@@ -131,8 +131,7 @@ describe("E2E", () => {
 
     await prepare({
       projectDirectory,
-      asiAirDirectory,
-      bankDirectory,
+      inputDirectories: [asiAirDirectory, bankDirectory],
     });
 
     files = fs.readdirSync(projectDirectory, {
@@ -244,8 +243,7 @@ describe("E2E", () => {
       await expect(
         prepare({
           projectDirectory,
-          asiAirDirectory,
-          bankDirectory,
+          inputDirectories: [asiAirDirectory, bankDirectory],
         }),
       ).rejects.toThrow("No FITS files found in the input directories.");
     });
@@ -275,8 +273,7 @@ describe("E2E", () => {
 
       await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       const files = fs.readdirSync(projectDirectory, {
@@ -306,8 +303,7 @@ describe("E2E", () => {
 
       await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       expect(logMessages).toContain(
@@ -347,8 +343,7 @@ describe("E2E", () => {
 
       await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       expect(logMessages).toContain(
@@ -371,8 +366,7 @@ describe("E2E", () => {
 
       await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       expect(logMessages).toContain(
