@@ -10,9 +10,9 @@ import {
 
 export const generateScripts = async (
   projectDirectory: string,
-  scriptPath: string,
+  scriptTemplatePath: string,
 ) => {
-  const scriptTemplate = fs.readFileSync(scriptPath, {
+  const scriptTemplate = fs.readFileSync(scriptTemplatePath, {
     encoding: "utf8",
   });
 
@@ -31,7 +31,7 @@ export const generateScripts = async (
     generateScriptForLightSet(
       projectDirectory,
       set,
-      path.basename(scriptPath),
+      path.basename(scriptTemplatePath),
       scriptTemplate,
     );
   });

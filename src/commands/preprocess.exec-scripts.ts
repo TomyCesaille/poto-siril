@@ -6,7 +6,7 @@ import { GENERATED_SCRIPT_PREFIX } from "../utils/const";
 
 export const runScripts = async (
   projectDirectory: string,
-  scriptPath: string,
+  scriptTemplatePath: string,
 ) => {
   const scripts = fs
     .readdirSync(projectDirectory, {
@@ -17,7 +17,7 @@ export const runScripts = async (
     .filter(
       f =>
         path.basename(f) ===
-        `${GENERATED_SCRIPT_PREFIX}${path.basename(scriptPath)}`,
+        `${GENERATED_SCRIPT_PREFIX}${path.basename(scriptTemplatePath)}`,
     )
     .map(f => path.join(projectDirectory, f));
 
