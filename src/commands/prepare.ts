@@ -30,7 +30,7 @@ export type DispatchOptions = {
 
 const enquirer = new Enquirer();
 
-const dispatch = async ({
+const prepare = async ({
   projectDirectory,
   asiAirDirectory,
   bankDirectory,
@@ -99,7 +99,7 @@ const dispatch = async ({
   // TODO. custom sort if LRGBSHO filter names to ease reading.
 };
 
-export default dispatch;
+export default prepare;
 
 /**
  * Ensure that the project directory exists.

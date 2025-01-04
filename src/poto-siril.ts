@@ -1,11 +1,11 @@
 import { Command } from "commander";
-import dispatch from "./commands/dispatch-dump";
+import prepare from "./commands/prepare";
 import {
-  cleanThumbnails,
-  removeEmptyDirectories,
-} from "./commands/asiair-dump-cleaning";
-import { generateScripts } from "./commands/generate-scripts";
-import { runScripts } from "./commands/run-scripts";
+  dropThumbnails,
+  dropEmptyDirectories,
+} from "./commands/clear";
+import { generateScripts } from "./commands/preprocess.generate-scripts";
+import { runScripts } from "./commands/preprocess.exec-scripts";
 import { POTO_VERSION } from "./utils/const";
 
 const program = new Command();
@@ -23,8 +23,8 @@ program
   .argument("<path>", "directory to clear")
   .allowExcessArguments(false)
   .action(directory => {
-    cleanThumbnails(directory);
-    removeEmptyDirectories(directory);
+    dropThumbnails(directory);
+    dropEmptyDirectories(directory);
   });
 
 program
@@ -33,7 +33,7 @@ program
   .option("-i, --input <path>", "directory(ies) to pick from. Will take all lights files. Flats, darks, and biases based on lights.")
   .option("<path>", "poto project directory destination")
   .action(options => {
-    dispatch({
+    prepare({
       projectDirectory: options.project,
       asiAirDirectory: options.asiair,
       bankDirectory: options.bank,

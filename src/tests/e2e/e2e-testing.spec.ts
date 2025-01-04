@@ -3,15 +3,15 @@ import path from "path";
 import fs from "fs";
 import Enquirer from "enquirer";
 
-import dispatch, {
+import prepare, {
   SelectedInputSubDirectoryChoices,
-} from "../../commands/dispatch-dump";
+} from "../../commands/prepare";
 import { POTO_JSON } from "../../utils/const";
 import {
-  cleanThumbnails,
-  removeEmptyDirectories,
-} from "../../commands/asiair-dump-cleaning";
-import { generateScripts } from "../../commands/generate-scripts";
+  dropThumbnails,
+  dropEmptyDirectories,
+} from "../../commands/clear";
+import { generateScripts } from "../../commands/preprocess.generate-scripts";
 import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
 import { logger } from "../../utils/logger";
 
@@ -104,7 +104,7 @@ describe("E2E", () => {
     });
     expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(3);
 
-    cleanThumbnails(asiAirDirectory);
+    dropThumbnails(asiAirDirectory);
 
     files = fs.readdirSync(asiAirDirectory, {
       recursive: true,
@@ -122,14 +122,14 @@ describe("E2E", () => {
       true,
     );
 
-    removeEmptyDirectories(asiAirDirectory);
+    dropEmptyDirectories(asiAirDirectory);
 
     expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(
       false,
     );
     expect(fs.existsSync(path.join(asiAirDirectory, "empty"))).toBe(false);
 
-    await dispatch({
+    await prepare({
       projectDirectory,
       asiAirDirectory,
       bankDirectory,
@@ -242,7 +242,7 @@ describe("E2E", () => {
       } as never);
 
       await expect(
-        dispatch({
+        prepare({
           projectDirectory,
           asiAirDirectory,
           bankDirectory,
@@ -273,7 +273,7 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
         asiAirDirectory,
         bankDirectory,
@@ -304,7 +304,7 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
         asiAirDirectory,
         bankDirectory,
@@ -345,7 +345,7 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
         asiAirDirectory,
         bankDirectory,
@@ -369,7 +369,7 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
         asiAirDirectory,
         bankDirectory,
