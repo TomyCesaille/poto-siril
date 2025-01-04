@@ -1,6 +1,6 @@
 {
   "name": "poto-siril",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Automatization around Siril (<https://siril.org/>) and ASIAIR for deep sky astrophotography.",
   "main": "poto.sh",
   "type": "module",
