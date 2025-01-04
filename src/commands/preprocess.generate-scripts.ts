@@ -47,7 +47,6 @@ const generateScriptForLightSet = (
 ) => {
   const filter = set.filter;
   const filterDirectory = path.join(projectDirectory, filter);
-  const anyDirectory = path.join(projectDirectory, "any");
   const processDirectory = path.join(
     filterDirectory,
     `${set.layerSetId}_process`,

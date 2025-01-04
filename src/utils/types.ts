@@ -1,4 +1,4 @@
-type imageType = "Light" | "Dark" | "Bias" | "Flat";
+export type imageType = "Light" | "Dark" | "Bias" | "Flat";
 
 export type ImageSpec = {
   /**
