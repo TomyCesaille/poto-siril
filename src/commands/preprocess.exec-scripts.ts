@@ -23,11 +23,17 @@ export const runScripts = async (
 
   logger.debug(`${scripts.length} scripts found to run.`);
 
+  const cwd =  path.resolve(projectDirectory);
+  logger.debug("Siril CWD:", cwd);
+
+
   for (const script of scripts) {
     logger.info(`Running script ${script}`);
 
-    const child = execa("siril", ["-s", script], {
-      cwd: path.dirname(script),
+    const scriptRelativeToCwD = path.relative(cwd, script);
+    
+    const child = execa("siril", ["-s", scriptRelativeToCwD], {
+      cwd,
     });
 
     child.stdout?.pipe(process.stdout);

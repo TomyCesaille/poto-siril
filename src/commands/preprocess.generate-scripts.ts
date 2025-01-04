@@ -63,14 +63,6 @@ const generateScriptForLightSet = (
     fs.mkdirSync(mastersDirectory, { recursive: false });
   }
 
-  logger.debug("directories", {
-    anyDirectory,
-    filterDirectory,
-    processDirectory,
-    mastersDirectory,
-  });
-
-  // TODO. Move checkers to dispatch-dump.
   const lightsdirs = [...new Set(set.lights.map(x => x.projectDirectory))];
   if (lightsdirs.length === 0) {
     throw new Error("No lights found for filter " + set.layerSetId);
@@ -78,7 +70,7 @@ const generateScriptForLightSet = (
   if (lightsdirs.length > 1) {
     logger.errorThrow("Multiple sets of light for ", lightsdirs);
   }
-  const lightsDir = lightsdirs[0];
+  const lightsDir = path.relative(projectDirectory, lightsdirs[0]);
 
   const flatsDirs = [...new Set(set.flats.map(x => x.projectDirectory))];
   if (flatsDirs.length === 0) {
@@ -87,7 +79,7 @@ const generateScriptForLightSet = (
   if (flatsDirs.length > 1) {
     throw new Error("Multiple sets of flat for " + set.layerSetId);
   }
-  const flatsDir = flatsDirs[0];
+  const flatsDir = path.relative(projectDirectory, flatsDirs[0]);
 
   const darksDirs = [...new Set(set.darks.map(x => x.projectDirectory))];
   if (darksDirs.length === 0) {
@@ -96,7 +88,7 @@ const generateScriptForLightSet = (
   if (darksDirs.length > 1) {
     throw new Error("Multiple sets of darks for " + set.layerSetId);
   }
-  const darksDir = darksDirs[0];
+  const darksDir = path.relative(projectDirectory, darksDirs[0]);
 
   const biasesDirs = [...new Set(set.biases.map(x => x.projectDirectory))];
   if (biasesDirs.length === 0) {
@@ -105,32 +97,33 @@ const generateScriptForLightSet = (
   if (biasesDirs.length > 1) {
     throw new Error("Multiple sets of biases for " + set.layerSetId);
   }
-  const biasesDir = biasesDirs[0];
+  const biasesDir = path.relative(projectDirectory, biasesDirs[0]);
 
-  logger.info("dirs", {
-    lightDir: lightsDir,
-    flatsdir: flatsDir,
-    darksdir: darksDir,
-    biasesdir: biasesDir,
-  });
+  const processDirRel = path.relative(projectDirectory, processDirectory);
+  const masterDirRel = path.relative(projectDirectory, mastersDirectory);
+
+  // TODO. Check that the script has the variables, warn if none.
 
   const script = scriptTemplate
+    .replaceAll("{{cwd}}", projectDirectory)
     .replaceAll("{{biases}}", biasesDir)
     .replaceAll("{{darks}}", darksDir)
     .replaceAll("{{flats}}", flatsDir)
     .replaceAll("{{lights}}", lightsDir)
-    .replaceAll("{{process}}", processDirectory)
-    .replaceAll("{{masters}}", mastersDirectory);
+    .replaceAll("{{process}}", processDirRel)
+    .replaceAll("{{masters}}", masterDirRel);
 
   const processingScriptPath = path.join(
     processDirectory,
     `${GENERATED_SCRIPT_PREFIX}${scriptName}`,
   );
   fs.writeFileSync(processingScriptPath, script);
-  logger.info(`Generated ${processingScriptPath}`, {
-    biasesDir,
-    darksDir,
-    flatsDir,
-    lightsDir,
-  });
+  logger.info(`Generated ${processingScriptPath}`);
+  logger.debug(`- {{cwd}} 👉 ${projectDirectory}`);
+  logger.debug(`- {{lights}} 👉 ${lightsDir}`);
+  logger.debug(`- {{flats}} 👉 ${flatsDir}`);
+  logger.debug(`- {{darks}} 👉 ${darksDir}`);
+  logger.debug(`- {{biases}} 👉 ${biasesDir}`);
+  logger.debug(`- {{process}} 👉 ${processDirRel}`);
+  logger.debug(`- {{masters}} 👉 ${masterDirRel}`);
 };

@@ -112,7 +112,7 @@ You can easily create your own by following the [mono_processing_process](src/pr
 Some remarks about **Poto-Siril script templates**:
 
 - `.ssf` extension like regular Siril scripts.
-- Poto-Siril dynamically overwrite the `{{lights}}`, `{{flats}}`, `{{darks}}`, `{{biases}}`, `{{process}}` & `{{masters}}` variables to the current light set to pre-process.
+- Poto-Siril dynamically overwrite the `{{cwd}}`, `{{lights}}`, `{{flats}}`, `{{darks}}`, `{{biases}}`, `{{process}}` & `{{masters}}` variables to the current light set to pre-process.
 
 ### File naming convention
 

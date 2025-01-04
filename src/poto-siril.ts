@@ -32,6 +32,7 @@ program
   .description("Prepare a poto project importing the light frames, and the calibration frames more or less picked automatically.")
   .option("-i, --input <path>", "directory(ies) to pick from. Will take all lights files. Flats, darks, and biases based on lights.", (value, previous) => previous.concat([value]), [])
   .argument("<path>", "poto project directory destination")
+  .allowExcessArguments(false)
   .action((projectDirectory, options) => {
     prepare({
       inputDirectories: options.input,
@@ -43,13 +44,13 @@ program
   .command("preprocess")
   .description("Preprocess using a Siril script (Poto-Siril's Siril script template).")
   .option(
-    "-t, --template <path>",
+    "-t, --template <path>", "path to the (Poto-)Siril script template",
   )
   .argument("<path>", "poto project directory")
   .allowExcessArguments(false)
-  .action(options => {
-    generateScripts(options.path, options.template).then(() => {
-      runScripts(options.path, options.template);
+  .action((projectDirectory, options) => {
+    generateScripts(projectDirectory, options.template).then(() => {
+      runScripts(projectDirectory, options.template);
     });
   });
 
