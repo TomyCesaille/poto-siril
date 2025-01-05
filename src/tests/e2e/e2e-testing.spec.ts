@@ -219,10 +219,12 @@ describe("E2E", () => {
           encoding: "utf8",
         },
       );
-      expect(scriptContent).toMatchSnapshot();
+      // @ts-expect-error rrre
+      expect(scriptContent).toMatchSnapshotWithNormalizedPaths();
     }
 
-    expect(logMessages).toMatchSnapshot();
+    // @ts-expect-error rrre
+    expect(logMessages).toMatchSnapshotWithNormalizedPaths();
   });
 
   describe("returns all fits in the input directories", () => {
