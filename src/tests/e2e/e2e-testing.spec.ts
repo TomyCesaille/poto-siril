@@ -219,11 +219,10 @@ describe("E2E", () => {
           encoding: "utf8",
         },
       );
-      // @ts-expect-error rrre
+
       expect(scriptContent).toMatchSnapshotWithNormalizedPaths();
     }
 
-    // @ts-expect-error rrre
     expect(logMessages).toMatchSnapshotWithNormalizedPaths();
   });
 
