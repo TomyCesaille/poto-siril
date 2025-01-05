@@ -1,24 +1,22 @@
 {
-  "version": "0.2.0",
+  "version": "0.4.0",
   "configurations": [
     {
-      "name": "dispatch-dump",
+      "name": "dev-prepare-dataset1",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "node",
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
-
       "args": [
         "src/poto-siril.ts",
-        "dispatch",
-        "-p",
-        "src/tests/data/project1",
-        "-a",
-        "src/tests/data/asiair-dump1",
-        "-b",
-        "src/tests/data/bank",
+        "prepare",
+        "-i",
+        "tmp/asiair-dump",
+        "-i",
+        "tmp/bank",
+        "tmp/project"
       ],
-
+      "preLaunchTask": "npm: dev-prepare-ds1",
       "cwd": "${workspaceRoot}",
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": ["<node_internals>/**", "node_modules/**"]

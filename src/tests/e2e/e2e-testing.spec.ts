@@ -3,15 +3,15 @@ import path from "path";
 import fs from "fs";
 import Enquirer from "enquirer";
 
-import dispatch, {
+import prepare, {
   SelectedInputSubDirectoryChoices,
-} from "../../commands/dispatch-dump";
+} from "../../commands/prepare";
 import { POTO_JSON } from "../../utils/const";
 import {
-  cleanThumbnails,
-  removeEmptyDirectories,
-} from "../../commands/asiair-dump-cleaning";
-import { generateScripts } from "../../commands/generate-scripts";
+  dropThumbnails,
+  dropEmptyDirectories,
+} from "../../commands/clear";
+import { generateScripts } from "../../commands/preprocess.generate-scripts";
 import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
 import { logger } from "../../utils/logger";
 
@@ -104,7 +104,7 @@ describe("E2E", () => {
     });
     expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(3);
 
-    cleanThumbnails(asiAirDirectory);
+    dropThumbnails(asiAirDirectory);
 
     files = fs.readdirSync(asiAirDirectory, {
       recursive: true,
@@ -122,17 +122,16 @@ describe("E2E", () => {
       true,
     );
 
-    removeEmptyDirectories(asiAirDirectory);
+    dropEmptyDirectories(asiAirDirectory);
 
     expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(
       false,
     );
     expect(fs.existsSync(path.join(asiAirDirectory, "empty"))).toBe(false);
 
-    await dispatch({
+    await prepare({
       projectDirectory,
-      asiAirDirectory,
-      bankDirectory,
+      inputDirectories: [asiAirDirectory, bankDirectory],
     });
 
     files = fs.readdirSync(projectDirectory, {
@@ -145,8 +144,8 @@ describe("E2E", () => {
 [
   "H",
   "S",
+  "_poto_siril.json",
   "any",
-  "poto.json",
   "H/Flat_1.0ms_Bin1_H_gain100",
   "H/Light_60.0s_Bin1_H_gain0",
   "S/Flat_1.0ms_Bin1_S_gain100",
@@ -220,10 +219,11 @@ describe("E2E", () => {
           encoding: "utf8",
         },
       );
-      expect(scriptContent).toMatchSnapshot();
+
+      expect(scriptContent).toMatchSnapshotWithNormalizedPaths();
     }
 
-    expect(logMessages).toMatchSnapshot();
+    expect(logMessages).toMatchSnapshotWithNormalizedPaths();
   });
 
   describe("returns all fits in the input directories", () => {
@@ -242,12 +242,34 @@ describe("E2E", () => {
       } as never);
 
       await expect(
-        dispatch({
+        prepare({
           projectDirectory,
-          asiAirDirectory,
-          bankDirectory,
+          inputDirectories: [asiAirDirectory, bankDirectory],
         }),
-      ).rejects.toThrow("No FITS files found in the input directories.");
+      ).rejects.toThrow(`No FITS files found in ${asiAirDirectory}`);
+    });
+
+    it("should warn if no files (ASIAIR version)", async () => {
+      const autorunDirectory = `${asiAirDirectory}/Autorun`;
+      if (fs.existsSync(autorunDirectory)) {
+        fs.rmSync(autorunDirectory, { recursive: true });
+      }
+      const planDirectory = `${asiAirDirectory}/Plan`;
+      if (fs.existsSync(planDirectory)) {
+        fs.rmSync(planDirectory, { recursive: true });
+      }
+      fs.mkdirSync(planDirectory);
+
+      promptMock.mockResolvedValueOnce({
+        createProjectDirectory: true,
+      } as never);
+
+      await expect(
+        prepare({
+          projectDirectory,
+          inputDirectories: [asiAirDirectory, bankDirectory],
+        }),
+      ).rejects.toThrow("No FITS files found in Autorun nor Plan folders.");
     });
 
     it("should auto pick Autorun files", async () => {
@@ -273,10 +295,9 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       const files = fs.readdirSync(projectDirectory, {
@@ -304,10 +325,9 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       expect(logMessages).toContain(
@@ -345,10 +365,9 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       expect(logMessages).toContain(
@@ -369,10 +388,9 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      await dispatch({
+      await prepare({
         projectDirectory,
-        asiAirDirectory,
-        bankDirectory,
+        inputDirectories: [asiAirDirectory, bankDirectory],
       });
 
       expect(logMessages).toContain(

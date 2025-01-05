@@ -11,6 +11,7 @@
 ############################################
 # 
 # Variables:
+#   poto-dir: {{poto-dir}}/
 #   biases: {{biases}}/
 #   flats: {{flats}}/
 #   darks: {{darks}}/

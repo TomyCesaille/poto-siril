@@ -3,7 +3,7 @@
 exports[`E2E should be neat 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
-  "potoVersion": "0.2.0",
+  "potoVersion": "poto-siril 0.4.0",
   "metrics": {
     "cumulatedLightIntegrationMinutes": 9,
     "cumulatedDarksIntegrationMinutes": 11,
@@ -903,51 +903,52 @@ exports[`E2E should be neat 4`] = `
 ############################################
 # 
 # Variables:
-#   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
-#   flats: tmp/project/H/Flat_1.0ms_Bin1_H_gain100/
-#   darks: tmp/project/any/Dark_60.0s_Bin1_gain0/
-#   lights: tmp/project/H/Light_60.0s_Bin1_H_gain0/
-#   process: tmp/project/H/Light_60.0s_Bin1_H_gain0_process/
-#   masters: tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/
+#   poto-dir: <ROOT>/tmp/project/
+#   biases: <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100/
+#   flats: <ROOT>/tmp/project/H/Flat_1.0ms_Bin1_H_gain100/
+#   darks: <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain0/
+#   lights: <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0/
+#   process: <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process/
+#   masters: <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/
 #
 ############################################
 
 requires 1.2.0
 
 # Convert Bias Frames to .fit files
-cd tmp/project/any/Bias_1.0ms_Bin1_gain100
-convert bias -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
-cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100
+convert bias -out=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Stack Bias Frames to bias_stacked.fit
-stack bias rej 3 3 -nonorm -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/bias_stacked
+stack bias rej 3 3 -nonorm -out=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/bias_stacked
 
 # Convert Flat Frames to .fit files
-cd tmp/project/H/Flat_1.0ms_Bin1_H_gain100
-convert flat -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
-cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/H/Flat_1.0ms_Bin1_H_gain100
+convert flat -out=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Calibrate Flat Frames
-calibrate flat -bias=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/bias_stacked
+calibrate flat -bias=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/bias_stacked
 
 # Stack Flat Frames to pp_flat_stacked.fit
-stack pp_flat rej 3 3 -norm=mul -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/pp_flat_stacked
+stack pp_flat rej 3 3 -norm=mul -out=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/pp_flat_stacked
 
 # Convert Dark Frames to .fit files
-cd tmp/project/any/Dark_60.0s_Bin1_gain0
-convert dark -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
-cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain0
+convert dark -out=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Stack Dark Frames to dark_stacked.fit
-stack dark rej 3 3 -nonorm -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/dark_stacked
+stack dark rej 3 3 -nonorm -out=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/dark_stacked
 
 # Convert Light Frames to .fit files
-cd tmp/project/H/Light_60.0s_Bin1_H_gain0
-convert light -out=tmp/project/H/Light_60.0s_Bin1_H_gain0_process
-cd tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0
+convert light -out=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
+cd <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process
 
 # Calibrate Light Frames
-calibrate light -dark=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/dark_stacked -flat=tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/pp_flat_stacked -cc=dark
+calibrate light -dark=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/dark_stacked -flat=<ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
@@ -970,51 +971,52 @@ exports[`E2E should be neat 5`] = `
 ############################################
 # 
 # Variables:
-#   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
-#   flats: tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
-#   darks: tmp/project/any/Dark_120.0s_Bin1_gain0/
-#   lights: tmp/project/S/Light_120.0s_Bin1_S_gain0/
-#   process: tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/
-#   masters: tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/
+#   poto-dir: <ROOT>/tmp/project/
+#   biases: <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100/
+#   flats: <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
+#   darks: <ROOT>/tmp/project/any/Dark_120.0s_Bin1_gain0/
+#   lights: <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0/
+#   process: <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/
+#   masters: <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/
 #
 ############################################
 
 requires 1.2.0
 
 # Convert Bias Frames to .fit files
-cd tmp/project/any/Bias_1.0ms_Bin1_gain100
-convert bias -out=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
-cd tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100
+convert bias -out=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
 
 # Stack Bias Frames to bias_stacked.fit
-stack bias rej 3 3 -nonorm -out=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/bias_stacked
+stack bias rej 3 3 -nonorm -out=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/bias_stacked
 
 # Convert Flat Frames to .fit files
-cd tmp/project/S/Flat_1.0ms_Bin1_S_gain100
-convert flat -out=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
-cd tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100
+convert flat -out=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
 
 # Calibrate Flat Frames
-calibrate flat -bias=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/bias_stacked
+calibrate flat -bias=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/bias_stacked
 
 # Stack Flat Frames to pp_flat_stacked.fit
-stack pp_flat rej 3 3 -norm=mul -out=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/pp_flat_stacked
+stack pp_flat rej 3 3 -norm=mul -out=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/pp_flat_stacked
 
 # Convert Dark Frames to .fit files
-cd tmp/project/any/Dark_120.0s_Bin1_gain0
-convert dark -out=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
-cd tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/any/Dark_120.0s_Bin1_gain0
+convert dark -out=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
 
 # Stack Dark Frames to dark_stacked.fit
-stack dark rej 3 3 -nonorm -out=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/dark_stacked
+stack dark rej 3 3 -nonorm -out=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/dark_stacked
 
 # Convert Light Frames to .fit files
-cd tmp/project/S/Light_120.0s_Bin1_S_gain0
-convert light -out=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
-cd tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0
+convert light -out=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
+cd <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process
 
 # Calibrate Light Frames
-calibrate light -dark=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/dark_stacked -flat=tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/pp_flat_stacked -cc=dark
+calibrate light -dark=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/dark_stacked -flat=<ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
@@ -1037,51 +1039,52 @@ exports[`E2E should be neat 6`] = `
 ############################################
 # 
 # Variables:
-#   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
-#   flats: tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
-#   darks: tmp/project/any/Dark_60.0s_Bin1_gain100/
-#   lights: tmp/project/S/Light_60.0s_Bin1_S_gain100/
-#   process: tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/
-#   masters: tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/
+#   poto-dir: <ROOT>/tmp/project/
+#   biases: <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100/
+#   flats: <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
+#   darks: <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain100/
+#   lights: <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100/
+#   process: <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/
+#   masters: <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/
 #
 ############################################
 
 requires 1.2.0
 
 # Convert Bias Frames to .fit files
-cd tmp/project/any/Bias_1.0ms_Bin1_gain100
-convert bias -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100
+convert bias -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
 
 # Stack Bias Frames to bias_stacked.fit
-stack bias rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/bias_stacked
+stack bias rej 3 3 -nonorm -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/bias_stacked
 
 # Convert Flat Frames to .fit files
-cd tmp/project/S/Flat_1.0ms_Bin1_S_gain100
-convert flat -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100
+convert flat -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
 
 # Calibrate Flat Frames
-calibrate flat -bias=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/bias_stacked
+calibrate flat -bias=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/bias_stacked
 
 # Stack Flat Frames to pp_flat_stacked.fit
-stack pp_flat rej 3 3 -norm=mul -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/pp_flat_stacked
+stack pp_flat rej 3 3 -norm=mul -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/pp_flat_stacked
 
 # Convert Dark Frames to .fit files
-cd tmp/project/any/Dark_60.0s_Bin1_gain100
-convert dark -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain100
+convert dark -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
 
 # Stack Dark Frames to dark_stacked.fit
-stack dark rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/dark_stacked
+stack dark rej 3 3 -nonorm -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/dark_stacked
 
 # Convert Light Frames to .fit files
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100
-convert light -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100
+convert light -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process
 
 # Calibrate Light Frames
-calibrate light -dark=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/dark_stacked -flat=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/pp_flat_stacked -cc=dark
+calibrate light -dark=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/dark_stacked -flat=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
@@ -1104,51 +1107,52 @@ exports[`E2E should be neat 7`] = `
 ############################################
 # 
 # Variables:
-#   biases: tmp/project/any/Bias_1.0ms_Bin1_gain100/
-#   flats: tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
-#   darks: tmp/project/any/Dark_60.0s_Bin1_gain100/
-#   lights: tmp/project/S/Light_60.0s_Bin1_S_gain100/
-#   process: tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/
-#   masters: tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/
+#   poto-dir: <ROOT>/tmp/project/
+#   biases: <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100/
+#   flats: <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100/
+#   darks: <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain100/
+#   lights: <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100/
+#   process: <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/
+#   masters: <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/
 #
 ############################################
 
 requires 1.2.0
 
 # Convert Bias Frames to .fit files
-cd tmp/project/any/Bias_1.0ms_Bin1_gain100
-convert bias -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100
+convert bias -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
 
 # Stack Bias Frames to bias_stacked.fit
-stack bias rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/bias_stacked
+stack bias rej 3 3 -nonorm -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/bias_stacked
 
 # Convert Flat Frames to .fit files
-cd tmp/project/S/Flat_1.0ms_Bin1_S_gain100
-convert flat -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100
+convert flat -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
 
 # Calibrate Flat Frames
-calibrate flat -bias=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/bias_stacked
+calibrate flat -bias=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/bias_stacked
 
 # Stack Flat Frames to pp_flat_stacked.fit
-stack pp_flat rej 3 3 -norm=mul -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/pp_flat_stacked
+stack pp_flat rej 3 3 -norm=mul -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/pp_flat_stacked
 
 # Convert Dark Frames to .fit files
-cd tmp/project/any/Dark_60.0s_Bin1_gain100
-convert dark -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain100
+convert dark -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
 
 # Stack Dark Frames to dark_stacked.fit
-stack dark rej 3 3 -nonorm -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/dark_stacked
+stack dark rej 3 3 -nonorm -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/dark_stacked
 
 # Convert Light Frames to .fit files
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100
-convert light -out=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
-cd tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100
+convert light -out=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
+cd <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process
 
 # Calibrate Light Frames
-calibrate light -dark=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/dark_stacked -flat=tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/pp_flat_stacked -cc=dark
+calibrate light -dark=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/dark_stacked -flat=<ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters/pp_flat_stacked -cc=dark
 
 # Align Lights
 register pp_light
@@ -1174,12 +1178,14 @@ exports[`E2E should be neat 8`] = `
   }
 ]",
   "step: Reading input directories",
+  "debug: Reading input directory tmp/asiair-dump",
+  "debug: ASIAIR dump detected in tmp/asiair-dump.",
   "debug: Skipping unknown file (Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot)",
   "prompt: [
   {
     "type": "select",
     "name": "selectedInputSubDirectory",
-    "message": "Files found in both Autorun and Plan directories. How to do we proceed?",
+    "message": "Files found in both Autorun and Plan directories. How do we proceed?",
     "choices": [
       "Use Autorun directory",
       "Use Plan directory",
@@ -1188,6 +1194,10 @@ exports[`E2E should be neat 8`] = `
   }
 ]",
   "info: Found 19 files in input dir(s) to dispatch.",
+  "debug: Reading input directory tmp/bank",
+  "info: Found 14 files in input dir(s) to dispatch.",
+  "info: Found 33 .fit files in input directories 🌋.",
+  "info: Including 8 lights 🌟.",
   "step: Matching lights and flats (early stage)",
   "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
@@ -1256,7 +1266,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "step: Tagging darks and biases",
-  "info: Found 14 files in the bank.",
+  "info: Found 14 darks+baises files.",
   "step: Preview before dispatching",
   "info: 🔭 Cumulated light integration: 9 minutes.",
   "info: 📦 Project size: 8 lights, 10 darks, 12 flats, 12 biases.",
@@ -1318,18 +1328,38 @@ exports[`E2E should be neat 8`] = `
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
   "success: Dispatch complete.",
-  "debug: directories [object Object]",
-  "info: dirs [object Object]",
-  "info: Generated tmp/project/H/Light_60.0s_Bin1_H_gain0_process/poto_1_preprocessing.ssf [object Object]",
-  "debug: directories [object Object]",
-  "info: dirs [object Object]",
-  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/poto_1_preprocessing.ssf [object Object]",
-  "debug: directories [object Object]",
-  "info: dirs [object Object]",
-  "info: Generated tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/poto_1_preprocessing.ssf [object Object]",
-  "debug: directories [object Object]",
-  "info: dirs [object Object]",
-  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/poto_1_preprocessing.ssf [object Object]",
+  "info: Generated tmp/project/H/Light_60.0s_Bin1_H_gain0_process/poto_1_preprocessing.ssf",
+  "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
+  "debug: - {{lights}} 👉 <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0",
+  "debug: - {{flats}} 👉 <ROOT>/tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
+  "debug: - {{darks}} 👉 <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain0",
+  "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
+  "debug: - {{process}} 👉 <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process",
+  "debug: - {{masters}} 👉 <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters",
+  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/poto_1_preprocessing.ssf",
+  "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
+  "debug: - {{lights}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100",
+  "debug: - {{flats}} 👉 <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+  "debug: - {{darks}} 👉 <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain100",
+  "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
+  "debug: - {{process}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process",
+  "debug: - {{masters}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters",
+  "info: Generated tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/poto_1_preprocessing.ssf",
+  "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
+  "debug: - {{lights}} 👉 <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0",
+  "debug: - {{flats}} 👉 <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+  "debug: - {{darks}} 👉 <ROOT>/tmp/project/any/Dark_120.0s_Bin1_gain0",
+  "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
+  "debug: - {{process}} 👉 <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process",
+  "debug: - {{masters}} 👉 <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters",
+  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/poto_1_preprocessing.ssf",
+  "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
+  "debug: - {{lights}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100",
+  "debug: - {{flats}} 👉 <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+  "debug: - {{darks}} 👉 <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain100",
+  "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
+  "debug: - {{process}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process",
+  "debug: - {{masters}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters",
   "success: Scripts were generated ✅.",
 ]
 `;
