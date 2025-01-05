@@ -8,16 +8,16 @@ Automatization around Siril (<https://siril.org/>) for deep sky astrophotography
 
 **Poto-Siril is a CLI tool to automate the pre-processing of astrophotography images on top of Siril.**
 
-Poto-Siril aims to **overcome the repetitive and tedious** work when pre-processing multiple layers before compositing a (L)RGB image (e.g. narrowband filters with monochrome camera or color camera with dual-band filters).
+Poto-Siril aims to **overcome the repetitive and tedious** work when pre-processing multiple layers before compositing an (L)RGB image (e.g. narrowband filters with a monochrome camera or a color camera with dual-band filters).
 
-It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follows the same [file naming convention](#file-naming-convention) and [directory structure](#asiair-directory-structure-for-reference) (more support to come, help is welcomed 👋).
+It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follow the same [file naming convention](#file-naming-convention) and [directory structure](#asiair-directory-structure-for-reference) (more support to come, help is welcomed 👋).
 
 ### Workflow 🚀
 
 The essence of Poto-Siril is about:
 
-- Organizing the raw data by grouping the multiple light sequences together in small groups (of same filter, bulb, gain, etc...) tagged with the appropriate flats, darks, and biases.
-- Running Siril script(s) to each group of lights to retrieve the calibrated lights, following:
+- Organizing the raw data by grouping the multiple light sequences together in small groups (of the same filter, bulb, gain, etc...) tagged with the appropriate flats, darks, and biases.
+- Running Siril script(s) on each group of lights to retrieve the calibrated lights, following:
 
 ```math
 Calibrated\_Light = \frac{Light\_Frame - Dark\_Frame}{Flat\_Frame}
@@ -29,21 +29,20 @@ Calibrated\_Light = \frac{Light\_Frame - Dark\_Frame}{Flat\_Frame}
 
 ### In detail
 
-- **Easy import lights and flats from night session(s) and search for associated darks and biases in a bank folder**
-  Import one or several night sessions (e.g. lights and flats from `Autorun` or `Plan` mode with ASIAIR) and automatically pick the darks and bias from the bank folder (matching bulb, gain, binning, ...).
+- **Easy import of lights and flats from night session(s) and search for associated darks and biases in a bank folder**
+  Import one or several night sessions (e.g. lights and flats from `Autorun` or `Plan` mode with ASIAIR) and automatically pick the darks and biases from the bank folder (matching bulb, gain, binning, ...).
   A summary resumes the light sequence(s) and the calibration files associated.
   ![dispatch](./img/poto-siril_prepare_summary.png)
 - **Complex Light - Flat matching**
-  The project consists of multiple night sessions where the flats changed over time? e.g. a significant date gap between shooting sessions and the collimation has changed and/or new dust in the optical train.
-  Poto-Siril helps to associate the right flats to the right lights.
+  Poto-Siril helps to associate the right flats with the right lights when the project consists of multiple night sessions where the flats changed over time, e.g., a significant date gap between shooting sessions having a new  collimation tuning and/or new dust in the optical train.
   ![flat_matching](./img/poto-siril_prepare_advanced-flats-matching.png)
 - **Multi-layers project structure**
-  The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there's multiple combinations). Each light set will map to a light sequence in Siril to be pre-processed separately.
-  👉 You can easily work on a LRGB or LRGBHaOIIISII project.
+  The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there are multiple combinations). Each light set will map to a light sequence in Siril to be pre-processed separately.
+  👉 You can easily work on an LRGB or LRGBHaOIIISII project.
 - **Batch Siril script execution to pre-process the data**
-  (Generates and) Run a Siril scripts (`.ssl` file) to calibrate the lights,for each light set, based on a customizable ssl file template.
+  (Generates and) Runs a Siril script (`.ssl` file) to calibrate the lights for each light set, based on a customizable ssl file template.
 - **A/B testing** (PLANNED)
-  Run the (generated ☝️) Siril script with different parameters (e.g. rejection algo, sigma low/high thresholds) and compare the results.
+  Run the (generated ☝️) Siril script with different parameters (e.g. rejection algorithm, sigma low/high thresholds) and compare the results.
   Or run several different pre-processing scripts and compare the results.
 
 ### What it is not doing
@@ -88,7 +87,7 @@ $POTO_PROJECT=jorislacance/deepsky/poto_2024_08_10_veil-nebula
   # 🎉 poto project directory destination.
   $POTO_PROJECT
 
-# Batch pre-process the all the lights, set by set (filter, bulb, gain, binning...) based on a Siril script template.
+# Batch pre-process all the lights, set by set (filter, bulb, gain, binning...) based on a Siril script template.
 export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.ssf
 ./poto.sh preprocess \
   -t $POTO_SCRIPT_TEMPLATE \
@@ -100,7 +99,7 @@ export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.
 
 ### Pre-processing pipeline
 
-Usually, the pre-processing is a multi-step journey. The most usual case is to pre-process lights, eliminates bad ones in Siril directely, and go back to Poto-Siril to batch-run the stacking.
+Usually, the pre-processing is a multi-step journey. The most usual case is to pre-process lights, eliminate bad ones in Siril directly, and go back to Poto-Siril to batch-run the stacking.
 
 You can chain multiple scripts to achieve the desired result.
 See [src/process/mono_processing_process/README.md](src/process/mono_processing_process/README.md) for a full example of a pre-processing pipeline.
@@ -112,7 +111,7 @@ You can easily create your own by following the [mono_processing_process](src/pr
 Some remarks about **Poto-Siril script templates**:
 
 - `.ssf` extension like regular Siril scripts.
-- Poto-Siril dynamically overwrite the `{{poto-dir}}`, `{{lights}}`, `{{flats}}`, `{{darks}}`, `{{biases}}`, `{{process}}` & `{{masters}}` variables to the current light set to pre-process.
+- Poto-Siril dynamically overwrites the `{{poto-dir}}`, `{{lights}}`, `{{flats}}`, `{{darks}}`, `{{biases}}`, `{{process}}` & `{{masters}}` variables to the current light set to pre-process.
 
 ### File naming convention
 
@@ -143,14 +142,14 @@ For example:
 ├── H
 ├── O
 ├── ...
-└── any    👈 Biases & darks falls here. lights & flats too if no filter.
+└── any    👈 Biases & darks fall here. lights & flats too if no filter.
 ```
 
 > 💡 `S`, `H`, `O` are the filter names defined in ASIAIR (cf Filter Wheel settings).
 
 ### The bank folder (for reference)
 
-It's common to store the **darks** and **biases** in a 'a bank folder' since they are quite static. Poto-siril don't expect any precise directory structure for a directory to act like a bank folder as long as the [file naming convention](#file-naming-convention) is respected.
+It's common to store the **darks** and **biases** in a 'bank folder' since they are quite static. Poto-siril doesn't expect any precise directory structure for a directory to act like a bank folder as long as the [file naming convention](#file-naming-convention) is respected.
 
 Example of structure:
 
@@ -214,4 +213,4 @@ npm run dev-prepare-ds1
 
 ## Side Notes
 
-[Sirilic and Sirilot](https://siril.org/2018/11/sirilic-and-sirilot-two-very-useful-utilities-for-siril/) are two alternatives to automate Siril. This project is another take that emphasize lazyness of manipulating files in the file system, the love of Siril Scripting and A/B testing.
+[Sirilic and Sirilot](https://siril.org/2018/11/sirilic-and-sirilot-two-very-useful-utilities-for-siril/) are two alternatives to automate Siril. This project is another take that emphasizes the laziness of manipulating files in the file system, the love of Siril Scripting, and A/B testing.
