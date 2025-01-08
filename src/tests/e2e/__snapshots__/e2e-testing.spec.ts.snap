@@ -5,10 +5,10 @@ exports[`E2E should be neat 2`] = `
   "generatedAt": "2024-10-15T00:00:00.000Z",
   "potoVersion": "poto-siril 0.4.0",
   "metrics": {
-    "cumulatedLightIntegrationMinutes": 9,
-    "cumulatedDarksIntegrationMinutes": 11,
-    "totalLights": 8,
-    "totalDarks": 10,
+    "cumulatedLightIntegrationMinutes": 12,
+    "cumulatedDarksIntegrationMinutes": 14,
+    "totalLights": 10,
+    "totalDarks": 12,
     "totalFlats": 12,
     "totalBiases": 12
   },
@@ -40,8 +40,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
           "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
         },
         {
@@ -58,8 +58,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
           "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
         },
         {
@@ -76,8 +76,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
           "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
         }
       ],
@@ -99,8 +99,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
           "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
         },
         {
@@ -117,8 +117,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
           "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
         },
         {
@@ -135,14 +135,14 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
           "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
         }
       ],
       "darkSet": "Dark_60.0s_Bin1_gain0",
-      "darksCount": 1,
-      "darkTotalIntegrationMinutes": 1,
+      "darksCount": 2,
+      "darkTotalIntegrationMinutes": 2,
       "darks": [
         {
           "setName": "Dark_60.0s_Bin1_gain0",
@@ -160,6 +160,24 @@ exports[`E2E should be neat 2`] = `
           "extension": "fit",
           "sourceDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
+          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0"
+        },
+        {
+          "setName": "Dark_60.0s_Bin1_gain0",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 2,
+          "datetime": "2024-03-08T15:57:23.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit",
           "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0"
         }
       ],
@@ -249,8 +267,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
           "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
         },
         {
@@ -267,8 +285,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
           "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
         },
         {
@@ -285,8 +303,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
           "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
         }
       ],
@@ -308,8 +326,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         },
         {
@@ -326,8 +344,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.0C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         },
         {
@@ -344,8 +362,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         }
       ],
@@ -491,12 +509,12 @@ exports[`E2E should be neat 2`] = `
       "lightSequences": [
         {
           "sequenceId": "20240626-010853",
-          "count": 1,
-          "integrationMinutes": 2
+          "count": 2,
+          "integrationMinutes": 4
         }
       ],
-      "lightTotalCount": 1,
-      "lightTotalIntegrationMinutes": 2,
+      "lightTotalCount": 2,
+      "lightTotalIntegrationMinutes": 4,
       "lights": [
         {
           "setName": "Light_120.0s_Bin1_S_gain0",
@@ -512,8 +530,26 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
+          "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
+        },
+        {
+          "setName": "Light_120.0s_Bin1_S_gain0",
+          "type": "Light",
+          "bulb": "120.0s",
+          "bulbMs": 120000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 0,
+          "sequenceId": "20240626-010853",
+          "sequencePosition": 2,
+          "datetime": "2024-06-26T01:08:54.000Z",
+          "temperature": "-10.1C",
+          "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
           "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
         }
       ],
@@ -535,8 +571,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         },
         {
@@ -553,8 +589,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.0C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         },
         {
@@ -571,14 +607,14 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         }
       ],
       "darkSet": "Dark_120.0s_Bin1_L_gain0",
-      "darksCount": 1,
-      "darkTotalIntegrationMinutes": 2,
+      "darksCount": 2,
+      "darkTotalIntegrationMinutes": 4,
       "darks": [
         {
           "setName": "Dark_120.0s_Bin1_L_gain0",
@@ -596,6 +632,24 @@ exports[`E2E should be neat 2`] = `
           "extension": "fit",
           "sourceDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit",
+          "projectDirectory": "tmp/project/any/Dark_120.0s_Bin1_gain0"
+        },
+        {
+          "setName": "Dark_120.0s_Bin1_L_gain0",
+          "type": "Dark",
+          "bulb": "120.0s",
+          "bulbMs": 120000,
+          "bin": "Bin1",
+          "filter": "L",
+          "gain": 0,
+          "sequenceId": "20240308-155723",
+          "sequencePosition": 2,
+          "datetime": "2024-03-08T15:57:24.000Z",
+          "temperature": "-10.0C",
+          "fileName": "Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit",
           "projectDirectory": "tmp/project/any/Dark_120.0s_Bin1_gain0"
         }
       ],
@@ -664,12 +718,12 @@ exports[`E2E should be neat 2`] = `
       "lightSequences": [
         {
           "sequenceId": "20240627-010820",
-          "count": 1,
-          "integrationMinutes": 1
+          "count": 2,
+          "integrationMinutes": 2
         }
       ],
-      "lightTotalCount": 1,
-      "lightTotalIntegrationMinutes": 1,
+      "lightTotalCount": 2,
+      "lightTotalIntegrationMinutes": 2,
       "lights": [
         {
           "setName": "Light_60.0s_Bin1_S_gain100",
@@ -685,8 +739,26 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.1C",
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_S_gain100",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240627-010820",
+          "sequencePosition": 2,
+          "datetime": "2024-06-27T01:08:21.000Z",
+          "temperature": "-10.1C",
+          "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
           "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
         }
       ],
@@ -708,8 +780,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         },
         {
@@ -726,8 +798,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.0C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         },
         {
@@ -744,8 +816,8 @@ exports[`E2E should be neat 2`] = `
           "temperature": "-10.5C",
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump/Autorun/Flat",
-          "sourceFilePath": "tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
         }
       ],
@@ -1163,12 +1235,12 @@ close
 
 exports[`E2E should be neat 8`] = `
 [
-  "debug: Deleted: tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg",
-  "debug: Deleted: tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002_thn.jpg",
-  "debug: Deleted: tmp/asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003_thn.jpg",
+  "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg",
+  "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002_thn.jpg",
+  "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003_thn.jpg",
   "info: Asiair dump cleaning - Thumbnails deleted ✅",
-  "info: Deleted: tmp/asiair-dump/empty/empty",
-  "info: Deleted: tmp/asiair-dump/empty",
+  "info: Deleted: tmp/asiair-dump-1/empty/empty",
+  "info: Deleted: tmp/asiair-dump-1/empty",
   "info: Asiair dump cleaning - Empty dirs deleted ✅",
   "prompt: [
   {
@@ -1178,8 +1250,8 @@ exports[`E2E should be neat 8`] = `
   }
 ]",
   "step: Reading input directories",
-  "debug: Reading input directory tmp/asiair-dump",
-  "debug: ASIAIR dump detected in tmp/asiair-dump.",
+  "debug: Reading input directory tmp/asiair-dump-1",
+  "debug: ASIAIR dump detected in tmp/asiair-dump-1.",
   "debug: Skipping unknown file (Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot)",
   "prompt: [
   {
@@ -1193,11 +1265,11 @@ exports[`E2E should be neat 8`] = `
     ]
   }
 ]",
-  "info: Found 19 files in input dir(s) to dispatch.",
+  "info: Found 21 files in input dir(s) to dispatch.",
   "debug: Reading input directory tmp/bank",
-  "info: Found 14 files in input dir(s) to dispatch.",
-  "info: Found 33 .fit files in input directories 🌋.",
-  "info: Including 8 lights 🌟.",
+  "info: Found 16 files in input dir(s) to dispatch.",
+  "info: Found 37 .fit files in input directories 🌋.",
+  "info: Including 10 lights 🌟.",
   "step: Matching lights and flats (early stage)",
   "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
@@ -1266,16 +1338,16 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "step: Tagging darks and biases",
-  "info: Found 14 darks+baises files.",
+  "info: Found 16 darks+baises files.",
   "step: Preview before dispatching",
-  "info: 🔭 Cumulated light integration: 9 minutes.",
-  "info: 📦 Project size: 8 lights, 10 darks, 12 flats, 12 biases.",
+  "info: 🔭 Cumulated light integration: 12 minutes.",
+  "info: 📦 Project size: 10 lights, 12 darks, 12 flats, 12 biases.",
   "space: ",
   "info: 🌌 Layer sets:",
-  "debug: - Light_60.0s_Bin1_H_gain0 has 3 lights, 1 darks, 3 flats, 3 biases.",
+  "debug: - Light_60.0s_Bin1_H_gain0 has 3 lights, 2 darks, 3 flats, 3 biases.",
   "debug: - Light_60.0s_Bin1_S_gain100__20240624-010840 has 3 lights, 4 darks, 3 flats, 3 biases.",
-  "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 has 1 lights, 1 darks, 3 flats, 3 biases.",
-  "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 has 1 lights, 4 darks, 3 flats, 3 biases.",
+  "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 has 2 lights, 2 darks, 3 flats, 3 biases.",
+  "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 has 2 lights, 4 darks, 3 flats, 3 biases.",
   "space: ",
   "prompt: [
   {
@@ -1289,6 +1361,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit dispatched.",
   "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit dispatched.",
   "debug: - Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit dispatched.",
+  "debug: - Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit dispatched.",
   "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit dispatched.",
   "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit dispatched.",
   "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit dispatched.",
@@ -1309,7 +1382,9 @@ exports[`E2E should be neat 8`] = `
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
   "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit dispatched.",
   "debug: - Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit dispatched.",
+  "debug: - Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit dispatched.",
   "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
   "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
   "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
@@ -1317,6 +1392,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
   "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit dispatched.",
   "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit dispatched.",
   "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit dispatched.",
   "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit dispatched.",
@@ -1328,7 +1404,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
   "success: Dispatch complete.",
-  "info: Generated tmp/project/H/Light_60.0s_Bin1_H_gain0_process/poto_1_preprocessing.ssf",
+  "info: Generated tmp/project/H/Light_60.0s_Bin1_H_gain0_process/_poto_Mono_Preprocessing.ssf",
   "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
   "debug: - {{lights}} 👉 <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0",
   "debug: - {{flats}} 👉 <ROOT>/tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
@@ -1336,7 +1412,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
   "debug: - {{process}} 👉 <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_process",
   "debug: - {{masters}} 👉 <ROOT>/tmp/project/H/Light_60.0s_Bin1_H_gain0_masters",
-  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/poto_1_preprocessing.ssf",
+  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/_poto_Mono_Preprocessing.ssf",
   "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
   "debug: - {{lights}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100",
   "debug: - {{flats}} 👉 <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
@@ -1344,7 +1420,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
   "debug: - {{process}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_process",
   "debug: - {{masters}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240624-010840_masters",
-  "info: Generated tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/poto_1_preprocessing.ssf",
+  "info: Generated tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/_poto_Mono_Preprocessing.ssf",
   "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
   "debug: - {{lights}} 👉 <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0",
   "debug: - {{flats}} 👉 <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
@@ -1352,7 +1428,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
   "debug: - {{process}} 👉 <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_process",
   "debug: - {{masters}} 👉 <ROOT>/tmp/project/S/Light_120.0s_Bin1_S_gain0__20240626-010853_masters",
-  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/poto_1_preprocessing.ssf",
+  "info: Generated tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/_poto_Mono_Preprocessing.ssf",
   "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
   "debug: - {{lights}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100",
   "debug: - {{flats}} 👉 <ROOT>/tmp/project/S/Flat_1.0ms_Bin1_S_gain100",

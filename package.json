@@ -11,8 +11,8 @@
     "test-cli": "./poto.sh --version",
     "dev-test": "TZ=UTC node --experimental-vm-modules node_modules/.bin/jest --coverage --watch src",
     "dev-spawn-ds1": "tsx ./scripts/dev-spawn-ds1.ts",
-    "dev-prepare-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh prepare -i tmp/asiair-dump -i tmp/bank tmp/project",
-    "dev-preprocess-ds1": "TZ=UTC ./poto.sh preprocess -t src/process/mono_processing_process/1_preprocessing.ssf tmp/project"
+    "dev-prepare-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh prepare -i tmp/asiair-dump-1 -i tmp/bank tmp/project",
+    "dev-preprocess-ds1": "TZ=UTC ./poto.sh preprocess -t src/pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf tmp/project"
   },
   "keywords": [
     "siril",
