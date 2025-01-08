@@ -88,7 +88,7 @@ $POTO_PROJECT=jorislacance/deepsky/poto_2024_08_10_veil-nebula
   $POTO_PROJECT
 
 # Batch pre-process all the lights, set by set (filter, bulb, gain, binning...) based on a Siril script template.
-export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.ssf
+export POTO_SCRIPT_TEMPLATE=src/pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf
 ./poto.sh preprocess \
   -t $POTO_SCRIPT_TEMPLATE \
   $POTO_PROJECT
@@ -102,11 +102,11 @@ export POTO_SCRIPT_TEMPLATE=src/process/mono_processing_process/1_preprocessing.
 Usually, the pre-processing is a multi-step journey. The most usual case is to pre-process lights, eliminate bad ones in Siril directly, and go back to Poto-Siril to batch-run the stacking.
 
 You can chain multiple scripts to achieve the desired result.
-See [src/process/mono_processing_process/README.md](src/process/mono_processing_process/README.md) for a full example of a pre-processing pipeline.
+See [src/pipeline/Mono_Preprocessing/README.md](src/pipeline/Mono_Preprocessing/README.md) for a full example of a pre-processing pipeline.
 
 #### Create your own
 
-You can easily create your own by following the [mono_processing_process](src/process/mono_processing_process) example.
+You can easily create your own by following the [Mono_Preprocessing pipeline](src/pipeline/Mono_Preprocessing) example.
 
 Some remarks about **Poto-Siril script templates**:
 
