@@ -1246,7 +1246,8 @@ exports[`E2E should be neat 8`] = `
   {
     "type": "confirm",
     "name": "createProjectDirectory",
-    "message": "Directory tmp/project does not exist. Do you want to create it?"
+    "message": "Directory tmp/project does not exist. Do you want to create it?",
+    "initial": true
   }
 ]",
   "step: Reading input directories",
@@ -1338,7 +1339,26 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "step: Tagging darks and biases",
-  "info: Found 16 darks+baises files.",
+  "info: Found 16 darks+baises files (without temperature filtering).",
+  "prompt: [
+  {
+    "type": "input",
+    "name": "darkTemperatureTolerance",
+    "message": "Select the temperature tolerance for lights-darks matching (+/-0.5°C to +/-10°C).",
+    "initial": 3
+  }
+]",
+  "space: ",
+  "info: 👉 Light - Dark matching summary:",
+  "debug: - Light_60.0s_Bin1_H_gain0 20240625-010850 🏹 Dark_60.0s_Bin1_gain0 (2 files / 2 minutes)",
+  "debug: - Light_60.0s_Bin1_S_gain100__20240624-010840 🏹 Dark_60.0s_Bin1_L_gain100 (4 files / 4 minutes)",
+  "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 🏹 Dark_120.0s_Bin1_L_gain0 (2 files / 4 minutes)",
+  "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 🏹 Dark_60.0s_Bin1_L_gain100 (4 files / 4 minutes)",
+  "info: 👉 Flat - Bias matching summary:",
+  "debug: - Flat_1.0ms_Bin1_H_gain100 20240511-094306 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
+  "debug: - Flat_1.0ms_Bin1_S_gain100 20240624-094304 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
+  "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
+  "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
   "step: Preview before dispatching",
   "info: 🔭 Cumulated light integration: 12 minutes.",
   "info: 📦 Project size: 10 lights, 12 darks, 12 flats, 12 biases.",
@@ -1353,7 +1373,8 @@ exports[`E2E should be neat 8`] = `
   {
     "type": "confirm",
     "name": "go",
-    "message": "Do you want to proceed with the dispatch?"
+    "message": "Do you want to proceed with the dispatch?",
+    "initial": true
   }
 ]",
   "step: Dispatching",

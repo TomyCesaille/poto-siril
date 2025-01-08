@@ -88,7 +88,7 @@ export type FileImageSpec = ImageSpec & {
 export type LayerSet = {
   /**
    * `Flat_520.0ms_Bin1_O_gain0` format.
-   * `Flat_520.0ms_Bin1_O_gain0__sequence-01` format for advanced light-flats matching.
+   * `Flat_520.0ms_Bin1_O_gain0__20240625-010850` format for advanced light-flats matching.
    */
   layerSetId: string;
 
@@ -104,12 +104,18 @@ export type LayerSet = {
    * Sequences of lights used.
    */
   lightSequences: {
+    /**
+     * "20240625-010850" format.
+     */
     sequenceId: string;
     count: number;
     integrationMinutes: number;
   }[];
 
   flatSet: string;
+  /**
+   * "20240625-010850" format.
+   */
   flatSequenceId: string;
   flatsCount: number;
 

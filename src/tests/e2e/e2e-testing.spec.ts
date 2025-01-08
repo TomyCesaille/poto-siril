@@ -94,6 +94,9 @@ describe("E2E", () => {
         selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
       } as never)
       .mockResolvedValueOnce({
+        darkTemperatureTolerance: 3,
+      } as never)
+      .mockResolvedValueOnce({
         go: true,
       } as never);
 
@@ -296,6 +299,9 @@ describe("E2E", () => {
           selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
         } as never)
         .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
           go: true,
         } as never);
 
@@ -324,6 +330,9 @@ describe("E2E", () => {
       promptMock
         .mockResolvedValueOnce({
           createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
         } as never)
         .mockResolvedValueOnce({
           go: true,
@@ -366,6 +375,9 @@ describe("E2E", () => {
           selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
         } as never)
         .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
           go: true,
         } as never);
 
@@ -387,6 +399,9 @@ describe("E2E", () => {
         .mockResolvedValueOnce({
           selectedInputSubDirectory:
             "Use Plan directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
         } as never)
         .mockResolvedValueOnce({
           go: true,
