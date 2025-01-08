@@ -151,7 +151,7 @@ const getAllFitsInInputDirectory = async (
   const isAsiAirDump = fs.existsSync(autorunDirectory) || fs.existsSync(planDirectory);
 
   const logFiles = (files: unknown[]) => {
-    logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
+    logger.info(`Found ${files.length} FITS in input dir ${inputDirectory}.`);
   };
 
   if (!isAsiAirDump) {
@@ -160,14 +160,14 @@ const getAllFitsInInputDirectory = async (
       projectDirectory,
     });
     if (allFiles.length === 0) {
-      logger.errorThrow(`No FITS files found in ${inputDirectory}.`);
+      logger.errorThrow(`No FITS files found in input dir ${inputDirectory}.`);
     }
 
     logFiles(allFiles);
     return allFiles;
   }
 
-  logger.debug(`ASIAIR dump detected in ${inputDirectory}.`);
+  logger.debug(`ASIAIR dump detected in input dir ${inputDirectory}.`);
 
   const autorunFiles = fs.existsSync(autorunDirectory)
     ? getFitsFromDirectory({
@@ -665,7 +665,7 @@ const previewBeforeDispatching = async (
 /**
  * Dispatch the project json and the files to the poto project directory.
  *
- * @param potoProject - The POTO project to dispatch.
+ * @param potoProject - The POTO project to prepare.
  * @param projectDirectory - The project directory.
  */
 const dispatchProject = (

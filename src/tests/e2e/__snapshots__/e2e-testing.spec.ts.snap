@@ -1252,7 +1252,7 @@ exports[`E2E should be neat 8`] = `
 ]",
   "step: Reading input directories",
   "debug: Reading input directory tmp/asiair-dump-1",
-  "debug: ASIAIR dump detected in tmp/asiair-dump-1.",
+  "debug: ASIAIR dump detected in input dir tmp/asiair-dump-1.",
   "debug: Skipping unknown file (Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot)",
   "prompt: [
   {
@@ -1266,10 +1266,10 @@ exports[`E2E should be neat 8`] = `
     ]
   }
 ]",
-  "info: Found 21 files in input dir(s) to dispatch.",
+  "info: Found 21 FITS in input dir tmp/asiair-dump-1.",
   "debug: Reading input directory tmp/bank",
-  "info: Found 16 files in input dir(s) to dispatch.",
-  "info: Found 37 .fit files in input directories 🌋.",
+  "info: Found 17 FITS in input dir tmp/bank.",
+  "info: Found 38 .fit files in input directories 🌋.",
   "info: Including 10 lights 🌟.",
   "step: Matching lights and flats (early stage)",
   "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
@@ -1339,7 +1339,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "step: Tagging darks and biases",
-  "info: Found 16 darks+baises files (without temperature filtering).",
+  "info: Found 17 darks+baises files (without temperature filtering).",
   "prompt: [
   {
     "type": "input",

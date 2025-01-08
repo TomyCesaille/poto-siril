@@ -253,7 +253,7 @@ describe("E2E", () => {
           projectDirectory,
           inputDirectories: [asiAirDirectory, bankDirectory],
         }),
-      ).rejects.toThrow(`No FITS files found in ${asiAirDirectory}`);
+      ).rejects.toThrow(`No FITS files found in input dir ${asiAirDirectory}`);
     });
 
     it("should warn if no files (ASIAIR version)", async () => {
@@ -387,7 +387,7 @@ describe("E2E", () => {
       });
 
       expect(logMessages).toContain(
-        "info: Found 22 files in input dir(s) to dispatch.",
+        `info: Found 22 FITS in input dir ${asiAirDirectory}.`,
       );
     });
 
@@ -413,7 +413,7 @@ describe("E2E", () => {
       });
 
       expect(logMessages).toContain(
-        "info: Found 1 files in input dir(s) to dispatch.",
+        `info: Found 1 FITS in input dir ${asiAirDirectory}.`,
       );
     });
   });
