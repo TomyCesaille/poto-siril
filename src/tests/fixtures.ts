@@ -50,6 +50,8 @@ const spawnMockedDatasetToFs = (
   };
 };
 
+// NOTE. Siril needs a sequence of 2 files minimum to stack.
+
 /**
  * Dataset 1.
  * Contains a mix of lights, flats, darks, biases, and ASIAIR thumbnails.
@@ -69,9 +71,11 @@ const dataset_1 = [
 
   // Lights sequence C (120.0s_Bin1_S_gain0).
   "asiair-dump/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
+  "asiair-dump/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
 
   // Lights sequence D (60.0s_Bin1_S_gain100). Exact same as sequence A, but different sequence.
   "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+  "asiair-dump/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
 
   // Flats sequence matching light sequence A, C & D.
   "asiair-dump/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit", // Sequence that aims to match the lights set A (collimation of that day).
@@ -99,9 +103,11 @@ const dataset_1 = [
 
   // Darks matching light sequence B.
   "bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
+  "bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit",
 
   // Darks matching light sequence C.
   "bank/Darks/Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit",
+  "bank/Darks/Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit",
 
   // Darks not matching anything.
   "bank/Darks/Dark_300.0s_Bin1_L_gain100_20240308-155724_-10.0C_0001.fit", // Another bulb.
