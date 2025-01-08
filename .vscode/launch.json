@@ -11,7 +11,7 @@
         "src/poto-siril.ts",
         "prepare",
         "-i",
-        "tmp/asiair-dump",
+        "tmp/asiair-dump-1",
         "-i",
         "tmp/bank",
         "tmp/project"
