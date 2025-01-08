@@ -207,8 +207,11 @@ npm run check-types
 # Generate dataset 1 for development
 npm run dev-spawn-ds1
 
-# Run the prepare command with the development dataset 1
+# Run dev-spawn-ds1 & the prepare command with the development dataset 1
 npm run dev-prepare-ds1
+
+# Run the preprocess command with the development dataset 1
+npm run dev-preprocess-ds1
 ```
 
 ## Side Notes
