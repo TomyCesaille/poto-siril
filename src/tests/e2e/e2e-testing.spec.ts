@@ -205,10 +205,10 @@ describe("E2E", () => {
     expect(scripts).toHaveLength(4);
     expect(scripts).toMatchInlineSnapshot(`
 [
-  "H/Light_60.0s_Bin1_H_gain0_process/poto_1_preprocessing.ssf",
-  "S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/poto_1_preprocessing.ssf",
-  "S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/poto_1_preprocessing.ssf",
-  "S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/poto_1_preprocessing.ssf",
+  "H/Light_60.0s_Bin1_H_gain0_process/_poto_1_preprocessing.ssf",
+  "S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/_poto_1_preprocessing.ssf",
+  "S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/_poto_1_preprocessing.ssf",
+  "S/Light_60.0s_Bin1_S_gain100__20240627-010820_process/_poto_1_preprocessing.ssf",
 ]
 `);
 
