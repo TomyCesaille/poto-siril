@@ -113,6 +113,7 @@ const dataset_1 = [
   "bank/Darks/Dark_300.0s_Bin1_L_gain100_20240308-155724_-10.0C_0001.fit", // Another bulb.
   "bank/Darks/Dark_60.0s_Bin2_L_gain100_20240308-155725_-10.0C_0001.fit", // Another bin.
   "bank/Darks/Dark_60.0s_Bin1_L_gain50_20240308-155726_-10.0C_0001.fit", // Another gain.
+  "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155727_30.0C_0001.fit", // Outside of temperature range.
 
   // Biases matching light sequence A & C.
   // Biases matching light sequence B (matching with Flat of gain 100, despite lights being gain 0).

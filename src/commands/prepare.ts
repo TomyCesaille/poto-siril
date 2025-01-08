@@ -74,11 +74,9 @@ const prepare = async ({
 
   logger.step("Tagging darks and biases");
 
-  logger.info(`Found ${allDarksBiases.length} darks+baises files.`);
+  logger.info(`Found ${allDarksBiases.length} darks+baises files (without temperature filtering).`);
 
-  layerSets = AssignDarksBiasesToLayerSets(layerSets, allDarksBiases);
-
-  // TODO. Create a summary just like `👉 Light - Flat matching summary:`
+  layerSets = await AssignDarksBiasesToLayerSets(layerSets, allDarksBiases);
 
   logger.step("Preview before dispatching");
 
@@ -114,13 +112,14 @@ export default prepare;
  */
 const ensureProjectDirectoryExists = async (projectDirectory: string) => {
   if (!fs.existsSync(projectDirectory)) {
-    const response = (await enquirer.prompt({
+    const {createProjectDirectory} = (await enquirer.prompt({
       type: "confirm",
       name: "createProjectDirectory",
       message: `Directory ${projectDirectory} does not exist. Do you want to create it?`,
+      initial: true,
     })) as { createProjectDirectory: boolean };
 
-    if (response.createProjectDirectory) {
+    if (createProjectDirectory) {
       fs.mkdirSync(projectDirectory, { recursive: true });
     }
   }
@@ -152,7 +151,7 @@ const getAllFitsInInputDirectory = async (
   const isAsiAirDump = fs.existsSync(autorunDirectory) || fs.existsSync(planDirectory);
 
   const logFiles = (files: unknown[]) => {
-    logger.info(`Found ${files.length} files in input dir(s) to dispatch.`);
+    logger.info(`Found ${files.length} FITS in input dir ${inputDirectory}.`);
   };
 
   if (!isAsiAirDump) {
@@ -161,14 +160,14 @@ const getAllFitsInInputDirectory = async (
       projectDirectory,
     });
     if (allFiles.length === 0) {
-      logger.errorThrow(`No FITS files found in ${inputDirectory}.`);
+      logger.errorThrow(`No FITS files found in input dir ${inputDirectory}.`);
     }
 
     logFiles(allFiles);
     return allFiles;
   }
 
-  logger.debug(`ASIAIR dump detected in ${inputDirectory}.`);
+  logger.debug(`ASIAIR dump detected in input dir ${inputDirectory}.`);
 
   const autorunFiles = fs.existsSync(autorunDirectory)
     ? getFitsFromDirectory({
@@ -199,7 +198,7 @@ const getAllFitsInInputDirectory = async (
   }
 
   if (autorunFiles.length > 0 && planFiles.length > 0) {
-    const response = (await enquirer.prompt({
+    const {selectedInputSubDirectory} = (await enquirer.prompt({
       type: "select",
       name: "selectedInputSubDirectory",
       message:
@@ -207,7 +206,7 @@ const getAllFitsInInputDirectory = async (
       choices: selectedInputSubDirectoryChoices,
     })) as { selectedInputSubDirectory: SelectedInputSubDirectoryChoices };
 
-    switch (response.selectedInputSubDirectory) {
+    switch (selectedInputSubDirectory) {
       case "Use Autorun directory":
         logFiles(autorunFiles);
         return autorunFiles;
@@ -342,7 +341,7 @@ const matchLightsToFlats = async (
       const lightConcernedSetName = lightConcerned.split("__")[0];
       const lightConcernedSequenceId = lightConcerned.split("__")[1];
 
-      const response = (await enquirer.prompt({
+      const {selectedFlatSequence} = (await enquirer.prompt({
         type: "select",
         name: "selectedFlatSequence",
         message: formatMessage(
@@ -354,7 +353,7 @@ const matchLightsToFlats = async (
         })),
       })) as { selectedFlatSequence: string };
 
-      if (!response.selectedFlatSequence) {
+      if (!selectedFlatSequence) {
         logger.errorThrow("No flat sequence selected.", {
           lightConcernedSetName,
           lightConcernedSequenceId,
@@ -366,8 +365,8 @@ const matchLightsToFlats = async (
         lightSetName: lightConcernedSetName,
         lightSequenceId: lightConcernedSequenceId,
 
-        flatSetName: response.selectedFlatSequence.split("__")[0],
-        flatSequenceId: response.selectedFlatSequence.split("__")[1],
+        flatSetName: selectedFlatSequence.split("__")[0],
+        flatSequenceId: selectedFlatSequence.split("__")[1],
 
         isManualMatch: true,
       });
@@ -481,17 +480,38 @@ const initLayerSetsWithLightsnFlats = (
  * @param layerSets - The layer sets with lights and flats filled in.
  * @param bankFiles - The bank files available.
  */
-const AssignDarksBiasesToLayerSets = (
+const AssignDarksBiasesToLayerSets = async (
   layerSets: LayerSet[],
   bankFiles: FileImageSpec[],
-): LayerSet[] => {
+): Promise<LayerSet[]> => {
+
+  const {darkTemperatureTolerance} = (await enquirer.prompt({
+    type: "input",
+    name: "darkTemperatureTolerance",
+    message:
+      "Select the temperature tolerance for lights-darks matching (+/-0.5°C to +/-10°C).",
+    initial: 3,
+    validate: (value: string) => {
+      const number = parseFloat(value);
+      return number >= 0.2 ? true : "Please enter something >=0.2";
+    },
+  })) as { darkTemperatureTolerance: number };
+
   for (const layerSet of layerSets) {
-    const darks = bankFiles.filter(
+    const darksAllTemperature = bankFiles.filter(
       dark => dark.type === "Dark" && matchSetFile(layerSet.lights[0], dark),
     );
 
+    const darks = darksAllTemperature.filter(dark => {
+      const temperatureDiff = Math.abs(
+        dark.temperature - layerSet.lights[0].temperature,
+      );
+      return temperatureDiff <= darkTemperatureTolerance;
+    });
+
     if (darks.length === 0) {
-      logger.error(`No darks found for ${layerSet.lights[0].setName}.`);
+      logger.error(`No darks found for ${layerSet.lights[0].setName} with temperature window +-${darkTemperatureTolerance}.`);
+      logger.info(`Found ${darksAllTemperature.length} darks for ${layerSet.lights[0].setName} if we ignore temperature.`);
     } else {
       layerSet.darkSet = darks[0].setName;
       layerSet.darksCount = darks.length;
@@ -526,7 +546,7 @@ const AssignDarksBiasesToLayerSets = (
         ].join(", ")}`,
       );
       logger.warning(
-        "Gathering them all for the master dark. Make sure that's what you want.",
+        "Gathering them all for the master dark. Make sure that's what you wanted.",
       );
     }
 
@@ -538,9 +558,31 @@ const AssignDarksBiasesToLayerSets = (
         ].join(", ")}`,
       );
       logger.warning(
-        "Gathering them all for the master flat. Make sure that's what you want.",
+        "Gathering them all for the master bias. Make sure that's what you wanted.",
       );
     }
+  }
+
+  logger.space();
+  logger.info("👉 Light - Dark matching summary:");
+  for (const layerSet of layerSets) {
+    for (const lightSequence of layerSet.lightSequences) {
+      if (layerSet.layerSetId.includes("__20")) {
+        logger.debug(
+          `- ${layerSet.layerSetId} 🏹 ${layerSet.darkSet} (${layerSet.darksCount} files / ${layerSet.darkTotalIntegrationMinutes} minutes)`,
+        );} else {
+        logger.debug(
+          `- ${layerSet.layerSetId} ${lightSequence.sequenceId} 🏹 ${layerSet.darkSet} (${layerSet.darksCount} files / ${layerSet.darkTotalIntegrationMinutes} minutes)`,
+        );
+      }
+    };
+  }
+
+  logger.info("👉 Flat - Bias matching summary:");
+  for (const layerSet of layerSets) {
+    logger.debug(
+      `- ${layerSet.flatSet} ${layerSet.flatSequenceId} 🏹 ${layerSet.biasSet} (${layerSet.biasesCount} files)`,
+    );
   }
 
   return layerSets;
@@ -610,19 +652,20 @@ const previewBeforeDispatching = async (
 
   logger.space();
 
-  const response = (await enquirer.prompt({
+  const {go} = (await enquirer.prompt({
     type: "confirm",
     name: "go",
     message: "Do you want to proceed with the dispatch?",
+    initial: true,
   })) as { go: boolean };
 
-  return { go: response.go, metrics };
+  return { go, metrics };
 };
 
 /**
  * Dispatch the project json and the files to the poto project directory.
  *
- * @param potoProject - The POTO project to dispatch.
+ * @param potoProject - The POTO project to prepare.
  * @param projectDirectory - The project directory.
  */
 const dispatchProject = (
