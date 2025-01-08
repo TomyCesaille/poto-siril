@@ -78,7 +78,7 @@ export type FileImageSpec = ImageSpec & {
   /**
    * Temperature: `-10.0C`, `-9.9C` format.
    */
-  temperature: string;
+  temperature: number;
 };
 
 /**

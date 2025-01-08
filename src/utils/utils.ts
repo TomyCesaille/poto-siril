@@ -78,6 +78,7 @@ export const getFileImageSpecFromFilename = (
   if (match && match.groups) {
     const sequencePosition = parseInt(match.groups.sequence, 10);
     const datetime = parseDate(match.groups.datetime);
+    const temperature = parseFloat(match.groups.temperature);
 
     let sequenceId = "";
     if (!previousFile) {
@@ -102,7 +103,7 @@ export const getFileImageSpecFromFilename = (
       sequenceId,
       sequencePosition,
       datetime,
-      temperature: match.groups.temperature,
+      temperature,
 
       fileName: fileFS.name,
       extension: match.groups.extension,

@@ -16,7 +16,7 @@ exports[`utils getFileImageSpecFromFilename should match snapshot (ASIAIR plan t
   "setName": "Light_120.0s_Bin1_H_gain100",
   "sourceDirectory": "input/bar",
   "sourceFilePath": "input/bar/Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit",
-  "temperature": "-10.0C",
+  "temperature": -10,
   "type": "Light",
 }
 `;
@@ -37,7 +37,7 @@ exports[`utils getFileImageSpecFromFilename should match snapshot (filter named 
   "setName": "Light_120.0s_Bin1_filterh_gain100",
   "sourceDirectory": "input/bar",
   "sourceFilePath": "input/bar/Light_LDN 1093_120.0s_Bin1_filter h_gain100_20240707-002348_-10.0C_0001.fit",
-  "temperature": "-10.0C",
+  "temperature": -10,
   "type": "Light",
 }
 `;
@@ -58,7 +58,7 @@ exports[`utils getFileImageSpecFromFilename should match snapshot (no filter) 1`
   "setName": "Light_120.0s_Bin1_gain100",
   "sourceDirectory": "input/bar",
   "sourceFilePath": "input/bar/Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0001.fit",
-  "temperature": "-10.0C",
+  "temperature": -10,
   "type": "Light",
 }
 `;
