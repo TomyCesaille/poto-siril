@@ -1,7 +1,8 @@
 {
   "name": "poto-siril",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "description": "Automatization around Siril (<https://siril.org/>) for deep sky astrophotography.",
+  "bin": "src/poto-siril.ts",
   "main": "src/poto-siril.ts",
   "type": "module",
   "scripts": {
@@ -25,9 +26,11 @@
   "author": "JorisLacance.fr",
   "license": "GPL-3.0-only",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/TomyCesaille/poto-siril",
-    "directory": "packages/poto-siril"
+    "url": "github:TomyCesaille/poto-siril"
+  },
+  "homepage": "https://github.com/TomyCesaille/poto-siril",
+  "bugs": {
+    "url": "https://github.com/TomyCesaille/poto-siril/issues"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
