@@ -3,7 +3,7 @@
 exports[`E2E should be neat 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
-  "potoVersion": "poto-siril 0.4.2",
+  "potoVersion": "poto-siril 0.4.3",
   "metrics": {
     "cumulatedLightIntegrationMinutes": 12,
     "cumulatedDarksIntegrationMinutes": 14,
