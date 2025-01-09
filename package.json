@@ -1,6 +1,6 @@
 {
   "name": "poto-siril",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Automatization around Siril (<https://siril.org/>) for deep sky astrophotography.",
   "bin": {
     "poto": "dist/src/poto-siril.js"
@@ -16,7 +16,7 @@
     "dev-spawn-ds1": "tsx ./scripts/dev-spawn-ds1.ts",
     "dev-prepare-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh prepare -i tmp/asiair-dump-1 -i tmp/bank tmp/project",
     "dev-preprocess-ds1": "TZ=UTC ./poto.sh preprocess -t src/pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf tmp/project",
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc && tsc-alias"
   },
   "keywords": [
     "siril",
@@ -50,7 +50,8 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "tsc-alias": "^1.8.3"
   },
   "dependencies": {
     "ansi-escapes": "^7.0.0",

@@ -10,7 +10,10 @@
     "outDir": "dist",
     "lib": ["esnext"],
     "types": ["node", "jest"],
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.ts", "jest.config.ts", "jest.d.ts"]
