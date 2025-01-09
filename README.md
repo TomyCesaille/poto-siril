@@ -1,4 +1,4 @@
-# ![logo](./img/poto-siril_logo.png)
+# ![logo](https://github.com/TomyCesaille/poto-siril/blob/main/img/poto-siril_logo.png?raw=true)
 
 Automatization around Siril (<https://siril.org/>) for deep sky astrophotography.
 
@@ -25,17 +25,17 @@ Calibrated\_Light = \frac{Light\_Frame - Dark\_Frame}{Flat\_Frame}
 
 - Stacking the calibrated lights to get a master light for each layer/filter.
 
-![workflow](./img/poto-siril_workflow.png)
+![workflow](https://github.com/TomyCesaille/poto-siril/blob/main/img/poto-siril_workflow.png?raw=true)
 
 ### In detail
 
 - **Easy import of lights and flats from night session(s) and search for associated darks and biases in a bank folder**
   Import one or several night sessions (e.g. lights and flats from `Autorun` or `Plan` mode with ASIAIR) and automatically pick the darks and biases from the bank folder (matching bulb, gain, binning, ...).
   A summary resumes the light sequence(s) and the calibration files associated.
-  ![dispatch](./img/poto-siril_prepare_summary.png)
+  ![dispatch](https://github.com/TomyCesaille/poto-siril/blob/main/img/poto-siril_prepare_summary.png?raw=true)
 - **Complex Light - Flat matching**
   Poto-Siril helps to associate the right flats with the right lights when the project consists of multiple night sessions where the flats changed over time, e.g., a significant date gap between shooting sessions having a new collimation tuning and/or new dust in the optical train.
-  ![flat_matching](./img/poto-siril_prepare_advanced-flats-matching.png)
+  ![flat_matching](https://github.com/TomyCesaille/poto-siril/blob/main/img/poto-siril_prepare_advanced-flats-matching.png?raw=true)
 - **Multi-layers project structure**
   The imported files ☝️ are organized by filters and light sets (bulb, gain & binning, if there are multiple combinations). Each light set will map to a light sequence in Siril to be pre-processed separately.
   👉 You can easily work on an LRGB or LRGBHaOIIISII project.
@@ -56,21 +56,13 @@ Poto-Siril does not eliminate bad light images, and everything related to the fi
 Install [node](https://node.org) latest version and run:
 
 ```bash
-npm i
+npm install -g poto-siril
+poto -v
+# Should print `poto-siril 0.4.0`.
 
-# For Unix based systems:
-chmod +x ./poto.sh
-
-# Test the CLI:
-./poto.sh -v
-# Should print `poto-siril 0.3.0`.
-```
-
-Make sure to have `siril` registered in your PATH.
-
-```bash
+# Make sure to have `siril` registered in your PATH.
 siril -v
-# Should print `siril 1.2.3`.
+# Should print `siril 1.2.5`.
 ```
 
 ### CLI commands
@@ -193,7 +185,19 @@ Example of structure:
 
 ## Development
 
+Install [node](https://node.org) latest version and run:
+
 ```bash
+npm i
+# For Unix based systems:
+chmod +x ./poto.sh
+./poto.sh -v
+# Should print `poto-siril 0.4.0`.
+
+# Make sure to have `siril` registered in your PATH.
+siril -v
+# Should print `siril 1.2.5`.
+
 # Run the tests
 npm test
 
