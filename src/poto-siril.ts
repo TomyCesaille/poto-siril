@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env node
 import { Command } from "commander";
 import prepare, { PrepareProps } from "./commands/prepare";
 import {
