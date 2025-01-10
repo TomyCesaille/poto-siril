@@ -37,7 +37,11 @@ export const getFitsFromDirectory = ({
       return;
     }
     // Ignore macOS files.
-    if (file.name === ".DS_Store" || file.name.startsWith("._")) {
+    if (
+      file.name === ".DS_Store" ||
+      file.name.startsWith("._") ||
+      file.path.includes("._")
+    ) {
       return;
     }
     // Ignore Windows files.
