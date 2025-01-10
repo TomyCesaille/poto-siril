@@ -1,4 +1,4 @@
-export const POTO_VERSION = "poto-siril 0.4.5";
+export const POTO_VERSION = "poto-siril 0.4.6";
 
 export const POTO_JSON = "_poto_siril.json";
 

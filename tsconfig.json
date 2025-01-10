@@ -10,11 +10,16 @@
     "outDir": "dist",
     "lib": ["esnext"],
     "types": ["node", "jest"],
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "baseUrl": "./"
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "jest.config.ts", "jest.d.ts"]
+  "include": ["src/**/*.ts", "jest.config.ts", "jest.d.ts"],
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true,
+    "fileExtensions": {
+      "inputGlob": "{js,jsx,mjs}",
+      "outputCheck": ["js", "json", "jsx", "mjs"]
+    }
+  }
 }
