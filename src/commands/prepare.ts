@@ -353,8 +353,6 @@ const matchLightsToFlats = async (
       introManualMatchingDisplayed = true;
     }
 
-    logger.space();
-
     const lightsConcerned = [
       ...new Set(
         lights
@@ -381,6 +379,8 @@ const matchLightsToFlats = async (
         // Skip if the light sequence has already been matched to a flat sequence.
         continue;
       }
+
+      logger.space();
 
       const lightConcernedSetName = lightConcerned.split("__")[0];
       const lightConcernedSequenceId = lightConcerned.split("__")[1];
