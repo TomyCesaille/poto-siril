@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Command } from "commander";
 import prepare, { PrepareProps } from "./commands/prepare";
 import { dropThumbnails, dropEmptyDirectories } from "./commands/clear";
