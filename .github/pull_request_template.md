@@ -11,6 +11,7 @@ Closes # (issue)
 - [ ] Chore
 - [ ] Bug fix
 - [ ] New feature
+- [ ] Feature change
 - [ ] Breaking change
 - [ ] Documentation update
 
