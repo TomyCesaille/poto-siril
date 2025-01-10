@@ -1274,13 +1274,14 @@ exports[`E2E should be neat 8`] = `
   "step: Matching lights and flats (early stage)",
   "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
-  "info: Found 9 matching flats (3 sequences).",
+  "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
   "step: Matching lights and flats (final stage)",
-  "info: 🤚 Several sequences found for flat set Flat_1.0ms_Bin1_S_gain100:",
-  "info: - 20240624-094304
-- 20240626-094304",
-  "debug: We assume that multiple sequences of the same flat set indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
-  "info: We will ask you to tag each concerned light sequence to the right flat sequence.",
+  "info: 🤚 Several sequences of flats are compatible with Bin1 Filter S:",
+  "info: - Flat_1.0ms_Bin1_S_gain100__20240624-094304
+- Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+  "debug: We assume that multiple sequences of the same flat kind indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
+  "debug: We will ask you to tag each concerned light sequence to the right flat sequence (this disclaimer won't be displayed again 🤓).",
+  "space: ",
   "prompt: [
   {
     "type": "select",
@@ -1298,6 +1299,7 @@ exports[`E2E should be neat 8`] = `
     ]
   }
 ]",
+  "space: ",
   "prompt: [
   {
     "type": "select",
@@ -1315,6 +1317,7 @@ exports[`E2E should be neat 8`] = `
     ]
   }
 ]",
+  "space: ",
   "prompt: [
   {
     "type": "select",

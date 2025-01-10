@@ -143,6 +143,7 @@ const dataset_1 = [
   // OS specific files to skip.
   ".DS_Store",
   "._asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fit",
+  "asiair-dump-1/._Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fit",
   "Thumbs.db",
 
   // 1 file from Plan directory to test the choice selection. Bin2 to not match with the rest.

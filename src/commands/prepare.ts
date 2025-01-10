@@ -253,8 +253,13 @@ const getFlatsMatchingLightsNaive = (
   for (const skip of [...new Set(notMatchedFlats)]) {
     logger.warning(skip);
   }
+
+  const sequencesLightsCount = [
+    ...new Set(matchingFlats.map(file => file.sequenceId)),
+  ].length;
+
   logger.info(
-    `Found ${matchingFlats.length} matching flats (${sequences.length} sequences).`,
+    `Pre-selected ${matchingFlats.length} flats (${sequences.length} sequences) that matches with ${lights.length} lights (${sequencesLightsCount} sequences).`,
   );
 
   return matchingFlats;
@@ -276,11 +281,22 @@ const matchLightsToFlats = async (
 
   const LightFlatMatches: LightsFlatsMatch[] = [];
 
+  let introManualMatchingDisplayed = false;
+
+  // TODO. Review the archi overall. We should walk light by light instead of flat by flat. This will be easier to discover and setup the project.
   for (const flatSet of flatSets) {
+    const flatSetSpecs = getImageSpecFromSetName(flatSet);
+
+    // Search for sequences that are similar.
     const flatSetNameSequenceIds = [
       ...new Set(
         matchingFlats
-          .filter(flat => flat.setName === flatSet)
+          .filter(
+            flat =>
+              // https://pixinsight.com/forum/index.php?threads/can-flats-be-different-iso-than-lights.23686/
+              flat.bin === flatSetSpecs.bin &&
+              flat.filter === flatSetSpecs.filter,
+          )
           .map(flat => `${flat.setName}__${flat.sequenceId}`),
       ),
     ];
@@ -292,7 +308,7 @@ const matchLightsToFlats = async (
       // Auto match the flat to the light. Nothing to ask from the user.
       const flatSetNameSequenceId = flatSetNameSequenceIds[0];
       const matchingLights = lights.filter(light =>
-        matchSetFile(light, getImageSpecFromSetName(flatSet)),
+        matchSetFile(light, flatSetSpecs),
       );
       const matchingLightSetNameSequenceIds = [
         ...new Set(
@@ -314,16 +330,28 @@ const matchLightsToFlats = async (
       continue;
     }
 
-    logger.info(`🤚 Several sequences found for flat set ${flatSet}:`);
+    if (introManualMatchingDisplayed) {
+      logger.space();
+    }
+
     logger.info(
-      `${flatSetNameSequenceIds.map(x => `- ${x.split("__")[1]}`).join("\n")}`,
+      `🤚 Several sequences of flats are compatible with ${
+        flatSetSpecs.filter
+          ? `${flatSetSpecs.bin} Filter ${flatSetSpecs.filter}`
+          : flatSetSpecs.bin
+      }:`,
     );
-    logger.debug(
-      "We assume that multiple sequences of the same flat set indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
-    );
-    logger.info(
-      "We will ask you to tag each concerned light sequence to the right flat sequence.",
-    );
+    if (!introManualMatchingDisplayed) {
+      logger.info(`${flatSetNameSequenceIds.map(x => `- ${x}`).join("\n")}`);
+
+      logger.debug(
+        "We assume that multiple sequences of the same flat kind indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
+      );
+      logger.debug(
+        "We will ask you to tag each concerned light sequence to the right flat sequence (this disclaimer won't be displayed again 🤓).",
+      );
+      introManualMatchingDisplayed = true;
+    }
 
     const lightsConcerned = [
       ...new Set(
@@ -343,6 +371,17 @@ const matchLightsToFlats = async (
     ];
 
     for (const lightConcerned of lightsConcerned) {
+      if (
+        LightFlatMatches.map(
+          x => `${x.lightSetName}__${x.lightSequenceId}`,
+        ).includes(lightConcerned)
+      ) {
+        // Skip if the light sequence has already been matched to a flat sequence.
+        continue;
+      }
+
+      logger.space();
+
       const lightConcernedSetName = lightConcerned.split("__")[0];
       const lightConcernedSequenceId = lightConcerned.split("__")[1];
 
@@ -354,7 +393,7 @@ const matchLightsToFlats = async (
         ),
         choices: flatSetNameSequenceIds.map(x => ({
           name: x,
-          message: formatMessage(x.replace("__", " ")),
+          message: formatMessage(x.replace("__", " ")), // TODO. Print sequence length.
         })),
       })) as { selectedFlatSequence: string };
 
