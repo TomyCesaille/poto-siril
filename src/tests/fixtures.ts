@@ -28,14 +28,21 @@ const spawnMockedDatasetToFs = (
   dataset.forEach(file => {
     const filePath = path.join(tmpDir, file);
 
-    const fileType = file.includes("Light") ? "Light" : 
-      file.includes("Dark") ? "Dark" : 
-        file.includes("Bias") ? "Bias" : 
-          file.includes("Flat") ? "Flat" : 
-            null;
+    const fileType = file.includes("Light")
+      ? "Light"
+      : file.includes("Dark")
+      ? "Dark"
+      : file.includes("Bias")
+      ? "Bias"
+      : file.includes("Flat")
+      ? "Flat"
+      : null;
 
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
-    fs.writeFileSync(filePath, fileType ? getRealDataFromSample(fileType) : "mocked content");
+    fs.writeFileSync(
+      filePath,
+      fileType ? getRealDataFromSample(fileType) : "mocked content",
+    );
   });
 
   const asiAirDirectory = path.join(tmpDir, "asiair-dump-1");
@@ -140,12 +147,20 @@ const dataset_1 = [
 const getRealDataFromSample = (type: imageType): Buffer<ArrayBufferLike> => {
   switch (type) {
     case "Light":
-      return fs.readFileSync("src/tests/data-sample/Light_NGC6992_60.0s_Bin1_H_gain100_20240811-010756_-10.2C_0001.fit");
+      return fs.readFileSync(
+        "src/tests/data-sample/Light_NGC6992_60.0s_Bin1_H_gain100_20240811-010756_-10.2C_0001.fit",
+      );
     case "Dark":
-      return fs.readFileSync("src/tests/data-sample/Dark_60.0s_Bin1_gain0_20240807-162149_-10.0C_0001.fit");
+      return fs.readFileSync(
+        "src/tests/data-sample/Dark_60.0s_Bin1_gain0_20240807-162149_-10.0C_0001.fit",
+      );
     case "Bias":
-      return fs.readFileSync("src/tests/data-sample/Bias_1.0ms_Bin1_gain0_20240807-142905_-9.6C_0001.fit");
+      return fs.readFileSync(
+        "src/tests/data-sample/Bias_1.0ms_Bin1_gain0_20240807-142905_-9.6C_0001.fit",
+      );
     case "Flat":
-      return fs.readFileSync("src/tests/data-sample/Flat_1.2s_Bin1_H_gain0_20240811-025058_-9.8C_0001.fit");
+      return fs.readFileSync(
+        "src/tests/data-sample/Flat_1.2s_Bin1_H_gain0_20240811-025058_-9.8C_0001.fit",
+      );
   }
 };

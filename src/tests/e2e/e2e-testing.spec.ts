@@ -7,10 +7,7 @@ import prepare, {
   SelectedInputSubDirectoryChoices,
 } from "../../commands/prepare";
 import { POTO_JSON } from "../../utils/const";
-import {
-  dropThumbnails,
-  dropEmptyDirectories,
-} from "../../commands/clear";
+import { dropThumbnails, dropEmptyDirectories } from "../../commands/clear";
 import { generateScripts } from "../../commands/preprocess.generate-scripts";
 import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
 import { logger } from "../../utils/logger";
