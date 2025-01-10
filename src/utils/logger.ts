@@ -22,7 +22,7 @@ export const formatMessage = (message: string) => {
   return message
     .replace(/(Light|Flat|Dark|Bias)_/g, chalk.hex("#001f3f")("$1_")) // Color image type.
     .replace(/(\d+\.\d(ms|s))/g, chalk.hex("#003f5c")("$1")) // Color bulb.
-    .replace(/(Bin\d)/g, chalk.hex("#2f4b7c")("$1")) // Color binning.
+    .replace(/(_Bin\d)/g, chalk.hex("#2f4b7c")("$1")) // Color binning.
     .replace(/(_[A-Za-z]_)/g, chalk.hex("#665191")("$1")) // Color filter.
     .replace(/(gain\d+)/g, chalk.hex("#a05195")("$1")) // Color gain.
     .replace(
