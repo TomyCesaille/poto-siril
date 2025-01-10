@@ -36,6 +36,14 @@ export const getFitsFromDirectory = ({
       logger.debug(`Skipping not-file or symlink (${file.name})`);
       return;
     }
+    // Ignore macOS files.
+    if (file.name === ".DS_Store" || file.name.startsWith("._")) {
+      return;
+    }
+    // Ignore Windows files.
+    if (file.name === "Thumbs.db") {
+      return;
+    }
     if (!file.name.endsWith(".fit")) {
       logger.debug(`Skipping unknown file (${file.name})`);
       return;
