@@ -9,7 +9,10 @@ import prepare, {
 import { POTO_JSON } from "../../utils/const";
 import { dropThumbnails, dropEmptyDirectories } from "../../commands/clear";
 import { generateScripts } from "../../commands/preprocess.generate-scripts";
-import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
+import {
+  getRealDataFromSample,
+  spawnMockedDatasetToFs_dataset_1,
+} from "../fixtures";
 import { logger } from "../../utils/logger";
 
 describe("E2E", () => {
@@ -230,8 +233,8 @@ describe("E2E", () => {
     expect(logMessages).toMatchSnapshotWithNormalizedPaths();
   });
 
-  describe("returns all fits in the input directories", () => {
-    it("should warn if no files", async () => {
+  describe("reading an input directory, asking plan/autorun question", () => {
+    it("should errorthrow if no files", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
       if (fs.existsSync(autorunDirectory)) {
         fs.rmSync(autorunDirectory, { recursive: true });
@@ -253,7 +256,7 @@ describe("E2E", () => {
       ).rejects.toThrow(`No FITS files found in input dir ${asiAirDirectory}`);
     });
 
-    it("should warn if no files (ASIAIR version)", async () => {
+    it("should errorthrow if no files (ASIAIR version)", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
       if (fs.existsSync(autorunDirectory)) {
         fs.rmSync(autorunDirectory, { recursive: true });
@@ -274,6 +277,23 @@ describe("E2E", () => {
           inputDirectories: [asiAirDirectory, bankDirectory],
         }),
       ).rejects.toThrow("No FITS files found in Autorun nor Plan folders.");
+    });
+
+    it("should errorthrow if directory does not exists", async () => {
+      if (fs.existsSync(asiAirDirectory)) {
+        fs.rmSync(asiAirDirectory, { recursive: true });
+      }
+
+      promptMock.mockResolvedValueOnce({
+        createProjectDirectory: true,
+      } as never);
+
+      await expect(
+        prepare({
+          projectDirectory,
+          inputDirectories: [asiAirDirectory, bankDirectory],
+        }),
+      ).rejects.toThrow(`Input directory ${asiAirDirectory} does not exists.`);
     });
 
     it("should auto pick Autorun files", async () => {
@@ -411,6 +431,211 @@ describe("E2E", () => {
 
       expect(logMessages).toContain(
         `info: Found 1 FITS in input dir ${asiAirDirectory}.`,
+      );
+    });
+  });
+
+  describe("No Darks/Biases matching, multiples sequences", () => {
+    it("should warn if no matching darks and biases", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Autorun directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory], // No bank directory in input.
+      });
+
+      const files = fs.readdirSync(projectDirectory, {
+        recursive: true,
+        withFileTypes: false,
+        encoding: "utf8",
+      });
+
+      expect(files).toMatchInlineSnapshot(`
+[
+  "H",
+  "S",
+  "_poto_siril.json",
+  "H/Flat_1.0ms_Bin1_H_gain100",
+  "H/Light_60.0s_Bin1_H_gain0",
+  "S/Flat_1.0ms_Bin1_S_gain100",
+  "S/Light_120.0s_Bin1_S_gain0",
+  "S/Light_60.0s_Bin1_S_gain100",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+  "S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
+  "S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
+]
+`);
+
+      const potoJson = fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
+        encoding: "utf8",
+      });
+
+      expect(potoJson).toMatchSnapshot();
+      expect(logMessages).toMatchSnapshotWithNormalizedPaths();
+      expect(logMessages).toContain(
+        "error: No darks matching light set Light_60.0s_Bin1_H_gain0 (regardless of temperature filtering).",
+      );
+    });
+
+    it("should warn if no matching darks (temperature filtering)", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Autorun directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Dark_60.0s_Bin1_S_gain100_20240308-155722_-66.0C_0001.fit",
+        ),
+        getRealDataFromSample("Dark"),
+      );
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory], // No bank directory in input.
+      });
+
+      expect(logMessages).toContain(
+        "error: No darks matching light set Light_60.0s_Bin1_H_gain0 (regardless of temperature filtering).",
+      );
+      expect(logMessages).toContain(
+        "error: No darks available for Light_60.0s_Bin1_S_gain100 with temperature window +-3.",
+      );
+      expect(logMessages).toContain(
+        "info: There are 1 darks for Light_60.0s_Bin1_S_gain100 if we ignore temperature.",
+      );
+    });
+
+    it("should warn if multiples darks and biases sequences", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Autorun directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Dark_60.0s_Bin1_S_gain100_20250101-155722_-10.0C_0001.fit",
+        ),
+        getRealDataFromSample("Dark"),
+      );
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Dark_60.0s_Bin1_S_gain100_20250102-155722_-10.0C_0001.fit",
+        ), // another sequence
+        getRealDataFromSample("Dark"),
+      );
+
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Bias_1.0ms_Bin1_gain100_20250101-101131_-9.8C_0001.fit",
+        ),
+        getRealDataFromSample("Bias"),
+      );
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Bias_1.0ms_Bin1_gain100_20250102-101131_-9.8C_0001.fit",
+        ), // another sequence
+        getRealDataFromSample("Bias"),
+      );
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory], // No bank directory in input.
+      });
+
+      expect(logMessages).toContain(
+        "warning: Multiple dark sequences found for Light_60.0s_Bin1_S_gain100: 20250101-155722, 20250102-155722",
+      );
+      expect(logMessages).toContain(
+        "warning: Gathering them all for the master dark. Make sure that's what you wanted.",
+      );
+
+      expect(logMessages).toContain(
+        "warning: Multiple bias sequences found for Flat_1.0ms_Bin1_S_gain100: 20250101-101131, 20250102-101131",
+      );
+      expect(logMessages).toContain(
+        "warning: Gathering them all for the master bias. Make sure that's what you wanted.",
       );
     });
   });

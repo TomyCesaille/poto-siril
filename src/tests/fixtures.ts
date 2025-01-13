@@ -150,7 +150,9 @@ const dataset_1 = [
   "asiair-dump-1/Plan/Flat/Flat_1.0ms_Bin2_H_gain100_20240512-124300_-10.5C_0001.fit",
 ];
 
-const getRealDataFromSample = (type: imageType): Buffer<ArrayBufferLike> => {
+export const getRealDataFromSample = (
+  type: imageType,
+): Buffer<ArrayBufferLike> => {
   switch (type) {
     case "Light":
       return fs.readFileSync(

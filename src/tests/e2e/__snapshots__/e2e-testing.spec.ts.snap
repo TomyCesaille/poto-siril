@@ -1,5 +1,702 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`E2E No Darks/Biases matching, multiples sequences should warn if no matching darks and biases 2`] = `
+"{
+  "generatedAt": "2024-10-15T00:00:00.000Z",
+  "potoVersion": "poto-siril 0.4.6",
+  "metrics": {
+    "cumulatedLightIntegrationMinutes": 12,
+    "cumulatedDarksIntegrationMinutes": 0,
+    "totalLights": 10,
+    "totalDarks": 0,
+    "totalFlats": 12,
+    "totalBiases": 0
+  },
+  "layerSets": [
+    {
+      "layerSetId": "Light_60.0s_Bin1_H_gain0",
+      "filter": "H",
+      "lightSequences": [
+        {
+          "sequenceId": "20240625-010850",
+          "count": 3,
+          "integrationMinutes": 3
+        }
+      ],
+      "lightTotalCount": 3,
+      "lightTotalIntegrationMinutes": 3,
+      "lights": [
+        {
+          "setName": "Light_60.0s_Bin1_H_gain0",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "H",
+          "gain": 0,
+          "sequenceId": "20240625-010850",
+          "sequencePosition": 1,
+          "datetime": "2024-06-25T01:08:50.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_H_gain0",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "H",
+          "gain": 0,
+          "sequenceId": "20240625-010850",
+          "sequencePosition": 2,
+          "datetime": "2024-06-25T01:08:51.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_H_gain0",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "H",
+          "gain": 0,
+          "sequenceId": "20240625-010850",
+          "sequencePosition": 3,
+          "datetime": "2024-06-25T01:08:52.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+        }
+      ],
+      "flatSet": "Flat_1.0ms_Bin1_H_gain100",
+      "flatSequenceId": "20240511-094306",
+      "flatsCount": 3,
+      "flats": [
+        {
+          "setName": "Flat_1.0ms_Bin1_H_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "H",
+          "gain": 100,
+          "sequenceId": "20240511-094306",
+          "sequencePosition": 1,
+          "datetime": "2024-05-11T09:43:06.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
+          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_H_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "H",
+          "gain": 100,
+          "sequenceId": "20240511-094306",
+          "sequencePosition": 2,
+          "datetime": "2024-05-11T09:43:07.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
+          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_H_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "H",
+          "gain": 100,
+          "sequenceId": "20240511-094306",
+          "sequencePosition": 3,
+          "datetime": "2024-05-11T09:43:08.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
+          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+        }
+      ],
+      "darkSet": "No darks matched",
+      "darksCount": 0,
+      "darkTotalIntegrationMinutes": 0,
+      "darks": [],
+      "biasSet": "No biases matched",
+      "biasesCount": 0,
+      "biases": []
+    },
+    {
+      "layerSetId": "Light_60.0s_Bin1_S_gain100__20240624-010840",
+      "filter": "S",
+      "lightSequences": [
+        {
+          "sequenceId": "20240624-010840",
+          "count": 3,
+          "integrationMinutes": 3
+        }
+      ],
+      "lightTotalCount": 3,
+      "lightTotalIntegrationMinutes": 3,
+      "lights": [
+        {
+          "setName": "Light_60.0s_Bin1_S_gain100",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240624-010840",
+          "sequencePosition": 1,
+          "datetime": "2024-06-24T01:08:40.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
+          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_S_gain100",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240624-010840",
+          "sequencePosition": 2,
+          "datetime": "2024-06-24T01:08:41.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
+          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_S_gain100",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240624-010840",
+          "sequencePosition": 3,
+          "datetime": "2024-06-24T01:08:42.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
+          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+        }
+      ],
+      "flatSet": "Flat_1.0ms_Bin1_S_gain100",
+      "flatSequenceId": "20240624-094304",
+      "flatsCount": 3,
+      "flats": [
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240624-094304",
+          "sequencePosition": 1,
+          "datetime": "2024-06-24T09:43:04.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240624-094304",
+          "sequencePosition": 2,
+          "datetime": "2024-06-24T09:43:05.000Z",
+          "temperature": -10,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240624-094304",
+          "sequencePosition": 3,
+          "datetime": "2024-06-24T09:43:06.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        }
+      ],
+      "darkSet": "No darks matched",
+      "darksCount": 0,
+      "darkTotalIntegrationMinutes": 0,
+      "darks": [],
+      "biasSet": "No biases matched",
+      "biasesCount": 0,
+      "biases": []
+    },
+    {
+      "layerSetId": "Light_120.0s_Bin1_S_gain0__20240626-010853",
+      "filter": "S",
+      "lightSequences": [
+        {
+          "sequenceId": "20240626-010853",
+          "count": 2,
+          "integrationMinutes": 4
+        }
+      ],
+      "lightTotalCount": 2,
+      "lightTotalIntegrationMinutes": 4,
+      "lights": [
+        {
+          "setName": "Light_120.0s_Bin1_S_gain0",
+          "type": "Light",
+          "bulb": "120.0s",
+          "bulbMs": 120000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 0,
+          "sequenceId": "20240626-010853",
+          "sequencePosition": 1,
+          "datetime": "2024-06-26T01:08:53.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
+          "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
+        },
+        {
+          "setName": "Light_120.0s_Bin1_S_gain0",
+          "type": "Light",
+          "bulb": "120.0s",
+          "bulbMs": 120000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 0,
+          "sequenceId": "20240626-010853",
+          "sequencePosition": 2,
+          "datetime": "2024-06-26T01:08:54.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
+          "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
+        }
+      ],
+      "flatSet": "Flat_1.0ms_Bin1_S_gain100",
+      "flatSequenceId": "20240626-094304",
+      "flatsCount": 3,
+      "flats": [
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 1,
+          "datetime": "2024-06-26T09:43:04.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 2,
+          "datetime": "2024-06-26T09:43:05.000Z",
+          "temperature": -10,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 3,
+          "datetime": "2024-06-26T09:43:06.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        }
+      ],
+      "darkSet": "No darks matched",
+      "darksCount": 0,
+      "darkTotalIntegrationMinutes": 0,
+      "darks": [],
+      "biasSet": "No biases matched",
+      "biasesCount": 0,
+      "biases": []
+    },
+    {
+      "layerSetId": "Light_60.0s_Bin1_S_gain100__20240627-010820",
+      "filter": "S",
+      "lightSequences": [
+        {
+          "sequenceId": "20240627-010820",
+          "count": 2,
+          "integrationMinutes": 2
+        }
+      ],
+      "lightTotalCount": 2,
+      "lightTotalIntegrationMinutes": 2,
+      "lights": [
+        {
+          "setName": "Light_60.0s_Bin1_S_gain100",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240627-010820",
+          "sequencePosition": 1,
+          "datetime": "2024-06-27T01:08:20.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_S_gain100",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240627-010820",
+          "sequencePosition": 2,
+          "datetime": "2024-06-27T01:08:21.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
+          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+        }
+      ],
+      "flatSet": "Flat_1.0ms_Bin1_S_gain100",
+      "flatSequenceId": "20240626-094304",
+      "flatsCount": 3,
+      "flats": [
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 1,
+          "datetime": "2024-06-26T09:43:04.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 2,
+          "datetime": "2024-06-26T09:43:05.000Z",
+          "temperature": -10,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        },
+        {
+          "setName": "Flat_1.0ms_Bin1_S_gain100",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": "S",
+          "gain": 100,
+          "sequenceId": "20240626-094304",
+          "sequencePosition": 3,
+          "datetime": "2024-06-26T09:43:06.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "extension": "fit",
+          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+        }
+      ],
+      "darkSet": "No darks matched",
+      "darksCount": 0,
+      "darkTotalIntegrationMinutes": 0,
+      "darks": [],
+      "biasSet": "No biases matched",
+      "biasesCount": 0,
+      "biases": []
+    }
+  ]
+}"
+`;
+
+exports[`E2E No Darks/Biases matching, multiples sequences should warn if no matching darks and biases 3`] = `
+[
+  "prompt: [
+  {
+    "type": "confirm",
+    "name": "createProjectDirectory",
+    "message": "Directory tmp/project does not exist. Do you want to create it?",
+    "initial": true
+  }
+]",
+  "step: Reading input directories",
+  "debug: Reading input directory tmp/asiair-dump-1",
+  "debug: ASIAIR dump detected in input dir tmp/asiair-dump-1.",
+  "debug: Skipping thumbnail file (Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg)",
+  "debug: Skipping thumbnail file (Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002_thn.jpg)",
+  "debug: Skipping thumbnail file (Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003_thn.jpg)",
+  "debug: Skipping unknown file (Flat_1.0ms_Bin1_S_gain100_20240511-094306_-10.5C_0001.fot)",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedInputSubDirectory",
+    "message": "Files found in both Autorun and Plan directories. How do we proceed?",
+    "choices": [
+      "Use Autorun directory",
+      "Use Plan directory",
+      "Use both directory"
+    ]
+  }
+]",
+  "info: Found 21 FITS in input dir tmp/asiair-dump-1.",
+  "info: Found 21 .fit files in input directories 🌋.",
+  "info: Including 10 lights 🌟.",
+  "step: Matching lights and flats (early stage)",
+  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
+  "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
+  "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
+  "step: Matching lights and flats (final stage)",
+  "info: 🤚 Several sequences of flats are compatible with Bin1 Filter S:",
+  "info: - Flat_1.0ms_Bin1_S_gain100__20240624-094304
+- Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+  "debug: We assume that multiple sequences of the same flat kind indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
+  "debug: We will ask you to tag each concerned light sequence to the right flat sequence (this disclaimer won't be displayed again 🤓).",
+  "space: ",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedFlatSequence",
+    "message": "Light_60.0s_Bin1_S_gain100 20240624-010840 will use",
+    "choices": [
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240624-094304"
+      },
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240626-094304"
+      }
+    ]
+  }
+]",
+  "space: ",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedFlatSequence",
+    "message": "Light_120.0s_Bin1_S_gain0 20240626-010853 will use",
+    "choices": [
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240624-094304"
+      },
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240626-094304"
+      }
+    ]
+  }
+]",
+  "space: ",
+  "prompt: [
+  {
+    "type": "select",
+    "name": "selectedFlatSequence",
+    "message": "Light_60.0s_Bin1_S_gain100 20240627-010820 will use",
+    "choices": [
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240624-094304"
+      },
+      {
+        "name": "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        "message": "Flat_1.0ms_Bin1_S_gain100 20240626-094304"
+      }
+    ]
+  }
+]",
+  "space: ",
+  "info: 👉 Light - Flat matching summary:",
+  "debug: - Light_60.0s_Bin1_H_gain0 20240625-010850 🏹 Flat_1.0ms_Bin1_H_gain100 20240511-094306",
+  "debug: - Light_60.0s_Bin1_S_gain100 20240624-010840 🏹 Flat_1.0ms_Bin1_S_gain100 20240624-094304",
+  "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
+  "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
+  "step: Tagging darks and biases",
+  "info: Found 0 darks+baises files (without temperature filtering).",
+  "prompt: [
+  {
+    "type": "input",
+    "name": "darkTemperatureTolerance",
+    "message": "Select the temperature tolerance for lights-darks matching (+/-0.5°C to +/-10°C).",
+    "initial": 3
+  }
+]",
+  "error: No darks matching light set Light_60.0s_Bin1_H_gain0 (regardless of temperature filtering).",
+  "error: No biases found for Flat_1.0ms_Bin1_H_gain100.",
+  "error: No darks matching light set Light_60.0s_Bin1_S_gain100 (regardless of temperature filtering).",
+  "error: No biases found for Flat_1.0ms_Bin1_S_gain100.",
+  "error: No darks matching light set Light_120.0s_Bin1_S_gain0 (regardless of temperature filtering).",
+  "error: No biases found for Flat_1.0ms_Bin1_S_gain100.",
+  "error: No darks matching light set Light_60.0s_Bin1_S_gain100 (regardless of temperature filtering).",
+  "error: No biases found for Flat_1.0ms_Bin1_S_gain100.",
+  "space: ",
+  "info: 👉 Light - Dark matching summary:",
+  "debug: - Light_60.0s_Bin1_H_gain0 20240625-010850 🏹 No darks matched (0 files / 0 minutes)",
+  "debug: - Light_60.0s_Bin1_S_gain100__20240624-010840 🏹 No darks matched (0 files / 0 minutes)",
+  "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 🏹 No darks matched (0 files / 0 minutes)",
+  "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 🏹 No darks matched (0 files / 0 minutes)",
+  "info: 👉 Flat - Bias matching summary:",
+  "debug: - Flat_1.0ms_Bin1_H_gain100 20240511-094306 🏹 No biases matched (0 files)",
+  "debug: - Flat_1.0ms_Bin1_S_gain100 20240624-094304 🏹 No biases matched (0 files)",
+  "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 No biases matched (0 files)",
+  "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 No biases matched (0 files)",
+  "step: Preview before dispatching",
+  "info: 🔭 Cumulated light integration: 12 minutes.",
+  "info: 📦 Project size: 10 lights, 0 darks, 12 flats, 0 biases.",
+  "space: ",
+  "info: 🌌 Layer sets:",
+  "warning: - Light_60.0s_Bin1_H_gain0 has 3 lights, 0 darks, 3 flats, 0 biases.",
+  "warning: - Light_60.0s_Bin1_S_gain100__20240624-010840 has 3 lights, 0 darks, 3 flats, 0 biases.",
+  "warning: - Light_120.0s_Bin1_S_gain0__20240626-010853 has 2 lights, 0 darks, 3 flats, 0 biases.",
+  "warning: - Light_60.0s_Bin1_S_gain100__20240627-010820 has 2 lights, 0 darks, 3 flats, 0 biases.",
+  "space: ",
+  "prompt: [
+  {
+    "type": "confirm",
+    "name": "go",
+    "message": "Do you want to proceed with the dispatch?",
+    "initial": true
+  }
+]",
+  "step: Dispatching",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit dispatched.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
+  "success: Dispatch complete.",
+]
+`;
+
 exports[`E2E should be neat 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
