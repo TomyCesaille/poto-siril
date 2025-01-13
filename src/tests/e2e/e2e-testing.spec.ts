@@ -490,6 +490,63 @@ describe("E2E", () => {
 
       expect(potoJson).toMatchSnapshot();
       expect(logMessages).toMatchSnapshotWithNormalizedPaths();
+      expect(logMessages).toContain(
+        "error: No darks matching light set Light_60.0s_Bin1_H_gain0 (regardless of temperature filtering).",
+      );
+    });
+
+    it("should warn if no matching darks (temperature filtering)", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Autorun directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      const files = fs.readdirSync(asiAirDirectory, {
+        recursive: true,
+        withFileTypes: false,
+        encoding: "utf8",
+      });
+      fs.renameSync(
+        path.join(asiAirDirectory, files[files.length - 1]),
+        path.join(
+          asiAirDirectory,
+          "Autorun/Dark_60.0s_Bin1_S_gain100_20240308-155722_-66.0C_0001.fit",
+        ), // Not matching due to temperature.
+      );
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory], // No bank directory in input.
+      });
+
+      expect(logMessages).toContain(
+        "error: No darks matching light set Light_60.0s_Bin1_H_gain0 (regardless of temperature filtering).",
+      );
+      expect(logMessages).toContain(
+        "error: No darks available for Light_60.0s_Bin1_S_gain100 with temperature window +-3.",
+      );
+      expect(logMessages).toContain(
+        "info: There are 1 darks for Light_60.0s_Bin1_S_gain100 if we ignore temperature.",
+      );
     });
   });
 });
