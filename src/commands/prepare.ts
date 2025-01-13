@@ -744,7 +744,3 @@ const dispatchProject = (
   }
 };
 
-// TODO. Enrich dataset 1 for a layerset with a missing dark.
-// TODO. Enrich dataset 1 for a layerset with a missing flat.
-// TODO. Enrich dataset 1 for a layerset with multiple dark sequences
-// or in separated dataset TBD.
