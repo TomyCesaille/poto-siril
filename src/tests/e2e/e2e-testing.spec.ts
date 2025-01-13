@@ -230,8 +230,8 @@ describe("E2E", () => {
     expect(logMessages).toMatchSnapshotWithNormalizedPaths();
   });
 
-  describe("returns all fits in the input directories", () => {
-    it("should warn if no files", async () => {
+  describe("reading an input directory, asking plan/autorun question", () => {
+    it("should errorthrow if no files", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
       if (fs.existsSync(autorunDirectory)) {
         fs.rmSync(autorunDirectory, { recursive: true });
@@ -253,7 +253,7 @@ describe("E2E", () => {
       ).rejects.toThrow(`No FITS files found in input dir ${asiAirDirectory}`);
     });
 
-    it("should warn if no files (ASIAIR version)", async () => {
+    it("should errorthrow if no files (ASIAIR version)", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
       if (fs.existsSync(autorunDirectory)) {
         fs.rmSync(autorunDirectory, { recursive: true });
@@ -412,6 +412,84 @@ describe("E2E", () => {
       expect(logMessages).toContain(
         `info: Found 1 FITS in input dir ${asiAirDirectory}.`,
       );
+    });
+  });
+
+  describe("No Darks/Biases matching", () => {
+    it("should warn if no matching darks and biases", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Autorun directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory], // No bank directory in input.
+      });
+
+      const files = fs.readdirSync(projectDirectory, {
+        recursive: true,
+        withFileTypes: false,
+        encoding: "utf8",
+      });
+
+      expect(files).toMatchInlineSnapshot(`
+[
+  "H",
+  "S",
+  "_poto_siril.json",
+  "H/Flat_1.0ms_Bin1_H_gain100",
+  "H/Light_60.0s_Bin1_H_gain0",
+  "S/Flat_1.0ms_Bin1_S_gain100",
+  "S/Light_120.0s_Bin1_S_gain0",
+  "S/Light_60.0s_Bin1_S_gain100",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
+  "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
+  "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
+  "S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
+  "S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
+  "S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
+]
+`);
+
+      const potoJson = fs.readFileSync(path.join(projectDirectory, POTO_JSON), {
+        encoding: "utf8",
+      });
+
+      expect(potoJson).toMatchSnapshot();
+      expect(logMessages).toMatchSnapshotWithNormalizedPaths();
     });
   });
 });

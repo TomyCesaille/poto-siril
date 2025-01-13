@@ -159,6 +159,10 @@ const getAllFitsInInputDirectory = async (
     logger.info(`Found ${files.length} FITS in input dir ${inputDirectory}.`);
   };
 
+  if (!fs.existsSync(inputDirectory)) {
+    logger.errorThrow(`Input directory ${inputDirectory} does not exists.`);
+  }
+
   if (!isAsiAirDump) {
     const allFiles = getFitsFromDirectory({
       directory: inputDirectory,
@@ -541,40 +545,65 @@ const AssignDarksBiasesToLayerSets = async (
   })) as { darkTemperatureTolerance: number };
 
   for (const layerSet of layerSets) {
+    layerSet.darkSet = "No darks matched";
+    layerSet.darksCount = 0;
+    layerSet.darkTotalIntegrationMinutes = 0;
+    layerSet.darks = [];
+
     const darksAllTemperature = bankFiles.filter(
       dark => dark.type === "Dark" && matchSetFile(layerSet.lights[0], dark),
     );
 
-    const darks = darksAllTemperature.filter(dark => {
-      const temperatureDiff = Math.abs(
-        dark.temperature - layerSet.lights[0].temperature,
-      );
-      return temperatureDiff <= darkTemperatureTolerance;
-    });
-
-    if (darks.length === 0) {
+    if (darksAllTemperature.length === 0) {
       logger.error(
-        `No darks found for ${layerSet.lights[0].setName} with temperature window +-${darkTemperatureTolerance}.`,
+        `No darks matching light set ${layerSet.lights[0].setName} (regardless of temperature filtering).`,
       );
-      logger.info(
-        `Found ${darksAllTemperature.length} darks for ${layerSet.lights[0].setName} if we ignore temperature.`,
-      );
-      layerSet.darkSet = "No darks matched";
-      layerSet.darksCount = 0;
-      layerSet.darkTotalIntegrationMinutes = 0;
-      layerSet.darks = [];
     } else {
-      layerSet.darkSet = darks[0].setName;
-      layerSet.darksCount = darks.length;
+      const darks = darksAllTemperature.filter(dark => {
+        const temperatureDiff = Math.abs(
+          dark.temperature - layerSet.lights[0].temperature,
+        );
+        return temperatureDiff <= darkTemperatureTolerance;
+      });
 
-      const darkTotalIntegrationMs = darks.reduce(
-        (total, dark) => total + dark.bulbMs,
-        0,
-      );
+      if (darks.length === 0) {
+        logger.error(
+          `No darks available for ${layerSet.lights[0].setName} with temperature window +-${darkTemperatureTolerance}.`,
+        );
+        logger.info(
+          `There are ${darksAllTemperature.length} darks for ${layerSet.lights[0].setName} if we ignore temperature.`,
+        );
+      } else {
+        layerSet.darkSet = darks[0].setName;
+        layerSet.darksCount = darks.length;
 
-      layerSet.darkTotalIntegrationMinutes = darkTotalIntegrationMs / 1000 / 60;
-      layerSet.darks = darks;
+        const darkTotalIntegrationMs = darks.reduce(
+          (total, dark) => total + dark.bulbMs,
+          0,
+        );
+
+        layerSet.darkTotalIntegrationMinutes =
+          darkTotalIntegrationMs / 1000 / 60;
+        layerSet.darks = darks;
+      }
+
+      // Warn if there are multiple sequences for the same layer set
+      const darkSequences = new Set(darks.map(dark => dark.sequenceId));
+      if (darkSequences.size > 1) {
+        logger.warning(
+          `Multiple dark sequences found for ${layerSet.lights[0].setName}: ${[
+            ...darkSequences,
+          ].join(", ")}`,
+        );
+        logger.warning(
+          "Gathering them all for the master dark. Make sure that's what you wanted.",
+        );
+      }
     }
+
+    layerSet.biasSet = "No biases matched";
+    layerSet.biasesCount = 0;
+    layerSet.biases = [];
 
     const biases = bankFiles.filter(
       bias => bias.type === "Bias" && matchSetFile(layerSet.flats[0], bias),
@@ -582,27 +611,10 @@ const AssignDarksBiasesToLayerSets = async (
 
     if (biases.length === 0) {
       logger.error(`No biases found for ${layerSet.flats[0].setName}.`);
-
-      layerSet.biasSet = "No biases matched";
-      layerSet.biasesCount = 0;
-      layerSet.biases = [];
     } else {
       layerSet.biasSet = biases[0].setName;
       layerSet.biasesCount = biases.length;
       layerSet.biases = biases;
-    }
-
-    // Warn if there are multiple sequences for the same layer set
-    const darkSequences = new Set(darks.map(dark => dark.sequenceId));
-    if (darkSequences.size > 1) {
-      logger.warning(
-        `Multiple dark sequences found for ${layerSet.lights[0].setName}: ${[
-          ...darkSequences,
-        ].join(", ")}`,
-      );
-      logger.warning(
-        "Gathering them all for the master dark. Make sure that's what you wanted.",
-      );
     }
 
     const biasSequences = new Set(biases.map(bias => bias.sequenceId));
@@ -743,4 +755,3 @@ const dispatchProject = (
     }
   }
 };
-
