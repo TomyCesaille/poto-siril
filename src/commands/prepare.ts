@@ -559,6 +559,10 @@ const AssignDarksBiasesToLayerSets = async (
       logger.info(
         `Found ${darksAllTemperature.length} darks for ${layerSet.lights[0].setName} if we ignore temperature.`,
       );
+      layerSet.darkSet = "No darks matched";
+      layerSet.darksCount = 0;
+      layerSet.darkTotalIntegrationMinutes = 0;
+      layerSet.darks = [];
     } else {
       layerSet.darkSet = darks[0].setName;
       layerSet.darksCount = darks.length;
@@ -578,6 +582,10 @@ const AssignDarksBiasesToLayerSets = async (
 
     if (biases.length === 0) {
       logger.error(`No biases found for ${layerSet.flats[0].setName}.`);
+
+      layerSet.biasSet = "No biases matched";
+      layerSet.biasesCount = 0;
+      layerSet.biases = [];
     } else {
       layerSet.biasSet = biases[0].setName;
       layerSet.biasesCount = biases.length;
