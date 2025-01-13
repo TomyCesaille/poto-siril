@@ -276,6 +276,23 @@ describe("E2E", () => {
       ).rejects.toThrow("No FITS files found in Autorun nor Plan folders.");
     });
 
+    it("should errorthrow if directory does not exists", async () => {
+      if (fs.existsSync(asiAirDirectory)) {
+        fs.rmSync(asiAirDirectory, { recursive: true });
+      }
+
+      promptMock.mockResolvedValueOnce({
+        createProjectDirectory: true,
+      } as never);
+
+      await expect(
+        prepare({
+          projectDirectory,
+          inputDirectories: [asiAirDirectory, bankDirectory],
+        }),
+      ).rejects.toThrow(`Input directory ${asiAirDirectory} does not exists.`);
+    });
+
     it("should auto pick Autorun files", async () => {
       const planDirectory = `${asiAirDirectory}/Plan`;
       if (fs.existsSync(planDirectory)) {
