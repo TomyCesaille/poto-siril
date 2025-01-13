@@ -9,7 +9,10 @@ import prepare, {
 import { POTO_JSON } from "../../utils/const";
 import { dropThumbnails, dropEmptyDirectories } from "../../commands/clear";
 import { generateScripts } from "../../commands/preprocess.generate-scripts";
-import { spawnMockedDatasetToFs_dataset_1 } from "../fixtures";
+import {
+  getRealDataFromSample,
+  spawnMockedDatasetToFs_dataset_1,
+} from "../fixtures";
 import { logger } from "../../utils/logger";
 
 describe("E2E", () => {
@@ -432,7 +435,7 @@ describe("E2E", () => {
     });
   });
 
-  describe("No Darks/Biases matching", () => {
+  describe("No Darks/Biases matching, multiples sequences", () => {
     it("should warn if no matching darks and biases", async () => {
       promptMock
         .mockResolvedValueOnce({
@@ -537,17 +540,12 @@ describe("E2E", () => {
           go: true,
         } as never);
 
-      const files = fs.readdirSync(asiAirDirectory, {
-        recursive: true,
-        withFileTypes: false,
-        encoding: "utf8",
-      });
-      fs.renameSync(
-        path.join(asiAirDirectory, files[files.length - 1]),
+      fs.writeFileSync(
         path.join(
           asiAirDirectory,
           "Autorun/Dark_60.0s_Bin1_S_gain100_20240308-155722_-66.0C_0001.fit",
-        ), // Not matching due to temperature.
+        ),
+        getRealDataFromSample("Dark"),
       );
 
       await prepare({
@@ -563,6 +561,81 @@ describe("E2E", () => {
       );
       expect(logMessages).toContain(
         "info: There are 1 darks for Light_60.0s_Bin1_S_gain100 if we ignore temperature.",
+      );
+    });
+
+    it("should warn if multiples darks and biases sequences", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedInputSubDirectory:
+            "Use Autorun directory" as SelectedInputSubDirectoryChoices,
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240624-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          selectedFlatSequence: "Flat_1.0ms_Bin1_S_gain100__20240626-094304",
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Dark_60.0s_Bin1_S_gain100_20250101-155722_-10.0C_0001.fit",
+        ),
+        getRealDataFromSample("Dark"),
+      );
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Dark_60.0s_Bin1_S_gain100_20250102-155722_-10.0C_0001.fit",
+        ), // another sequence
+        getRealDataFromSample("Dark"),
+      );
+
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Bias_1.0ms_Bin1_gain100_20250101-101131_-9.8C_0001.fit",
+        ),
+        getRealDataFromSample("Bias"),
+      );
+      fs.writeFileSync(
+        path.join(
+          asiAirDirectory,
+          "Autorun/Bias_1.0ms_Bin1_gain100_20250102-101131_-9.8C_0001.fit",
+        ), // another sequence
+        getRealDataFromSample("Bias"),
+      );
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory], // No bank directory in input.
+      });
+
+      expect(logMessages).toContain(
+        "warning: Multiple dark sequences found for Light_60.0s_Bin1_S_gain100: 20250101-155722, 20250102-155722",
+      );
+      expect(logMessages).toContain(
+        "warning: Gathering them all for the master dark. Make sure that's what you wanted.",
+      );
+
+      expect(logMessages).toContain(
+        "warning: Multiple bias sequences found for Flat_1.0ms_Bin1_S_gain100: 20250101-101131, 20250102-101131",
+      );
+      expect(logMessages).toContain(
+        "warning: Gathering them all for the master bias. Make sure that's what you wanted.",
       );
     });
   });
