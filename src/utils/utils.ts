@@ -40,7 +40,7 @@ export const getFitsFromDirectory = ({
     if (
       file.name === ".DS_Store" ||
       file.name.startsWith("._") ||
-      file.path.includes("._")
+      file.parentPath.includes("._")
     ) {
       return;
     }
@@ -120,8 +120,8 @@ export const getFileImageSpecFromFilename = (
       fileName: fileFS.name,
       extension: match.groups.extension,
 
-      sourceFileDirectory: fileFS.path,
-      sourceFilePath: path.join(fileFS.path, fileFS.name),
+      sourceFileDirectory: fileFS.parentPath,
+      sourceFilePath: path.join(fileFS.parentPath, fileFS.name),
     } as FileImageSpec;
 
     file.setName = getSetName(file);
