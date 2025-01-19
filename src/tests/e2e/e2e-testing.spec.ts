@@ -73,6 +73,10 @@ describe("E2E", () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
+
+    if (fs.existsSync(projectDirectory)) {
+      fs.rmSync(projectDirectory, { recursive: true });
+    }
   });
 
   it("should be neat", async () => {
