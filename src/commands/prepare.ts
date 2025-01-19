@@ -744,6 +744,8 @@ const dispatchProject = (
 
   fs.writeFileSync(potoJsonPath, JSON.stringify(potoProject, null, 2));
 
+  const filesImported: string[] = [];
+
   for (const layerSet of potoProject.layerSets) {
     for (const file of [
       ...layerSet.lights,
@@ -751,7 +753,11 @@ const dispatchProject = (
       ...layerSet.flats,
       ...layerSet.biases,
     ]) {
+      if (filesImported.includes(file.projectFilePath)) {
+        continue;
+      }
       copyFileToProject(file);
+      filesImported.push(file.projectFilePath);
     }
   }
 };
