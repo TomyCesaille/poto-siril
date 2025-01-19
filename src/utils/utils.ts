@@ -200,15 +200,24 @@ const parseBulbString = (bulbString: string): number => {
   }
 };
 
-export const copyFileToProject = (file: FileImageSpec) => {
+export const copyFileToProject = (
+  file: FileImageSpec,
+  alreadyImported: FileImageSpec[],
+): FileImageSpec[] => {
   if (!fs.existsSync(file.projectFileDirectory)) {
     fs.mkdirSync(file.projectFileDirectory, { recursive: true });
   }
 
-  const targetFile = path.join(file.projectFileDirectory, file.fileName);
-  fs.copyFileSync(file.sourceFilePath, targetFile);
+  if (alreadyImported.find(f => f.fileName === file.fileName)) {
+    logger.debug(`- ${file.fileName} already imported.`);
+  } else {
+    fs.copyFileSync(file.sourceFilePath, file.projectFilePath);
+    alreadyImported.push(file);
 
-  logger.debug(`- ${file.fileName} dispatched.`);
+    logger.debug(`- ${file.fileName} imported.`);
+  }
+
+  return alreadyImported;
 };
 
 /**

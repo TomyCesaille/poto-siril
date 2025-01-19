@@ -116,8 +116,9 @@ describe("utils", () => {
   describe("copyFileToProject", () => {
     it("should copy a file to the project directory", () => {
       const file = {
-        projectFileDirectory: "project/dir",
         fileName: "file1.fit",
+        projectFileDirectory: "project/dir",
+        projectFilePath: "project/dir/file1.fit",
         sourceFilePath: "input/dir/file1.fit",
       } as FileImageSpec;
 
@@ -125,7 +126,9 @@ describe("utils", () => {
       jest.spyOn(fs, "mkdirSync");
       jest.spyOn(fs, "copyFileSync").mockImplementation(() => {});
 
-      copyFileToProject(file);
+      let alreadyImported: FileImageSpec[] = [];
+
+      alreadyImported = copyFileToProject(file, alreadyImported);
 
       expect(fs.existsSync).toHaveBeenCalledWith("project/dir");
       expect(fs.mkdirSync).toHaveBeenCalledWith("project/dir", {
@@ -135,6 +138,16 @@ describe("utils", () => {
         "input/dir/file1.fit",
         "project/dir/file1.fit",
       );
+      expect(alreadyImported).toMatchInlineSnapshot(`
+[
+  {
+    "fileName": "file1.fit",
+    "projectFileDirectory": "project/dir",
+    "projectFilePath": "project/dir/file1.fit",
+    "sourceFilePath": "input/dir/file1.fit",
+  },
+]
+`);
     });
   });
 
