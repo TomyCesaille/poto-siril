@@ -41,7 +41,7 @@ describe("E2E", () => {
       "space",
     ] as const;
     type LogMethod = (typeof logMethods)[number];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type, @typescript-eslint/no-unused-vars
     const originalMethods: Record<LogMethod, Function> = logMethods.reduce(
       (acc, method) => {
         acc[method] = logger[method];
@@ -58,7 +58,7 @@ describe("E2E", () => {
           (...args: Parameters<(typeof logger)[LogMethod]>) => {
             const message = `${method}: ${args.join(" ")}`;
             logMessages.push(message);
-            originalMethods[method].apply(logger, args);
+            //originalMethods[method].apply(logger, args);
           },
         );
     });
@@ -77,6 +77,14 @@ describe("E2E", () => {
     if (fs.existsSync(projectDirectory)) {
       fs.rmSync(projectDirectory, { recursive: true });
     }
+  });
+
+  afterAll(() => {
+    // To ease debugging.
+    if (fs.existsSync(projectDirectory)) {
+      fs.rmSync(projectDirectory, { recursive: true });
+    }
+    spawnMockedDatasetToFs_dataset_1();
   });
 
   it("should be neat", async () => {
@@ -641,6 +649,161 @@ describe("E2E", () => {
       expect(logMessages).toContain(
         "warning: Gathering them all for the master bias. Make sure that's what you wanted.",
       );
+    });
+  });
+
+  describe("checking if project path is already populated/dir not exists etc...", () => {
+    const logInEnquirerAskingToCreateDirectory =
+      "Directory tmp/project does not exist. Do you want to create it?";
+    const logInEnquirerAskOverwrite =
+      "Directory tmp/project already have a _poto_siril.json. Continue?";
+    const logAbort = "warning: Aborted.";
+    const logAfterTheCheckDirectory = "step: Reading input directories";
+
+    beforeEach(() => {
+      const planDirectory = `${asiAirDirectory}/Plan`;
+      if (fs.existsSync(planDirectory)) {
+        fs.rmSync(planDirectory, { recursive: true });
+      }
+      const FlatDirectory = `${asiAirDirectory}/Autorun/Flat`;
+      if (fs.existsSync(FlatDirectory)) {
+        fs.rmSync(FlatDirectory, { recursive: true });
+      }
+    });
+
+    it("should ask to create project directory because the dir does not exist", async () => {
+      promptMock
+        .mockResolvedValueOnce({
+          createProjectDirectory: true,
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory],
+      });
+
+      expect(
+        logMessages.filter(x =>
+          x.includes(logInEnquirerAskingToCreateDirectory),
+        ),
+      ).toHaveLength(1);
+      expect(
+        logMessages.filter(x => x.includes(logInEnquirerAskOverwrite)),
+      ).toHaveLength(0);
+      expect(logMessages).not.toContain(logAbort);
+      expect(logMessages).toContain(logAfterTheCheckDirectory);
+    });
+
+    it("should ask to create project directory because the dir does not exist (abort)", async () => {
+      promptMock.mockResolvedValueOnce({
+        createProjectDirectory: false,
+      } as never);
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory],
+      });
+
+      expect(
+        logMessages.filter(x =>
+          x.includes(logInEnquirerAskingToCreateDirectory),
+        ),
+      ).toHaveLength(1);
+      expect(
+        logMessages.filter(x => x.includes(logInEnquirerAskOverwrite)),
+      ).toHaveLength(0);
+      expect(logMessages).toContain(logAbort);
+      expect(logMessages).not.toContain(logAfterTheCheckDirectory);
+    });
+
+    it("should not ask to create project directory because the dir exists (empty)", async () => {
+      fs.mkdirSync(projectDirectory, { recursive: true });
+      promptMock
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory],
+      });
+
+      expect(
+        logMessages.filter(x =>
+          x.includes(logInEnquirerAskingToCreateDirectory),
+        ),
+      ).toHaveLength(0);
+      expect(
+        logMessages.filter(x => x.includes(logInEnquirerAskOverwrite)),
+      ).toHaveLength(0);
+      expect(logMessages).not.toContain(logAbort);
+      expect(logMessages).toContain(logAfterTheCheckDirectory);
+    });
+
+    it("should abort if we decide not to (project dir already exists)", async () => {
+      fs.mkdirSync(projectDirectory, { recursive: true });
+      fs.writeFileSync(path.join(projectDirectory, POTO_JSON), "{}");
+
+      promptMock.mockResolvedValueOnce({
+        continueEvenIfProjectAlreadyExists: false,
+      } as never);
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory],
+      });
+
+      expect(
+        logMessages.filter(x =>
+          x.includes(logInEnquirerAskingToCreateDirectory),
+        ),
+      ).toHaveLength(0);
+      expect(
+        logMessages.filter(x => x.includes(logInEnquirerAskOverwrite)),
+      ).toHaveLength(1);
+      expect(logMessages).toContain(logAbort);
+      expect(logMessages).not.toContain(logAfterTheCheckDirectory);
+    });
+
+    it("should continue if we decide to (project dir already exists)", async () => {
+      fs.mkdirSync(projectDirectory, { recursive: true });
+      fs.writeFileSync(path.join(projectDirectory, POTO_JSON), "{}");
+
+      promptMock
+        .mockResolvedValueOnce({
+          continueEvenIfProjectAlreadyExists: true,
+        } as never)
+        .mockResolvedValueOnce({
+          darkTemperatureTolerance: 3,
+        } as never)
+        .mockResolvedValueOnce({
+          go: true,
+        } as never);
+
+      await prepare({
+        projectDirectory,
+        inputDirectories: [asiAirDirectory],
+      });
+
+      expect(
+        logMessages.filter(x =>
+          x.includes(logInEnquirerAskingToCreateDirectory),
+        ),
+      ).toHaveLength(0);
+      expect(
+        logMessages.filter(x => x.includes(logInEnquirerAskOverwrite)),
+      ).toHaveLength(1);
+      expect(logMessages).not.toContain(logAbort);
+      expect(logMessages).toContain(logAfterTheCheckDirectory);
     });
   });
 });
