@@ -1,6 +1,6 @@
 {
   "name": "poto-siril",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "description": "Automatization around Siril (<https://siril.org/>) for deep sky astrophotography.",
   "bin": {
     "poto": "dist/src/poto-siril.js"
