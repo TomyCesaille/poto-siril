@@ -47,18 +47,22 @@ export type FileImageSpec = ImageSpec & {
   extension: string;
 
   /**
-   * Path to the ASIAIR dump directory.
+   * Directory path from the source input directory.
    */
-  sourceDirectory: string;
+  sourceFileDirectory: string;
   /**
-   * Path to the file in the ASIAIR dump directory.
+   * File path file from the source input directory.
    */
   sourceFilePath: string;
 
   /**
    * Path to the project directory.
    */
-  projectDirectory: string;
+  projectFileDirectory: string;
+  /**
+   * File path in the project directory.
+   */
+  projectFilePath: string;
 
   /**
    * Recorded time.

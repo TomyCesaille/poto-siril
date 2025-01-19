@@ -116,7 +116,7 @@ describe("utils", () => {
   describe("copyFileToProject", () => {
     it("should copy a file to the project directory", () => {
       const file = {
-        projectDirectory: "project/dir",
+        projectFileDirectory: "project/dir",
         fileName: "file1.fit",
         sourceFilePath: "input/dir/file1.fit",
       } as FileImageSpec;

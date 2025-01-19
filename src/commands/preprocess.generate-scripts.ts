@@ -62,7 +62,7 @@ const generateScriptForLightSet = (
     fs.mkdirSync(mastersDirectory, { recursive: false });
   }
 
-  const lightsdirs = [...new Set(set.lights.map(x => x.projectDirectory))];
+  const lightsdirs = [...new Set(set.lights.map(x => x.projectFileDirectory))];
   if (lightsdirs.length === 0) {
     throw new Error("No lights found for filter " + set.layerSetId);
   }
@@ -71,7 +71,7 @@ const generateScriptForLightSet = (
   }
   const lightsDir = path.resolve(lightsdirs[0]);
 
-  const flatsDirs = [...new Set(set.flats.map(x => x.projectDirectory))];
+  const flatsDirs = [...new Set(set.flats.map(x => x.projectFileDirectory))];
   if (flatsDirs.length === 0) {
     throw new Error("No flats found for filter " + set.layerSetId);
   }
@@ -80,7 +80,7 @@ const generateScriptForLightSet = (
   }
   const flatsDir = path.resolve(flatsDirs[0]);
 
-  const darksDirs = [...new Set(set.darks.map(x => x.projectDirectory))];
+  const darksDirs = [...new Set(set.darks.map(x => x.projectFileDirectory))];
   if (darksDirs.length === 0) {
     throw new Error("No darks found for filter " + set.layerSetId);
   }
@@ -89,7 +89,7 @@ const generateScriptForLightSet = (
   }
   const darksDir = path.resolve(darksDirs[0]);
 
-  const biasesDirs = [...new Set(set.biases.map(x => x.projectDirectory))];
+  const biasesDirs = [...new Set(set.biases.map(x => x.projectFileDirectory))];
   if (biasesDirs.length === 0) {
     throw new Error("No biases found for filter " + set.layerSetId);
   }

@@ -120,10 +120,8 @@ export const getFileImageSpecFromFilename = (
       fileName: fileFS.name,
       extension: match.groups.extension,
 
-      sourceDirectory: fileFS.path,
+      sourceFileDirectory: fileFS.path,
       sourceFilePath: path.join(fileFS.path, fileFS.name),
-
-      projectDirectory,
     } as FileImageSpec;
 
     file.setName = getSetName(file);
@@ -131,13 +129,15 @@ export const getFileImageSpecFromFilename = (
     if (["Light", "Flat"].includes(file.type)) {
       const directory = file.setName;
 
-      file.projectDirectory = file.filter
+      file.projectFileDirectory = file.filter
         ? path.join(projectDirectory, file.filter, directory)
         : path.join(projectDirectory, directory);
     } else {
       const directory = `${file.type}_${file.bulb}_${file.bin}_gain${file.gain}`;
-      file.projectDirectory = path.join(projectDirectory, "any", directory); // We ignore the filter for darks and biases.
+      file.projectFileDirectory = path.join(projectDirectory, "any", directory); // We ignore the filter for darks and biases.
     }
+
+    file.projectFilePath = path.join(file.projectFileDirectory, file.fileName);
 
     return file;
   } else {
@@ -201,11 +201,11 @@ const parseBulbString = (bulbString: string): number => {
 };
 
 export const copyFileToProject = (file: FileImageSpec) => {
-  if (!fs.existsSync(file.projectDirectory)) {
-    fs.mkdirSync(file.projectDirectory, { recursive: true });
+  if (!fs.existsSync(file.projectFileDirectory)) {
+    fs.mkdirSync(file.projectFileDirectory, { recursive: true });
   }
 
-  const targetFile = path.join(file.projectDirectory, file.fileName);
+  const targetFile = path.join(file.projectFileDirectory, file.fileName);
   fs.copyFileSync(file.sourceFilePath, targetFile);
 
   logger.debug(`- ${file.fileName} dispatched.`);
