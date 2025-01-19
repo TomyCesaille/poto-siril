@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import Enquirer from "enquirer";
 
 import { formatMessage, logger } from "../utils/logger";
@@ -29,7 +30,12 @@ const prepare = async ({
 }: PrepareProps) => {
   // TODO. logger.command("prepare"); to introduce the command in the logs.
 
-  await ensureProjectDirectoryExists(projectDirectory);
+  const continueProcess = await ensureProjectDirectoryExists(projectDirectory);
+
+  if (!continueProcess) {
+    logger.warning("Aborted.");
+    return;
+  }
 
   logger.step("Reading input directories");
 
@@ -111,10 +117,14 @@ export default prepare;
 /**
  * Ensure that the project directory exists.
  * If it does not exist, ask the user if they want to create it.
+ * If it already exists, warn the user that the project will be overwritten (but may have extra files in it).
  *
  * @param projectDirectory - The directory of the current project.
+ * @returns A boolean indicating if we can continue.
  */
-const ensureProjectDirectoryExists = async (projectDirectory: string) => {
+const ensureProjectDirectoryExists = async (
+  projectDirectory: string,
+): Promise<boolean> => {
   if (!fs.existsSync(projectDirectory)) {
     const { createProjectDirectory } = (await enquirer.prompt({
       type: "confirm",
@@ -125,6 +135,21 @@ const ensureProjectDirectoryExists = async (projectDirectory: string) => {
 
     if (createProjectDirectory) {
       fs.mkdirSync(projectDirectory, { recursive: true });
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    if (fs.existsSync(path.join(projectDirectory, POTO_JSON))) {
+      const { continueEvenIfProjectAlreadyExists } = (await enquirer.prompt({
+        type: "confirm",
+        name: "continueEvenIfProjectAlreadyExists",
+        message: `Directory ${projectDirectory} already have a ${POTO_JSON}. Continue? (will overwrite the project, but may contains extra files that were previously imported.)`,
+        initial: true,
+      })) as { continueEvenIfProjectAlreadyExists: boolean };
+      return continueEvenIfProjectAlreadyExists;
+    } else {
+      return true;
     }
   }
 };
