@@ -40,7 +40,7 @@ export const getFitsFromDirectory = ({
     if (
       file.name === ".DS_Store" ||
       file.name.startsWith("._") ||
-      file.path.includes("._")
+      file.parentPath.includes("._")
     ) {
       return;
     }
@@ -120,10 +120,8 @@ export const getFileImageSpecFromFilename = (
       fileName: fileFS.name,
       extension: match.groups.extension,
 
-      sourceDirectory: fileFS.path,
-      sourceFilePath: path.join(fileFS.path, fileFS.name),
-
-      projectDirectory,
+      sourceFileDirectory: fileFS.parentPath,
+      sourceFilePath: path.join(fileFS.parentPath, fileFS.name),
     } as FileImageSpec;
 
     file.setName = getSetName(file);
@@ -131,13 +129,15 @@ export const getFileImageSpecFromFilename = (
     if (["Light", "Flat"].includes(file.type)) {
       const directory = file.setName;
 
-      file.projectDirectory = file.filter
+      file.projectFileDirectory = file.filter
         ? path.join(projectDirectory, file.filter, directory)
         : path.join(projectDirectory, directory);
     } else {
       const directory = `${file.type}_${file.bulb}_${file.bin}_gain${file.gain}`;
-      file.projectDirectory = path.join(projectDirectory, "any", directory); // We ignore the filter for darks and biases.
+      file.projectFileDirectory = path.join(projectDirectory, "any", directory); // We ignore the filter for darks and biases.
     }
+
+    file.projectFilePath = path.join(file.projectFileDirectory, file.fileName);
 
     return file;
   } else {
@@ -200,15 +200,24 @@ const parseBulbString = (bulbString: string): number => {
   }
 };
 
-export const copyFileToProject = (file: FileImageSpec) => {
-  if (!fs.existsSync(file.projectDirectory)) {
-    fs.mkdirSync(file.projectDirectory, { recursive: true });
+export const copyFileToProject = (
+  file: FileImageSpec,
+  alreadyImported: FileImageSpec[],
+): FileImageSpec[] => {
+  if (!fs.existsSync(file.projectFileDirectory)) {
+    fs.mkdirSync(file.projectFileDirectory, { recursive: true });
   }
 
-  const targetFile = path.join(file.projectDirectory, file.fileName);
-  fs.copyFileSync(file.sourceFilePath, targetFile);
+  if (alreadyImported.find(f => f.fileName === file.fileName)) {
+    logger.debug(`- ${file.fileName} already imported.`);
+  } else {
+    fs.copyFileSync(file.sourceFilePath, file.projectFilePath);
+    alreadyImported.push(file);
 
-  logger.debug(`- ${file.fileName} dispatched.`);
+    logger.debug(`- ${file.fileName} imported.`);
+  }
+
+  return alreadyImported;
 };
 
 /**

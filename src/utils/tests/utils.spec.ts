@@ -16,7 +16,7 @@ describe("utils", () => {
       const file = new fs.Dirent();
       file.name =
         "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit";
-      file.path = "input/bar";
+      file.parentPath = "input/bar";
       const projectDirectory = "project/bar";
       const previousFile = null;
 
@@ -29,7 +29,7 @@ describe("utils", () => {
       const file = new fs.Dirent();
       file.name =
         "Light_LDN 1093_120.0s_Bin1_filter h_gain100_20240707-002348_-10.0C_0001.fit";
-      file.path = "input/bar";
+      file.parentPath = "input/bar";
       const projectDirectory = "project/bar";
       const previousFile = null;
 
@@ -46,7 +46,7 @@ describe("utils", () => {
       const file = new fs.Dirent();
       file.name =
         "Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0001.fit";
-      file.path = "input/bar";
+      file.parentPath = "input/bar";
       const projectDirectory = "project/bar";
       const previousFile = null;
 
@@ -66,7 +66,7 @@ describe("utils", () => {
   ])("should parse bulb in ms (%s)", data => {
     const file = new fs.Dirent();
     file.name = `Light_LDN 1093_${data.bulb}_Bin1_gain100_20240707-002348_-10.0C_0001.fit`;
-    file.path = "input/bar";
+    file.parentPath = "input/bar";
     const projectDirectory = "project/bar";
     const previousFile = null;
 
@@ -84,17 +84,17 @@ describe("utils", () => {
         Object.assign(new fs.Dirent(), {
           name: "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit",
           isFile: () => true,
-          path: "input/dir",
+          parentPath: "input/dir",
         }),
         Object.assign(new fs.Dirent(), {
           name: "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002349_-10.0C_0002.fit",
           isFile: () => true,
-          path: "input/dir",
+          parentPath: "input/dir",
         }),
         Object.assign(new fs.Dirent(), {
           name: "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001_thn.jpg",
           isFile: () => true,
-          path: "input/dir",
+          parentPath: "input/dir",
         }),
       ]);
 
@@ -116,8 +116,9 @@ describe("utils", () => {
   describe("copyFileToProject", () => {
     it("should copy a file to the project directory", () => {
       const file = {
-        projectDirectory: "project/dir",
         fileName: "file1.fit",
+        projectFileDirectory: "project/dir",
+        projectFilePath: "project/dir/file1.fit",
         sourceFilePath: "input/dir/file1.fit",
       } as FileImageSpec;
 
@@ -125,7 +126,9 @@ describe("utils", () => {
       jest.spyOn(fs, "mkdirSync");
       jest.spyOn(fs, "copyFileSync").mockImplementation(() => {});
 
-      copyFileToProject(file);
+      let alreadyImported: FileImageSpec[] = [];
+
+      alreadyImported = copyFileToProject(file, alreadyImported);
 
       expect(fs.existsSync).toHaveBeenCalledWith("project/dir");
       expect(fs.mkdirSync).toHaveBeenCalledWith("project/dir", {
@@ -135,6 +138,16 @@ describe("utils", () => {
         "input/dir/file1.fit",
         "project/dir/file1.fit",
       );
+      expect(alreadyImported).toMatchInlineSnapshot(`
+[
+  {
+    "fileName": "file1.fit",
+    "projectFileDirectory": "project/dir",
+    "projectFilePath": "project/dir/file1.fit",
+    "sourceFilePath": "input/dir/file1.fit",
+  },
+]
+`);
     });
   });
 

@@ -3,7 +3,7 @@
 exports[`E2E No Darks/Biases matching, multiples sequences should warn if no matching darks and biases 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
-  "potoVersion": "poto-siril 0.4.6",
+  "potoVersion": "poto-siril 0.5.0",
   "metrics": {
     "cumulatedLightIntegrationMinutes": 12,
     "cumulatedDarksIntegrationMinutes": 0,
@@ -40,9 +40,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+          "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -58,9 +59,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+          "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -76,9 +78,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
-          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+          "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_H_gain100",
@@ -99,9 +102,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+          "projectFileDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
+          "projectFilePath": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_H_gain100",
@@ -117,9 +121,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
-          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+          "projectFileDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
+          "projectFilePath": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_H_gain100",
@@ -135,9 +140,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+          "projectFileDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
+          "projectFilePath": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit"
         }
       ],
       "darkSet": "No darks matched",
@@ -175,9 +181,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_S_gain100",
@@ -193,9 +200,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_S_gain100",
@@ -211,9 +219,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_S_gain100",
@@ -234,9 +243,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -252,9 +262,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -270,9 +281,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit"
         }
       ],
       "darkSet": "No darks matched",
@@ -310,9 +322,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
+          "projectFileDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0",
+          "projectFilePath": "tmp/project/S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit"
         },
         {
           "setName": "Light_120.0s_Bin1_S_gain0",
@@ -328,9 +341,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
+          "projectFileDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0",
+          "projectFilePath": "tmp/project/S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_S_gain100",
@@ -351,9 +365,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -369,9 +384,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -387,9 +403,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit"
         }
       ],
       "darkSet": "No darks matched",
@@ -427,9 +444,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_S_gain100",
@@ -445,9 +463,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_S_gain100",
@@ -468,9 +487,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -486,9 +506,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -504,9 +525,10 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit"
         }
       ],
       "darkSet": "No darks matched",
@@ -671,28 +693,28 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
   }
 ]",
   "step: Dispatching",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit dispatched.",
-  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit imported.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit already imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit already imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit already imported.",
   "success: Dispatch complete.",
 ]
 `;
@@ -700,7 +722,7 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
 exports[`E2E should be neat 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
-  "potoVersion": "poto-siril 0.4.6",
+  "potoVersion": "poto-siril 0.5.0",
   "metrics": {
     "cumulatedLightIntegrationMinutes": 12,
     "cumulatedDarksIntegrationMinutes": 14,
@@ -737,9 +759,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+          "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -755,9 +778,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+          "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -773,9 +797,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
-          "projectDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0"
+          "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_H_gain100",
@@ -796,9 +821,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+          "projectFileDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
+          "projectFilePath": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_H_gain100",
@@ -814,9 +840,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
-          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+          "projectFileDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
+          "projectFilePath": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_H_gain100",
@@ -832,9 +859,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100"
+          "projectFileDirectory": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100",
+          "projectFilePath": "tmp/project/H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit"
         }
       ],
       "darkSet": "Dark_60.0s_Bin1_gain0",
@@ -855,9 +883,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain0/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit"
         },
         {
           "setName": "Dark_60.0s_Bin1_gain0",
@@ -873,9 +902,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain0/Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit"
         }
       ],
       "biasSet": "Bias_1.0ms_Bin1_gain100",
@@ -895,9 +925,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -913,9 +944,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -931,9 +963,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit"
         }
       ]
     },
@@ -964,9 +997,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_S_gain100",
@@ -982,9 +1016,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_S_gain100",
@@ -1000,9 +1035,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_S_gain100",
@@ -1023,9 +1059,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -1041,9 +1078,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -1059,9 +1097,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit"
         }
       ],
       "darkSet": "Dark_60.0s_Bin1_L_gain100",
@@ -1082,9 +1121,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit"
         },
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -1100,9 +1140,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit"
         },
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -1118,9 +1159,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit"
         },
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -1136,9 +1178,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit"
         }
       ],
       "biasSet": "Bias_1.0ms_Bin1_gain100",
@@ -1158,9 +1201,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -1176,9 +1220,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -1194,9 +1239,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit"
         }
       ]
     },
@@ -1227,9 +1273,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
+          "projectFileDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0",
+          "projectFilePath": "tmp/project/S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit"
         },
         {
           "setName": "Light_120.0s_Bin1_S_gain0",
@@ -1245,9 +1292,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0"
+          "projectFileDirectory": "tmp/project/S/Light_120.0s_Bin1_S_gain0",
+          "projectFilePath": "tmp/project/S/Light_120.0s_Bin1_S_gain0/Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_S_gain100",
@@ -1268,9 +1316,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -1286,9 +1335,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -1304,9 +1354,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit"
         }
       ],
       "darkSet": "Dark_120.0s_Bin1_L_gain0",
@@ -1327,9 +1378,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit",
-          "projectDirectory": "tmp/project/any/Dark_120.0s_Bin1_gain0"
+          "projectFileDirectory": "tmp/project/any/Dark_120.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/any/Dark_120.0s_Bin1_gain0/Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit"
         },
         {
           "setName": "Dark_120.0s_Bin1_L_gain0",
@@ -1345,9 +1397,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/any/Dark_120.0s_Bin1_gain0"
+          "projectFileDirectory": "tmp/project/any/Dark_120.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/any/Dark_120.0s_Bin1_gain0/Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit"
         }
       ],
       "biasSet": "Bias_1.0ms_Bin1_gain100",
@@ -1367,9 +1420,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -1385,9 +1439,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -1403,9 +1458,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit"
         }
       ]
     },
@@ -1436,9 +1492,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_S_gain100",
@@ -1454,9 +1511,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.1,
           "fileName": "Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
-          "projectDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Light_60.0s_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Light_60.0s_Bin1_S_gain100/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_S_gain100",
@@ -1477,9 +1535,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -1495,9 +1554,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit"
         },
         {
           "setName": "Flat_1.0ms_Bin1_S_gain100",
@@ -1513,9 +1573,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10.5,
           "fileName": "Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
           "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit",
-          "projectDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100"
+          "projectFileDirectory": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100",
+          "projectFilePath": "tmp/project/S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit"
         }
       ],
       "darkSet": "Dark_60.0s_Bin1_L_gain100",
@@ -1536,9 +1597,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit"
         },
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -1554,9 +1616,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit"
         },
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -1572,9 +1635,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit"
         },
         {
           "setName": "Dark_60.0s_Bin1_L_gain100",
@@ -1590,9 +1654,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -10,
           "fileName": "Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Darks",
+          "sourceFileDirectory": "tmp/bank/Darks",
           "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit",
-          "projectDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain100/Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit"
         }
       ],
       "biasSet": "Bias_1.0ms_Bin1_gain100",
@@ -1612,9 +1677,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -1630,9 +1696,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit"
         },
         {
           "setName": "Bias_1.0ms_Bin1_gain100",
@@ -1648,9 +1715,10 @@ exports[`E2E should be neat 2`] = `
           "temperature": -9.8,
           "fileName": "Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
           "extension": "fit",
-          "sourceDirectory": "tmp/bank/Bias",
+          "sourceFileDirectory": "tmp/bank/Bias",
           "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
-          "projectDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100"
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain100",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit"
         }
       ]
     }
@@ -2078,52 +2146,52 @@ exports[`E2E should be neat 8`] = `
   }
 ]",
   "step: Dispatching",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
-  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit dispatched.",
-  "debug: - Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit dispatched.",
-  "debug: - Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit dispatched.",
-  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit dispatched.",
-  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit dispatched.",
-  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit dispatched.",
-  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit dispatched.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit imported.",
+  "debug: - Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit imported.",
+  "debug: - Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010840_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010841_-10.1C_0002.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit already imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit already imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit already imported.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_120.0s_Bin1_S_gain0_20240626-010854_-10.1C_0002.fit imported.",
+  "debug: - Dark_120.0s_Bin1_L_gain0_20240308-155723_-10.0C_0001.fit imported.",
+  "debug: - Dark_120.0s_Bin1_L_gain0_20240308-155724_-10.0C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit already imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit already imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit already imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit already imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155723_-10.0C_0002.fit already imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155724_-10.0C_0003.fit already imported.",
+  "debug: - Dark_60.0s_Bin1_L_gain100_20240308-155725_-10.0C_0004.fit already imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit already imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit already imported.",
+  "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit already imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit already imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit already imported.",
+  "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit already imported.",
   "success: Dispatch complete.",
   "info: Generated tmp/project/H/Light_60.0s_Bin1_H_gain0_process/_poto_Mono_Preprocessing.ssf",
   "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
