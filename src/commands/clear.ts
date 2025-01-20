@@ -7,11 +7,20 @@ import fs from "fs";
 import path from "path";
 
 import { logger } from "../utils/logger";
+import { isAsiAirDirectoryF } from "../utils/utils";
 
-export const dropThumbnails = (
-  dir: string,
-  isRecursiveCall: boolean = false,
-) => {
+const clear = (dir: string) => {
+  if (!isAsiAirDirectoryF(dir).isAsiAirDirectory) {
+    logger.errorThrow("Not an ASIAIR directory!");
+  }
+
+  dropThumbnails(dir);
+  dropEmptyDirectories(dir);
+};
+
+export default clear;
+
+const dropThumbnails = (dir: string, isRecursiveCall: boolean = false) => {
   // Default parameter set to current directory
   const files = fs.readdirSync(dir);
   files.forEach(file => {
@@ -30,7 +39,7 @@ export const dropThumbnails = (
     logger.info("Asiair dump cleaning - Thumbnails deleted ✅");
 };
 
-export const dropEmptyDirectories = (dir: string) => {
+const dropEmptyDirectories = (dir: string) => {
   const isDirEmpty = (directory: string): boolean => {
     const files = fs.readdirSync(directory);
     if (files.length === 0) {

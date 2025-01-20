@@ -8,6 +8,7 @@ import {
   getFitsFromDirectory,
   matchSetFile,
   getImageSpecFromSetName,
+  isAsiAirDirectoryF,
 } from "../utils/utils";
 import {
   FileImageSpec,
@@ -173,12 +174,8 @@ const getAllFitsInInputDirectory = async (
   projectDirectory: string,
 ): Promise<FileImageSpec[]> => {
   // if ASIAIR used, may stores the lights+flats files in either the Autorun or Plan directories.
-
-  const autorunDirectory = `${inputDirectory}/Autorun`;
-  const planDirectory = `${inputDirectory}/Plan`;
-
-  const isAsiAirDump =
-    fs.existsSync(autorunDirectory) || fs.existsSync(planDirectory);
+  const { isAsiAirDirectory, autorunDirectory, planDirectory } =
+    isAsiAirDirectoryF(inputDirectory);
 
   const logFiles = (files: unknown[]) => {
     logger.info(`Found ${files.length} FITS in input dir ${inputDirectory}.`);
@@ -188,7 +185,7 @@ const getAllFitsInInputDirectory = async (
     logger.errorThrow(`Input directory ${inputDirectory} does not exists.`);
   }
 
-  if (!isAsiAirDump) {
+  if (!isAsiAirDirectory) {
     const allFiles = getFitsFromDirectory({
       directory: inputDirectory,
       projectDirectory,
