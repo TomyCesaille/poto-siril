@@ -7,7 +7,7 @@ import prepare, {
   SelectedInputSubDirectoryChoices,
 } from "../../commands/prepare";
 import { POTO_JSON } from "../../utils/const";
-import { dropThumbnails, dropEmptyDirectories } from "../../commands/clear";
+import clear from "../../commands/clear";
 import { generateScripts } from "../../commands/preprocess.generate-scripts";
 import {
   getRealDataFromSample,
@@ -119,7 +119,7 @@ describe("E2E", () => {
     });
     expect(files.filter(f => f.endsWith("_thn.jpg"))).toHaveLength(3);
 
-    dropThumbnails(asiAirDirectory);
+    clear(asiAirDirectory);
 
     files = fs.readdirSync(asiAirDirectory, {
       recursive: true,
@@ -137,7 +137,7 @@ describe("E2E", () => {
       true,
     );
 
-    dropEmptyDirectories(asiAirDirectory);
+    clear(asiAirDirectory);
 
     expect(fs.existsSync(path.join(asiAirDirectory, "empty", "empty"))).toBe(
       false,
@@ -447,7 +447,7 @@ describe("E2E", () => {
     });
   });
 
-  describe("No Darks/Biases matching, multiples sequences", () => {
+  describe("no Darks/Biases matching, multiples sequences", () => {
     it("should warn if no matching darks and biases", async () => {
       promptMock
         .mockResolvedValueOnce({
@@ -804,6 +804,12 @@ describe("E2E", () => {
       ).toHaveLength(1);
       expect(logMessages).not.toContain(logAbort);
       expect(logMessages).toContain(logAfterTheCheckDirectory);
+    });
+  });
+
+  describe("clear function tests", () => {
+    it("should throw not asiair directory", async () => {
+      expect(() => clear(bankDirectory)).toThrow("Not an ASIAIR directory!");
     });
   });
 });

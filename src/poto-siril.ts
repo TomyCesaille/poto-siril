@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import prepare, { PrepareProps } from "./commands/prepare";
-import { dropThumbnails, dropEmptyDirectories } from "./commands/clear";
+import clear from "./commands/clear";
 import { generateScripts } from "./commands/preprocess.generate-scripts";
 import { runScripts } from "./commands/preprocess.exec-scripts";
 import { POTO_VERSION } from "./utils/const";
@@ -20,8 +20,7 @@ program
   .argument("<path>", "directory to clear")
   .allowExcessArguments(false)
   .action(directory => {
-    dropThumbnails(directory);
-    dropEmptyDirectories(directory);
+    clear(directory);
   });
 
 program

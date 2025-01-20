@@ -271,3 +271,24 @@ export const getImageSpecFromSetName = (setName: string): ImageSpec => {
         gain: Number(setName.split("_")[3].replace("gain", "")),
       } as ImageSpec);
 };
+
+/**
+ * Detect if ASIAIR directory structure is present.
+ */
+export const isAsiAirDirectoryF = (
+  directory: string,
+): {
+  isAsiAirDirectory: boolean;
+  autorunDirectory: string;
+  planDirectory: string;
+} => {
+  const autorunDirectory = `${directory}/Autorun`;
+  const planDirectory = `${directory}/Plan`;
+
+  return {
+    isAsiAirDirectory:
+      fs.existsSync(autorunDirectory) || fs.existsSync(planDirectory),
+    autorunDirectory,
+    planDirectory,
+  };
+};

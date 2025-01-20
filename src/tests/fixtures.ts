@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { logger } from "../utils/logger";
-import { imageType } from "src/utils/types";
+import { imageType } from "../utils/types";
 
 const tmpDir = "tmp";
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`E2E No Darks/Biases matching, multiples sequences should warn if no matching darks and biases 2`] = `
+exports[`E2E no Darks/Biases matching, multiples sequences should warn if no matching darks and biases 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
   "potoVersion": "poto-siril 0.5.0",
@@ -543,7 +543,7 @@ exports[`E2E No Darks/Biases matching, multiples sequences should warn if no mat
 }"
 `;
 
-exports[`E2E No Darks/Biases matching, multiples sequences should warn if no matching darks and biases 3`] = `
+exports[`E2E no Darks/Biases matching, multiples sequences should warn if no matching darks and biases 3`] = `
 [
   "prompt: [
   {
@@ -2003,6 +2003,8 @@ exports[`E2E should be neat 8`] = `
   "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg",
   "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002_thn.jpg",
   "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003_thn.jpg",
+  "info: Asiair dump cleaning - Thumbnails deleted ✅",
+  "info: Asiair dump cleaning - Empty dirs deleted ✅",
   "info: Asiair dump cleaning - Thumbnails deleted ✅",
   "info: Deleted: tmp/asiair-dump-1/empty/empty",
   "info: Deleted: tmp/asiair-dump-1/empty",
