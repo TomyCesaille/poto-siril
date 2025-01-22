@@ -1,6 +1,6 @@
 {
   "name": "poto-siril",
-  "version": "0.6.0",
+  "version": "0.6.3",
   "description": "Automatization around Siril (<https://siril.org/>) for deep sky astrophotography.",
   "bin": {
     "poto": "dist/src/poto-siril.js"
@@ -16,7 +16,7 @@
     "dev-spawn-ds1": "tsx ./scripts/dev-spawn-ds1.ts",
     "dev-prepare-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh prepare -i tmp/asiair-dump-1 -i tmp/bank tmp/project",
     "dev-preprocess-ds1": "TZ=UTC ./poto.sh preprocess -t src/pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf tmp/project",
-    "prepublishOnly": "tsc && tsc-alias"
+    "prepublishOnly": "rm -rf dist && tsc && tsc-alias && npm install --no-progress --loglevel=error"
   },
   "keywords": [
     "siril",
@@ -29,7 +29,7 @@
   "author": "JorisLacance.fr",
   "license": "GPL-3.0-only",
   "repository": {
-    "url": "github:TomyCesaille/poto-siril"
+    "url": "git+https://github.com/TomyCesaille/poto-siril.git"
   },
   "homepage": "https://github.com/TomyCesaille/poto-siril",
   "bugs": {
