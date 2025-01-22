@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from "commander";
 import prepare, { PrepareProps } from "./commands/prepare";
 import clear from "./commands/clear";
