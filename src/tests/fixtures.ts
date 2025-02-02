@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import { logger } from "../utils/logger";
 import { imageType } from "../utils/types";
 
@@ -21,9 +21,7 @@ const spawnMockedDatasetToFs = (
   bankDirectory: string;
   projectDirectory: string;
 } => {
-  if (fs.existsSync(tmpDir)) {
-    fs.rmSync(tmpDir, { recursive: true });
-  }
+  fs.removeSync(tmpDir);
 
   dataset.forEach(file => {
     const filePath = path.join(tmpDir, file);

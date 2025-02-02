@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals"; // Import Jest globals
 
-import fs from "fs";
+import fs from "fs-extra";
 import {
   getFileImageSpecFromFilename,
   getFitsFromDirectory,

@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import { logger } from "../utils/logger";
 import { execa } from "execa";
 import path from "path";

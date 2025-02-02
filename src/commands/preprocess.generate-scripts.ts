@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import { logger } from "../utils/logger";
 import { LayerSet, PotoProject } from "../utils/types";
 import {
