@@ -92,16 +92,6 @@ export const getFileImageSpecFromFilename = (
     const datetime = parseDate(match.groups.datetime);
     const temperature = parseFloat(match.groups.temperature);
 
-    let sequenceId = "";
-    if (!previousFile) {
-      sequenceId = unParseDate(datetime);
-    } else {
-      sequenceId =
-        sequencePosition === 1
-          ? unParseDate(datetime)
-          : previousFile.sequenceId;
-    }
-
     const file = {
       setName: "",
 
@@ -112,7 +102,6 @@ export const getFileImageSpecFromFilename = (
       filter: match.groups.filter?.replaceAll(" ", "").trim() ?? null,
       gain: parseInt(match.groups.gain, 10),
 
-      sequenceId,
       sequencePosition,
       datetime,
       temperature,
@@ -125,6 +114,15 @@ export const getFileImageSpecFromFilename = (
     } as FileImageSpec;
 
     file.setName = getSetName(file);
+
+    if (!previousFile) {
+      file.sequenceId = unParseDate(datetime);
+    } else {
+      file.sequenceId =
+        previousFile.setName === file.setName
+          ? previousFile.sequenceId
+          : unParseDate(datetime);
+    }
 
     if (["Light", "Flat"].includes(file.type)) {
       const directory = file.setName;

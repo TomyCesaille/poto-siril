@@ -58,6 +58,38 @@ describe("utils", () => {
       expect(specs).toMatchSnapshot();
       expect(specs.filter).toBeNull();
     });
+
+    it("should match snapshot (sequence not starting by 1)", () => {
+      const projectDirectory = "project/bar";
+
+      const file = new fs.Dirent();
+      file.name =
+        "Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0002.fit";
+      file.parentPath = "input/bar";
+
+      const previousFile = new fs.Dirent();
+      previousFile.name =
+        "Light_LDN 1093_120.0s_Bin1_gain0_20240706-010203_-10.0C_0099.fit";
+      previousFile.parentPath = "input/bar";
+      const previousFileSpecs = getFileImageSpecFromFilename(
+        previousFile,
+        projectDirectory,
+        null,
+      );
+
+      expect(previousFileSpecs.sequencePosition).toBe(99);
+      expect(previousFileSpecs.sequenceId).toBe("20240706-010203");
+
+      const specs = getFileImageSpecFromFilename(
+        file,
+        projectDirectory,
+        previousFileSpecs,
+      );
+
+      expect(specs).toMatchSnapshot();
+      expect(specs.sequencePosition).toBe(2);
+      expect(specs.sequenceId).toBe("20240707-002348");
+    });
   });
 
   it.each([
