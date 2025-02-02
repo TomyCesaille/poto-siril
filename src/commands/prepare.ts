@@ -60,6 +60,17 @@ const prepare = async ({
 
   logger.info(`Found ${inputFiles.length} .fit files in input directories 🌋.`);
   logger.info(`Including ${allLights.length} lights 🌟.`);
+  logger.space();
+  logger.info("Light sequences:");
+  logger.info(
+    `${[
+      ...new Set(
+        allLights.map(light => `${light.setName} ${light.sequenceId}`),
+      ),
+    ]
+      .map(x => `- ${x}`)
+      .join("\n")}`,
+  );
 
   logger.step("Matching lights and flats (early stage)");
 
