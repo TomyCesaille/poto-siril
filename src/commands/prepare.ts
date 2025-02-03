@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import Enquirer from "enquirer";
 
@@ -60,6 +60,19 @@ const prepare = async ({
 
   logger.info(`Found ${inputFiles.length} .fit files in input directories 🌋.`);
   logger.info(`Including ${allLights.length} lights 🌟.`);
+  logger.space();
+  logger.info("Light sequences:");
+  logger.info(
+    `${[
+      ...new Set(
+        allLights
+          .sort((a, b) => a.datetime.getTime() - b.datetime.getTime())
+          .map(light => `${light.setName} ${light.sequenceId}`),
+      ),
+    ]
+      .map(x => `- ${x}`)
+      .join("\n")}`,
+  );
 
   logger.step("Matching lights and flats (early stage)");
 
@@ -356,29 +369,6 @@ const matchLightsToFlats = async (
       continue;
     }
 
-    if (introManualMatchingDisplayed) {
-      logger.space();
-    }
-
-    logger.info(
-      `🤚 Several sequences of flats are compatible with ${
-        flatSetSpecs.filter
-          ? `${flatSetSpecs.bin} Filter ${flatSetSpecs.filter}`
-          : flatSetSpecs.bin
-      }:`,
-    );
-    if (!introManualMatchingDisplayed) {
-      logger.info(`${flatSetNameSequenceIds.map(x => `- ${x}`).join("\n")}`);
-
-      logger.debug(
-        "We assume that multiple sequences of the same flat kind indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
-      );
-      logger.debug(
-        "We will ask you to tag each concerned light sequence to the right flat sequence (this disclaimer won't be displayed again 🤓).",
-      );
-      introManualMatchingDisplayed = true;
-    }
-
     const lightsConcerned = [
       ...new Set(
         lights
@@ -395,6 +385,40 @@ const matchLightsToFlats = async (
           .map(light => `${light.setName}__${light.sequenceId}`),
       ),
     ];
+
+    const allAlreadyMatched =
+      lightsConcerned.filter(lightConcerned =>
+        LightFlatMatches.map(
+          x => `${x.lightSetName}__${x.lightSequenceId}`,
+        ).includes(lightConcerned),
+      ).length === lightsConcerned.length;
+    // To avoid re-asking for a light sequence that has already been matched.
+    if (allAlreadyMatched) {
+      continue;
+    }
+
+    if (introManualMatchingDisplayed) {
+      logger.space();
+    }
+
+    logger.info(
+      `🤚 Several sequences of flats are compatible with ${
+        flatSetSpecs.filter
+          ? `${flatSetSpecs.bin} Filter ${flatSetSpecs.filter}`
+          : flatSetSpecs.bin
+      }:`,
+    );
+    logger.info(`${flatSetNameSequenceIds.map(x => `- ${x}`).join("\n")}`);
+
+    if (!introManualMatchingDisplayed) {
+      logger.debug(
+        "We assume that multiple sequences of the same flat kind indicate multiple night sessions where the flats had to be re-shot in between (e.g., a significant date gap between shooting sessions and the lights were not collected with the same collimation and/or same dust in the optical train).",
+      );
+      logger.debug(
+        "We will ask you to tag each concerned light sequence to the right flat sequence (this disclaimer won't be displayed again 🤓).",
+      );
+      introManualMatchingDisplayed = true;
+    }
 
     for (const lightConcerned of lightsConcerned) {
       if (

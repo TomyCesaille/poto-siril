@@ -10,9 +10,9 @@
   "scripts": {
     "lint": "eslint .",
     "check-types": "tsc",
-    "test": "TZ=UTC node --experimental-vm-modules node_modules/.bin/jest --coverage src",
+    "test": "rm -rf dist && TZ=UTC node --experimental-vm-modules node_modules/.bin/jest --coverage src",
     "test-cli": "./poto.sh --version",
-    "dev-test": "TZ=UTC node --experimental-vm-modules node_modules/.bin/jest --coverage --watch src",
+    "dev-test": "rm -rf dist && TZ=UTC node --experimental-vm-modules node_modules/.bin/jest --coverage --watch src",
     "dev-spawn-ds1": "tsx ./scripts/dev-spawn-ds1.ts",
     "dev-prepare-ds1": "npm run dev-spawn-ds1 && TZ=UTC ./poto.sh prepare -i tmp/asiair-dump-1 -i tmp/bank tmp/project",
     "dev-preprocess-ds1": "TZ=UTC ./poto.sh preprocess -t src/pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf tmp/project",
@@ -48,16 +48,18 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.18.2",
+    "tsc-alias": "^1.8.3",
     "tsx": "^4.19.2",
-    "tsc-alias": "^1.8.3"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2"
   },
   "dependencies": {
+    "@types/fs-extra": "^11.0.4",
     "ansi-escapes": "^7.0.0",
     "chalk": "^5.4.1",
     "commander": "^12.1.0",
     "enquirer": "^2.4.1",
-    "execa": "^9.5.2"
+    "execa": "^9.5.2",
+    "fs-extra": "^11.3.0"
   }
 }

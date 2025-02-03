@@ -3,7 +3,7 @@
 // Files ending with _thn.jpg are considered thumbnails.
 // Works recursively from the specified directory or current directory if none is specified.
 
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 
 import { logger } from "../utils/logger";

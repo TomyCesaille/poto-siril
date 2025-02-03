@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import { logger } from "../utils/logger";
 import { imageType } from "../utils/types";
 
@@ -21,9 +21,7 @@ const spawnMockedDatasetToFs = (
   bankDirectory: string;
   projectDirectory: string;
 } => {
-  if (fs.existsSync(tmpDir)) {
-    fs.rmSync(tmpDir, { recursive: true });
-  }
+  fs.removeSync(tmpDir);
 
   dataset.forEach(file => {
     const filePath = path.join(tmpDir, file);
@@ -72,9 +70,9 @@ const dataset_1 = [
   "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
 
   // Lights sequence B (60.0s_Bin1_H_gain0).
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit", // Not starting at 0001.
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit", // Missing 0003.
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
 
   // Lights sequence C (120.0s_Bin1_S_gain0).
   "asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
@@ -100,7 +98,7 @@ const dataset_1 = [
 
   // Flats not matching anything.
   "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin2_S_gain100_20240511-094304_-10.5C_0001.fit", // Another bin.
-  "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0002.fit", // Another Filter.
+  "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0001.fit", // Another Filter.
 
   // Darks matching light sequence A. Not same filter but filter is irrelevant for darks.
   "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",

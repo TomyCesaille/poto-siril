@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 
 import { ImageSpec, FileImageSpec } from "./types";
 import { logger } from "./logger";
@@ -92,16 +92,6 @@ export const getFileImageSpecFromFilename = (
     const datetime = parseDate(match.groups.datetime);
     const temperature = parseFloat(match.groups.temperature);
 
-    let sequenceId = "";
-    if (!previousFile) {
-      sequenceId = unParseDate(datetime);
-    } else {
-      sequenceId =
-        sequencePosition === 1
-          ? unParseDate(datetime)
-          : previousFile.sequenceId;
-    }
-
     const file = {
       setName: "",
 
@@ -112,7 +102,7 @@ export const getFileImageSpecFromFilename = (
       filter: match.groups.filter?.replaceAll(" ", "").trim() ?? null,
       gain: parseInt(match.groups.gain, 10),
 
-      sequenceId,
+      sequenceId: "", // To be determined later. Referenced here early to have serialization printing fields in this order.
       sequencePosition,
       datetime,
       temperature,
@@ -125,6 +115,17 @@ export const getFileImageSpecFromFilename = (
     } as FileImageSpec;
 
     file.setName = getSetName(file);
+
+    if (!previousFile) {
+      file.sequenceId = unParseDate(datetime);
+    } else {
+      // Is considered part of the same sequence if the previous file is of the same type and the sequence position is bigger (not only by 1 to allow sequences with holes in it.).
+      file.sequenceId =
+        previousFile.setName === file.setName &&
+        previousFile.sequencePosition < sequencePosition
+          ? previousFile.sequenceId
+          : unParseDate(datetime);
+    }
 
     if (["Light", "Flat"].includes(file.type)) {
       const directory = file.setName;

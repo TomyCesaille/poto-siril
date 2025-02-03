@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals"; // Import Jest globals
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import Enquirer from "enquirer";
 
 import prepare, {
@@ -74,16 +74,12 @@ describe("E2E", () => {
   afterEach(() => {
     jest.restoreAllMocks();
 
-    if (fs.existsSync(projectDirectory)) {
-      fs.rmSync(projectDirectory, { recursive: true });
-    }
+    fs.removeSync(projectDirectory);
   });
 
   afterAll(() => {
     // To ease debugging.
-    if (fs.existsSync(projectDirectory)) {
-      fs.rmSync(projectDirectory, { recursive: true });
-    }
+    fs.removeSync(projectDirectory);
     spawnMockedDatasetToFs_dataset_1();
   });
 
@@ -173,9 +169,9 @@ describe("E2E", () => {
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
@@ -248,13 +244,9 @@ describe("E2E", () => {
   describe("reading an input directory, asking plan/autorun question", () => {
     it("should errorthrow if no files", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
-      if (fs.existsSync(autorunDirectory)) {
-        fs.rmSync(autorunDirectory, { recursive: true });
-      }
+      fs.removeSync(autorunDirectory);
       const planDirectory = `${asiAirDirectory}/Plan`;
-      if (fs.existsSync(planDirectory)) {
-        fs.rmSync(planDirectory, { recursive: true });
-      }
+      fs.removeSync(planDirectory);
 
       promptMock.mockResolvedValueOnce({
         createProjectDirectory: true,
@@ -270,13 +262,11 @@ describe("E2E", () => {
 
     it("should errorthrow if no files (ASIAIR version)", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
-      if (fs.existsSync(autorunDirectory)) {
-        fs.rmSync(autorunDirectory, { recursive: true });
-      }
+      fs.removeSync(autorunDirectory);
+
       const planDirectory = `${asiAirDirectory}/Plan`;
-      if (fs.existsSync(planDirectory)) {
-        fs.rmSync(planDirectory, { recursive: true });
-      }
+      fs.removeSync(planDirectory);
+
       fs.mkdirSync(planDirectory);
 
       promptMock.mockResolvedValueOnce({
@@ -292,9 +282,7 @@ describe("E2E", () => {
     });
 
     it("should errorthrow if directory does not exists", async () => {
-      if (fs.existsSync(asiAirDirectory)) {
-        fs.rmSync(asiAirDirectory, { recursive: true });
-      }
+      fs.removeSync(asiAirDirectory);
 
       promptMock.mockResolvedValueOnce({
         createProjectDirectory: true,
@@ -310,9 +298,7 @@ describe("E2E", () => {
 
     it("should auto pick Autorun files", async () => {
       const planDirectory = `${asiAirDirectory}/Plan`;
-      if (fs.existsSync(planDirectory)) {
-        fs.rmSync(planDirectory, { recursive: true });
-      }
+      fs.removeSync(planDirectory);
 
       promptMock
         .mockResolvedValueOnce({
@@ -346,15 +332,13 @@ describe("E2E", () => {
       });
 
       expect(files).toContain(
-        "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+        "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit",
       );
     });
 
     it("should auto pick Plan files", async () => {
       const autorunDirectory = `${asiAirDirectory}/Autorun`;
-      if (fs.existsSync(autorunDirectory)) {
-        fs.rmSync(autorunDirectory, { recursive: true });
-      }
+      fs.removeSync(autorunDirectory);
 
       promptMock
         .mockResolvedValueOnce({
@@ -497,9 +481,9 @@ describe("E2E", () => {
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit",
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
   "H/Flat_1.0ms_Bin1_H_gain100/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
-  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit",
+  "H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094305_-10.0C_0002.fit",
   "S/Flat_1.0ms_Bin1_S_gain100/Flat_1.0ms_Bin1_S_gain100_20240624-094306_-10.5C_0003.fit",
@@ -662,13 +646,9 @@ describe("E2E", () => {
 
     beforeEach(() => {
       const planDirectory = `${asiAirDirectory}/Plan`;
-      if (fs.existsSync(planDirectory)) {
-        fs.rmSync(planDirectory, { recursive: true });
-      }
+      fs.removeSync(planDirectory);
       const FlatDirectory = `${asiAirDirectory}/Autorun/Flat`;
-      if (fs.existsSync(FlatDirectory)) {
-        fs.rmSync(FlatDirectory, { recursive: true });
-      }
+      fs.removeSync(FlatDirectory);
     });
 
     it("should ask to create project directory because the dir does not exist", async () => {

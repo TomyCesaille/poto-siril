@@ -35,15 +35,15 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
           "filter": "H",
           "gain": 0,
           "sequenceId": "20240625-010850",
-          "sequencePosition": 1,
+          "sequencePosition": 2,
           "datetime": "2024-06-25T01:08:50.000Z",
           "temperature": -10.1,
-          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit",
           "extension": "fit",
           "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit",
           "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
-          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit"
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -54,15 +54,15 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
           "filter": "H",
           "gain": 0,
           "sequenceId": "20240625-010850",
-          "sequencePosition": 2,
+          "sequencePosition": 4,
           "datetime": "2024-06-25T01:08:51.000Z",
           "temperature": -10.1,
-          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit",
           "extension": "fit",
           "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit",
           "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
-          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit"
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -73,15 +73,15 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
           "filter": "H",
           "gain": 0,
           "sequenceId": "20240625-010850",
-          "sequencePosition": 3,
+          "sequencePosition": 5,
           "datetime": "2024-06-25T01:08:52.000Z",
           "temperature": -10.1,
-          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
           "extension": "fit",
           "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
           "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
-          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit"
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_H_gain100",
@@ -575,8 +575,14 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
   "info: Found 21 FITS in input dir tmp/asiair-dump-1.",
   "info: Found 21 .fit files in input directories 🌋.",
   "info: Including 10 lights 🌟.",
+  "space: ",
+  "info: Light sequences:",
+  "info: - Light_60.0s_Bin1_S_gain100 20240624-010840
+- Light_60.0s_Bin1_H_gain0 20240625-010850
+- Light_120.0s_Bin1_S_gain0 20240626-010853
+- Light_60.0s_Bin1_S_gain100 20240627-010820",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
+  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
   "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
   "step: Matching lights and flats (final stage)",
@@ -693,9 +699,9 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
   }
 ]",
   "step: Dispatching",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit imported.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit imported.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit imported.",
   "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit imported.",
   "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit imported.",
   "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit imported.",
@@ -754,15 +760,15 @@ exports[`E2E should be neat 2`] = `
           "filter": "H",
           "gain": 0,
           "sequenceId": "20240625-010850",
-          "sequencePosition": 1,
+          "sequencePosition": 2,
           "datetime": "2024-06-25T01:08:50.000Z",
           "temperature": -10.1,
-          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit",
           "extension": "fit",
           "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit",
           "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
-          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit"
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -773,15 +779,15 @@ exports[`E2E should be neat 2`] = `
           "filter": "H",
           "gain": 0,
           "sequenceId": "20240625-010850",
-          "sequencePosition": 2,
+          "sequencePosition": 4,
           "datetime": "2024-06-25T01:08:51.000Z",
           "temperature": -10.1,
-          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit",
           "extension": "fit",
           "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit",
           "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
-          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit"
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit"
         },
         {
           "setName": "Light_60.0s_Bin1_H_gain0",
@@ -792,15 +798,15 @@ exports[`E2E should be neat 2`] = `
           "filter": "H",
           "gain": 0,
           "sequenceId": "20240625-010850",
-          "sequencePosition": 3,
+          "sequencePosition": 5,
           "datetime": "2024-06-25T01:08:52.000Z",
           "temperature": -10.1,
-          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+          "fileName": "Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
           "extension": "fit",
           "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
-          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
           "projectFileDirectory": "tmp/project/H/Light_60.0s_Bin1_H_gain0",
-          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit"
+          "projectFilePath": "tmp/project/H/Light_60.0s_Bin1_H_gain0/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit"
         }
       ],
       "flatSet": "Flat_1.0ms_Bin1_H_gain100",
@@ -2038,8 +2044,14 @@ exports[`E2E should be neat 8`] = `
   "info: Found 17 FITS in input dir tmp/bank.",
   "info: Found 38 .fit files in input directories 🌋.",
   "info: Including 10 lights 🌟.",
+  "space: ",
+  "info: Light sequences:",
+  "info: - Light_60.0s_Bin1_S_gain100 20240624-010840
+- Light_60.0s_Bin1_H_gain0 20240625-010850
+- Light_120.0s_Bin1_S_gain0 20240626-010853
+- Light_60.0s_Bin1_S_gain100 20240627-010820",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
+  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
   "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
   "step: Matching lights and flats (final stage)",
@@ -2148,9 +2160,9 @@ exports[`E2E should be neat 8`] = `
   }
 ]",
   "step: Dispatching",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit imported.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit imported.",
-  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit imported.",
   "debug: - Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit imported.",
   "debug: - Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit imported.",
   "debug: - Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit imported.",
