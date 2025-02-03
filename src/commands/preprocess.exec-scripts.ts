@@ -29,9 +29,7 @@ export const runScripts = async (
   for (const script of scripts) {
     logger.info(`Running script ${script}`);
 
-    const scriptRelativeToCwD = path.relative(cwd, script);
-
-    const child = execa("siril", ["-s", scriptRelativeToCwD], {
+    const child = execa("siril", ["-s", script], {
       cwd,
     });
 
