@@ -65,7 +65,9 @@ const prepare = async ({
   logger.info(
     `${[
       ...new Set(
-        allLights.map(light => `${light.setName} ${light.sequenceId}`),
+        allLights
+          .sort((a, b) => a.datetime.getTime() - b.datetime.getTime())
+          .map(light => `${light.setName} ${light.sequenceId}`),
       ),
     ]
       .map(x => `- ${x}`)
