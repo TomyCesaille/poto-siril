@@ -392,7 +392,7 @@ const matchLightsToFlats = async (
           x => `${x.lightSetName}__${x.lightSequenceId}`,
         ).includes(lightConcerned),
       ).length === lightsConcerned.length;
-
+    // To avoid re-asking for a light sequence that has already been matched.
     if (allAlreadyMatched) {
       continue;
     }

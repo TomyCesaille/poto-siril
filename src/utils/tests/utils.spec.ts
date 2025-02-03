@@ -96,7 +96,7 @@ describe("utils", () => {
 
       const file = new fs.Dirent();
       file.name =
-        "Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0003.fit"; // Samw light set, but missing 0002.
+        "Light_LDN 1093_120.0s_Bin1_gain100_20240707-002348_-10.0C_0003.fit"; // Same light set, but missing 0002.
       file.parentPath = "input/bar";
 
       const previousFile = new fs.Dirent();
