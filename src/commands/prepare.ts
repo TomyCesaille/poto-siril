@@ -66,7 +66,7 @@ const prepare = async ({
     `${[
       ...new Set(
         allLights
-          .sort((a, b) => a.datetime.getTime() - b.datetime.getTime())
+          .sort((a, b) => a.sequenceId.localeCompare(b.sequenceId))
           .map(light => `${light.setName} ${light.sequenceId}`),
       ),
     ]
@@ -336,6 +336,7 @@ const matchLightsToFlats = async (
               flat.bin === flatSetSpecs.bin &&
               flat.filter === flatSetSpecs.filter,
           )
+          .sort((a, b) => a.sequenceId.localeCompare(b.sequenceId))
           .map(flat => `${flat.setName}__${flat.sequenceId}`),
       ),
     ];
