@@ -102,6 +102,7 @@ export const getFileImageSpecFromFilename = (
       filter: match.groups.filter?.replaceAll(" ", "").trim() ?? null,
       gain: parseInt(match.groups.gain, 10),
 
+      sequenceId: "", // To be determined later. Referenced here early to have serialization printing fields in this order.
       sequencePosition,
       datetime,
       temperature,
@@ -118,8 +119,10 @@ export const getFileImageSpecFromFilename = (
     if (!previousFile) {
       file.sequenceId = unParseDate(datetime);
     } else {
+      // Is considered part of the same sequence if the previous file is of the same type and the sequence position is bigger (not only by 1 to allow sequences with holes in it.).
       file.sequenceId =
-        previousFile.setName === file.setName
+        previousFile.setName === file.setName &&
+        previousFile.sequencePosition < sequencePosition
           ? previousFile.sequenceId
           : unParseDate(datetime);
     }

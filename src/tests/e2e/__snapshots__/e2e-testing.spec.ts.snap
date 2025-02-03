@@ -582,7 +582,7 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
 - Light_60.0s_Bin1_S_gain100 20240624-010840
 - Light_60.0s_Bin1_S_gain100 20240627-010820",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
+  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
   "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
   "step: Matching lights and flats (final stage)",
@@ -2051,7 +2051,7 @@ exports[`E2E should be neat 8`] = `
 - Light_60.0s_Bin1_S_gain100 20240624-010840
 - Light_60.0s_Bin1_S_gain100 20240627-010820",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094306). Skipping.",
+  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
   "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
   "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
   "step: Matching lights and flats (final stage)",

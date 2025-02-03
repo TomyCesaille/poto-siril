@@ -98,7 +98,7 @@ const dataset_1 = [
 
   // Flats not matching anything.
   "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin2_S_gain100_20240511-094304_-10.5C_0001.fit", // Another bin.
-  "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0002.fit", // Another Filter.
+  "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_O_gain100_20240511-094305_-10.0C_0001.fit", // Another Filter.
 
   // Darks matching light sequence A. Not same filter but filter is irrelevant for darks.
   "bank/Darks/Dark_60.0s_Bin1_L_gain100_20240308-155722_-10.0C_0001.fit",
