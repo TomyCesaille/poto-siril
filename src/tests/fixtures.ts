@@ -70,9 +70,9 @@ const dataset_1 = [
   "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
 
   // Lights sequence B (60.0s_Bin1_H_gain0).
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0001.fit",
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0002.fit",
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0003.fit",
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010850_-10.1C_0002.fit", // Not starting at 0001.
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010851_-10.1C_0004.fit", // Missing 0003.
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_H_gain0_20240625-010852_-10.1C_0005.fit",
 
   // Lights sequence C (120.0s_Bin1_S_gain0).
   "asiair-dump-1/Autorun/Light/FOV/Light_FOV_120.0s_Bin1_S_gain0_20240626-010853_-10.1C_0001.fit",
