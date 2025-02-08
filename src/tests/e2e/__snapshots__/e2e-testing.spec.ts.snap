@@ -5,11 +5,11 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
   "generatedAt": "2024-10-15T00:00:00.000Z",
   "potoVersion": "poto-siril 0.7.1",
   "metrics": {
-    "cumulatedLightIntegrationMinutes": 12,
+    "cumulatedLightIntegrationMinutes": 14,
     "cumulatedDarksIntegrationMinutes": 0,
-    "totalLights": 10,
+    "totalLights": 12,
     "totalDarks": 0,
-    "totalFlats": 12,
+    "totalFlats": 13,
     "totalBiases": 0
   },
   "layerSets": [
@@ -538,6 +538,90 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
       "biasSet": "No biases matched",
       "biasesCount": 0,
       "biases": []
+    },
+    {
+      "layerSetId": "Light_60.0s_Bin1_gain0",
+      "filter": null,
+      "lightSequences": [
+        {
+          "sequenceId": "20240629-010840",
+          "count": 2,
+          "integrationMinutes": 2
+        }
+      ],
+      "lightTotalCount": 2,
+      "lightTotalIntegrationMinutes": 2,
+      "lights": [
+        {
+          "setName": "Light_60.0s_Bin1_gain0",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240629-010840",
+          "sequencePosition": 1,
+          "datetime": "2024-06-29T01:08:40.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit",
+          "projectFileDirectory": "tmp/project/Light_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_gain0",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240629-010840",
+          "sequencePosition": 2,
+          "datetime": "2024-06-29T01:08:41.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit",
+          "projectFileDirectory": "tmp/project/Light_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit"
+        }
+      ],
+      "flatSet": "Flat_1.0ms_Bin1_gain0",
+      "flatSequenceId": "20240512-094309",
+      "flatsCount": 1,
+      "flats": [
+        {
+          "setName": "Flat_1.0ms_Bin1_gain0",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240512-094309",
+          "sequencePosition": 1,
+          "datetime": "2024-05-12T09:43:09.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit",
+          "projectFileDirectory": "tmp/project/Flat_1.0ms_Bin1_gain0",
+          "projectFilePath": "tmp/project/Flat_1.0ms_Bin1_gain0/Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit"
+        }
+      ],
+      "darkSet": "No darks matched",
+      "darksCount": 0,
+      "darkTotalIntegrationMinutes": 0,
+      "darks": [],
+      "biasSet": "No biases matched",
+      "biasesCount": 0,
+      "biases": []
     }
   ]
 }"
@@ -572,19 +656,23 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
     ]
   }
 ]",
-  "info: Found 21 FITS in input dir tmp/asiair-dump-1.",
-  "info: Found 21 .fit files in input directories 🌋.",
-  "info: Including 10 lights 🌟.",
+  "info: Found 26 FITS in input dir tmp/asiair-dump-1.",
+  "info: Found 26 .fit files in input directories 🌋.",
+  "info: Including 14 lights 🌟.",
   "space: ",
   "info: Light sequences:",
   "info: - Light_60.0s_Bin1_S_gain100 20240624-010840
 - Light_60.0s_Bin1_H_gain0 20240625-010850
 - Light_120.0s_Bin1_S_gain0 20240626-010853
-- Light_60.0s_Bin1_S_gain100 20240627-010820",
+- Light_60.0s_Bin1_S_gain100 20240627-010820
+- Light_60.0s_Bin2_gain100 20240628-010830
+- Light_60.0s_Bin1_gain0 20240629-010840",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
-  "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
-  "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
+  "warning: No matching lights for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). The flat sequence won't be used.",
+  "warning: No matching lights for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). The flat sequence won't be used.",
+  "info: Pre-selected 10 flats (4 sequences) that matches with 14 lights (4 sequences).",
+  "warning: No matching flats for Light_60.0s_Bin2_gain100 (seq 20240628-010830). The light sequence won't be used.",
+  "info: Pre-selected 12 lights (5 sequences) that matches with 12 flats (5 sequences).",
   "step: Matching lights and flats (final stage)",
   "info: 🤚 Several sequences of flats are compatible with Bin1 Filter S:",
   "info: - Flat_1.0ms_Bin1_S_gain100__20240624-094304
@@ -651,6 +739,7 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
   "debug: - Light_60.0s_Bin1_S_gain100 20240624-010840 🏹 Flat_1.0ms_Bin1_S_gain100 20240624-094304",
   "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
+  "debug: - Light_60.0s_Bin1_gain0 20240629-010840 🏹 Flat_1.0ms_Bin1_gain0 20240512-094309",
   "step: Tagging darks and biases",
   "info: Found 0 darks+baises files (without temperature filtering).",
   "prompt: [
@@ -669,26 +758,31 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
   "error: No biases found for Flat_1.0ms_Bin1_S_gain100.",
   "error: No darks matching light set Light_60.0s_Bin1_S_gain100 (regardless of temperature filtering).",
   "error: No biases found for Flat_1.0ms_Bin1_S_gain100.",
+  "error: No darks matching light set Light_60.0s_Bin1_gain0 (regardless of temperature filtering).",
+  "error: No biases found for Flat_1.0ms_Bin1_gain0.",
   "space: ",
   "info: 👉 Light - Dark matching summary:",
   "debug: - Light_60.0s_Bin1_H_gain0 20240625-010850 🏹 No darks matched (0 files / 0 minutes)",
   "debug: - Light_60.0s_Bin1_S_gain100__20240624-010840 🏹 No darks matched (0 files / 0 minutes)",
   "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 🏹 No darks matched (0 files / 0 minutes)",
   "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 🏹 No darks matched (0 files / 0 minutes)",
+  "debug: - Light_60.0s_Bin1_gain0 20240629-010840 🏹 No darks matched (0 files / 0 minutes)",
   "info: 👉 Flat - Bias matching summary:",
   "debug: - Flat_1.0ms_Bin1_H_gain100 20240511-094306 🏹 No biases matched (0 files)",
   "debug: - Flat_1.0ms_Bin1_S_gain100 20240624-094304 🏹 No biases matched (0 files)",
   "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 No biases matched (0 files)",
   "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 No biases matched (0 files)",
+  "debug: - Flat_1.0ms_Bin1_gain0 20240512-094309 🏹 No biases matched (0 files)",
   "step: Preview before dispatching",
-  "info: 🔭 Cumulated light integration: 12 minutes.",
-  "info: 📦 Project size: 10 lights, 0 darks, 12 flats, 0 biases.",
+  "info: 🔭 Cumulated light integration: 14 minutes.",
+  "info: 📦 Project size: 12 lights, 0 darks, 13 flats, 0 biases.",
   "space: ",
   "info: 🌌 Layer sets:",
   "warning: - Light_60.0s_Bin1_H_gain0 has 3 lights, 0 darks, 3 flats, 0 biases.",
   "warning: - Light_60.0s_Bin1_S_gain100__20240624-010840 has 3 lights, 0 darks, 3 flats, 0 biases.",
   "warning: - Light_120.0s_Bin1_S_gain0__20240626-010853 has 2 lights, 0 darks, 3 flats, 0 biases.",
   "warning: - Light_60.0s_Bin1_S_gain100__20240627-010820 has 2 lights, 0 darks, 3 flats, 0 biases.",
+  "warning: - Light_60.0s_Bin1_gain0 has 2 lights, 0 darks, 1 flats, 0 biases.",
   "space: ",
   "prompt: [
   {
@@ -721,6 +815,9 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
   "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094304_-10.5C_0001.fit already imported.",
   "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094305_-10.0C_0002.fit already imported.",
   "debug: - Flat_1.0ms_Bin1_S_gain100_20240626-094306_-10.5C_0003.fit already imported.",
+  "debug: - Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit imported.",
+  "debug: - Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit imported.",
   "success: Dispatch complete.",
 ]
 `;
@@ -730,12 +827,12 @@ exports[`E2E should be neat 2`] = `
   "generatedAt": "2024-10-15T00:00:00.000Z",
   "potoVersion": "poto-siril 0.7.1",
   "metrics": {
-    "cumulatedLightIntegrationMinutes": 12,
-    "cumulatedDarksIntegrationMinutes": 14,
-    "totalLights": 10,
-    "totalDarks": 12,
-    "totalFlats": 12,
-    "totalBiases": 12
+    "cumulatedLightIntegrationMinutes": 14,
+    "cumulatedDarksIntegrationMinutes": 16,
+    "totalLights": 12,
+    "totalDarks": 14,
+    "totalFlats": 13,
+    "totalBiases": 13
   },
   "layerSets": [
     {
@@ -1727,12 +1824,223 @@ exports[`E2E should be neat 2`] = `
           "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit"
         }
       ]
+    },
+    {
+      "layerSetId": "Light_60.0s_Bin1_gain0",
+      "filter": null,
+      "lightSequences": [
+        {
+          "sequenceId": "20240629-010840",
+          "count": 2,
+          "integrationMinutes": 2
+        }
+      ],
+      "lightTotalCount": 2,
+      "lightTotalIntegrationMinutes": 2,
+      "lights": [
+        {
+          "setName": "Light_60.0s_Bin1_gain0",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240629-010840",
+          "sequencePosition": 1,
+          "datetime": "2024-06-29T01:08:40.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit",
+          "projectFileDirectory": "tmp/project/Light_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit"
+        },
+        {
+          "setName": "Light_60.0s_Bin1_gain0",
+          "type": "Light",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240629-010840",
+          "sequencePosition": 2,
+          "datetime": "2024-06-29T01:08:41.000Z",
+          "temperature": -10.1,
+          "fileName": "Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Light/FOV",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit",
+          "projectFileDirectory": "tmp/project/Light_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit"
+        }
+      ],
+      "flatSet": "Flat_1.0ms_Bin1_gain0",
+      "flatSequenceId": "20240512-094309",
+      "flatsCount": 1,
+      "flats": [
+        {
+          "setName": "Flat_1.0ms_Bin1_gain0",
+          "type": "Flat",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240512-094309",
+          "sequencePosition": 1,
+          "datetime": "2024-05-12T09:43:09.000Z",
+          "temperature": -10.5,
+          "fileName": "Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/asiair-dump-1/Autorun/Flat",
+          "sourceFilePath": "tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit",
+          "projectFileDirectory": "tmp/project/Flat_1.0ms_Bin1_gain0",
+          "projectFilePath": "tmp/project/Flat_1.0ms_Bin1_gain0/Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit"
+        }
+      ],
+      "darkSet": "Dark_60.0s_Bin1_gain0",
+      "darksCount": 2,
+      "darkTotalIntegrationMinutes": 2,
+      "darks": [
+        {
+          "setName": "Dark_60.0s_Bin1_gain0",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 1,
+          "datetime": "2024-03-08T15:57:22.000Z",
+          "temperature": -10,
+          "fileName": "Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain0/Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit"
+        },
+        {
+          "setName": "Dark_60.0s_Bin1_gain0",
+          "type": "Dark",
+          "bulb": "60.0s",
+          "bulbMs": 60000,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20240308-155722",
+          "sequencePosition": 2,
+          "datetime": "2024-03-08T15:57:23.000Z",
+          "temperature": -10,
+          "fileName": "Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/bank/Darks",
+          "sourceFilePath": "tmp/bank/Darks/Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit",
+          "projectFileDirectory": "tmp/project/any/Dark_60.0s_Bin1_gain0",
+          "projectFilePath": "tmp/project/any/Dark_60.0s_Bin1_gain0/Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit"
+        }
+      ],
+      "biasSet": "Bias_1.0ms_Bin1_gain0",
+      "biasesCount": 1,
+      "biases": [
+        {
+          "setName": "Bias_1.0ms_Bin1_gain0",
+          "type": "Bias",
+          "bulb": "1.0ms",
+          "bulbMs": 1,
+          "bin": "Bin1",
+          "filter": null,
+          "gain": 0,
+          "sequenceId": "20230910-101141",
+          "sequencePosition": 1,
+          "datetime": "2023-09-10T10:11:41.000Z",
+          "temperature": -9.8,
+          "fileName": "Bias_1.0ms_Bin1_gain0_20230910-101141_-9.8C_0001.fit",
+          "extension": "fit",
+          "sourceFileDirectory": "tmp/bank/Bias",
+          "sourceFilePath": "tmp/bank/Bias/Bias_1.0ms_Bin1_gain0_20230910-101141_-9.8C_0001.fit",
+          "projectFileDirectory": "tmp/project/any/Bias_1.0ms_Bin1_gain0",
+          "projectFilePath": "tmp/project/any/Bias_1.0ms_Bin1_gain0/Bias_1.0ms_Bin1_gain0_20230910-101141_-9.8C_0001.fit"
+        }
+      ]
     }
   ]
 }"
 `;
 
 exports[`E2E should be neat 4`] = `
+"#############################################
+#             _                  _      _ _ #
+# _ __   ___ | |_ ___        ___(_)_ __(_) |#
+#| '_ \\ / _ \\| __/ _ \\ _____/ __| | '__| | |#
+#| |_) | (_) | || (_) |_____\\__ \\ | |  | | |#
+#| .__/ \\___/ \\__\\___/      |___/_|_|  |_|_|#
+#|_|                                        #
+#############################################
+# Adapted from the Cyril Richard Mono_Preprocessing v1.3 for poto-siril.
+
+############################################
+# 
+# Variables:
+#   poto-dir: <ROOT>/tmp/project/
+#   biases: <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain0/
+#   flats: <ROOT>/tmp/project/Flat_1.0ms_Bin1_gain0/
+#   darks: <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain0/
+#   lights: <ROOT>/tmp/project/Light_60.0s_Bin1_gain0/
+#   process: <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process/
+#   masters: <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters/
+#
+############################################
+
+requires 1.2.0
+
+# Convert Bias Frames to .fit files
+cd <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain0
+convert bias -out=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+cd <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+
+# Stack Bias Frames to bias_stacked.fit
+stack bias rej 3 3 -nonorm -out=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters/bias_stacked
+
+# Convert Flat Frames to .fit files
+cd <ROOT>/tmp/project/Flat_1.0ms_Bin1_gain0
+convert flat -out=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+cd <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+
+# Calibrate Flat Frames
+calibrate flat -bias=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters/bias_stacked
+
+# Stack Flat Frames to pp_flat_stacked.fit
+stack pp_flat rej 3 3 -norm=mul -out=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters/pp_flat_stacked
+
+# Convert Dark Frames to .fit files
+cd <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain0
+convert dark -out=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+cd <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+
+# Stack Dark Frames to dark_stacked.fit
+stack dark rej 3 3 -nonorm -out=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters/dark_stacked
+
+# Convert Light Frames to .fit files
+cd <ROOT>/tmp/project/Light_60.0s_Bin1_gain0
+convert light -out=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+cd <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process
+
+# Calibrate Light Frames
+calibrate light -dark=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters/dark_stacked -flat=<ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters/pp_flat_stacked -cc=dark
+
+# Align Lights
+register pp_light
+
+close
+"
+`;
+
+exports[`E2E should be neat 5`] = `
 "#############################################
 #             _                  _      _ _ #
 # _ __   ___ | |_ ___        ___(_)_ __(_) |#
@@ -1800,7 +2108,7 @@ close
 "
 `;
 
-exports[`E2E should be neat 5`] = `
+exports[`E2E should be neat 6`] = `
 "#############################################
 #             _                  _      _ _ #
 # _ __   ___ | |_ ___        ___(_)_ __(_) |#
@@ -1868,7 +2176,7 @@ close
 "
 `;
 
-exports[`E2E should be neat 6`] = `
+exports[`E2E should be neat 7`] = `
 "#############################################
 #             _                  _      _ _ #
 # _ __   ___ | |_ ___        ___(_)_ __(_) |#
@@ -1936,7 +2244,7 @@ close
 "
 `;
 
-exports[`E2E should be neat 7`] = `
+exports[`E2E should be neat 8`] = `
 "#############################################
 #             _                  _      _ _ #
 # _ __   ___ | |_ ___        ___(_)_ __(_) |#
@@ -2004,7 +2312,7 @@ close
 "
 `;
 
-exports[`E2E should be neat 8`] = `
+exports[`E2E should be neat 9`] = `
 [
   "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001_thn.jpg",
   "debug: Deleted: tmp/asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002_thn.jpg",
@@ -2039,21 +2347,25 @@ exports[`E2E should be neat 8`] = `
     ]
   }
 ]",
-  "info: Found 21 FITS in input dir tmp/asiair-dump-1.",
+  "info: Found 26 FITS in input dir tmp/asiair-dump-1.",
   "debug: Reading input directory tmp/bank",
   "info: Found 17 FITS in input dir tmp/bank.",
-  "info: Found 38 .fit files in input directories 🌋.",
-  "info: Including 10 lights 🌟.",
+  "info: Found 43 .fit files in input directories 🌋.",
+  "info: Including 14 lights 🌟.",
   "space: ",
   "info: Light sequences:",
   "info: - Light_60.0s_Bin1_S_gain100 20240624-010840
 - Light_60.0s_Bin1_H_gain0 20240625-010850
 - Light_120.0s_Bin1_S_gain0 20240626-010853
-- Light_60.0s_Bin1_S_gain100 20240627-010820",
+- Light_60.0s_Bin1_S_gain100 20240627-010820
+- Light_60.0s_Bin2_gain100 20240628-010830
+- Light_60.0s_Bin1_gain0 20240629-010840",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
-  "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
-  "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
+  "warning: No matching lights for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). The flat sequence won't be used.",
+  "warning: No matching lights for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). The flat sequence won't be used.",
+  "info: Pre-selected 10 flats (4 sequences) that matches with 14 lights (4 sequences).",
+  "warning: No matching flats for Light_60.0s_Bin2_gain100 (seq 20240628-010830). The light sequence won't be used.",
+  "info: Pre-selected 12 lights (5 sequences) that matches with 12 flats (5 sequences).",
   "step: Matching lights and flats (final stage)",
   "info: 🤚 Several sequences of flats are compatible with Bin1 Filter S:",
   "info: - Flat_1.0ms_Bin1_S_gain100__20240624-094304
@@ -2120,6 +2432,7 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_60.0s_Bin1_S_gain100 20240624-010840 🏹 Flat_1.0ms_Bin1_S_gain100 20240624-094304",
   "debug: - Light_120.0s_Bin1_S_gain0 20240626-010853 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
   "debug: - Light_60.0s_Bin1_S_gain100 20240627-010820 🏹 Flat_1.0ms_Bin1_S_gain100 20240626-094304",
+  "debug: - Light_60.0s_Bin1_gain0 20240629-010840 🏹 Flat_1.0ms_Bin1_gain0 20240512-094309",
   "step: Tagging darks and biases",
   "info: Found 17 darks+baises files (without temperature filtering).",
   "prompt: [
@@ -2136,20 +2449,23 @@ exports[`E2E should be neat 8`] = `
   "debug: - Light_60.0s_Bin1_S_gain100__20240624-010840 🏹 Dark_60.0s_Bin1_L_gain100 (4 files / 4 minutes)",
   "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 🏹 Dark_120.0s_Bin1_L_gain0 (2 files / 4 minutes)",
   "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 🏹 Dark_60.0s_Bin1_L_gain100 (4 files / 4 minutes)",
+  "debug: - Light_60.0s_Bin1_gain0 20240629-010840 🏹 Dark_60.0s_Bin1_gain0 (2 files / 2 minutes)",
   "info: 👉 Flat - Bias matching summary:",
   "debug: - Flat_1.0ms_Bin1_H_gain100 20240511-094306 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
   "debug: - Flat_1.0ms_Bin1_S_gain100 20240624-094304 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
   "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
   "debug: - Flat_1.0ms_Bin1_S_gain100 20240626-094304 🏹 Bias_1.0ms_Bin1_gain100 (3 files)",
+  "debug: - Flat_1.0ms_Bin1_gain0 20240512-094309 🏹 Bias_1.0ms_Bin1_gain0 (1 files)",
   "step: Preview before dispatching",
-  "info: 🔭 Cumulated light integration: 12 minutes.",
-  "info: 📦 Project size: 10 lights, 12 darks, 12 flats, 12 biases.",
+  "info: 🔭 Cumulated light integration: 14 minutes.",
+  "info: 📦 Project size: 12 lights, 14 darks, 13 flats, 13 biases.",
   "space: ",
   "info: 🌌 Layer sets:",
   "debug: - Light_60.0s_Bin1_H_gain0 has 3 lights, 2 darks, 3 flats, 3 biases.",
   "debug: - Light_60.0s_Bin1_S_gain100__20240624-010840 has 3 lights, 4 darks, 3 flats, 3 biases.",
   "debug: - Light_120.0s_Bin1_S_gain0__20240626-010853 has 2 lights, 2 darks, 3 flats, 3 biases.",
   "debug: - Light_60.0s_Bin1_S_gain100__20240627-010820 has 2 lights, 4 darks, 3 flats, 3 biases.",
+  "debug: - Light_60.0s_Bin1_gain0 has 2 lights, 2 darks, 1 flats, 1 biases.",
   "space: ",
   "prompt: [
   {
@@ -2206,6 +2522,12 @@ exports[`E2E should be neat 8`] = `
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit already imported.",
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit already imported.",
   "debug: - Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit already imported.",
+  "debug: - Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit imported.",
+  "debug: - Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit imported.",
+  "debug: - Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit already imported.",
+  "debug: - Dark_60.0s_Bin1_gain0_20240308-155723_-10.0C_0002.fit already imported.",
+  "debug: - Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit imported.",
+  "debug: - Bias_1.0ms_Bin1_gain0_20230910-101141_-9.8C_0001.fit imported.",
   "success: Dispatch complete.",
   "info: Generated tmp/project/H/Light_60.0s_Bin1_H_gain0_process/_poto_Mono_Preprocessing.ssf",
   "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
@@ -2239,6 +2561,14 @@ exports[`E2E should be neat 8`] = `
   "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain100",
   "debug: - {{process}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_process",
   "debug: - {{masters}} 👉 <ROOT>/tmp/project/S/Light_60.0s_Bin1_S_gain100__20240627-010820_masters",
+  "info: Generated tmp/project/Light_60.0s_Bin1_gain0_process/_poto_Mono_Preprocessing.ssf",
+  "debug: - {{poto-dir}} 👉 <ROOT>/tmp/project",
+  "debug: - {{lights}} 👉 <ROOT>/tmp/project/Light_60.0s_Bin1_gain0",
+  "debug: - {{flats}} 👉 <ROOT>/tmp/project/Flat_1.0ms_Bin1_gain0",
+  "debug: - {{darks}} 👉 <ROOT>/tmp/project/any/Dark_60.0s_Bin1_gain0",
+  "debug: - {{biases}} 👉 <ROOT>/tmp/project/any/Bias_1.0ms_Bin1_gain0",
+  "debug: - {{process}} 👉 <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_process",
+  "debug: - {{masters}} 👉 <ROOT>/tmp/project/Light_60.0s_Bin1_gain0_masters",
   "success: Scripts were generated ✅.",
 ]
 `;
