@@ -127,7 +127,9 @@ export const getFileImageSpecFromFilename = (
           : unParseDate(datetime);
     }
 
-    if (["Light", "Flat"].includes(file.type)) {
+    if (file.type === "Light") {
+      file.projectFileDirectory = undefined; // To be determined later from layerSetId. Referenced here early to have serialization printing fields in this order.
+    } else if (file.type === "Flat") {
       const directory = file.setName;
 
       file.projectFileDirectory = file.filter
@@ -138,8 +140,14 @@ export const getFileImageSpecFromFilename = (
       file.projectFileDirectory = path.join(projectDirectory, "any", directory); // We ignore the filter for darks and biases.
     }
 
-    file.projectFilePath = path.join(file.projectFileDirectory, file.fileName);
-
+    if (file.type === "Light") {
+      file.projectFilePath = undefined; // To be determined later from layerSetId. Referenced here early to have serialization printing fields in this order.
+    } else {
+      file.projectFilePath = path.join(
+        file.projectFileDirectory,
+        file.fileName,
+      );
+    }
     return file;
   } else {
     throw new Error(

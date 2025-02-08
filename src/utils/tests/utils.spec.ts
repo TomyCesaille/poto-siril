@@ -12,10 +12,14 @@ import { FileImageSpec, ImageSpec } from "../types";
 
 describe("utils", () => {
   describe("getFileImageSpecFromFilename", () => {
-    it("should match snapshot (ASIAIR plan target format)", () => {
+    it.each([
+      "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit",
+      "Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit",
+      "Dark_60.0s_Bin1_gain0_20240308-155722_-10.0C_0001.fit",
+      "Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
+    ])("should match snapshot (ASIAIR plan target format)", fileName => {
       const file = new fs.Dirent();
-      file.name =
-        "Light_LDN 1093_120.0s_Bin1_H_gain100_20240707-002348_-10.0C_0001.fit";
+      file.name = fileName;
       file.parentPath = "input/bar";
       const projectDirectory = "project/bar";
       const previousFile = null;
