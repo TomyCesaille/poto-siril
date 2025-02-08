@@ -45,14 +45,15 @@ const generateScriptForLightSet = (
   scriptName: string,
   scriptTemplate: string,
 ) => {
-  const filter = set.filter;
-  const filterDirectory = path.join(projectDirectory, filter ?? "any");
+  const filterDirectory = set.filter
+    ? path.join(projectDirectory, set.filter)
+    : projectDirectory;
   const processDirectory = path.join(
     filterDirectory,
     `${set.layerSetId}_process`,
   );
   if (!fs.existsSync(processDirectory)) {
-    fs.mkdirSync(processDirectory, { recursive: false });
+    fs.mkdirSync(processDirectory, { recursive: true });
   }
   const mastersDirectory = path.join(
     filterDirectory,

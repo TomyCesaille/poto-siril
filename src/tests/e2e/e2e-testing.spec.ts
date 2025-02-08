@@ -153,16 +153,22 @@ describe("E2E", () => {
 
     expect(files).toMatchInlineSnapshot(`
 [
+  "Flat_1.0ms_Bin1_gain0",
   "H",
+  "Light_60.0s_Bin1_gain0",
   "S",
   "_poto_siril.json",
   "any",
+  "Flat_1.0ms_Bin1_gain0/Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit",
   "H/Flat_1.0ms_Bin1_H_gain100",
   "H/Light_60.0s_Bin1_H_gain0",
+  "Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit",
+  "Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit",
   "S/Flat_1.0ms_Bin1_S_gain100",
   "S/Light_120.0s_Bin1_S_gain0__20240626-010853",
   "S/Light_60.0s_Bin1_S_gain100__20240624-010840",
   "S/Light_60.0s_Bin1_S_gain100__20240627-010820",
+  "any/Bias_1.0ms_Bin1_gain0",
   "any/Bias_1.0ms_Bin1_gain100",
   "any/Dark_120.0s_Bin1_gain0",
   "any/Dark_60.0s_Bin1_gain0",
@@ -186,6 +192,7 @@ describe("E2E", () => {
   "S/Light_60.0s_Bin1_S_gain100__20240624-010840/Light_FOV_60.0s_Bin1_S_gain100_20240624-010842_-10.1C_0003.fit",
   "S/Light_60.0s_Bin1_S_gain100__20240627-010820/Light_FOV_60.0s_Bin1_S_gain100_20240627-010820_-10.1C_0001.fit",
   "S/Light_60.0s_Bin1_S_gain100__20240627-010820/Light_FOV_60.0s_Bin1_S_gain100_20240627-010821_-10.1C_0002.fit",
+  "any/Bias_1.0ms_Bin1_gain0/Bias_1.0ms_Bin1_gain0_20230910-101141_-9.8C_0001.fit",
   "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101131_-9.8C_0001.fit",
   "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101132_-9.8C_0002.fit",
   "any/Bias_1.0ms_Bin1_gain100/Bias_1.0ms_Bin1_gain100_20230910-101133_-9.8C_0003.fit",
@@ -218,9 +225,10 @@ describe("E2E", () => {
     });
 
     const scripts = files.filter(f => f.endsWith(".ssf"));
-    expect(scripts).toHaveLength(4);
+    expect(scripts).toHaveLength(5);
     expect(scripts).toMatchInlineSnapshot(`
 [
+  "Light_60.0s_Bin1_gain0_process/_poto_Mono_Preprocessing.ssf",
   "H/Light_60.0s_Bin1_H_gain0_process/_poto_Mono_Preprocessing.ssf",
   "S/Light_120.0s_Bin1_S_gain0__20240626-010853_process/_poto_Mono_Preprocessing.ssf",
   "S/Light_60.0s_Bin1_S_gain100__20240624-010840_process/_poto_Mono_Preprocessing.ssf",
@@ -401,7 +409,7 @@ describe("E2E", () => {
       });
 
       expect(logMessages).toContain(
-        `info: Found 24 FITS in input dir ${asiAirDirectory}.`,
+        `info: Found 27 FITS in input dir ${asiAirDirectory}.`,
       );
     });
 
@@ -471,11 +479,16 @@ describe("E2E", () => {
 
       expect(files).toMatchInlineSnapshot(`
 [
+  "Flat_1.0ms_Bin1_gain0",
   "H",
+  "Light_60.0s_Bin1_gain0",
   "S",
   "_poto_siril.json",
+  "Flat_1.0ms_Bin1_gain0/Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit",
   "H/Flat_1.0ms_Bin1_H_gain100",
   "H/Light_60.0s_Bin1_H_gain0",
+  "Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit",
+  "Light_60.0s_Bin1_gain0/Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit",
   "S/Flat_1.0ms_Bin1_S_gain100",
   "S/Light_120.0s_Bin1_S_gain0__20240626-010853",
   "S/Light_60.0s_Bin1_S_gain100__20240624-010840",

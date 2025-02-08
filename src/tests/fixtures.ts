@@ -84,8 +84,12 @@ const dataset_1 = [
 
   // Lights sequence E (60.0s_Bin1_S_gain100). Exact same as sequence A, but different sequence, with no filter.
   // No flats matching this sequence.
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain100_20240628-010830_-10.1C_0001.fit",
-  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain100_20240628-010831_-10.1C_0002.fit",
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin2_gain100_20240628-010830_-10.1C_0001.fit",
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin2_gain100_20240628-010831_-10.1C_0002.fit",
+
+  // Lights sequence F (60.0s_Bin1_gain0).
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain0_20240629-010840_-10.1C_0001.fit",
+  "asiair-dump-1/Autorun/Light/FOV/Light_FOV_60.0s_Bin1_gain0_20240629-010841_-10.1C_0002.fit",
 
   // Flats sequence matching light sequence A, C & D.
   "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_S_gain100_20240624-094304_-10.5C_0001.fit", // Sequence that aims to match the lights set A (collimation of that day).
@@ -100,6 +104,9 @@ const dataset_1 = [
   "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094306_-10.5C_0001.fit", // Gain 100, but can still matching with lights gain 0!
   "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094307_-10.5C_0002.fit",
   "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_H_gain100_20240511-094308_-10.5C_0003.fit",
+
+  // Flats matching light sequence F.
+  "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin1_gain0_20240512-094309_-10.5C_0001.fit",
 
   // Flats not matching anything.
   "asiair-dump-1/Autorun/Flat/Flat_1.0ms_Bin2_S_gain100_20240511-094304_-10.5C_0001.fit", // Another bin.
