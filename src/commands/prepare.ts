@@ -51,9 +51,7 @@ const prepare = async ({
   }
 
   const allLights = inputFiles.filter(file => file.type === "Light");
-  const allLightsFlats = inputFiles.filter(
-    file => file.type === "Light" || file.type === "Flat",
-  );
+  const allFlats = inputFiles.filter(file => file.type === "Flat");
   const allDarksBiases = inputFiles.filter(
     file => file.type === "Dark" || file.type === "Bias",
   );
@@ -76,10 +74,16 @@ const prepare = async ({
 
   logger.step("Matching lights and flats (early stage)");
 
-  const allFlatsMatchingLights = getFlatsMatchingLightsNaive(
-    allLightsFlats,
-    allLights,
-  );
+  const allFlatsMatchingLights = getFlatsMatchingLightsNaive({
+    lights: allLights,
+    flats: allFlats,
+  });
+
+  // Just to produce the logs.
+  getLightsMatchingLightNaive({
+    lights: allLights,
+    flats: allFlats,
+  });
 
   logger.step("Matching lights and flats (final stage)");
 
@@ -269,25 +273,26 @@ const getAllFitsInInputDirectory = async (
  * Naive matching of flats with lights.
  * Sufficient enough to skip the flats that do not have a matching light at all.
  *
- * @param inputFiles - The input files to process. Searching for the flats in this list.
+ * @param flats - The input files to process. Searching for the flats in this list.
  * @param lights - The lights to match with the flats.
  */
-const getFlatsMatchingLightsNaive = (
-  inputFiles: FileImageSpec[],
-  lights: FileImageSpec[],
-): FileImageSpec[] => {
+const getFlatsMatchingLightsNaive = ({
+  flats,
+  lights,
+}: {
+  flats: FileImageSpec[];
+  lights: FileImageSpec[];
+}): FileImageSpec[] => {
   const notMatchedFlats: string[] = [];
-  const matchingFlats = inputFiles
-    .filter(x => x.type === "Flat")
-    .filter(flat => {
-      if (lights.find(light => matchSetFile(light, flat))) {
-        return flat;
-      } else {
-        notMatchedFlats.push(
-          `No matching light for ${flat.setName} (seq ${flat.sequenceId}). Skipping.`,
-        );
-      }
-    });
+  const matchingFlats = flats.filter(flat => {
+    if (lights.find(light => matchSetFile(light, flat))) {
+      return flat;
+    } else {
+      notMatchedFlats.push(
+        `No matching lights for ${flat.setName} (seq ${flat.sequenceId}). The flat sequence won't be used.`,
+      );
+    }
+  });
 
   const sequences = [...new Set(matchingFlats.map(file => file.sequenceId))];
   for (const skip of [...new Set(notMatchedFlats)]) {
@@ -303,6 +308,43 @@ const getFlatsMatchingLightsNaive = (
   );
 
   return matchingFlats;
+};
+
+/**
+ * Reverse of `getFlatsMatchingLightsNaive`.
+ */
+const getLightsMatchingLightNaive = ({
+  lights,
+  flats,
+}: {
+  lights: FileImageSpec[];
+  flats: FileImageSpec[];
+}): FileImageSpec[] => {
+  const notMatchedLights: string[] = [];
+  const matchingLights = lights.filter(light => {
+    if (flats.find(flat => matchSetFile(light, flat))) {
+      return light;
+    } else {
+      notMatchedLights.push(
+        `No matching flats for ${light.setName} (seq ${light.sequenceId}). The light sequence won't be used.`,
+      );
+    }
+  });
+
+  const sequences = [...new Set(matchingLights.map(file => file.sequenceId))];
+  for (const skip of [...new Set(notMatchedLights)]) {
+    logger.warning(skip);
+  }
+
+  const sequencesLightsCount = [
+    ...new Set(matchingLights.map(file => file.sequenceId)),
+  ].length;
+
+  logger.info(
+    `Pre-selected ${matchingLights.length} lights (${sequences.length} sequences) that matches with ${flats.length} flats (${sequencesLightsCount} sequences).`,
+  );
+
+  return matchingLights;
 };
 
 /**

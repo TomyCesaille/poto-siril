@@ -572,19 +572,22 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
     ]
   }
 ]",
-  "info: Found 21 FITS in input dir tmp/asiair-dump-1.",
-  "info: Found 21 .fit files in input directories 🌋.",
-  "info: Including 10 lights 🌟.",
+  "info: Found 23 FITS in input dir tmp/asiair-dump-1.",
+  "info: Found 23 .fit files in input directories 🌋.",
+  "info: Including 12 lights 🌟.",
   "space: ",
   "info: Light sequences:",
   "info: - Light_60.0s_Bin1_S_gain100 20240624-010840
 - Light_60.0s_Bin1_H_gain0 20240625-010850
 - Light_120.0s_Bin1_S_gain0 20240626-010853
-- Light_60.0s_Bin1_S_gain100 20240627-010820",
+- Light_60.0s_Bin1_S_gain100 20240627-010820
+- Light_60.0s_Bin1_gain100 20240628-010830",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
-  "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
-  "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
+  "warning: No matching lights for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). The flat sequence won't be used.",
+  "warning: No matching lights for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). The flat sequence won't be used.",
+  "info: Pre-selected 9 flats (3 sequences) that matches with 12 lights (3 sequences).",
+  "warning: No matching flats for Light_60.0s_Bin1_gain100 (seq 20240628-010830). The light sequence won't be used.",
+  "info: Pre-selected 10 lights (4 sequences) that matches with 11 flats (4 sequences).",
   "step: Matching lights and flats (final stage)",
   "info: 🤚 Several sequences of flats are compatible with Bin1 Filter S:",
   "info: - Flat_1.0ms_Bin1_S_gain100__20240624-094304
@@ -2039,21 +2042,24 @@ exports[`E2E should be neat 8`] = `
     ]
   }
 ]",
-  "info: Found 21 FITS in input dir tmp/asiair-dump-1.",
+  "info: Found 23 FITS in input dir tmp/asiair-dump-1.",
   "debug: Reading input directory tmp/bank",
   "info: Found 17 FITS in input dir tmp/bank.",
-  "info: Found 38 .fit files in input directories 🌋.",
-  "info: Including 10 lights 🌟.",
+  "info: Found 40 .fit files in input directories 🌋.",
+  "info: Including 12 lights 🌟.",
   "space: ",
   "info: Light sequences:",
   "info: - Light_60.0s_Bin1_S_gain100 20240624-010840
 - Light_60.0s_Bin1_H_gain0 20240625-010850
 - Light_120.0s_Bin1_S_gain0 20240626-010853
-- Light_60.0s_Bin1_S_gain100 20240627-010820",
+- Light_60.0s_Bin1_S_gain100 20240627-010820
+- Light_60.0s_Bin1_gain100 20240628-010830",
   "step: Matching lights and flats (early stage)",
-  "warning: No matching light for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). Skipping.",
-  "warning: No matching light for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). Skipping.",
-  "info: Pre-selected 9 flats (3 sequences) that matches with 10 lights (3 sequences).",
+  "warning: No matching lights for Flat_1.0ms_Bin1_O_gain100 (seq 20240511-094305). The flat sequence won't be used.",
+  "warning: No matching lights for Flat_1.0ms_Bin2_S_gain100 (seq 20240511-094304). The flat sequence won't be used.",
+  "info: Pre-selected 9 flats (3 sequences) that matches with 12 lights (3 sequences).",
+  "warning: No matching flats for Light_60.0s_Bin1_gain100 (seq 20240628-010830). The light sequence won't be used.",
+  "info: Pre-selected 10 lights (4 sequences) that matches with 11 flats (4 sequences).",
   "step: Matching lights and flats (final stage)",
   "info: 🤚 Several sequences of flats are compatible with Bin1 Filter S:",
   "info: - Flat_1.0ms_Bin1_S_gain100__20240624-094304

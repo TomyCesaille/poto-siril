@@ -401,7 +401,7 @@ describe("E2E", () => {
       });
 
       expect(logMessages).toContain(
-        `info: Found 22 FITS in input dir ${asiAirDirectory}.`,
+        `info: Found 24 FITS in input dir ${asiAirDirectory}.`,
       );
     });
 
