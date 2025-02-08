@@ -92,6 +92,7 @@ const prepare = async ({
     lightsFlatsMatches,
     allLights,
     allFlatsMatchingLights,
+    projectDirectory,
   );
 
   logger.step("Tagging darks and biases");
@@ -490,6 +491,7 @@ const initLayerSetsWithLightsnFlats = (
   lightsFlatsMatches: LightsFlatsMatch[],
   allLights: FileImageSpec[],
   allFlatsMatchingLights: FileImageSpec[],
+  projectDirectory: string,
 ): LayerSet[] => {
   const layerSets: LayerSet[] = [];
 
@@ -562,6 +564,14 @@ const initLayerSetsWithLightsnFlats = (
       flatsCount: flats.length,
       flats,
     } as LayerSet;
+
+    // Backfill lights `projectFileDirectory` and `projectFilePath`.
+    for (const light of lights) {
+      light.projectFileDirectory = light.filter
+        ? `${projectDirectory}/${light.filter}/${layerSetId}`
+        : `${projectDirectory}/${layerSetId}`;
+      light.projectFilePath = `${light.projectFileDirectory}/${light.fileName}`;
+    }
 
     layerSets.push(layerSet);
   }
