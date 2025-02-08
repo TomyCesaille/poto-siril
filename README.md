@@ -133,10 +133,10 @@ For example:
 ├── H
 ├── O
 ├── ...
-└── any    👈 Biases & darks fall here. lights & flats too if no filter.
+└── any    👈 Biases & darks fall here.
 ```
 
-> 💡 `S`, `H`, `O` are the filter names defined in ASIAIR (cf Filter Wheel settings).
+> 💡 `S`, `H`, `O` are the filter names extracted from the [File naming convention](#file-naming-convention).
 
 ### The bank folder (for reference)
 
