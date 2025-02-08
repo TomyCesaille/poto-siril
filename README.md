@@ -159,6 +159,8 @@ Example of structure:
 
 ### ASIAIR directory structure (for reference)
 
+> 💡 Note that this directory structure is optional.
+
 ```text
 # Root dump directory of an ASIAIR session
 ├── Autorun
