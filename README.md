@@ -194,7 +194,7 @@ npm i
 # For Unix based systems:
 chmod +x ./poto.sh
 ./poto.sh -v
-# Should print `poto-siril 0.4.0`.
+# Should print `poto-siril 0.8.0`.
 
 # Make sure to have `siril` registered in your PATH.
 siril -v
