@@ -2,7 +2,7 @@
 
 Automatization around Siril (<https://siril.org/>) for deep sky astrophotography.
 
-[![codecov](https://codecov.io/gh/TomyCesaille/poto-siril/graph/badge.svg?token=RCF9ZV8JZ9)](https://codecov.io/gh/TomyCesaille/poto-siril)
+[![codecov](https://codecov.io/gh/TomyCesaille/poto-siril/graph/badge.svg?token=RCF9ZV8JZ9)](https://codecov.io/gh/TomyCesaille/poto-siril) ![NPM Version](https://img.shields.io/npm/v/poto-siril) ![NPM Downloads](https://img.shields.io/npm/d18m/poto-siril)
 
 ## What is it?
 
@@ -10,7 +10,7 @@ Automatization around Siril (<https://siril.org/>) for deep sky astrophotography
 
 Poto-Siril aims to **overcome the repetitive and tedious** work when pre-processing multiple layers before compositing an (L)RGB image (e.g. narrowband filters with a monochrome camera or a color camera with dual-band filters).
 
-It works with images captured by a ZWO ASIAIR device out of the box or with any `fit` files that follow the same [file naming convention](#file-naming-convention) and [directory structure](#asiair-directory-structure-for-reference) (more support to come, help is welcomed 👋).
+It works out of the box with images captured by a ZWO ASIAIR device or with any `fit` files that follow the same [file naming convention](#file-naming-convention) and [directory structure](#asiair-directory-structure-for-reference) (more support to come, help is welcomed 👋).
 
 ### Workflow 🚀
 
