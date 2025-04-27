@@ -178,7 +178,7 @@ export type SelectedInputSubDirectoryChoices =
   | "Use Plan directory"
   | "Use both directory";
 export const selectedInputSubDirectoryChoices: SelectedInputSubDirectoryChoices[] =
-  ["Use Autorun directory", "Use Plan directory", "Use both directory"];
+  ["Use both directory", "Use Autorun directory", "Use Plan directory"];
 
 /**
  * Retrieve all FITS files from the input directory.

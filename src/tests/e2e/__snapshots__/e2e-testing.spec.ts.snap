@@ -650,9 +650,9 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
     "name": "selectedInputSubDirectory",
     "message": "Files found in both Autorun and Plan directories. How do we proceed?",
     "choices": [
+      "Use both directory",
       "Use Autorun directory",
-      "Use Plan directory",
-      "Use both directory"
+      "Use Plan directory"
     ]
   }
 ]",
@@ -2341,9 +2341,9 @@ exports[`E2E should be neat 9`] = `
     "name": "selectedInputSubDirectory",
     "message": "Files found in both Autorun and Plan directories. How do we proceed?",
     "choices": [
+      "Use both directory",
       "Use Autorun directory",
-      "Use Plan directory",
-      "Use both directory"
+      "Use Plan directory"
     ]
   }
 ]",
