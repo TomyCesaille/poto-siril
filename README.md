@@ -68,7 +68,7 @@ siril -v
 ### CLI commands
 
 ```bash
-$POTO_PROJECT=jorislacance/deepsky/poto_2024_08_10_veil-nebula
+POTO_PROJECT=jorislacance/deepsky/poto_2024_08_10_veil-nebula
 
 # Prepare a Poto project by importing imaging data session(s) and "static" calibration files (darks, biases).
 ./poto.sh prepare \
