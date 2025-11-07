@@ -71,14 +71,11 @@ siril -v
 # Drop ASIAIR .jpg thumbnails and empty directories (optional).
 poto clear deepsky/2024_08_10_asiair_veil-nebula
 
-# Navigate to the Poto project directory.
-cd deepsky/2024_08_10_poto_veil-nebula
-
 # Prepare a Poto project by importing imaging sessions (lights, flats) and calibration files (darks, biases).
-poto prepare -i deepsky/sessions/2024_08_10_asiair_veil-nebula -i deepsky/_bank .
+poto prepare -i deepsky/sessions/2024_08_10_asiair_veil-nebula -i deepsky/_bank deepsky/2024_08_10_poto_veil-nebula
 
 # Batch pre-process all lights (filter by filter, set by set) using a Siril script template.
-poto preprocess -t src/pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf .
+poto preprocess -t deepsky/poto_pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf deepsky/2024_08_10_poto_veil-nebula
 ```
 
 ### Pre-processing pipeline
