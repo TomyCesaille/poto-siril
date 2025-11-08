@@ -1,12 +1,16 @@
 {
-  "version": "0.9.0",
+  "version": "0.9.3",
   "configurations": [
     {
       "name": "dev-prepare-dataset1",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register/transpile-only"
+      ],
       "args": [
         "src/poto-siril.ts",
         "prepare",
@@ -19,7 +23,10 @@
       "preLaunchTask": "npm: dev-prepare-ds1",
       "cwd": "${workspaceRoot}",
       "internalConsoleOptions": "openOnSessionStart",
-      "skipFiles": ["<node_internals>/**", "node_modules/**"]
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**"
+      ]
     }
   ]
 }

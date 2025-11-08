@@ -70,7 +70,8 @@ const generateScriptForLightSet = (
   if (lightsdirs.length > 1) {
     logger.errorThrow("Multiple sets of light for ", lightsdirs);
   }
-  const lightsDir = path.resolve(lightsdirs[0]);
+  // Resolve relative paths to absolute (relative to project directory where JSON is)
+  const lightsDir = path.resolve(projectDirectory, lightsdirs[0]);
 
   const flatsDirs = [...new Set(set.flats.map(x => x.projectFileDirectory))];
   if (flatsDirs.length === 0) {
@@ -79,7 +80,8 @@ const generateScriptForLightSet = (
   if (flatsDirs.length > 1) {
     throw new Error("Multiple sets of flat for " + set.layerSetId);
   }
-  const flatsDir = path.resolve(flatsDirs[0]);
+  // Resolve relative paths to absolute (relative to project directory where JSON is)
+  const flatsDir = path.resolve(projectDirectory, flatsDirs[0]);
 
   const darksDirs = [...new Set(set.darks.map(x => x.projectFileDirectory))];
   if (darksDirs.length === 0) {
@@ -88,7 +90,8 @@ const generateScriptForLightSet = (
   if (darksDirs.length > 1) {
     throw new Error("Multiple sets of darks for " + set.layerSetId);
   }
-  const darksDir = path.resolve(darksDirs[0]);
+  // Resolve relative paths to absolute (relative to project directory where JSON is)
+  const darksDir = path.resolve(projectDirectory, darksDirs[0]);
 
   const biasesDirs = [...new Set(set.biases.map(x => x.projectFileDirectory))];
   if (biasesDirs.length === 0) {
@@ -97,7 +100,8 @@ const generateScriptForLightSet = (
   if (biasesDirs.length > 1) {
     throw new Error("Multiple sets of biases for " + set.layerSetId);
   }
-  const biasesDir = path.resolve(biasesDirs[0]);
+  // Resolve relative paths to absolute (relative to project directory where JSON is)
+  const biasesDir = path.resolve(projectDirectory, biasesDirs[0]);
 
   const projectDirectoryAbs = path.resolve(projectDirectory);
   const processDirAbs = path.resolve(processDirectory);

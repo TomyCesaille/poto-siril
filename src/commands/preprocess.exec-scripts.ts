@@ -19,7 +19,7 @@ export const runScripts = async (
         path.basename(f) ===
         `${GENERATED_SCRIPT_PREFIX}${path.basename(scriptTemplatePath)}`,
     )
-    .map(f => path.join(projectDirectory, f));
+    .map(f => path.join(projectDirectory, f)).map(s => path.resolve(s));
 
   logger.debug(`${scripts.length} scripts found to run.`);
 

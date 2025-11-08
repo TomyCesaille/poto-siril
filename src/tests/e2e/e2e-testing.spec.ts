@@ -211,7 +211,7 @@ describe("E2E", () => {
       encoding: "utf8",
     });
 
-    expect(potoJson).toMatchSnapshot();
+    expect(potoJson).toMatchSnapshotWithNormalizedPaths();
 
     await generateScripts(
       projectDirectory,
@@ -519,7 +519,7 @@ describe("E2E", () => {
         encoding: "utf8",
       });
 
-      expect(potoJson).toMatchSnapshot();
+      expect(potoJson).toMatchSnapshotWithNormalizedPaths();
       expect(logMessages).toMatchSnapshotWithNormalizedPaths();
       expect(logMessages).toContain(
         "error: No darks matching light set Light_60.0s_Bin1_H_gain0 (regardless of temperature filtering).",

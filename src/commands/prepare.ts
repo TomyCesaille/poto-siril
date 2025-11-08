@@ -96,7 +96,6 @@ const prepare = async ({
     lightsFlatsMatches,
     allLights,
     allFlatsMatchingLights,
-    projectDirectory,
   );
 
   logger.step("Tagging darks and biases");
@@ -220,16 +219,16 @@ const getAllFitsInInputDirectory = async (
 
   const autorunFiles = fs.existsSync(autorunDirectory)
     ? getFitsFromDirectory({
-        directory: autorunDirectory,
-        projectDirectory,
-      })
+      directory: autorunDirectory,
+      projectDirectory,
+    })
     : [];
 
   const planFiles = fs.existsSync(planDirectory)
     ? getFitsFromDirectory({
-        directory: planDirectory,
-        projectDirectory,
-      })
+      directory: planDirectory,
+      projectDirectory,
+    })
     : [];
 
   if (autorunFiles.length === 0 && planFiles.length === 0) {
@@ -536,20 +535,19 @@ const initLayerSetsWithLightsnFlats = (
   lightsFlatsMatches: LightsFlatsMatch[],
   allLights: FileImageSpec[],
   allFlatsMatchingLights: FileImageSpec[],
-  projectDirectory: string,
 ): LayerSet[] => {
   const layerSets: LayerSet[] = [];
 
   for (const lightsFlatsMatch of lightsFlatsMatches) {
     const lights = lightsFlatsMatch.isManualMatch
       ? allLights.filter(
-          light =>
-            light.sequenceId === lightsFlatsMatch.lightSequenceId &&
+        light =>
+          light.sequenceId === lightsFlatsMatch.lightSequenceId &&
             light.setName === lightsFlatsMatch.lightSetName,
-        )
+      )
       : allLights.filter(
-          light => light.setName === lightsFlatsMatch.lightSetName,
-        );
+        light => light.setName === lightsFlatsMatch.lightSetName,
+      );
     if (!lights) {
       throw new Error(
         `❓❓❓❗️ Light ${lightsFlatsMatch.lightSetName} ${lightsFlatsMatch.lightSequenceId} not found.`,
@@ -610,11 +608,11 @@ const initLayerSetsWithLightsnFlats = (
       flats,
     } as LayerSet;
 
-    // Backfill lights `projectFileDirectory` and `projectFilePath`.
+    // Backfill lights `projectFileDirectory` and `projectFilePath` (relative to project root).
     for (const light of lights) {
       light.projectFileDirectory = light.filter
-        ? path.join(projectDirectory, light.filter, layerSetId)
-        : path.join(projectDirectory, layerSetId);
+        ? path.join(light.filter, layerSetId)
+        : layerSetId;
       light.projectFilePath = path.join(light.projectFileDirectory, light.fileName);
     }
 
@@ -855,7 +853,7 @@ const dispatchProject = (
       ...layerSet.flats,
       ...layerSet.biases,
     ]) {
-      alreadyImported = copyFileToProject(file, alreadyImported);
+      alreadyImported = copyFileToProject(file, alreadyImported, projectDirectory);
     }
   }
 };

@@ -110,8 +110,9 @@ export const getFileImageSpecFromFilename = (
       fileName: fileFS.name,
       extension: match.groups.extension,
 
-      sourceFileDirectory: fileFS.parentPath,
-      sourceFilePath: path.join(fileFS.parentPath, fileFS.name),
+      // Source paths are absolute (they point to external resources)
+      sourceFileDirectory: path.resolve(fileFS.parentPath),
+      sourceFilePath: path.resolve(fileFS.parentPath, fileFS.name),
     } as FileImageSpec;
 
     file.setName = getSetName(file);
@@ -132,12 +133,14 @@ export const getFileImageSpecFromFilename = (
     } else if (file.type === "Flat") {
       const directory = file.setName;
 
+      // Store relative path (relative to project root)
       file.projectFileDirectory = file.filter
-        ? path.join(projectDirectory, file.filter, directory)
-        : path.join(projectDirectory, directory);
+        ? path.join(file.filter, directory)
+        : directory;
     } else {
       const directory = `${file.type}_${file.bulb}_${file.bin}_gain${file.gain}`;
-      file.projectFileDirectory = path.join(projectDirectory, "any", directory); // We ignore the filter for darks and biases.
+      // Store relative path (relative to project root)
+      file.projectFileDirectory = path.join("any", directory); // We ignore the filter for darks and biases.
     }
 
     if (file.type === "Light") {
@@ -212,15 +215,20 @@ const parseBulbString = (bulbString: string): number => {
 export const copyFileToProject = (
   file: FileImageSpec,
   alreadyImported: FileImageSpec[],
+  projectDirectory: string,
 ): FileImageSpec[] => {
-  if (!fs.existsSync(file.projectFileDirectory)) {
-    fs.mkdirSync(file.projectFileDirectory, { recursive: true });
+  // Resolve relative paths to absolute (relative to project directory)
+  const absoluteProjectFileDirectory = path.resolve(projectDirectory, file.projectFileDirectory);
+  const absoluteProjectFilePath = path.resolve(projectDirectory, file.projectFilePath);
+
+  if (!fs.existsSync(absoluteProjectFileDirectory)) {
+    fs.mkdirSync(absoluteProjectFileDirectory, { recursive: true });
   }
 
   if (alreadyImported.find(f => f.fileName === file.fileName)) {
     logger.debug(`- ${file.fileName} already imported.`);
   } else {
-    fs.copyFileSync(file.sourceFilePath, file.projectFilePath);
+    fs.copyFileSync(file.sourceFilePath, absoluteProjectFilePath);
     alreadyImported.push(file);
 
     logger.debug(`- ${file.fileName} imported.`);

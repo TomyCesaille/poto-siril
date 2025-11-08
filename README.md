@@ -58,7 +58,7 @@ Install [node](https://node.org) latest version and run:
 ```bash
 npm install -g poto-siril
 poto -v
-# Should print `poto-siril 0.9.0`.
+# Should print `poto-siril 0.9.3`.
 
 # Make sure to have `siril` registered in your PATH.
 siril -v
@@ -184,7 +184,7 @@ npm i
 # For Unix based systems:
 chmod +x ./poto.sh
 ./poto.sh -v
-# Should print `poto-siril 0.9.0`.
+# Should print `poto-siril 0.9.3`.
 
 # Make sure to have `siril` registered in your PATH.
 siril -v

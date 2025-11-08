@@ -19,24 +19,32 @@ expect.extend({
   },
 });
 
-const normalizeReceived = (received: string | string[]) => {
-  let normalized: string | string[] = received;
-  if (typeof received === "string") {
-    normalized = received.replaceAll(
-      new RegExp(path.resolve(process.cwd()), "gm"),
-      "<ROOT>",
-    );
-  } else if (
-    Array.isArray(received) &&
-    received.every(item => typeof item === "string")
-  ) {
-    normalized = received.map(item =>
-      item.replaceAll(
-        new RegExp(path.resolve(process.cwd()), "gm"),
-        "<ROOT>",
-      ),
-    );
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const normalizeReceived = (received: any): any => {
+  const rootPath = path.resolve(process.cwd());
+  const rootPathRegex = new RegExp(rootPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gm");
 
-  return normalized;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const normalize = (value: any): any => {
+    if (typeof value === "string") {
+      return value.replaceAll(rootPathRegex, "<ROOT>");
+    } else if (value instanceof Date) {
+      // Preserve Date objects as-is
+      return value;
+    } else if (Array.isArray(value)) {
+      return value.map(item => normalize(item));
+    } else if (value && typeof value === "object") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const normalized: any = {};
+      for (const key in value) {
+        if (Object.prototype.hasOwnProperty.call(value, key)) {
+          normalized[key] = normalize(value[key]);
+        }
+      }
+      return normalized;
+    }
+    return value;
+  };
+
+  return normalize(received);
 };

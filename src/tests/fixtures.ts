@@ -29,12 +29,12 @@ const spawnMockedDatasetToFs = (
     const fileType = file.includes("Light")
       ? "Light"
       : file.includes("Dark")
-      ? "Dark"
-      : file.includes("Bias")
-      ? "Bias"
-      : file.includes("Flat")
-      ? "Flat"
-      : null;
+        ? "Dark"
+        : file.includes("Bias")
+          ? "Bias"
+          : file.includes("Flat")
+            ? "Flat"
+            : null;
 
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
     fs.writeFileSync(
