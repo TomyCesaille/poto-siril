@@ -610,11 +610,11 @@ const initLayerSetsWithLightsnFlats = (
       flats,
     } as LayerSet;
 
-    // Backfill lights `projectFileDirectory` and `projectFilePath`.
+    // Backfill lights `projectFileDirectory` and `projectFilePath` (relative to project root).
     for (const light of lights) {
       light.projectFileDirectory = light.filter
-        ? path.join(projectDirectory, light.filter, layerSetId)
-        : path.join(projectDirectory, layerSetId);
+        ? path.join(light.filter, layerSetId)
+        : layerSetId;
       light.projectFilePath = path.join(light.projectFileDirectory, light.fileName);
     }
 
@@ -855,7 +855,7 @@ const dispatchProject = (
       ...layerSet.flats,
       ...layerSet.biases,
     ]) {
-      alreadyImported = copyFileToProject(file, alreadyImported);
+      alreadyImported = copyFileToProject(file, alreadyImported, projectDirectory);
     }
   }
 };

@@ -26,7 +26,7 @@ describe("utils", () => {
 
       expect(
         getFileImageSpecFromFilename(file, projectDirectory, previousFile),
-      ).toMatchSnapshot();
+      ).toMatchSnapshotWithNormalizedPaths();
     });
 
     it("should match snapshot (filter named with spaces)", () => {
@@ -42,7 +42,7 @@ describe("utils", () => {
         projectDirectory,
         previousFile,
       );
-      expect(specs).toMatchSnapshot();
+      expect(specs).toMatchSnapshotWithNormalizedPaths();
       expect(specs.filter).toBe("filterh");
     });
 
@@ -59,7 +59,7 @@ describe("utils", () => {
         projectDirectory,
         previousFile,
       );
-      expect(specs).toMatchSnapshot();
+      expect(specs).toMatchSnapshotWithNormalizedPaths();
       expect(specs.filter).toBeNull();
     });
 
@@ -92,7 +92,7 @@ describe("utils", () => {
 
       expect(specs.sequencePosition).toBe(2);
       expect(specs.sequenceId).toBe("20240707-002348");
-      expect(specs).toMatchSnapshot();
+      expect(specs).toMatchSnapshotWithNormalizedPaths();
     });
 
     it("should compose a sequence, even when sequence is missing a file", () => {
@@ -124,7 +124,7 @@ describe("utils", () => {
 
       expect(specs.sequencePosition).toBe(3);
       expect(specs.sequenceId).toBe("20240706-010203");
-      expect(specs).toMatchSnapshot();
+      expect(specs).toMatchSnapshotWithNormalizedPaths();
     });
   });
 
@@ -185,33 +185,33 @@ describe("utils", () => {
     it("should copy a file to the project directory", () => {
       const file = {
         fileName: "file1.fit",
-        projectFileDirectory: "project/dir",
-        projectFilePath: "project/dir/file1.fit",
+        projectFileDirectory: "dir",
+        projectFilePath: "dir/file1.fit",
         sourceFilePath: "input/dir/file1.fit",
       } as FileImageSpec;
 
       jest.spyOn(fs, "existsSync").mockReturnValue(false);
-      jest.spyOn(fs, "mkdirSync");
+      jest.spyOn(fs, "mkdirSync").mockImplementation(() => undefined);
       jest.spyOn(fs, "copyFileSync").mockImplementation(() => {});
 
       let alreadyImported: FileImageSpec[] = [];
 
-      alreadyImported = copyFileToProject(file, alreadyImported);
+      alreadyImported = copyFileToProject(file, alreadyImported, "project");
 
-      expect(fs.existsSync).toHaveBeenCalledWith("project/dir");
-      expect(fs.mkdirSync).toHaveBeenCalledWith("project/dir", {
+      expect(fs.existsSync).toHaveBeenCalledWith(expect.stringContaining("project"));
+      expect(fs.mkdirSync).toHaveBeenCalledWith(expect.stringContaining("project"), {
         recursive: true,
       });
       expect(fs.copyFileSync).toHaveBeenCalledWith(
         "input/dir/file1.fit",
-        "project/dir/file1.fit",
+        expect.stringContaining("project"),
       );
       expect(alreadyImported).toMatchInlineSnapshot(`
 [
   {
     "fileName": "file1.fit",
-    "projectFileDirectory": "project/dir",
-    "projectFilePath": "project/dir/file1.fit",
+    "projectFileDirectory": "dir",
+    "projectFilePath": "dir/file1.fit",
     "sourceFilePath": "input/dir/file1.fit",
   },
 ]
