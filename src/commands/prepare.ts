@@ -613,9 +613,9 @@ const initLayerSetsWithLightsnFlats = (
     // Backfill lights `projectFileDirectory` and `projectFilePath`.
     for (const light of lights) {
       light.projectFileDirectory = light.filter
-        ? `${projectDirectory}/${light.filter}/${layerSetId}`
-        : `${projectDirectory}/${layerSetId}`;
-      light.projectFilePath = `${light.projectFileDirectory}/${light.fileName}`;
+        ? path.join(projectDirectory, light.filter, layerSetId)
+        : path.join(projectDirectory, layerSetId);
+      light.projectFilePath = path.join(light.projectFileDirectory, light.fileName);
     }
 
     layerSets.push(layerSet);
