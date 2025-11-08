@@ -75,7 +75,7 @@ poto clear deepsky/2024_08_10_asiair_veil-nebula
 poto prepare -i deepsky/sessions/2024_08_10_asiair_veil-nebula -i deepsky/_bank deepsky/2024_08_10_poto_veil-nebula
 
 # Batch pre-process all lights (filter by filter, set by set) using a Siril script template.
-poto run -s deepsky/poto_pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf deepsky/2024_08_10_poto_veil-nebula
+poto prepare -t deepsky/poto_pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf deepsky/2024_08_10_poto_veil-nebula
 ```
 
 ### Pre-processing pipeline
