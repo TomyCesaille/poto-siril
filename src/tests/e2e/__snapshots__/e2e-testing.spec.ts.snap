@@ -3,7 +3,7 @@
 exports[`E2E no Darks/Biases matching, multiples sequences should warn if no matching darks and biases 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
-  "potoVersion": "poto-siril 0.9.0",
+  "potoVersion": "poto-siril 0.9.3",
   "metrics": {
     "cumulatedLightIntegrationMinutes": 14,
     "cumulatedDarksIntegrationMinutes": 0,
@@ -825,7 +825,7 @@ exports[`E2E no Darks/Biases matching, multiples sequences should warn if no mat
 exports[`E2E should be neat 2`] = `
 "{
   "generatedAt": "2024-10-15T00:00:00.000Z",
-  "potoVersion": "poto-siril 0.9.0",
+  "potoVersion": "poto-siril 0.9.3",
   "metrics": {
     "cumulatedLightIntegrationMinutes": 14,
     "cumulatedDarksIntegrationMinutes": 16,
