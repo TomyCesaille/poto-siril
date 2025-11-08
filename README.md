@@ -58,7 +58,7 @@ Install [node](https://node.org) latest version and run:
 ```bash
 npm install -g poto-siril
 poto -v
-# Should print `poto-siril 0.8.0`.
+# Should print `poto-siril 0.9.0`.
 
 # Make sure to have `siril` registered in your PATH.
 siril -v
@@ -75,7 +75,7 @@ poto clear deepsky/2024_08_10_asiair_veil-nebula
 poto prepare -i deepsky/sessions/2024_08_10_asiair_veil-nebula -i deepsky/_bank deepsky/2024_08_10_poto_veil-nebula
 
 # Batch pre-process all lights (filter by filter, set by set) using a Siril script template.
-poto preprocess -t deepsky/poto_pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf deepsky/2024_08_10_poto_veil-nebula
+poto run -s deepsky/poto_pipeline/Mono_Preprocessing/Mono_Preprocessing.ssf deepsky/2024_08_10_poto_veil-nebula
 ```
 
 ### Pre-processing pipeline
@@ -184,7 +184,7 @@ npm i
 # For Unix based systems:
 chmod +x ./poto.sh
 ./poto.sh -v
-# Should print `poto-siril 0.8.0`.
+# Should print `poto-siril 0.9.0`.
 
 # Make sure to have `siril` registered in your PATH.
 siril -v
