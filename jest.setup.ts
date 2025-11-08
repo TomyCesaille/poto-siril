@@ -19,10 +19,12 @@ expect.extend({
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const normalizeReceived = (received: any): any => {
   const rootPath = path.resolve(process.cwd());
-  const rootPathRegex = new RegExp(rootPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "gm");
+  const rootPathRegex = new RegExp(rootPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gm");
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const normalize = (value: any): any => {
     if (typeof value === "string") {
       return value.replaceAll(rootPathRegex, "<ROOT>");
@@ -32,9 +34,10 @@ const normalizeReceived = (received: any): any => {
     } else if (Array.isArray(value)) {
       return value.map(item => normalize(item));
     } else if (value && typeof value === "object") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const normalized: any = {};
       for (const key in value) {
-        if (value.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(value, key)) {
           normalized[key] = normalize(value[key]);
         }
       }
